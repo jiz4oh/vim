@@ -90,8 +90,6 @@ set wildignore=*.o,*~,*.pyc,*.class
 set backspace=indent,eol,start         " make that backspace key work the way it should
 set whichwrap+=<,>,h,l
 set clipboard+=unnamed
-" 自动将 pwd 切换为当前编辑文件目录
-set autochdir
 
 " ============================ theme and status line ============================
 
