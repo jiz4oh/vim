@@ -68,6 +68,10 @@ set shiftwidth=4
 set tabstop=4
 set softtabstop=4                " insert mode tab and backspace use 4 spaces
 
+" fold
+set foldmethod=indent            " fold based on indent
+set nofoldenable                 " disable fold when open vim
+
 " encoding
 set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,gb2312,gbk,cp936,gb18030,big5,euc-jp,euc-kr,latin1
