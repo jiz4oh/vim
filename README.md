@@ -9,8 +9,8 @@ fast setup the vimrc of server
 2. just get the file  
     recommend
     
-    `curl https://raw.githubusercontent.com/jiz4oh/vim/master/vimrc > ~/.vimrc`
-    
+    `curl https://cdn.jsdelivr.net/gh/jiz4oh/vim/vimrc > ~/.vimrc`
+
     or use git
 
     ```shell
