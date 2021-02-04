@@ -1,0 +1,30 @@
+" Install vim-plug if not found
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://cdn.jsdelivr.net/gh/junegunn/vim-plug@master/plug.vim
+endif
+
+call plug#begin('~/.vim/bundle')
+" 快速跳转, 详情查看 https://github.com/easymotion/vim-easymotion
+Plug 'easymotion/vim-easymotion'
+
+" 快速注释, 详情查看 https://github.com/preservim/nerdcommenter
+Plug 'preservim/nerdcommenter'
+
+" text object
+" 支持自定义文本对象
+Plug 'kana/vim-textobj-user'
+" 增加行文本对象: l 
+Plug 'kana/vim-textobj-line'
+" 增加文件文本对象: e
+Plug 'kana/vim-textobj-entire'
+" 增加缩进文本对象: i
+Plug 'kana/vim-textobj-indent'
+
+call plug#end()
+
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+\| endif
+

@@ -1,25 +1,27 @@
-# vimrc
+# vim
 
-fast setup the vimrc of server
+根据 wklken/k-vim 项目 fork，进行了一部分的配置优化
 
 ## Install
 
-1. backup your old .vimrc if it is necessary  
-    `cp ~/.vimrc ~/.vimrc_bak`
-2. just get the file  
-    recommend
-    
-    `curl https://raw.githubusercontent.com/jiz4oh/vim/master/vimrc > ~/.vimrc`
-    
-    or use git
+### 完整版
 
-    ```shell
-    git clone https://github.com/jiz4oh/vim.git
-    ln -s vim/vimrc ~/.vimrc
-    ```
+`curl https://raw.githubusercontent.com/jiz4oh/vim/master/install.sh | bash`
 
-3. Done, enjoy it
+中国区用户可以使用 jsdelivr 来过墙：
 
-## Special Thanks
+`curl https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/install.sh | bash`
 
-[vim-for-server](https://github.com/wklken/vim-for-server)
+### 服务器版
+
+`curl https://raw.githubusercontent.com/jiz4oh/vim/master/vimrc > ~/.vimrc`
+
+中国区用户可以使用 jsdelivr 来过墙：
+
+`curl https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/vimrc > ~/.vimrc`
+
+## Inspire
+
+- [vim-for-server](https://github.com/wklken/vim-for-server)
+- 使用[Vim-plug](https://github.com/junegunn/vim-plug)进行插件管理
+

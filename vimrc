@@ -35,6 +35,9 @@ set visualbell t_vb=            " turn off error beep/flash
 set t_vb=
 set tm=500
 
+" in case you forgot to sudo
+cnoremap w!! %!sudo tee > /dev/null %
+
 " show location
 set cursorcolumn
 set cursorline
