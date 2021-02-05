@@ -61,6 +61,15 @@ pm_install() {
       fi 
     done
     ;;
+  Darwin)
+    for i in $*; do
+      info "Installing $i"
+      brew install "$i" -q >/dev/null 2>>$err_log_path
+      if [[ !$? ]]; then
+        error "Some thing is wrong, please run\n\n cat $err_log_path \n\nto view."
+      fi
+    done
+    ;;
   *)
     error 'Unknown system, exit!'
     ;;
