@@ -89,7 +89,6 @@ set selection=inclusive
 set selectmode=mouse,key
 
 set completeopt=longest,menu
-set wildmenu                           
 set wildmenu                           " show a navigable menu for tab completion"
 set wildmode=longest,list,full
 set wildignore=*.o,*~,*.pyc,*.class
@@ -212,14 +211,12 @@ map Y y$
 nnoremap ; :
 
 " Shift+H goto head of the line, Shift+L goto end of the line
-nnoremap H ^
-nnoremap L $
+nnoremap H <Home>
+nnoremap L <End>
 
 " save
 cmap w!! w !sudo tee >/dev/null %
 
 " command mode, ctrl-a to head， ctrl-e to tail
-cnoremap <C-j> <t_kd>
-cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
