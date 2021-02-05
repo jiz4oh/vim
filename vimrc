@@ -1,6 +1,6 @@
 " leader
-let mapleader = ','
-let g:mapleader = ','
+let mapleader = ' '
+let g:mapleader = ' '
 
 " syntax
 syntax on
