@@ -1,8 +1,8 @@
 set -e
 
-function info() { echo -e "\e[32m[info] $*\e[0m"; }
-function warn() { echo -e "\e[33m[warn] $*\e[0m"; }
-function error() { echo -e "\e[31m[error] $*\e[0m"; exit 1; }
+function info() { echo -e "\033[32m[info] $*\033[0m"; }
+function warn() { echo -e "\033[33m[warn] $*\033[0m"; }
+function error() { echo -e "\033[31m[error] $*\033[0m"; exit 1; }
 
 check_sys() {
   OS=$(uname -s)
@@ -78,9 +78,10 @@ pm_install() {
 
 install(){
   pm_install git
-  curl -fsSLo ~/.vim/vimrc https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/vimrc
-  curl -fsSLo ~/.vim/vimrc.bundles https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/vimrc.bundles
-  curl -fsSLo ~/.vim/.vimrc https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/vimrc.entire
+  curl -fsSL https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/vimrc > ~/.vim/vimrc
+  curl -fsSL https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/vimrc.bundles > ~/.vim/vimrc.bundles
+  cp ~/.vimrc ~/.vimrc.bak
+  curl -fsSL https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/vimrc.entire > ~/.vimrc
 }
 
 check_sys
