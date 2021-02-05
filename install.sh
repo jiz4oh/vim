@@ -42,32 +42,24 @@ check_sys() {
 # package manager install
 pm_install() {
   err_log_path=install_err.log
+  err_msg="Some thing is wrong, please run\n\n cat $err_log_path \n\nto view."
   case $release in
   debian | ubuntu | devuan)
     for i in $*; do
       info "Installing $i"
-      apt-get install -y "$i" -qq --no-install-recommends >/dev/null 2>> $err_log_path
-      if [[ !$? ]];then
-        error "Some thing is wrong, please run\n\n cat $err_log_path \n\nto view."
-      fi
+      apt-get install -y "$i" -qq --no-install-recommends >/dev/null 2>> $err_log_path || error $err_msg
     done
     ;;
   centos | rhel)
     for i in $*; do
       info "Installing $i"
-      yum install -y "$i" -q >/dev/null 2>> $err_log_path
-      if [[ !$? ]];then
-        error "Some thing is wrong, please run\n\n cat $err_log_path \n\nto view."
-      fi 
+      yum install -y "$i" -q >/dev/null 2>> $err_log_path || error $err_msg
     done
     ;;
   Darwin)
     for i in $*; do
       info "Installing $i"
-      brew install "$i" -q >/dev/null 2>>$err_log_path
-      if [[ !$? ]]; then
-        error "Some thing is wrong, please run\n\n cat $err_log_path \n\nto view."
-      fi
+      brew ls --versions "$i" >/dev/null || brew install "$i" -q >/dev/null 2>>$err_log_path || error $err_msg
     done
     ;;
   *)
