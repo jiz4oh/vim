@@ -34,6 +34,7 @@ set noerrorbells                " don't beep
 set visualbell t_vb=            " turn off error beep/flash
 set t_vb=
 set tm=500
+set t_ti= t_te=                 " 退出vim时显示当前屏幕内容在终端
 
 " in case you forgot to sudo
 cnoremap w!! %!sudo tee > /dev/null %
