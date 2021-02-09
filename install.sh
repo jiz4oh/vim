@@ -72,7 +72,9 @@ install(){
   pm_install git
   curl -fsSL https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/vimrc > ~/.vim/vimrc
   curl -fsSL https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/vimrc.bundles > ~/.vim/vimrc.bundles
-  cp ~/.vimrc ~/.vimrc.bak
+  if [ -e ~/.vimrc ];then
+    cp ~/.vimrc ~/.vimrc.bak
+  fi
   curl -fsSL https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/vimrc.entire > ~/.vimrc
 }
 
