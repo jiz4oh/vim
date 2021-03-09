@@ -1,5 +1,9 @@
+let s:darwin = has('mac')
+let s:windows = has('win32') || has('win64')
+
 " leader
-let mapleader = ' '
+let mapleader      = ' '
+let maplocalleader = ' '
 let g:mapleader = ' '
 
 " syntax
@@ -16,31 +20,43 @@ filetype plugin on
 filetype indent on
 
 " base
+set autochdir
 set nocompatible                " don't bother with vi compatibility
 set autoread                    " reload files when changed on disk, i.e. via `git checkout`
 set shortmess=atI
 
 set magic                       " For regular expressions turn magic on
 set title                       " change the terminal's title
-set nobackup                    " do not keep a backup file
+
+if !isdirectory($HOME.'/.vim/files') && exists('*mkdir')
+  call mkdir($HOME.'/.vim/files')
+endif
+
+" backupfiles
+set nobackup
 set nowritebackup
+set backupdir   =$HOME/.vim/files/backup/
+set backupext   =-vimbackup
+set backupskip  =
+" swapfiles
 set noswapfile
-set backupdir=~/.vim/.backup//
-set directory=~/.vim/.swp//
-set undodir=~/.vim/.undo//
+set directory   =$HOME/.vim/files/swap/
+set updatecount =100
+" undofiles
+set undofile
+set undodir     =$HOME/.vim/files/undo/
+" viminfo 
+set viminfo     ='100,n$HOME/.vim/files/viminfo
 
 set novisualbell                " turn off visual bell
 set noerrorbells                " don't beep
 set visualbell t_vb=            " turn off error beep/flash
 set t_vb=
 set tm=500
-set t_ti= t_te=                 " 退出vim时显示当前屏幕内容在终端
+"set t_ti= t_te=                " 退出vim时显示当前屏幕内容在终端
 
-" in case you forgot to sudo
-cnoremap w!! %!sudo tee > /dev/null %
-
-" show location
 set cursorcolumn
+
 set cursorline
 
 " movement
@@ -113,45 +129,93 @@ hi! link SignColumn   LineNr
 hi! link ShowMarksHLl DiffAdd
 hi! link ShowMarksHLu DiffChange
 
-" ============================ specific file type ===========================
+" ================================= autocmd ===================================
+augroup vimrc
+  au BufWritePost vimrc,.vimrc nested if expand('%') !~ 'fugitive' | source % | endif
+  au BufWritePost $MYVIMRC,$HOME/.vim/vimrc,$HOME/.vim/vimrc.bundles,$HOME/.vimrc.local source $MYVIMRC
 
-autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
-autocmd FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
-autocmd BufRead,BufNew *.md,*.mkd,*.markdown  set filetype=markdown.mkd
+   "File types
+  au BufNewFile,BufRead *.icc                           set filetype=cpp
+  au BufNewFile,BufRead *.pde                           set filetype=java
+  au BufNewFile,BufRead *.coffee-processing             set filetype=coffee
+  au BufNewFile,BufRead Dockerfile*                     set filetype=dockerfile
+  au BufNewFile,BufRead *.md,*.mkd,*.markdown           set filetype=markdown.mkd
+  au BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
+  function! AutoSetFileHead()
+       ".sh
+      if &filetype == 'sh'
+          call setline(1, "\#!/bin/bash")
+      endif
 
-autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
-function! AutoSetFileHead()
-    " .sh
-    if &filetype == 'sh'
-        call setline(1, "\#!/bin/bash")
-    endif
+       "python
+      if &filetype == 'python'
+          call setline(1, "\#!/usr/bin/env python")
+          call append(1, "\# encoding: utf-8")
+      endif
 
-    " python
-    if &filetype == 'python'
-        call setline(1, "\#!/usr/bin/env python")
-        call append(1, "\# encoding: utf-8")
-    endif
+      normal G
+      normal o
+      normal o
+  endfunc
 
-    normal G
-    normal o
-    normal o
-endfunc
+  au FileType python set tabstop=4 shiftwidth=4 expandtab ai
+  au FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+  au FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl au BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+  fun! <SID>StripTrailingWhitespaces()
+      let l = line(".")
+      let c = col(".")
+      %s/\s\+$//e
+      call cursor(l, c)
+  endfun
 
-autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
+   "http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+  au BufNewFile,BufRead,InsertLeave * silent! match ExtraWhitespace /\s\+$/
+  au InsertEnter * silent! match ExtraWhitespace /\s\+\%#\@<!$/
+
+   "Close preview window
+  if exists('##CompleteDone')
+    au CompleteDone * pclose
+  else
+    au InsertLeave * if !pumvisible() && (!exists('*getcmdwintype') || empty(getcmdwintype())) | pclose | endif
+  endif
+
+   "Automatic rename of tmux window
+  if exists('$TMUX') && !exists('$NORENAME')
+    au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
+    au VimLeave * call system('tmux set-window automatic-rename on')
+
+  "return where you left last time
+  au BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe normal! g`\"" |
+    \ endif                      
+  endif
+augroup END
 
 " ============================ key map ============================
 
-nnoremap k gk
-nnoremap gk k
-nnoremap j gj
-nnoremap gj j
+" cd pwd to current dir
+nnoremap <silent> <leader>cd :cd %:p:h<CR>
 
+noremap <silent> <leader><tab> <C-^>
+
+" select all
+map <Leader>sa ggVG"
+
+" open a terminal window
+map <Leader>t :below :term<CR>
+map <Leader>vt :belowright :vert :term<CR>
+tnoremap <C-W><Esc> <C-W>N
+
+" switch to last command
+cnoremap <C-u> <down>
+cnoremap <C-d> <up>
+
+" move up/down current line
+nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
+nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+
+" move
 map <C-a> <Home>
 map <C-e> <End>
 map <C-j> <C-W>j
@@ -159,22 +223,25 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+nnoremap k gk
+nnoremap gk k
+nnoremap j gj
+nnoremap gj j
+
+" switch setting
 nnoremap <F2> :set nu! nu?<CR>
 nnoremap <F3> :set list! list?<CR>
 nnoremap <F4> :set wrap! wrap?<CR>
 set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
                                 "    paste mode, where you can paste mass data
                                 "    that won't be autoindented
-au InsertLeave * set nopaste
+"au InsertLeave * set nopaste
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
 " Quickly close the current window
-nnoremap <leader>q :q<CR>
+" nnoremap <leader>q :q<CR>
 " Quickly save the current file
-nnoremap <leader>w :w<CR>
-
-" select all
-map <Leader>sa ggVG"
+" nnoremap <leader>w :w<CR>
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
@@ -199,24 +266,23 @@ nnoremap <silent> g* g*zz
 " remove highlight
 noremap <silent><leader>/ :nohls<CR>
 
-"Reselect visual block after indent/outdent.调整缩进后自动选中，方便再次操作
+" Shift+H goto head of the line, Shift+L goto end of the line
+nnoremap H <Home>
+nnoremap L <End>
+
+" command mode, ctrl-a to head， ctrl-e to tail
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
+" in case you forgot to sudo
+cnoremap w!! %!sudo tee > /dev/null %
+
+" show location
+
+"Reselect visual block after indent/outdent
 vnoremap < <gv
 vnoremap > >gv
 
 " y$ -> Y Make Y behave like other capitals
 map Y y$
 
-"Map ; to : and save a million keystrokes
-" ex mode commands made easy 用于快速进入命令行
-nnoremap ; :
-
-" Shift+H goto head of the line, Shift+L goto end of the line
-nnoremap H <Home>
-nnoremap L <End>
-
-" save
-cmap w!! w !sudo tee >/dev/null %
-
-" command mode, ctrl-a to head， ctrl-e to tail
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>

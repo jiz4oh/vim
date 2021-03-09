@@ -1,14 +1,14 @@
-# vim
+# Jiz4oh's vim configuration
 
-根据 wklken/k-vim 项目 fork，根据我个人的喜好进行了一部分的配置改动
+fork from the [wklken/k-vim](https://github.com/wklken/k-vim), with some configuration changes according to my personal preferences
 
-服务器版不包含额外的插件，主要用于在服务器上，目的是作为一个简单的文本编辑器使用
+The Server-Edition does not contain additional plugins, it is mainly used on the server and is intended to be used as a simple text editor
 
-完整版在服务器版的基础上添加了开发常用的插件以及一些额外的设置，目的是作为一个 IDE 使用
+The IDE-Edition is based on the server version with the addition of common development plugins and some additional settings, and is intended to be used as an IDE
 
 ## Install
 
-### 完整版
+### IDE-Edition
 
 `curl https://raw.githubusercontent.com/jiz4oh/vim/master/install.sh | bash`
 
@@ -16,7 +16,7 @@
 
 `curl https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/install.sh | bash`
 
-### 服务器版
+### Server-Edition
 
 `curl https://raw.githubusercontent.com/jiz4oh/vim/master/vimrc > ~/.vimrc`
 
@@ -24,8 +24,66 @@
 
 `curl https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/vimrc > ~/.vimrc`
 
+## Features:
+
+### Server-Edition
+
+- 2 spaces, no tabs
+- incremental, case-insensitive search
+- vertical split goes right, horizontal split goes below
+- easier indentation of selected items
+- `<C-a/e>` switch line beginning and end
+- `<C-j/k/h/l>`  switch between splits (no need to prepend <C-w>)
+- ` sa` select all
+- `U` redo
+- ` /` remove highlight
+
+#### File Switching
+
+- `<space>cd` switch work directory to directory of current file
+- `<space><tab>` alternates between two most recent buffers 
+
+#### Terminal
+
+- `<space>t` open terminal in a new split window
+- `<space>vt` open terminal in a new vertical split window
+- `<C-W><Esc>` quit to normal mode
+
+#### Motion
+
+- `[e` move up current line
+- `]e` move down current line
+
+### IDE-Edition
+
+- all features of Sesrver-Edition
+- `<space>cc` comment current line
+- `<space>cu` uncomment current line
+
+#### Motion
+
+NOTE: two spaces
+
+- `<space><space>h` move to current line forward 
+- `<space><space>j` move to line downward
+- `<space><space>k` move to line upward
+- `<space><space>l` move to current line backward
+- `<space><space>w` move to word downward
+- `<space><space>b` move to word upward
+- `s` move to word 
+
+#### Search
+
+- `<space>f` search filename at current work directory
+- `<space>b` search filename at current buffer files
+- `<space>h` search filename at opened file history 
+- `<space>l` search word/filename at buffer files
+- `<space>bl` search word/filename at current buffer file
+- `<space>r` search word/filename at current work directory
+- `<C-B>` search current/selected word at current work directory
+
 ## Inspire
 
 - [vim-for-server](https://github.com/wklken/vim-for-server)
-- 使用[Vim-plug](https://github.com/junegunn/vim-plug)进行插件管理
+- [Vim-plug](https://github.com/junegunn/vim-plug)
 

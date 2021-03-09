@@ -5,14 +5,26 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/bundle')
-" 快速跳转, 详情查看 https://github.com/easymotion/vim-easymotion
+" https://github.com/easymotion/vim-easymotion
 Plug 'easymotion/vim-easymotion'
+" move to word
+" <leader><leader>w
 
-" 快速注释, 详情查看 https://github.com/preservim/nerdcommenter
+" use s to quick search
+" `s{char}{label}`
+nmap s <Plug>(easymotion-overwin-f2)
+" turn on case-insensitive feature
+let g:EasyMotion_smartcase = 1
+" move to line
+map <leader><Leader>l <Plug>(easymotion-lineforward)
+map <leader><Leader>j <Plug>(easymotion-j)
+map <leader><Leader>k <Plug>(easymotion-k)
+map <leader><Leader>h <Plug>(easymotion-linebackward)
+
+" https://github.com/preservim/nerdcommenter
 Plug 'preservim/nerdcommenter'
 
 " text object
-" 支持自定义文本对象
 Plug 'kana/vim-textobj-user'
 " 增加行文本对象: l 
 Plug 'kana/vim-textobj-line'
@@ -21,9 +33,107 @@ Plug 'kana/vim-textobj-entire'
 " 增加缩进文本对象: i
 Plug 'kana/vim-textobj-indent'
 
+Plug 'preservim/nerdtree'
+nnoremap <leader>n :NERDTreeMirror<CR>:NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+
+" Automatically open a NERDTree if no files where specified
+autocmd VimEnter * if !argc() | NERDTree | endif
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
+Plug 'preservim/tagbar', { 'on': 'TagbarToggle', 'for': ['markdown', 'ruby', 'python'] }
+nnoremap <C-m> :TagbarToggle<CR>
+
+" fuzzy finder 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+"disable popup in favor of location window
+let g:fzf_layout = { 'down': '40%' }
+let $FZF_DEFAULT_OPTS="--preview-window 'right:57%' --preview 'bat --style=numbers --line-range :300 {}'
+  \ --bind ctrl-y:preview-up,ctrl-e:preview-down,
+  \ctrl-u:half-page-up,ctrl-d:half-page-down,
+  \ctrl-b:preview-page-up,ctrl-f:preview-page-down,
+  \shift-up:preview-top,shift-down:preview-bottom"
+  "\ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down,
+noremap <silent> <leader>f :Files<Cr>
+nnoremap <silent> <leader>gf :GFiles<Cr>
+nnoremap <silent> <leader>b :Buffers<Cr>
+nnoremap <silent> <leader>bl :BLines<Cr>
+nnoremap <silent> <Leader>l :Lines<CR>
+nnoremap <silent> <leader>h :History<CR>
+
+" jump to existed window if possible
+let g:fzf_buffers_jump = 1
+
+" `brew install ripgrep` before you use rg command
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!{.git,node_modules}/*" 2>/dev/null'
+endif
+
+nnoremap <leader>r :Rg<Cr>
+" search current word
+nnoremap <silent> <C-b> :call SearchWordWithRg()<CR>
+" search selected word
+vnoremap <silent> <C-b> :call SearchVisualSelectionWithRg()<CR>
+
+function! SearchWordWithRg()
+  execute 'Rg' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithRg() range
+  let old_reg = getreg('"')
+  let old_regtype = getregtype('"')
+  let old_clipboard = &clipboard
+  set clipboard&
+  normal! ""gvy
+  let selection = getreg('"')
+  call setreg('"', old_reg, old_regtype)
+  let &clipboard = old_clipboard
+  execute 'Rg' selection
+endfunction
+
+" markdown preview
+Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
+" npm -g install instant-markdown-d
+
+" distraction-free writing
+" Plug 'junegunn/goyo.vim'
+" Plug 'junegunn/goyo.vim', { 'for': ['markdown', 'md'] }
+" autocmd! User goyo.vim echom 'Goyo is now loaded!'
+" autocmd! User GoyoEnter Limelight
+" autocmd! User GoyoLeave Limelight!
+
+"======================================= common develop environment =========================================
+Plug 'airblade/vim-gitgutter'
+set updatetime=100
+
+Plug 'tpope/vim-endwise'
+
+"========================================= ruby develop environment =========================================
+Plug 'vim-ruby/vim-ruby', { 'for': ['ruby'] }
+"Plug 'tpope/vim-bundler', { 'for': ['ruby'] }
+Plug 'tpope/vim-rails', { 'for': ['ruby'] }
+
+"======================================== scheme develop environment ========================================
+" lisp IDE
+Plug 'vlime/vlime', {'rtp': 'vim/'}
+
+Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
+autocmd filetype lisp,scheme,art setlocal equalprg=scmindent.rkt
+
+"===========================================================================================================
 call plug#end()
 
-" Run PlugInstall if there are missing plugins
+nnoremap <silent> <leader><leader>i :PlugInstall <CR>
+ "Run PlugInstall if there are missing plugins
 autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   \| PlugInstall --sync | source $MYVIMRC
 \| endif
