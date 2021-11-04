@@ -63,10 +63,9 @@ let $FZF_DEFAULT_OPTS="--preview-window 'right:57%' --preview 'bat --style=numbe
   \ctrl-b:preview-page-up,ctrl-f:preview-page-down,
   \shift-up:preview-top,shift-down:preview-bottom"
   "\ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down,
-noremap <silent> <leader>f :Files<Cr>
+nnoremap <silent> <leader>f :Files<Cr>
+nnoremap <silent> <leader><leader>f :BLines<Cr>
 nnoremap <silent> <leader>gf :GFiles<Cr>
-nnoremap <silent> <leader>b :Buffers<Cr>
-nnoremap <silent> <leader>bl :BLines<Cr>
 nnoremap <silent> <Leader>l :Lines<CR>
 nnoremap <silent> <leader>h :History<CR>
 
@@ -76,30 +75,41 @@ let g:fzf_buffers_jump = 1
 " `brew install ripgrep` before you use rg command
 if executable('rg')
   let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!{.git,node_modules}/*" 2>/dev/null'
+  "use accurate matching
+  "let $FZF_DEFAULT_OPTS='-e'
+
+  function! RipgrepFzf(query, fullscreen)
+    let current_repo = trim(system('git rev-parse --show-toplevel 2>/dev/null || pwd'))
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s %s || true'
+    
+    let initial_command = printf(command_fmt, shellescape(a:query), shellescape(current_repo))
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(), a:fullscreen)
+  endfunction
+
+  function! SearchWordWithRg()
+    execute 'RG' expand('<cword>')
+  endfunction
+
+  function! SearchVisualSelectionWithRg() range
+    let old_reg = getreg('"')
+    let old_regtype = getregtype('"')
+    let old_clipboard = &clipboard
+    set clipboard&
+    normal! ""gvy
+    let selection = getreg('"')
+    call setreg('"', old_reg, old_regtype)
+    let &clipboard = old_clipboard
+    execute 'RG' selection
+  endfunction
+
+  command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+  nnoremap <silent> <leader>f :RG<Cr>
+
+  " search current word
+  nnoremap <silent> <C-b> :call SearchWordWithRg()<CR>
+  " search selected word
+  vnoremap <silent> <C-b> :call SearchVisualSelectionWithRg()<CR>
 endif
-
-nnoremap <leader>r :Rg<Cr>
-" search current word
-nnoremap <silent> <C-b> :call SearchWordWithRg()<CR>
-" search selected word
-vnoremap <silent> <C-b> :call SearchVisualSelectionWithRg()<CR>
-
-function! SearchWordWithRg()
-  execute 'Rg' expand('<cword>')
-endfunction
-
-function! SearchVisualSelectionWithRg() range
-  let old_reg = getreg('"')
-  let old_regtype = getregtype('"')
-  let old_clipboard = &clipboard
-  set clipboard&
-  normal! ""gvy
-  let selection = getreg('"')
-  call setreg('"', old_reg, old_regtype)
-  let &clipboard = old_clipboard
-  execute 'Rg' selection
-endfunction
-
 " markdown preview
 Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
 " npm -g install instant-markdown-d
@@ -116,6 +126,8 @@ Plug 'airblade/vim-gitgutter'
 set updatetime=100
 
 Plug 'tpope/vim-endwise'
+Plug 'dense-analysis/ale'
+
 
 "========================================= ruby develop environment =========================================
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby'] }

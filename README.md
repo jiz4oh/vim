@@ -74,13 +74,12 @@ NOTE: two spaces
 
 #### Search
 
-- `<space>f` search filename at current work directory
-- `<space>b` search filename at current buffer files
+- `<space>f` search word/filename at current buffer file
+- `<space><space>f` search word/filename at current git repo or current work directory
 - `<space>h` search filename at opened file history 
 - `<space>l` search word/filename at buffer files
-- `<space>bl` search word/filename at current buffer file
 - `<space>r` search word/filename at current work directory
-- `<C-B>` search current/selected word at current work directory
+- `<C-B>` search current/selected word at current git repo or current work directory
 
 ## Inspire
 
