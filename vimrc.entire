@@ -1,11 +1,11 @@
 " ========================== basic settings ========================
-if filereadable(expand("~/.vim/vimrc"))
-  source ~/.vim/vimrc
+if filereadable(expand("~/.config/vim/vimrc"))
+  source ~/.config/vim/vimrc
 endif
 
 " ========================== plugin settings =======================
-if filereadable(expand("~/.vim/vimrc.bundles"))
-  source ~/.vim/vimrc.bundles
+if filereadable(expand("~/.config/vim/vimrc.bundles"))
+  source ~/.config/vim/vimrc.bundles
 endif
 
 " ========================== custom hettings =======================

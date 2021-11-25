@@ -70,13 +70,13 @@ pm_install() {
 
 install(){
   pm_install git
-  mkdir -p ~/.vim
-  curl -fsSL https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/vimrc > ~/.vim/vimrc
-  curl -fsSL https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/vimrc.bundles > ~/.vim/vimrc.bundles
+  mkdir -p ~/.config/vim
+  curl -fsSL https://raw.githubusercontent.com/jiz4oh/vim/master/vimrc > ~/.config/vim/vimrc
+  curl -fsSL https://raw.githubusercontent.com/jiz4oh/vim/master/vimrc.bundles > ~/.config/vim/vimrc.bundles
   if [ -e ~/.vimrc ];then
     cp ~/.vimrc ~/.vimrc.bak
   fi
-  curl -fsSL https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/vimrc.entire > ~/.vimrc
+  curl -fsSL https://raw.githubusercontent.com/jiz4oh/vim/master/vimrc.entire > ~/.vimrc
 }
 
 check_sys
