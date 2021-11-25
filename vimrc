@@ -45,8 +45,6 @@ set updatecount =100
 " undofiles
 set undofile
 set undodir     =$HOME/.vim/files/undo/
-" viminfo 
-set viminfo     ='100,n$HOME/.vim/files/viminfo
 
 set novisualbell                " turn off visual bell
 set noerrorbells                " don't beep

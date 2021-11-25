@@ -74,12 +74,12 @@ NOTE: two spaces
 
 #### Search
 
-- `<space>f` search word/filename at current buffer file
-- `<space><space>f` search word/filename at current git repo or current work directory
-- `<space>h` search filename at opened file history 
-- `<space>l` search word/filename at buffer files
-- `<space>r` search word/filename at current work directory
-- `<C-B>` search current/selected word at current git repo or current work directory
+- `<space>sf` search word/filename at buffer files
+- `<space>sd` search word/filename at current work directory
+- `<space>sp` search word/filename at current git repo or current work directory
+- `<space>sh` search filename at opened file history 
+- `<space>sw` search current/selected word at current git repo or current work directory
+- `<space>sg` search gem in bundle
 
 ## Inspire
 

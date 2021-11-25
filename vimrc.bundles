@@ -63,11 +63,12 @@ let $FZF_DEFAULT_OPTS="--preview-window 'right:57%' --preview 'bat --style=numbe
   \ctrl-b:preview-page-up,ctrl-f:preview-page-down,
   \shift-up:preview-top,shift-down:preview-bottom"
   "\ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down,
-nnoremap <silent> <leader>f :Files<Cr>
-nnoremap <silent> <leader><leader>f :BLines<Cr>
-nnoremap <silent> <leader>gf :GFiles<Cr>
-nnoremap <silent> <Leader>l :Lines<CR>
-nnoremap <silent> <leader>h :History<CR>
+"search current dir
+nnoremap <silent> <leader>sd :Files<Cr>
+"search current files
+nnoremap <silent> <Leader>sf :BLines<CR>
+"search history
+nnoremap <silent> <leader>sh :History<CR>
 
 " jump to existed window if possible
 let g:fzf_buffers_jump = 1
@@ -78,16 +79,21 @@ if executable('rg')
   "use accurate matching
   "let $FZF_DEFAULT_OPTS='-e'
 
-  function! RipgrepFzf(query, fullscreen)
+  " search in current project or work dir
+  function! YARG(query, fullscreen)
     let current_repo = trim(system('git rev-parse --show-toplevel 2>/dev/null || pwd'))
-    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s %s || true'
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
     
-    let initial_command = printf(command_fmt, shellescape(a:query), shellescape(current_repo))
-    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(), a:fullscreen)
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0]}), a:fullscreen)
   endfunction
 
+  command! -nargs=* -bang YARG call YARG(<q-args>, <bang>0)
+  " search current project or current dir
+  nnoremap <silent> <leader>sp :YARG<Cr>
+
   function! SearchWordWithRg()
-    execute 'RG' expand('<cword>')
+    execute 'YARG' expand('<cword>')
   endfunction
 
   function! SearchVisualSelectionWithRg() range
@@ -99,16 +105,25 @@ if executable('rg')
     let selection = getreg('"')
     call setreg('"', old_reg, old_regtype)
     let &clipboard = old_clipboard
-    execute 'RG' selection
+    execute 'YARG' selection
   endfunction
 
-  command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-  nnoremap <silent> <leader>f :RG<Cr>
-
   " search current word
-  nnoremap <silent> <C-b> :call SearchWordWithRg()<CR>
+  nnoremap <silent> <leader>sw :call SearchWordWithRg()<CR>
   " search selected word
-  vnoremap <silent> <C-b> :call SearchVisualSelectionWithRg()<CR>
+  vnoremap <silent> <leader>sw :call SearchVisualSelectionWithRg()<CR>
+
+  " Gem search
+  function! GemSearch()
+    call fzf#run(fzf#wrap({'source': "bundle list | sed '1d;$d' | cut -d ' ' -f 4", 'sink': {gem -> GemFileSearch(gem)}}))
+  endfunction
+
+  function! GemFileSearch(gem)
+    let gemdir = substitute(system("bundle show " . a:gem), '\n\+$', '', '')
+    call fzf#run(fzf#wrap({'source': 'rg --files ' . gemdir . ' --color never | sed -e "s#^' . gemdir . '/##"', 'dir': gemdir}), fzf#vim#with_preview())
+  endfunction
+
+  nnoremap <leader>sg :call GemSearch()<cr>
 endif
 " markdown preview
 Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
@@ -131,7 +146,7 @@ Plug 'dense-analysis/ale'
 
 "========================================= ruby develop environment =========================================
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby'] }
-"Plug 'tpope/vim-bundler', { 'for': ['ruby'] }
+Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-rails', { 'for': ['ruby'] }
 
 "======================================== scheme develop environment ========================================
