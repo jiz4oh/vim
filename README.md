@@ -28,61 +28,76 @@ The IDE-Edition is based on the server version with the addition of common devel
 
 ### Server-Edition
 
-- 2 spaces, no tabs
 - incremental, case-insensitive search
 - vertical split goes right, horizontal split goes below
 - easier indentation of selected items
-- `<C-a/e>` switch line beginning and end
-- `<C-j/k/h/l>`  switch between splits (no need to prepend <C-w>)
-- ` sa` select all
-- `U` redo
-- ` /` remove highlight
 
-#### File Switching
-
-- `<space>cd` switch work directory to directory of current file
-- `<space><tab>` alternates between two most recent buffers 
-
-#### Terminal
-
-- `<space>t` open terminal in a new split window
-- `<space>vt` open terminal in a new vertical split window
-- `<C-W><Esc>` quit to normal mode
-
-#### Motion
-
-- `[e` move up current line
-- `]e` move down current line
+shortcut|mode|description
+---|---|---
+`<space>/`|n|remove highlight
+`U`|n|undo
+`Y`|n|copy to end of line
+`<space>sa`|n|select all
+`ctrl-h/j/k/l`|n|分别移动光标到当前窗口的左/下/上/右侧窗口
+`ctrl-a/e`|n|分别移动光标到当前行首/尾
+`>>` / `<<`|n|indent rightward/leftward
+`>` / `<`|v|reselct after indent
+`[e` / `]e`|n|move current line upward/downward
+`<space>cd>`|n|switch work directory to directory of current file
+`<space><tab>`|n|alternates between two most recent buffers 
+`<space>t` / `<space>vt`|n|open terminal in a split/vertical window
+`<C-W><Esc>`|t|quit to normal mode
 
 ### IDE-Edition
 
 - all features of Sesrver-Edition
-- `<space>cc` comment current line
-- `<space>cu` uncomment current line
+
+shortcut|mode|description
+---|---|---
+`<space>cc` / `<space>cu`|n|comment/uncomment current line
+`<space>j` / `<space>k`|n|move cursor downward/upward
+`s`|n|move to specified word
+`<space>sf`|n|search in buffer files
+`<space>sp`|n|search current project(fallback to `$PWD` if no git repo)
+`<space>sw`|n|like `<space>sp`,but with current/selected word
+`<space>sd`|n|search in `PWD`
+`<space>sh`|n|search in fzf history
+`<space>sg`|n|search gem in bundle
 
 #### Motion
 
-NOTE: two spaces
-
-- `<space><space>h` move to current line forward 
-- `<space><space>j` move to line downward
-- `<space><space>k` move to line upward
-- `<space><space>l` move to current line backward
-- `<space><space>w` move to word downward
-- `<space><space>b` move to word upward
-- `s` move to word 
+shortcut|mode|description
+---|---|---
+`f`|n|move cursor by 1 char
+`s`|n|move cursor by 2 char
+`F`|n|move cursor to specified word
+`gl`|n|move cursor to line
 
 #### Search
 
-- `<space>sf` search word/filename at buffer files
-- `<space>sd` search word/filename at current work directory
-- `<space>sp` search word/filename at current git repo or current work directory
-- `<space>sh` search filename at opened file history 
-- `<space>sw` search current/selected word at current git repo or current work directory
-- `<space>sg` search gem in bundle
+shortcut|mode|description
+---|---|---
+`<space>sf`|n|search in buffer files
+`<space>sp`|n|search current project(fallback to `$PWD` if no git repo)
+`<space>sw`|n|like `<space>sp`,but with current/selected word
+`<space>sd`|n|search in `PWD`
+`<space>sh`|n|search in fzf history
+
+#### File Explorer
+
+use `nerdtree` if `coc.nvim` is not installed, otherwise use `coc-explorer`
+
+shortcut|mode|description
+---|---|---
+`<space>e`|n|open explorer
+`j`/`k`|n|next/prev
+`h`|n|collapse
+`l`|n|expand dir or open file
+`H`/`L`|n|collapse/expand dir recursively
 
 ## Inspire
 
-- [vim-for-server](https://github.com/wklken/vim-for-server)
 - [Vim-plug](https://github.com/junegunn/vim-plug)
+- [vim-for-server](https://github.com/wklken/vim-for-server)
+- [Vime](https://github.com/fgheng/vime)
 

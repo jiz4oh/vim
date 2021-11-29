@@ -20,13 +20,14 @@ filetype plugin on
 filetype indent on
 
 " base
-set autochdir
 set nocompatible                " don't bother with vi compatibility
+set autochdir
 set autoread                    " reload files when changed on disk, i.e. via `git checkout`
 set shortmess=atI
 
 set magic                       " For regular expressions turn magic on
 set title                       " change the terminal's title
+set hidden                      " donot hidden after disable terminal
 
 if !isdirectory($HOME.'/.vim/files') && exists('*mkdir')
   call mkdir($HOME.'/.vim/files')
@@ -35,16 +36,16 @@ endif
 " backupfiles
 set nobackup
 set nowritebackup
-set backupdir   =$HOME/.vim/files/backup/
-set backupext   =-vimbackup
+"set backupdir   =$HOME/.vim/files/backup/
+"set backupext   =-vimbackup
 set backupskip  =
 " swapfiles
 set noswapfile
-set directory   =$HOME/.vim/files/swap/
-set updatecount =100
+"set directory   =$HOME/.vim/files/swap/
+"set updatecount =100
 " undofiles
-set undofile
-set undodir     =$HOME/.vim/files/undo/
+set noundofile
+"set undodir     =$HOME/.vim/files/undo/
 
 set novisualbell                " turn off visual bell
 set noerrorbells                " don't beep
@@ -105,12 +106,31 @@ set selectmode=mouse,key
 set completeopt=longest,menu
 set wildmenu                           " show a navigable menu for tab completion"
 set wildmode=longest,list,full
-set wildignore=*.o,*~,*.pyc,*.class
-
+" 文件搜索和补全时忽略下面的扩展名
+set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class
+"stuff to ignore when tab completing
+set wildignore=*.o,*.obj,*~,*.exe,*.a,*.pdb,*.lib
+set wildignore+=*.so,*.dll,*.swp,*.egg,*.jar,*.class,*.pyc,*.pyo,*.bin,*.dex
+" MacOSX/Linux
+set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
+set wildignore+=*DS_Store*,*.ipch
+set wildignore+=*.gem
+set wildignore+=*.png,*.jpg,*.gif,*.bmp,*.tga,*.pcx,*.ppm,*.img,*.iso
+set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/.rbenv/**
+set wildignore+=*/.nx/**,*.app,*.git,.git
+set wildignore+=*.wav,*.mp3,*.ogg,*.pcm
+set wildignore+=*.mht,*.suo,*.sdf,*.jnlp
+set wildignore+=*.chm,*.epub,*.pdf,*.mobi,*.ttf
+set wildignore+=*.mp4,*.avi,*.flv,*.mov,*.mkv,*.swf,*.swc
+set wildignore+=*.ppt,*.pptx,*.docx,*.xlt,*.xls,*.xlsx,*.odt,*.wps
+set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
+set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
+set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 " others
 set backspace=indent,eol,start         " make that backspace key work the way it should
 set whichwrap+=<,>,h,l
 set clipboard+=unnamed
+set updatetime=100
 
 " ============================ theme and status line ============================
 
@@ -130,7 +150,6 @@ hi! link ShowMarksHLu DiffChange
 " ================================= autocmd ===================================
 augroup vimrc
   au BufWritePost vimrc,.vimrc nested if expand('%') !~ 'fugitive' | source % | endif
-  au BufWritePost $MYVIMRC,$HOME/.vim/vimrc,$HOME/.vim/vimrc.bundles,$HOME/.vimrc.local source $MYVIMRC
 
    "File types
   au BufNewFile,BufRead *.icc                           set filetype=cpp
@@ -183,15 +202,60 @@ augroup vimrc
     au VimLeave * call system('tmux set-window automatic-rename on')
 
   "return where you left last time
-  au BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe normal! g`\"" |
-    \ endif                      
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif | normal! zvzz
   endif
 augroup END
 
 " ============================ key map ============================
+"make vim respond to alt key
+"https://github.com/fgheng/vime/blob/master/plugin/alt.vim
+if !has('nvim')
+  function! Terminal_MetaMode(mode)
+    set ttimeout
+    if $TMUX != ''
+        set ttimeoutlen=30
+    elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
+        set ttimeoutlen=80
+    endif
+    if has('nvim') || has('gui_running')
+        return
+    endif
+    function! s:metacode(mode, key)
+        if a:mode == 0
+            exec "set <M-".a:key.">=\e".a:key
+        else
+            exec "set <M-".a:key.">=\e]{0}".a:key."~"
+        endif
+    endfunc
+    for i in range(10)
+        call s:metacode(a:mode, nr2char(char2nr('0') + i))
+    endfor
+    for i in range(26)
+        call s:metacode(a:mode, nr2char(char2nr('a') + i))
+        call s:metacode(a:mode, nr2char(char2nr('A') + i))
+    endfor
+    if a:mode != 0
+        for c in [',', '.', '/', ';', '[', ']', '{', '}']
+            call s:metacode(a:mode, c)
+        endfor
+        for c in ['?', ':', '-', '_']
+            call s:metacode(a:mode, c)
+        endfor
+    else
+        for c in [',', '.', '/', ';', '{', '}']
+            call s:metacode(a:mode, c)
+        endfor
+        for c in ['?', ':', '-', '_']
+            call s:metacode(a:mode, c)
+        endfor
+    endif
+  endfunc
 
+  call Terminal_MetaMode(0)
+endif
+
+inoremap <M-o> <esc>o
+inoremap <M-O> <esc>O
 " cd pwd to current dir
 nnoremap <silent> <leader>cd :cd %:p:h<CR>
 
@@ -225,6 +289,11 @@ nnoremap k gk
 nnoremap gk k
 nnoremap j gj
 nnoremap gj j
+
+vnoremap k gk
+vnoremap gk k
+vnoremap j gj
+vnoremap gj j
 
 " switch setting
 nnoremap <F2> :set nu! nu?<CR>
@@ -280,6 +349,9 @@ cnoremap w!! %!sudo tee > /dev/null %
 "Reselect visual block after indent/outdent
 vnoremap < <gv
 vnoremap > >gv
+
+nnoremap << <<_
+nnoremap >> >>_
 
 " y$ -> Y Make Y behave like other capitals
 map Y y$

@@ -4,22 +4,43 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     \ https://cdn.jsdelivr.net/gh/junegunn/vim-plug@master/plug.vim
 endif
 
+nnoremap <silent> <leader><leader>i :PlugInstall <CR>
+"Run PlugInstall if there are missing plugins
+"autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  "\| PlugInstall --sync | source $MYVIMRC
+"\| endif
+
 call plug#begin('~/.vim/bundle')
 " https://github.com/easymotion/vim-easymotion
-Plug 'easymotion/vim-easymotion'
-" move to word
-" <leader><leader>w
+Plug 'easymotion/vim-easymotion', {'on':
+   \ [
+   \ '<Plug>(easymotion-bd-f)', '<Plug>(easymotion-overwin-f)',
+   \ '<Plug>(easymotion-bd-f2)', '<Plug>(easymotion-overwin-f2)',
+   \ '<Plug>(easymotion-bd-jk)', '<Plug>(easymotion-overwin-line)',
+   \ '<Plug>(easymotion-bd-w)', '<Plug>(easymotion-overwin-w)', 
+   \ ]}
+
+" disable default mappings
+let g:EasyMotion_do_mapping = 0
+" turn on case-insensitive feature
+let g:EasyMotion_smartcase = 1
+" `s{char}`
+map f <Plug>(easymotion-bd-f)
+nmap f <Plug>(easymotion-overwin-f)
 
 " use s to quick search
 " `s{char}{label}`
+map s <Plug>(easymotion-bd-f2)
 nmap s <Plug>(easymotion-overwin-f2)
-" turn on case-insensitive feature
-let g:EasyMotion_smartcase = 1
+" 无需输入字符，即可全屏搜索单词
+"let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwx-^&*()+123456ABCDEF/;\=[]GHIJKLMNOPQRST7890UVWXYZyz'
+" move to word
+map  F <Plug>(easymotion-bd-w)
+nmap F <Plug>(easymotion-overwin-w)
+
 " move to line
-map <leader><Leader>l <Plug>(easymotion-lineforward)
-map <leader><Leader>j <Plug>(easymotion-j)
-map <leader><Leader>k <Plug>(easymotion-k)
-map <leader><Leader>h <Plug>(easymotion-linebackward)
+map  gl <Plug>(easymotion-bd-jk)
+nmap gl <Plug>(easymotion-overwin-line)
 
 " https://github.com/preservim/nerdcommenter
 Plug 'preservim/nerdcommenter'
@@ -33,36 +54,41 @@ Plug 'kana/vim-textobj-entire'
 " 增加缩进文本对象: i
 Plug 'kana/vim-textobj-indent'
 
-Plug 'preservim/nerdtree'
-nnoremap <leader>n :NERDTreeMirror<CR>:NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-
-" Automatically open a NERDTree if no files where specified
-autocmd VimEnter * if !argc() | NERDTree | endif
-
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-
 Plug 'preservim/tagbar', { 'on': 'TagbarToggle', 'for': ['markdown', 'ruby', 'python'] }
 nnoremap <C-m> :TagbarToggle<CR>
+unmap <cr>
+"Plug 'liuchengxu/vista.vim', {'on': ['Vista!!', 'Vista']"}
+"let g:vista#renderer#enable_icon = 1
+"let g:vista#renderer#icons = {
+    "\   "function": "\uf794",
+    "\   "variable": "\uf71b",
+    "\  }
+"let g:vista_sidebar_width = 50
+"nnoremap <leader>3 Vista!!<CR>
 
 " fuzzy finder 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+" jump to existed window if possible
+let g:fzf_buffers_jump = 1
 let g:fzf_history_dir = '~/.local/share/fzf-history'
-"disable popup in favor of location window
-let g:fzf_layout = { 'down': '40%' }
-let $FZF_DEFAULT_OPTS="--preview-window 'right:57%' --preview 'bat --style=numbers --line-range :300 {}'
+if exists('$TMUX')
+  let g:fzf_layout = { 'tmux': '-p90%,60%' }
+else
+  "disable popup in favor of location window
+  "let g:fzf_layout = { 'down': '40%' }
+
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'relative': v:true, } }
+endif
+
+let $FZF_DEFAULT_OPTS="--reverse --preview-window 'down:75%'
   \ --bind ctrl-y:preview-up,ctrl-e:preview-down,
   \ctrl-u:half-page-up,ctrl-d:half-page-down,
-  \ctrl-b:preview-page-up,ctrl-f:preview-page-down,
+  \ctrl-b:preview-half-page-up,ctrl-f:preview-half-page-down,
+  \alt-u:preview-half-page-up,alt-d:preview-half-page-down,
   \shift-up:preview-top,shift-down:preview-bottom"
-  "\ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down,
+
 "search current dir
 nnoremap <silent> <leader>sd :Files<Cr>
 "search current files
@@ -70,14 +96,9 @@ nnoremap <silent> <Leader>sf :BLines<CR>
 "search history
 nnoremap <silent> <leader>sh :History<CR>
 
-" jump to existed window if possible
-let g:fzf_buffers_jump = 1
-
 " `brew install ripgrep` before you use rg command
 if executable('rg')
-  let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!{.git,node_modules}/*" 2>/dev/null'
-  "use accurate matching
-  "let $FZF_DEFAULT_OPTS='-e'
+  let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!{.git}/*" 2>/dev/null'
 
   " search in current project or work dir
   function! YARG(query, fullscreen)
@@ -126,23 +147,139 @@ if executable('rg')
   nnoremap <leader>sg :call GemSearch()<cr>
 endif
 " markdown preview
-Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
 " npm -g install instant-markdown-d
+Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
 
-" distraction-free writing
-" Plug 'junegunn/goyo.vim'
-" Plug 'junegunn/goyo.vim', { 'for': ['markdown', 'md'] }
-" autocmd! User goyo.vim echom 'Goyo is now loaded!'
-" autocmd! User GoyoEnter Limelight
-" autocmd! User GoyoLeave Limelight!
-
-"======================================= common develop environment =========================================
 Plug 'airblade/vim-gitgutter'
-set updatetime=100
 
 Plug 'tpope/vim-endwise'
-Plug 'dense-analysis/ale'
 
+" https://github.com/neoclide/coc.nvim
+" brew install node
+if executable('npm')
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+  if has("nvim-0.5.0") || has("patch-8.1.1564")
+    " Recently vim can merge signcolumn and number column into one
+    set signcolumn=number
+  else
+    set signcolumn=yes
+  endif
+
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
+
+  " Use <c-space> to trigger completion.
+  if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+  else
+    inoremap <silent><expr> <c-@> coc#refresh()
+  endif
+
+  " Make <CR> auto-sele"ct the first completion item and notify coc.nvim to
+  "" format on enter, <cr> could be remapped by other vim plugin
+  "inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+
+  " Use K to show documentation in preview window.
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+      call CocActionAsync('doHover')
+    else
+      execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
+  endfunction
+
+  let g:coc_global_extensions = ['coc-explorer']
+  nnoremap <leader>e <Cmd>CocCommand explorer<CR>
+  " CoC Explorer Settings
+  augroup coc_explorer_group
+    autocmd!
+    autocmd VimEnter * sil! au! F
+    " set window status line
+    autocmd FileType coc-explorer setl statusline=File-Explorer
+    " quit explorer whein it's the last
+    autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+    " Make sure nothing opened in coc-explorer buffer
+    autocmd BufEnter * if bufname('#') =~# "\[coc-explorer\]-." && winnr('$') > 1 | b# | endif
+    " open if directory specified or if buffer empty
+    autocmd VimEnter * let d = expand('%:p')
+      \ | if argc() == 0
+        \ | exe 'CocCommand explorer --quit-on-open --sources buffer+,file+'
+      \ | elseif isdirectory(d) || (bufname()=='')
+        \ | silent! bd
+        \ | exe 'CocCommand explorer --quit-on-open --sources buffer+,file+ ' . d
+        \ | exe 'cd ' . d
+      \ | else
+        \ | cd %:p:h
+      \ | endif
+    " cd after open
+    autocmd User CocExplorerOpenPost let dir = getcwd() | call CocActionAsync("runCommand", "explorer.doAction", "closest", {"name": "cd", "args": [dir]})
+  augroup END
+  let g:coc_user_config = {                      
+          \'explorer.keyMappings.global': {
+            \ 'H': ["wait", 'collapse:recursive'],
+            \ 'L': ["wait", 'expand:recursive'],
+            \ 'gl': v:false,
+            \}
+          \}
+          "\'explorer.icon.enableNerdfont': v:true,
+          "\'explorer.file.column.icon.modified': '•',
+          "\"explorer.file.column.icon.deleted": "✗",
+          "\"explorer.file.column.icon.untracked": "★",
+          "\"explorer.file.column.icon.renamed": "➜",
+          "\"explorer.file.column.icon.unmerged": "",
+          "\"explorer.file.column.icon.ignored": "ⁱ"
+
+else
+  Plug 'preservim/nerdtree'
+  let NERDTreeMinimalUI = 1 " 最小化显示，不显示问号
+  let NERDTreeDirArrows = 1
+  let NERDChristmasTree = 1
+  " 如果使用vim-plug的话，加上这一句可以避免光标在nerdtree
+  " 中的时候进行插件升级而导致nerdtree崩溃
+  let NERDTreeAutoDeleteBuffer = 1
+  " 进入目录自动将workspace更改为此目录
+  let g:NERDTreeChDirMode = 2
+
+  nnoremap <leader>e :NERDTreeMirror<CR>:NERDTreeToggle<CR>
+  nnoremap <C-f> :NERDTreeFind<CR>
+  let g:NERDTreeMapOpenSplit = "s"
+  let g:NERDTreeMapOpenVSplit = "E"
+  " 展开与关闭节点或者打开文件
+  let g:NERDTreeMapActivateNode = 'l'
+  let g:NERDTreeMapOpenRecursively = 'L'
+  let g:NERDTreeMapCloseDir = 'h'
+  " 回到上一级目录
+  let g:NERDTreeMapUpdirKeepOpen = '<backspace>'
+
+  augroup nerdtree_group
+    " Automatically open a NERDTree if no files where specified
+    autocmd VimEnter * if !argc() | NERDTree | endif
+
+    " Exit Vim if NERDTree is the only window remaining in the only tab.
+    autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+    " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+    autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+        \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+  augroup END
+endif
 
 "========================================= ruby develop environment =========================================
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby'] }
@@ -158,10 +295,3 @@ autocmd filetype lisp,scheme,art setlocal equalprg=scmindent.rkt
 
 "===========================================================================================================
 call plug#end()
-
-nnoremap <silent> <leader><leader>i :PlugInstall <CR>
- "Run PlugInstall if there are missing plugins
-autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \| PlugInstall --sync | source $MYVIMRC
-\| endif
-
