@@ -138,6 +138,7 @@ set backspace=indent,eol,start         " make that backspace key work the way it
 set whichwrap+=<,>,h,l
 set clipboard+=unnamed
 set updatetime=100
+set diffopt+=vertical                  " make diff windows vertical
 
 " ============================ theme and status line ============================
 

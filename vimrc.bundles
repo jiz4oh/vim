@@ -45,30 +45,23 @@ nmap gl <Plug>(easymotion-overwin-line)
 " https://github.com/preservim/nerdcommenter
 Plug 'preservim/nerdcommenter'
 
-" text object
-Plug 'kana/vim-textobj-user'
-" 增加行文本对象: l 
-Plug 'kana/vim-textobj-line'
-" 增加文件文本对象: e
-Plug 'kana/vim-textobj-entire'
-" 增加缩进文本对象: i
-Plug 'kana/vim-textobj-indent'
-
-Plug 'preservim/tagbar', { 'on': 'TagbarToggle', 'for': ['markdown', 'ruby', 'python'] }
-nnoremap <C-m> :TagbarToggle<CR>
-unmap <cr>
-"Plug 'liuchengxu/vista.vim', {'on': ['Vista!!', 'Vista']"}
+Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
+nnoremap <silent> <leader>m :TagbarToggle<CR>
+silent! unmap <cr>
+"Plug 'liuchengxu/vista.vim', {'on': ['Vista!!', 'Vista']}
 "let g:vista#renderer#enable_icon = 1
 "let g:vista#renderer#icons = {
     "\   "function": "\uf794",
     "\   "variable": "\uf71b",
     "\  }
+"let g:vista_default_executive = 'coc'
 "let g:vista_sidebar_width = 50
 "nnoremap <leader>3 Vista!!<CR>
 
 " fuzzy finder 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+command! -bang -nargs=* Tags call fzf#vim#tags(<q-args>, fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0], "placeholder": "--tag {2}:{-1}:{3..}" }), <bang>0)
 
 " jump to existed window if possible
 let g:fzf_buffers_jump = 1
@@ -117,22 +110,10 @@ if executable('rg')
     execute 'YARG' expand('<cword>')
   endfunction
 
-  function! SearchVisualSelectionWithRg() range
-    let old_reg = getreg('"')
-    let old_regtype = getregtype('"')
-    let old_clipboard = &clipboard
-    set clipboard&
-    normal! ""gvy
-    let selection = getreg('"')
-    call setreg('"', old_reg, old_regtype)
-    let &clipboard = old_clipboard
-    execute 'YARG' selection
-  endfunction
-
   " search current word
   nnoremap <silent> <leader>sw :call SearchWordWithRg()<CR>
   " search selected word
-  vnoremap <silent> <leader>sw :call SearchVisualSelectionWithRg()<CR>
+  vnoremap <silent> <leader>sw y:YARG <c-r>"<cr>
 
   " Gem search
   function! GemSearch()
@@ -217,18 +198,7 @@ if executable('npm')
     autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
     " Make sure nothing opened in coc-explorer buffer
     autocmd BufEnter * if bufname('#') =~# "\[coc-explorer\]-." && winnr('$') > 1 | b# | endif
-    " open if directory specified or if buffer empty
-    autocmd VimEnter * let d = expand('%:p')
-      \ | if argc() == 0
-        \ | exe 'CocCommand explorer --quit-on-open --sources buffer+,file+'
-      \ | elseif isdirectory(d) || (bufname()=='')
-        \ | silent! bd
-        \ | exe 'CocCommand explorer --quit-on-open --sources buffer+,file+ ' . d
-        \ | exe 'cd ' . d
-      \ | else
-        \ | cd %:p:h
-      \ | endif
-    " cd after open
+   " cd after open
     autocmd User CocExplorerOpenPost let dir = getcwd() | call CocActionAsync("runCommand", "explorer.doAction", "closest", {"name": "cd", "args": [dir]})
   augroup END
   let g:coc_user_config = {                      
@@ -269,9 +239,6 @@ else
   let g:NERDTreeMapUpdirKeepOpen = '<backspace>'
 
   augroup nerdtree_group
-    " Automatically open a NERDTree if no files where specified
-    autocmd VimEnter * if !argc() | NERDTree | endif
-
     " Exit Vim if NERDTree is the only window remaining in the only tab.
     autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
@@ -294,4 +261,29 @@ Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 autocmd filetype lisp,scheme,art setlocal equalprg=scmindent.rkt
 
 "===========================================================================================================
+
+Plug 'mhinz/vim-startify'
+" returns all modified files of the current git repo
+" `2>/dev/null` makes the command fail quietly, so that when we are not
+" in a git repo, the list will be empty
+function! s:gitModified()
+    let files = systemlist('git ls-files -m 2>/dev/null')
+    return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+
+" same as above, but show untracked files, honouring .gitignore
+function! s:gitUntracked()
+    let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
+    return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+
+let g:startify_lists = [
+        \ { 'type': 'files',     'header': ['   MRU']            },
+        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+        \ { 'type': 'sessions',  'header': ['   Sessions']       },
+        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+        \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
+        \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
+        \ { 'type': 'commands',  'header': ['   Commands']       },
+        \ ]
 call plug#end()
