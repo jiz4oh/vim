@@ -35,6 +35,8 @@ set shortmess=atI
 set magic                       " For regular expressions turn magic on
 set title                       " change the terminal's title
 set hidden                      " donot hidden after disable terminal
+set splitbelow                  " split a window one the below
+set splitright                  " vsplit a window on the right
 
 if !isdirectory($HOME.'/.vim/files') && exists('*mkdir')
   call mkdir($HOME.'/.vim/files')
@@ -264,50 +266,50 @@ augroup END
 " ============================ key map ============================
 "make vim respond to alt key
 "https://github.com/fgheng/vime/blob/master/plugin/alt.vim
-if !has('nvim')
-  function! Terminal_MetaMode(mode)
-    set ttimeout
-    if $TMUX != ''
-        set ttimeoutlen=30
-    elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
-        set ttimeoutlen=80
-    endif
-    if has('nvim') || has('gui_running')
-        return
-    endif
-    function! s:metacode(mode, key)
-        if a:mode == 0
-            exec "set <M-".a:key.">=\e".a:key
-        else
-            exec "set <M-".a:key.">=\e]{0}".a:key."~"
-        endif
-    endfunc
-    for i in range(10)
-        call s:metacode(a:mode, nr2char(char2nr('0') + i))
-    endfor
-    for i in range(26)
-        call s:metacode(a:mode, nr2char(char2nr('a') + i))
-        call s:metacode(a:mode, nr2char(char2nr('A') + i))
-    endfor
-    if a:mode != 0
-        for c in [',', '.', '/', ';', '[', ']', '{', '}']
-            call s:metacode(a:mode, c)
-        endfor
-        for c in ['?', ':', '-', '_']
-            call s:metacode(a:mode, c)
-        endfor
-    else
-        for c in [',', '.', '/', ';', '{', '}']
-            call s:metacode(a:mode, c)
-        endfor
-        for c in ['?', ':', '-', '_']
-            call s:metacode(a:mode, c)
-        endfor
-    endif
-  endfunc
+"if !has('nvim')
+  "function! Terminal_MetaMode(mode)
+    "set ttimeout
+    "if $TMUX != ''
+        "set ttimeoutlen=30
+    "elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
+        "set ttimeoutlen=80
+    "endif
+    "if has('nvim') || has('gui_running')
+        "return
+    "endif
+    "function! s:metacode(mode, key)
+        "if a:mode == 0
+            "exec "set <M-".a:key.">=\e".a:key
+        "else
+            "exec "set <M-".a:key.">=\e]{0}".a:key."~"
+        "endif
+    "endfunc
+    "for i in range(10)
+        "call s:metacode(a:mode, nr2char(char2nr('0') + i))
+    "endfor
+    "for i in range(26)
+        "call s:metacode(a:mode, nr2char(char2nr('a') + i))
+        "call s:metacode(a:mode, nr2char(char2nr('A') + i))
+    "endfor
+    "if a:mode != 0
+        "for c in [',', '.', '/', ';', '[', ']', '{', '}']
+            "call s:metacode(a:mode, c)
+        "endfor
+        "for c in ['?', ':', '-', '_']
+            "call s:metacode(a:mode, c)
+        "endfor
+    "else
+        "for c in [',', '.', '/', ';', '{', '}']
+            "call s:metacode(a:mode, c)
+        "endfor
+        "for c in ['?', ':', '-', '_']
+            "call s:metacode(a:mode, c)
+        "endfor
+    "endif
+  "endfunc
 
-  call Terminal_MetaMode(0)
-endif
+  "call Terminal_MetaMode(0)
+"endif
 
 inoremap <M-o> <esc>o
 inoremap <M-O> <esc>O
@@ -338,10 +340,9 @@ nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 " move
 map <C-a> <Home>
 map <C-e> <End>
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+" command mode, ctrl-a to head， ctrl-e to tail
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
 
 nnoremap k gk
 nnoremap gk k
@@ -353,6 +354,18 @@ vnoremap gk k
 vnoremap j gj
 vnoremap gj j
 
+" close window
+nnoremap <silent> q <esc>:close<cr>
+vnoremap <silent> q <esc>:close<cr>
+" remove EX mode
+nmap Q <nop>
+" use Q to record macro instead of q
+noremap Q q
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
 " switch setting
 nnoremap <F2> :set nu! nu?<CR>
 nnoremap <F3> :set list! list?<CR>
@@ -362,11 +375,6 @@ set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
                                 "    that won't be autoindented
 "au InsertLeave * set nopaste
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
-
-" Quickly close the current window
-" nnoremap <leader>q :q<CR>
-" Quickly save the current file
-" nnoremap <leader>w :w<CR>
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
@@ -394,10 +402,6 @@ noremap <silent><leader>/ :nohls<CR>
 " Shift+H goto head of the line, Shift+L goto end of the line
 nnoremap H <Home>
 nnoremap L <End>
-
-" command mode, ctrl-a to head， ctrl-e to tail
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
 
 " in case you forgot to sudo
 cnoremap w!! %!sudo tee > /dev/null %
