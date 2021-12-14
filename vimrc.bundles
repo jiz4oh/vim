@@ -85,7 +85,7 @@ if exists('$TMUX')
   let g:fzf_layout = { 'tmux': '-p90%,60%' }
 else
   "disable popup in favor of location window
-  let g:fzf_layout = { 'down': '40%' }
+  let g:fzf_layout = { 'down': '60%' }
 
   "let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'relative': v:true, } }
 endif
@@ -114,19 +114,14 @@ if executable('rg')
     let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
     
     let initial_command = printf(command_fmt, shellescape(a:query))
-    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0]}), a:fullscreen)
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0], 'options': '--delimiter : --nth 4..'}), a:fullscreen)
   endfunction
 
   command! -nargs=* -bang YARG call YARG(<q-args>, <bang>0)
   " search current project or current dir
   nnoremap <silent> <leader>sp :YARG<Cr>
 
-  function! SearchWordWithRg()
-    execute 'YARG' expand('<cword>')
-  endfunction
-
-  " search current word
-  nnoremap <silent> <leader>sw :call SearchWordWithRg()<CR>
+  nnoremap <silent> <expr> <leader>sw ':YARG '.expand('<cword>').'<CR>'
   " search selected word
   vnoremap <silent> <leader>sw y:YARG <c-r>"<cr>
 
@@ -147,7 +142,18 @@ endif
 Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
 
 Plug 'airblade/vim-gitgutter'
-
+Plug 'tpope/vim-fugitive'
+" 添加当前文件到index
+nnoremap <leader>gw <esc>:Gwrite<cr>
+" 提交
+nnoremap <leader>gc <esc>:Git commit<cr>
+" 恢复当前文件到上个版本
+nnoremap <leader>gr <esc>:Gread<cr>
+" 查看当前文件与提交文件的不同
+nnoremap <leader>gf <esc>:Gvdiffsplit<cr>
+nnoremap <leader>gb <esc>:Git blame<cr>
+nnoremap <leader>gl <esc>:Git log<cr>
+nnoremap <leader>gg <esc>:Git<cr>
 Plug 'tpope/vim-endwise'
 
 " https://github.com/neoclide/coc.nvim
