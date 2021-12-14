@@ -11,6 +11,10 @@ nnoremap <silent> <leader><leader>i :PlugInstall <CR>
 "\| endif
 
 call plug#begin('~/.vim/bundle')
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+"Plug 'vim-airline/vim-airline'
+"let g:airline_theme='onehalfdark'
+
 " https://github.com/easymotion/vim-easymotion
 Plug 'easymotion/vim-easymotion', {'on':
    \ [
@@ -62,6 +66,17 @@ silent! unmap <cr>
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 command! -bang -nargs=* Tags call fzf#vim#tags(<q-args>, fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0], "placeholder": "--tag {2}:{-1}:{3..}" }), <bang>0)
+augroup update_bat_theme
+    autocmd!
+    autocmd colorscheme * call ToggleBatEnvVar()
+augroup end
+function ToggleBatEnvVar()
+    if (&background == "dark")
+        let $BAT_THEME='OneHalfDark'
+    else
+        let $BAT_THEME=''
+    endif
+endfunction
 
 " jump to existed window if possible
 let g:fzf_buffers_jump = 1
@@ -70,9 +85,9 @@ if exists('$TMUX')
   let g:fzf_layout = { 'tmux': '-p90%,60%' }
 else
   "disable popup in favor of location window
-  "let g:fzf_layout = { 'down': '40%' }
+  let g:fzf_layout = { 'down': '40%' }
 
-  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'relative': v:true, } }
+  "let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'relative': v:true, } }
 endif
 
 let $FZF_DEFAULT_OPTS="--reverse --preview-window 'down:75%'
@@ -278,12 +293,14 @@ function! s:gitUntracked()
 endfunction
 
 let g:startify_lists = [
-        \ { 'type': 'files',     'header': ['   MRU']            },
-        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
         \ { 'type': 'sessions',  'header': ['   Sessions']       },
+        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+        \ { 'type': 'files',     'header': ['   MRU']            },
         \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
         \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
         \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
         \ { 'type': 'commands',  'header': ['   Commands']       },
         \ ]
 call plug#end()
+
+colorscheme onehalfdark

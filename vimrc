@@ -145,10 +145,57 @@ set diffopt+=vertical                  " make diff windows vertical
 colo desert
 set background=dark
 set t_Co=256                           " 指定配色方案是256色
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
 
 " status line
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%Y/%m/%d\ -\ %H:%M\")}
 set laststatus=2                       "  Always show the status line - use 2 lines for the status bar
+let s:disable_statusline =
+    \ ['defx', 'denite', 'vista', 'tagbar', 'undotree', 'diff', 'peekaboo', 'sidemenu', 'qf', 'coc-explorer', 'startify', 'vim-plug']
+
+let s:stl = ""
+let s:stl .= "%#Substitute# %F%h%w%r "
+
+let s:stl .= "%="
+let s:stl .= "%<"
+
+let s:stl .= "%#Substitute#  %p%% ☰ %l:%v "
+let s:stl .= "%#StatusLine# %{&fileencoding?&fileencoding:&encoding}[%{&fileformat}] "
+let s:stl .= "%#ToolbarButton# %{&filetype}"
+
+let s:stl_nc = ""
+let s:stl_nc .= "%#PmenuThumb# %n %f%h%w%r"
+
+function s:active() abort
+    if index(s:disable_statusline, &ft) > 0
+        return
+    endif
+
+    let &l:statusline = s:stl
+endfunction
+
+function s:inactive() abort
+    let &l:statusline = s:stl_nc
+endfunction
+
+augroup vime_theme_statusline_group
+    autocmd!
+
+    autocmd VimEnter,ColorScheme,FileType,WinEnter,BufWinEnter * call s:active()
+    autocmd WinLeave * call s:inactive()
+
+    autocmd FileChangedShellPost,BufFilePost,BufNewFile,BufWritePost * redrawstatus
+augroup END
 
 " set mark column color
 hi! link SignColumn   LineNr
