@@ -7,11 +7,31 @@ let maplocalleader = ' '
 let g:mapleader = ' '
 
 " netrw
+" https://vonheikemen.github.io/devlog/tools/using-netrw-vim-builtin-file-explorer/
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
-let g:netrw_altv = 1
+"let g:netrw_altv = 1
 let g:netrw_winsize = 25
+let g:netrw_keepdir = 0                " Keep the current directory and the browsing directory synced
+let g:netrw_localcopydircmd = 'cp -r'  " enable recursive copy of directories
+
+function! NetrwMapping()
+  nmap <buffer> H u
+  nmap <buffer> h -^
+  nmap <buffer> l <CR>
+
+  nmap <buffer> . gh
+  nmap <buffer> P <C-w>z
+
+  nmap <buffer> L <CR>:Lexplore<CR>
+  nmap <buffer> <Leader>dd :Lexplore<CR>
+endfunction
+
+augroup netrw_mapping
+  autocmd!
+  autocmd filetype netrw call NetrwMapping()
+augroup END
 
 " syntax
 syntax on
@@ -63,9 +83,8 @@ set t_vb=
 set tm=500
 "set t_ti= t_te=                " 退出vim时显示当前屏幕内容在终端
 
-set cursorcolumn
-
 set cursorline
+set colorcolumn=80
 
 " movement
 set scrolloff=7                 " keep 7 lines when scrolling
@@ -206,8 +225,7 @@ hi! link ShowMarksHLu DiffChange
 
 " ================================= autocmd ===================================
 augroup vimrc
-  au BufWritePost vimrc,.vimrc nested if expand('%') !~ 'fugitive' | source % | endif
-
+  autocmd!
    "File types
   au BufNewFile,BufRead *.icc                           set filetype=cpp
   au BufNewFile,BufRead *.pde                           set filetype=java
@@ -315,7 +333,7 @@ inoremap <M-o> <esc>o
 inoremap <M-O> <esc>O
 
 " netrw
-map <leader>e :Vexploer<CR>
+map <leader>ee :Lexplore<CR>
 " cd pwd to current dir
 nnoremap <silent> <leader>cd :cd %:p:h<CR>
 
@@ -325,8 +343,8 @@ noremap <silent> <leader><tab> <C-^>
 map <Leader>sa ggVG"
 
 " open a terminal window
-map <Leader>t :below :term<CR>
-map <Leader>vt :belowright :vert :term<CR>
+map <Leader>tt :below :term<CR>
+map <Leader>tv :belowright :vert :term<CR>
 tnoremap <C-W><Esc> <C-W>N
 
 " switch to last command
@@ -361,10 +379,10 @@ vnoremap <silent> q <esc>:close<cr>
 nmap Q <nop>
 " use Q to record macro instead of q
 noremap Q q
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+noremap <C-j> <C-W>j
+noremap <C-k> <C-W>k
+noremap <C-h> <C-W>h
+noremap <C-l> <C-W>l
 
 " switch setting
 nnoremap <F2> :set nu! nu?<CR>

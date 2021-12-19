@@ -5,6 +5,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 nnoremap <silent> <leader><leader>i :PlugInstall <CR>
+set updatetime=100
 "Run PlugInstall if there are missing plugins
 "autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   "\| PlugInstall --sync | source $MYVIMRC
@@ -36,8 +37,6 @@ nmap f <Plug>(easymotion-overwin-f)
 " `s{char}{label}`
 map s <Plug>(easymotion-bd-f2)
 nmap s <Plug>(easymotion-overwin-f2)
-" 无需输入字符，即可全屏搜索单词
-"let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwx-^&*()+123456ABCDEF/;\=[]GHIJKLMNOPQRST7890UVWXYZyz'
 " move to word
 map  F <Plug>(easymotion-bd-w)
 nmap F <Plug>(easymotion-overwin-w)
@@ -51,19 +50,28 @@ Plug 'preservim/nerdcommenter'
 
 Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
 nnoremap <silent> <leader>m :TagbarToggle<CR>
-silent! unmap <cr>
-"Plug 'liuchengxu/vista.vim', {'on': ['Vista!!', 'Vista']}
-"let g:vista#renderer#enable_icon = 1
-"let g:vista#renderer#icons = {
-    "\   "function": "\uf794",
-    "\   "variable": "\uf71b",
-    "\  }
-"let g:vista_default_executive = 'coc'
-"let g:vista_sidebar_width = 50
-"nnoremap <leader>3 Vista!!<CR>
 
 " fuzzy finder 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+let $FZF_DEFAULT_OPTS="--reverse --preview-window 'down:50%'
+  \ --bind ctrl-u:half-page-up,ctrl-d:half-page-down,
+  \ctrl-b:page-up,ctrl-f:page-down,
+  \alt-u:preview-half-page-up,alt-d:preview-half-page-down,
+  \alt-b:preview-page-up,alt-f:preview-page-down
+  \"
+
+" jump to existed window if possible
+let g:fzf_buffers_jump = 1
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+if exists('$TMUX')
+  let g:fzf_layout = { 'tmux': '-p90%,60%' }
+else
+  "disable popup in favor of location window
+  let g:fzf_layout = { 'down': '60%' }
+
+  "let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'relative': v:true, } }
+endif
+
 Plug 'junegunn/fzf.vim'
 command! -bang -nargs=* Tags call fzf#vim#tags(<q-args>, fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0], "placeholder": "--tag {2}:{-1}:{3..}" }), <bang>0)
 augroup update_bat_theme
@@ -78,29 +86,12 @@ function ToggleBatEnvVar()
     endif
 endfunction
 
-" jump to existed window if possible
-let g:fzf_buffers_jump = 1
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-if exists('$TMUX')
-  let g:fzf_layout = { 'tmux': '-p90%,60%' }
-else
-  "disable popup in favor of location window
-  let g:fzf_layout = { 'down': '60%' }
-
-  "let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'relative': v:true, } }
-endif
-
-let $FZF_DEFAULT_OPTS="--reverse --preview-window 'down:75%'
-  \ --bind ctrl-u:half-page-up,ctrl-d:half-page-down,
-  \ctrl-b:page-up,ctrl-f:page-down,
-  \alt-u:preview-half-page-up,alt-d:preview-half-page-down,
-  \alt-b:preview-page-up,alt-f:preview-page-down
-  \"
-
 "search current dir
 nnoremap <silent> <leader>sd :Files<Cr>
 "search current files
 nnoremap <silent> <Leader>sf :BLines<CR>
+nnoremap <silent> <expr> <leader>swf ':BLines '.expand('<cword>').'<CR>'
+vnoremap <silent> <leader>swf y:BLines <c-r>"<cr>
 "search history
 nnoremap <silent> <leader>sh :History<CR>
 
@@ -108,34 +99,63 @@ nnoremap <silent> <leader>sh :History<CR>
 if executable('rg')
   let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!{.git}/*" 2>/dev/null'
 
-  " search in current project or work dir
-  function! YARG(query, fullscreen)
-    let current_repo = trim(system('git rev-parse --show-toplevel 2>/dev/null || pwd'))
-    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-    
-    let initial_command = printf(command_fmt, shellescape(a:query))
-    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0], 'options': '--delimiter : --nth 4..'}), a:fullscreen)
+  function! s:git_repo()
+    return trim(system('git rev-parse --show-toplevel 2>/dev/null'))
   endfunction
 
-  command! -nargs=* -bang YARG call YARG(<q-args>, <bang>0)
-  " search current project or current dir
-  nnoremap <silent> <leader>sp :YARG<Cr>
+  function! s:git_branch_name()
+    return trim(system('git rev-parse --abbrev-ref HEAD'))
+  endfunction
 
-  nnoremap <silent> <expr> <leader>sw ':YARG '.expand('<cword>').'<CR>'
+  let s:rg_command_fmt = 'rg --column --line-number --no-heading --smart-case %s || true'
+
+  function! GitGrep(query, fullscreen, nth = 1)
+    let rg_command = printf(s:rg_command_fmt, '--color=always '.shellescape(a:query))
+    "let repo_name = split(s:git_repo(), '/')[-1]
+    call fzf#vim#grep(rg_command, 1, fzf#vim#with_preview({'dir': s:git_repo(), 'options': ['--prompt', s:git_branch_name().'> ','--delimiter', ':', '--nth', a:nth.'..']}), a:fullscreen)
+  endfunction
+
+  command! -nargs=* -bang GitGrep call GitGrep(<q-args>, <bang>0, 1)
+  command! -nargs=* -bang GGrep call GitGrep(<q-args>, <bang>0, 1)
+
+  function! RG(query, fullscreen)
+    let rg_command = printf(s:rg_command_fmt, '--color=always '.shellescape(a:query))
+    let grep_opts = fzf#vim#with_preview({'options': ['--prompt', getcwd().'> ', '--delimiter', ':', '--nth', 4.'..']})
+    if !empty(s:git_repo())
+      "search file name together in git repo
+      try
+        call GitGrep(a:query, a:fullscreen, 1)
+      catch
+        call fzf#vim#grep(rg_command, 1, grep_opts, a:fullscreen)
+      endtry
+    else
+      "only search file content in cwd
+      call fzf#vim#grep(rg_command, 1, grep_opts, a:fullscreen)
+    endif
+  endfunction
+
+  command! -nargs=* -bang RG call RG(<q-args>, <bang>0)
+  " search current project or current dir
+  nnoremap <silent> <leader>sp :RG<Cr>
+
+  nnoremap <silent> <expr> <leader>swp ':RG '.expand('<cword>').'<CR>'
   " search selected word
-  vnoremap <silent> <leader>sw y:YARG <c-r>"<cr>
+  vnoremap <silent> <leader>swp y:RG <c-r>"<cr>
+
+  function! s:gem_content_search(gem, query, fullscreen)
+    let gemdir = substitute(system("bundle show " . a:gem), '\n\+$', '', '')
+    let rg_command = printf(s:rg_command_fmt, shellescape(a:query))
+    "call fzf#run(fzf#wrap(fzf#vim#with_preview({'source': rg_command, 'dir': gemdir, 'options': ['--prompt', a:gem.'> ']}), a:fullscreen))
+    call fzf#vim#grep(rg_command, 1, fzf#vim#with_preview({'dir': gemdir, 'options': ['--prompt', a:gem.'> ']}), a:fullscreen)
+  endfunction
 
   " Gem search
-  function! GemSearch()
-    call fzf#run(fzf#wrap({'source': "bundle list | sed '1d;$d' | cut -d ' ' -f 4", 'sink': {gem -> GemFileSearch(gem)}}))
+  function! GemSearch(query, fullscreen)
+    call fzf#vim#grep("bundle list | sed '1d;$d' | cut -d ' ' -f 4", 0, {'sink': {gem -> s:gem_content_search(gem, a:query, a:fullscreen)}}, a:fullscreen)
   endfunction
 
-  function! GemFileSearch(gem)
-    let gemdir = substitute(system("bundle show " . a:gem), '\n\+$', '', '')
-    call fzf#run(fzf#wrap({'source': 'rg --files ' . gemdir . ' --color never | sed -e "s#^' . gemdir . '/##"', 'dir': gemdir}), fzf#vim#with_preview())
-  endfunction
-
-  nnoremap <leader>sg :call GemSearch()<cr>
+  command! -nargs=* -bang Gems call GemSearch(<q-args>, <bang>0)
+  nnoremap <leader>sg :Gems<CR>
 endif
 " markdown preview
 " npm -g install instant-markdown-d
@@ -156,123 +176,88 @@ nnoremap <leader>gl <esc>:Git log<cr>
 nnoremap <leader>gg <esc>:Git<cr>
 Plug 'tpope/vim-endwise'
 
-" https://github.com/neoclide/coc.nvim
-" brew install node
-if executable('npm')
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'preservim/nerdtree' |
+      \ Plug 'Xuyuanp/nerdtree-git-plugin'
 
-  if has("nvim-0.5.0") || has("patch-8.1.1564")
-    " Recently vim can merge signcolumn and number column into one
-    set signcolumn=number
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+  \ "Modified"  : "✹",
+  \ "Staged"    : "✚",
+  \ "Untracked" : "✭",
+  \ "Renamed"   : "➜",
+  \ "Unmerged"  : "═",
+  \ "Deleted"   : "✖",
+  \ "Dirty"     : "✗",
+  \ "Clean"     : "✔︎",
+  \ 'Ignored'   : '☒',
+  \ "Unknown"   : "?"
+  \ }
+
+nnoremap <expr> <leader>ee g:NERDTree.IsOpen() ? ":NERDTreeClose\<CR>" : ":NERDTreeMirror\<CR>:NERDTreeFind\<CR>"
+nnoremap <leader>ep :NERDTreeMirror<CR>:NERDTreeToggleVCS<CR>
+
+let NERDTreeMinimalUI = 1 " 最小化显示，不显示问号
+let NERDTreeDirArrows = 1
+let NERDChristmasTree = 1
+" 如果使用vim-plug的话，加上这一句可以避免光标在nerdtree
+" 中的时候进行插件升级而导致nerdtree崩溃
+let NERDTreeAutoDeleteBuffer = 1
+" 进入目录自动将workspace更改为此目录
+let g:NERDTreeChDirMode = 2
+
+"remove e mapping
+let g:NERDTreeMapOpenExpl  = ''
+let g:NERDTreeMapOpenSplit = "w"
+let g:NERDTreeMapOpenVSplit = "W"
+let g:NERDTreeMapActivateNode = 'l'
+let g:NERDTreeMapPreview= 'gp'
+let g:NERDTreeMapOpenRecursively = 'L'
+let g:NERDTreeMapCloseDir = 'h'
+let gLNERDTreeMapCloseChildren = 'H'
+" 回到上一级目录
+let g:NERDTreeMapUpdirKeepOpen = '<backspace>'
+
+function! s:NERDTreeCustomCROpen(node) abort
+  let l:newRoot = a:node.GetSelected()
+
+  if l:newRoot.path.isDirectory
+    call b:NERDTree.changeRoot(l:newRoot)
   else
-    set signcolumn=yes
+    call l:newRoot.activate({'reuse': 'all', 'where': 'p'})
   endif
+endfunction
 
-  inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ coc#refresh()
-  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
+augroup nerdtree_group
+  " Exit Vim if NERDTree is the only window remaining in the only tab.
+  autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
-  " Use <c-space> to trigger completion.
-  if has('nvim')
-    inoremap <silent><expr> <c-space> coc#refresh()
-  else
-    inoremap <silent><expr> <c-@> coc#refresh()
-  endif
+  autocmd FileType nerdtree nmap <buffer> <CR> bb
+  autocmd VimEnter * call NERDTreeAddKeyMap({
+      \ 'key': 'bb',
+      \ 'callback': function('<SID>NERDTreeCustomCROpen'),
+      \ 'quickhelpText': 'go to dir and change cwd to it or open a file',
+      \ 'scope': 'Node',
+      \ 'override': 1,
+      \ })
+augroup END
 
-  " Make <CR> auto-sele"ct the first completion item and notify coc.nvim to
-  "" format on enter, <cr> could be remapped by other vim plugin
-  "inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gy <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
-
-  " Use K to show documentation in preview window.
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-  function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
-    elseif (coc#rpc#ready())
-      call CocActionAsync('doHover')
-    else
-      execute '!' . &keywordprg . " " . expand('<cword>')
-    endif
-  endfunction
-
-  let g:coc_global_extensions = ['coc-explorer']
-  nnoremap <leader>e <Cmd>CocCommand explorer<CR>
-  " CoC Explorer Settings
-  augroup coc_explorer_group
-    autocmd!
-    autocmd VimEnter * sil! au! F
-    " set window status line
-    autocmd FileType coc-explorer setl statusline=File-Explorer
-    " quit explorer whein it's the last
-    autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
-    " Make sure nothing opened in coc-explorer buffer
-    autocmd BufEnter * if bufname('#') =~# "\[coc-explorer\]-." && winnr('$') > 1 | b# | endif
-   " cd after open
-    autocmd User CocExplorerOpenPost let dir = getcwd() | call CocActionAsync("runCommand", "explorer.doAction", "closest", {"name": "cd", "args": [dir]})
-  augroup END
-  let g:coc_user_config = {                      
-          \'explorer.keyMappings.global': {
-            \ 'H': ["wait", 'collapse:recursive'],
-            \ 'L': ["wait", 'expand:recursive'],
-            \ 'gl': v:false,
-            \}
-          \}
-          "\'explorer.icon.enableNerdfont': v:true,
-          "\'explorer.file.column.icon.modified': '•',
-          "\"explorer.file.column.icon.deleted": "✗",
-          "\"explorer.file.column.icon.untracked": "★",
-          "\"explorer.file.column.icon.renamed": "➜",
-          "\"explorer.file.column.icon.unmerged": "",
-          "\"explorer.file.column.icon.ignored": "ⁱ"
-
-else
-  Plug 'preservim/nerdtree'
-  let NERDTreeMinimalUI = 1 " 最小化显示，不显示问号
-  let NERDTreeDirArrows = 1
-  let NERDChristmasTree = 1
-  " 如果使用vim-plug的话，加上这一句可以避免光标在nerdtree
-  " 中的时候进行插件升级而导致nerdtree崩溃
-  let NERDTreeAutoDeleteBuffer = 1
-  " 进入目录自动将workspace更改为此目录
-  let g:NERDTreeChDirMode = 2
-
-  nnoremap <leader>e :NERDTreeMirror<CR>:NERDTreeToggle<CR>
-  nnoremap <C-f> :NERDTreeFind<CR>
-  let g:NERDTreeMapOpenSplit = "s"
-  let g:NERDTreeMapOpenVSplit = "E"
-  " 展开与关闭节点或者打开文件
-  let g:NERDTreeMapActivateNode = 'l'
-  let g:NERDTreeMapOpenRecursively = 'L'
-  let g:NERDTreeMapCloseDir = 'h'
-  " 回到上一级目录
-  let g:NERDTreeMapUpdirKeepOpen = '<backspace>'
-
-  augroup nerdtree_group
-    " Exit Vim if NERDTree is the only window remaining in the only tab.
-    autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-    " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-    autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-        \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-  augroup END
+if has('nvim')
+  Plug 'neovim/nvim-lspconfig'
+  "autocomplte
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/nvim-cmp'
+  "fzf integration
+  "https://github.com/ojroques/nvim-lspfuzzy
+  Plug 'ojroques/nvim-lspfuzzy'
 endif
+"endif
 
 "========================================= ruby develop environment =========================================
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby'] }
 Plug 'tpope/vim-bundler'
-Plug 'tpope/vim-rails', { 'for': ['ruby'] }
+Plug 'tpope/vim-rails'
 
 "======================================== scheme develop environment ========================================
 " lisp IDE
@@ -310,3 +295,153 @@ let g:startify_lists = [
 call plug#end()
 
 colorscheme onehalfdark
+
+
+if has('nvim')
+
+set completeopt=menu,menuone,noselect
+lua << EOF
+  local cmp = require'cmp'
+
+  -- default config
+  -- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/default.lua
+  cmp.setup({
+    mapping = {
+      ['<C-k>'] = cmp.mapping.select_prev_item(),
+      ['<C-j>'] = cmp.mapping.select_next_item(),
+      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+      ['<C-e>'] = cmp.config.disable,
+      ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ["<Tab>"] = cmp.mapping(
+        function(fallback)
+          local cmp = require('cmp')
+          if #cmp.core:get_sources() > 0 and not cmp.get_config().experimental.native_menu then
+            if cmp.visible() then
+              cmp.select_next_item()
+            else
+              cmp.complete()
+            end
+          else
+            fallback()
+          end
+        end,
+        {"i","s","c"}
+      ),
+      ['<S-Tab>'] = cmp.mapping({
+        c = function(fallback)
+          local cmp = require('cmp')
+          if #cmp.core:get_sources() > 0 and not cmp.get_config().experimental.native_menu then
+            if cmp.visible() then
+              cmp.select_prev_item()
+            else
+              cmp.complete()
+            end
+          else
+            fallback()
+          end
+        end,
+      }),
+      ['<CR>'] = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = true,
+      })
+    },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      -- { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+      },
+      {
+        { name = 'buffer' },
+      })
+  })
+
+  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline('/', {
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
+
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+  -- Use an on_attach function to only map the following keys
+  -- after the language server attaches to the current buffer
+  local on_attach = function(client, bufnr)
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+    -- Enable completion triggered by <c-x><c-o>
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+    -- Mappings.
+    local opts = { noremap=true,}
+    -- local opts = { noremap=true, silent=true }
+
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+    buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+    buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+    buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+    buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+  end
+
+  -- Use a loop to conveniently call 'setup' on multiple servers and
+  -- map buffer local keybindings when the language server attaches
+  
+  local lsp_config = require('lspconfig')
+  local servers = { 'solargraph', 'gopls', 'tsserver' }
+  for _, lsp in ipairs(servers) do
+    lsp_config[lsp].setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      flags = {
+        debounce_text_changes = 150,
+      }
+    }
+  end
+
+  require('lspfuzzy').setup {
+    methods = 'all',         -- either 'all' or a list of LSP methods (see below)
+    jump_one = true,         -- jump immediately if there is only one location
+    callback = nil,          -- callback called after jumping to a location
+    save_last = false,       -- save last location results for the :LspFuzzyLast command
+    fzf_preview = {          -- arguments to the FZF '--preview-window' option
+      'down:+{2}-/2'          -- preview on the right and centered on entry
+    },
+    fzf_action = {               -- FZF actions
+      ['ctrl-t'] = 'tab split',  -- go to location in a new tab
+      ['ctrl-v'] = 'vsplit',     -- go to location in a vertical split
+      ['ctrl-x'] = 'split',      -- go to location in a horzontal split
+    },
+    fzf_modifier = ':~:.',   -- format FZF entries, see |filename-modifiers|
+    fzf_trim = true,         -- trim FZF entries
+  }
+EOF
+end
+

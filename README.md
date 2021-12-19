@@ -45,7 +45,7 @@ shortcut|mode|description
 `[e` / `]e`|n|move current line upward/downward
 `<space>cd>`|n|switch work directory to directory of current file
 `<space><tab>`|n|alternates between two most recent buffers 
-`<space>t` / `<space>vt`|n|open terminal in a split/vertical window
+`<space>tt` / `<space>tv`|n|open terminal in a split/vertical window
 `<C-W><Esc>`|t|quit to normal mode
 
 ### IDE-Edition
@@ -89,11 +89,14 @@ use `nerdtree` if `coc.nvim` is not installed, otherwise use `coc-explorer`
 
 shortcut|mode|description
 ---|---|---
-`<space>e`|n|open explorer
+`<space>ee`|n|open explorer
+`<space>ep`|n|open explorer in the root directory of current project
 `j`/`k`|n|next/prev
 `h`|n|collapse
 `l`|n|expand dir or open file
 `H`/`L`|n|collapse/expand dir recursively
+`<backspace>`|up to parent dir
+`<enter>`|enter dir or open file
 
 ## Inspire
 
