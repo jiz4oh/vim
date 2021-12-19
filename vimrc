@@ -436,3 +436,12 @@ nnoremap >> >>_
 " y$ -> Y Make Y behave like other capitals
 map Y y$
 
+let configs = ['/.vim/vimrc.bundles', '/.vim/vimrc.local']
+
+for config in configs
+  let path = $HOME.config
+  if filereadable(path)
+    exec "source " . path
+  endif
+endfor
+

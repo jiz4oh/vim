@@ -70,13 +70,27 @@ pm_install() {
 
 install(){
   pm_install git
-  mkdir -p ~/.config/vim
-  curl -fsSL https://raw.githubusercontent.com/jiz4oh/vim/master/vimrc > ~/.config/vim/vimrc
-  curl -fsSL https://raw.githubusercontent.com/jiz4oh/vim/master/vimrc.bundles > ~/.config/vim/vimrc.bundles
+  mkdir -p ~/.vim
+
   if [ -e ~/.vimrc ];then
     cp ~/.vimrc ~/.vimrc.bak
+    info "found ~/.vimrc, move to ~/.vimrc.bak"
   fi
-  curl -fsSL https://raw.githubusercontent.com/jiz4oh/vim/master/vimrc.entire > ~/.vimrc
+  curl -fsSL https://raw.githubusercontent.com/jiz4oh/vim/master/vimrc > ~/.vimrc
+
+  if [ -e ~/.vim/vimrc.bundles ];then
+    cp ~/.vim/vimrc.bundles ~/.vim/vimrc.bundles.bak
+    info "found ~/.vim/vimrc.bundles, move to ~/.vim/vimrc.bundles.bak"
+  fi
+  curl -fsSL https://raw.githubusercontent.com/jiz4oh/vim/master/vimrc.bundles > ~/.vim/vimrc.bundles
+
+  #neovim
+  mkdir -p ~/.config/nvim
+  if [ -e ~/.config/nvim/init.vim ];then
+    cp ~/.config/nvim/init.vim ~/.config/nvim/init.vim.bak
+    info "found ~/.config/nvim/init.vim, move to ~/.config/nvim/init.vim.bak"
+  fi
+  curl -fsSL https://raw.githubusercontent.com/jiz4oh/vim/master/init.vim > ~/.config/nvim/init.vim
 }
 
 check_sys
