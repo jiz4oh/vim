@@ -184,15 +184,42 @@ set laststatus=2                       "  Always show the status line - use 2 li
 let s:disable_statusline =
     \ ['defx', 'denite', 'vista', 'tagbar', 'undotree', 'diff', 'peekaboo', 'sidemenu', 'qf', 'coc-explorer', 'startify', 'vim-plug']
 
-let s:stl = ""
-let s:stl .= "%#Substitute# %F%h%w%r "
+function! GitRepo()
+  if !has_key(b:, 'git_repo')
+    let b:git_repo = trim(system('git rev-parse --show-toplevel 2>/dev/null'))
+  endif
+  return b:git_repo
+endfunction
+
+function! GitRepoName()
+  let l:repo = GitRepo()
+  if empty(l:repo)
+    return l:repo
+  endif
+  return split(l:repo, '/')[-1]
+endfunction
+
+function! GitBranchName()
+  if !has_key(b:, 'git_branch_name')
+    let b:git_branch_name = trim(system('git rev-parse --abbrev-ref HEAD 2>/dev/null')) 
+  endif
+  return b:git_branch_name
+endfunction
+
+let s:stl = ''
+" repo name
+let s:stl .= "%#Directory#%{empty(GitRepoName()) ? '' : GitRepoName().'  '}"
+" brance name
+let s:stl .= "%#ModeMsg#%{empty(GitBranchName()) ? '' : '  '.GitBranchName().' '}"
+" file name
+let s:stl .= "%#Title#%{% empty(GitRepoName()) ? '%F' : '%f' %}%h%w%r "
 
 let s:stl .= "%="
 let s:stl .= "%<"
 
-let s:stl .= "%#Substitute#  %p%% ☰ %l:%v "
-let s:stl .= "%#StatusLine# %{&fileencoding?&fileencoding:&encoding}[%{&fileformat}] "
-let s:stl .= "%#ToolbarButton# %{&filetype}"
+let s:stl .= "%#StatusLineNC#  %p%% ☰ %l:%v "
+let s:stl .= "%#StatusLineNC# %{&fileencoding?&fileencoding:&encoding}[%{&fileformat}] "
+let s:stl .= "%#StatusLine# %{&filetype}"
 
 let s:stl_nc = ""
 let s:stl_nc .= "%#PmenuThumb# %n %f%h%w%r"
@@ -284,50 +311,50 @@ augroup END
 " ============================ key map ============================
 "make vim respond to alt key
 "https://github.com/fgheng/vime/blob/master/plugin/alt.vim
-"if !has('nvim')
-  "function! Terminal_MetaMode(mode)
-    "set ttimeout
-    "if $TMUX != ''
-        "set ttimeoutlen=30
-    "elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
-        "set ttimeoutlen=80
-    "endif
-    "if has('nvim') || has('gui_running')
-        "return
-    "endif
-    "function! s:metacode(mode, key)
-        "if a:mode == 0
-            "exec "set <M-".a:key.">=\e".a:key
-        "else
-            "exec "set <M-".a:key.">=\e]{0}".a:key."~"
-        "endif
-    "endfunc
-    "for i in range(10)
-        "call s:metacode(a:mode, nr2char(char2nr('0') + i))
-    "endfor
-    "for i in range(26)
-        "call s:metacode(a:mode, nr2char(char2nr('a') + i))
-        "call s:metacode(a:mode, nr2char(char2nr('A') + i))
-    "endfor
-    "if a:mode != 0
-        "for c in [',', '.', '/', ';', '[', ']', '{', '}']
-            "call s:metacode(a:mode, c)
-        "endfor
-        "for c in ['?', ':', '-', '_']
-            "call s:metacode(a:mode, c)
-        "endfor
-    "else
-        "for c in [',', '.', '/', ';', '{', '}']
-            "call s:metacode(a:mode, c)
-        "endfor
-        "for c in ['?', ':', '-', '_']
-            "call s:metacode(a:mode, c)
-        "endfor
-    "endif
-  "endfunc
+if !has('nvim')
+  function! Terminal_MetaMode(mode)
+    set ttimeout
+    if $TMUX != ''
+        set ttimeoutlen=30
+    elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
+        set ttimeoutlen=80
+    endif
+    if has('nvim') || has('gui_running')
+        return
+    endif
+    function! s:metacode(mode, key)
+        if a:mode == 0
+            exec "set <M-".a:key.">=\e".a:key
+        else
+            exec "set <M-".a:key.">=\e]{0}".a:key."~"
+        endif
+    endfunc
+    for i in range(10)
+        call s:metacode(a:mode, nr2char(char2nr('0') + i))
+    endfor
+    for i in range(26)
+        call s:metacode(a:mode, nr2char(char2nr('a') + i))
+        call s:metacode(a:mode, nr2char(char2nr('A') + i))
+    endfor
+    if a:mode != 0
+        for c in [',', '.', '/', ';', '[', ']', '{', '}']
+            call s:metacode(a:mode, c)
+        endfor
+        for c in ['?', ':', '-', '_']
+            call s:metacode(a:mode, c)
+        endfor
+    else
+        for c in [',', '.', '/', ';', '{', '}']
+            call s:metacode(a:mode, c)
+        endfor
+        for c in ['?', ':', '-', '_']
+            call s:metacode(a:mode, c)
+        endfor
+    endif
+  endfunc
 
-  "call Terminal_MetaMode(0)
-"endif
+  call Terminal_MetaMode(0)
+endif
 
 inoremap <M-o> <esc>o
 inoremap <M-O> <esc>O
@@ -343,17 +370,42 @@ noremap <silent> <leader><tab> <C-^>
 map <Leader>sa ggVG"
 
 " open a terminal window
-map <Leader>tt :below :term<CR>
-map <Leader>tv :belowright :vert :term<CR>
-tnoremap <C-W><Esc> <C-W>N
+if has('nvim')
+  map <Leader>tt <C-W>s :term<CR>
+  map <Leader>tv <C-W>v :term<CR>
+  tnoremap <C-W><Esc> <C-\><C-N>
+else
+  map <Leader>tt :below :term<CR>
+  map <Leader>tv :belowright :vert :term<CR>
+  tnoremap <C-W><Esc> <C-W>N
+endif
 
 " switch to last command
 cnoremap <C-u> <down>
 cnoremap <C-d> <up>
 
-" move up/down current line
-nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
-nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+" move line upforward/downward
+nnoremap [e :<c-u>move .-2<CR>==
+nnoremap ]e :<c-u>move .+1<CR>==
+vnoremap [e :move '<-2<CR>gv=gv
+vnoremap ]e :move '>+1<CR>gv=gv
+nnoremap <M-k> :<c-u>move .-2<CR>==
+nnoremap <M-j> :<c-u>move .+1<CR>==
+inoremap <M-k> <Esc>:move .-2<CR>==gi
+inoremap <M-j> <Esc>:move .+1<CR>==gi
+vnoremap <M-k> :move '<-2<CR>gv=gv
+vnoremap <M-j> :move '>+1<CR>gv=gv
+" move line leftward/rightward
+vnoremap < <gv
+vnoremap > >gv
+nnoremap << <<_
+nnoremap >> >>_
+vnoremap <M-h> <gv
+vnoremap <M-l> >gv
+inoremap <M-h> <Esc><<_i
+inoremap <M-l> <Esc>>>_i
+nnoremap <M-h> <<_
+nnoremap <M-l> >>_
 
 " move
 map <C-a> <Home>
@@ -385,6 +437,7 @@ noremap <C-h> <C-W>h
 noremap <C-l> <C-W>l
 
 " switch setting
+map <F1> <nop>
 nnoremap <F2> :set nu! nu?<CR>
 nnoremap <F3> :set list! list?<CR>
 nnoremap <F4> :set wrap! wrap?<CR>
@@ -423,15 +476,6 @@ nnoremap L <End>
 
 " in case you forgot to sudo
 cnoremap w!! %!sudo tee > /dev/null %
-
-" show location
-
-"Reselect visual block after indent/outdent
-vnoremap < <gv
-vnoremap > >gv
-
-nnoremap << <<_
-nnoremap >> >>_
 
 " y$ -> Y Make Y behave like other capitals
 map Y y$
