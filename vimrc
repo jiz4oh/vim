@@ -367,7 +367,7 @@ nnoremap <silent> <leader>cd :cd %:p:h<CR>
 noremap <silent> <leader><tab> <C-^>
 
 " select all
-map <Leader>sa ggVG"
+map <Leader>sa ggVG
 
 " open a terminal window
 if has('nvim')
