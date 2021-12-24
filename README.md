@@ -47,6 +47,7 @@ YouCompleteMe 这种非常难以安装的插件。
 - utf-8 优先
 - 状态栏左侧显示当前文件，右侧显示当前行/列数
 - 给插入模式添加常用的 emacs 快捷键
+- 增加新的 text obj, `ie`/`iv`
 
 快捷键|应用模式|描述
 ---|---|---
@@ -58,7 +59,6 @@ q|n|退出当前窗口，在最后一个窗口时不生效
 `<space>/`|n|移除搜索高亮
 `U`|n|重做     
 `Y`|n|从光标处复制到行尾
-`<space>sa`|n|全选整个文件
 `ctrl-h/j/k/l`|n|移动光标到当前窗口的左/下/上/右侧窗口
 `ctrl-a/e`|n/v/i/c|移动光标到当前行首/尾
 `ctrl-f/b`|i|光标向右/左移一位
@@ -73,6 +73,8 @@ q|n|退出当前窗口，在最后一个窗口时不生效
 `<space>tt` / `<space>tv`|n|在下/右方打开终端
 `<C-W><Esc>`|t|在终端中进入 normal 模式
 `<leader>ee`|n|打开文件管理器 netrw
+`<operate>ie`|n|<操作>当前 buffer
+`<operate>iv`|n|<操作>当前 buffer 可视范围
 
 ### IDE 版
 

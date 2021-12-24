@@ -370,8 +370,10 @@ nnoremap <silent> <leader>cd :cd %:p:h<CR>
 
 noremap <silent> <leader><tab> <C-^>
 
-" select all
-map <Leader>sa ggVG
+" ie = inner entire buffer
+onoremap ie :exec "normal! ggVG"<cr>
+" iv = current viewable text in the buffer
+onoremap iv :exec "normal! HVL"<cr>
 
 " open a terminal window
 if has('nvim')
