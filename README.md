@@ -198,14 +198,15 @@ Gems||跳转到指定 gem 中搜索文件内容(需要 bundle)
 
 插件：
 
-- https://github.com/preservim/nerdcommenter
 - https://github.com/preservim/tagbar
 - https://github.com/tpope/vim-endwise
+- https://github.com/tpope/vim-commentary
 - https://github.com/instant-markdown/vim-instant-markdown
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
-`<space>cc` / `<space>cu`|comment/uncomment|n|注释/取消注释
+`gcc`|comment/uncomment|n|注释/取消注释
+`gc`|comment|v|注释/取消注释
 `<space>m`||n|打开当前文件结构
 `<space><space>i`|install|n|安装插件
 
