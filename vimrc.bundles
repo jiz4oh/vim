@@ -12,7 +12,7 @@ set updatetime=100
 "\| endif
 
 " keep old clipboard
-function! s:visual_selection()
+function! VisualSelection()
   let old_reg = getreg('"')
   let old_regtype = getregtype('"')
   let old_clipboard = &clipboard
@@ -23,7 +23,6 @@ function! s:visual_selection()
   let &clipboard = old_clipboard
   return selection
 endfunction
-
 call plug#begin('~/.vim/bundle')
 "==================== https://github.com/jiz4oh/vim#跳转 ====================
 " https://github.com/easymotion/vim-easymotion
@@ -107,18 +106,14 @@ else
   endfunction
 endif
 
-function s:search_with_word(cmd)
-  let l:word = s:visual_selection()
-  execute ':'.a:cmd . ' ' . l:word
-endfunction
-
 function! s:fzf_content_shortcut(key, cmd)
-  "nnoremap <silent> <leader>sp :RG<Cr>
+  "nnoremap <silent> <leader>sp :Pg<Cr>
   execute 'nnoremap <leader>s' . a:key.' :' . a:cmd . '<CR>'
-  "nnoremap <silent> <expr> <leader>swp ':RG '.expand('<cword>').'<CR>'
+  "nnoremap <silent> <expr> <leader>swp ':Pg '.expand('<cword>').'<CR>'
   execute "nnoremap <silent> <expr> <leader>sw" . a:key . " ':" . a:cmd . " '.expand('<cword>').'<CR>'"
 
-  execute "vnoremap <silent> <leader>sw" . a:key . " :<C-u>call <SID>search_with_word('".a:cmd."')<CR>"
+  "vnoremap <silent> <leader>swp :<C-u>execute ':Pg '.VisualSelection()<CR>
+  execute "vnoremap <silent> <leader>sw" . a:key . " :<C-u>execute ':" . a:cmd . " '.VisualSelection()<CR>"
 endfunction
 
 function! s:project_grep(query, fullscreen)
