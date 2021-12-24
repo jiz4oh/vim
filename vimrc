@@ -363,9 +363,6 @@ if !has('nvim')
   call Terminal_MetaMode(0)
 endif
 
-inoremap <M-o> <esc>o
-inoremap <M-O> <esc>O
-
 " netrw
 map <leader>ee :Lexplore<CR>
 " cd pwd to current dir
@@ -386,10 +383,6 @@ else
   map <Leader>tv :belowright :vert :term<CR>
   tnoremap <C-W><Esc> <C-W>N
 endif
-
-" switch to last command
-cnoremap <C-u> <down>
-cnoremap <C-d> <up>
 
 " move line upforward/downward
 nnoremap [e :<c-u>move .-2<CR>==
@@ -414,12 +407,23 @@ inoremap <M-l> <Esc>>>_i
 nnoremap <M-h> <<_
 nnoremap <M-l> >>_
 
-" move
-map <C-a> <Home>
-map <C-e> <End>
-" command mode, ctrl-a to head， ctrl-e to tail
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
+" emacs shortcut
+noremap <C-a> <Home>
+noremap! <C-a> <Home>
+noremap <C-e> <End>
+noremap! <C-e> <End>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+" â is <Alt-B>
+inoremap â <C-Left>
+inoremap <M-b> <C-Left>
+" æ is <Alt-F>
+inoremap æ <C-Right>
+inoremap <M-f> <C-Right>
+inoremap <C-k> <Esc>lDa
+inoremap <C-u> <Esc>d0dli
 
 nnoremap k gk
 nnoremap gk k
@@ -434,8 +438,6 @@ vnoremap gj j
 " close window
 nnoremap <silent> q <esc>:close<cr>
 vnoremap <silent> q <esc>:close<cr>
-" remove EX mode
-nmap Q <nop>
 " use Q to record macro instead of q
 noremap Q q
 noremap <C-j> <C-W>j
@@ -456,6 +458,8 @@ nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
+" y$ -> Y Make Y behave like other capitals
+map Y y$
 
 " Swap implementations of ` and ' jump to markers
 " By default, ' jumps to the marked line, ` jumps to the marked line and
@@ -477,15 +481,8 @@ nnoremap <silent> g* g*zz
 " remove highlight
 noremap <silent><leader>/ :nohls<CR>
 
-" Shift+H goto head of the line, Shift+L goto end of the line
-nnoremap H <Home>
-nnoremap L <End>
-
 " in case you forgot to sudo
 cnoremap w!! %!sudo tee > /dev/null %
-
-" y$ -> Y Make Y behave like other capitals
-map Y y$
 
 let configs = ['/.vim/vimrc.bundles', '/.vim/vimrc.local']
 
