@@ -206,13 +206,20 @@ function! GitBranchName()
   return b:git_branch_name
 endfunction
 
+function! StatusLineFileName()
+  if !has_key(b:, 'buffer_relative_path')
+    let b:buffer_relative_path = empty(GitRepoName()) ? expand('%:p:~') : expand('%:p:.')
+  endif
+  return b:buffer_relative_path
+endfunction
+
 let s:stl = ''
 " repo name
 let s:stl .= "%#Directory#%{empty(GitRepoName()) ? '' : GitRepoName().'  '}"
 " brance name
 let s:stl .= "%#ModeMsg#%{empty(GitBranchName()) ? '' : '  '.GitBranchName().' '}"
 " file name
-let s:stl .= "%#Title#%{% empty(GitRepoName()) ? '%F' : '%f' %}%h%w%r "
+let s:stl .= "%#Title#%{StatusLineFileName()}%h%w%r "
 
 let s:stl .= "%="
 let s:stl .= "%<"
@@ -224,7 +231,7 @@ let s:stl .= "%#StatusLine# %{&filetype}"
 let s:stl_nc = ""
 let s:stl_nc .= "%#PmenuThumb# %n %f%h%w%r"
 
-function s:active() abort
+function s:status_line_active() abort
     if index(s:disable_statusline, &ft) > 0
         return
     endif
@@ -232,15 +239,15 @@ function s:active() abort
     let &l:statusline = s:stl
 endfunction
 
-function s:inactive() abort
+function s:status_line_inactive() abort
     let &l:statusline = s:stl_nc
 endfunction
 
 augroup vime_theme_statusline_group
     autocmd!
 
-    autocmd VimEnter,ColorScheme,FileType,WinEnter,BufWinEnter * call s:active()
-    autocmd WinLeave * call s:inactive()
+    autocmd VimEnter,ColorScheme,FileType,WinEnter,BufWinEnter * call s:status_line_active()
+    autocmd WinLeave * call s:status_line_inactive()
 
     autocmd FileChangedShellPost,BufFilePost,BufNewFile,BufWritePost * redrawstatus
 augroup END
