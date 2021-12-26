@@ -72,7 +72,7 @@ q|n|退出当前窗口，在最后一个窗口时不生效
 `<space><tab>`|n|切换到上一个 buffer
 `<space>tt` / `<space>tv`|n|在下/右方打开终端
 `<C-W><Esc>`|t|在终端中进入 normal 模式
-`<leader>ee`|n|打开文件管理器 netrw
+`F1`|n|打开文件管理器 netrw
 `<operate>ie`|n|<操作>当前 buffer
 `<operate>iv`|n|<操作>当前 buffer 可视范围
 
@@ -130,8 +130,7 @@ Gems||跳转到指定 gem 中搜索文件内容(需要 bundle)
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
-`<space>ee`|explore|n|打开浏览器并定位到当前文件
-`<space>ep`|explore project|n|打开当前文件所在的 git repo 根目录
+`F1`|explore|n|打开浏览器并定位到当前文件
 `j`/`k`||nerdtree|上下移动
 `h`||nerdtree|进入上一个目录
 `l`||nerdtree|打开/收起目录或者打开文件

@@ -92,8 +92,10 @@ if !executable('rg')
     return 0
   endfunction
 else
+  set grepprg=rg\ --vimgrep\ --smart-case\ --follow
+  set grepformat=%f:%l:%c:%m
   let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!{.git}/*" 2>/dev/null'
-  let s:fzf_content_cmd = 'rg --column --line-number --no-heading --smart-case --color=always %s || true'
+  let s:fzf_content_cmd = 'rg --column --line-number --no-heading --smart-case --follow --color=always %s || true'
 
   function! s:git_grep(query, fullscreen, nth = 1)
     let l:grep_cmd = printf(s:fzf_content_cmd, shellescape(a:query))
@@ -174,8 +176,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
   \ "Unknown"   : "?"
   \ }
 
-nnoremap <expr> <leader>ee g:NERDTree.IsOpen() ? ":NERDTreeClose\<CR>" : ":NERDTreeMirror\<CR>:NERDTreeFind\<CR>"
-nnoremap <leader>ep :NERDTreeMirror<CR>:NERDTreeToggleVCS<CR>
+nnoremap <expr> <F1> g:NERDTree.IsOpen() ? ":NERDTreeClose\<CR>" : ":NERDTreeMirror\<CR>:NERDTreeFind\<CR>"
 
 let NERDTreeMinimalUI = 1 " 最小化显示，不显示问号
 let NERDTreeDirArrows = 1
@@ -187,16 +188,17 @@ let NERDTreeAutoDeleteBuffer = 1
 let g:NERDTreeChDirMode = 2
 
 "remove e mapping
-let g:NERDTreeMapOpenExpl  = ''
-let g:NERDTreeMapOpenSplit = "w"
-let g:NERDTreeMapOpenVSplit = "W"
-let g:NERDTreeMapActivateNode = 'l'
-let g:NERDTreeMapPreview= 'gp'
-let g:NERDTreeMapOpenRecursively = 'L'
-let g:NERDTreeMapCloseDir = 'h'
-let gLNERDTreeMapCloseChildren = 'H'
+let g:NERDTreeMapOpenExpl         = ''
+let g:NERDTreeMapOpenSplit        = "w"
+let g:NERDTreeMapOpenVSplit       = "W"
+let g:NERDTreeMapActivateNode     = 'l'
+let g:NERDTreeMapPreview          = 'gp'
+let g:NERDTreeMapOpenRecursively  = 'L'
+let g:NERDTreeMapCloseDir         = 'h'
+let g:NERDTreeMapCloseChildren    = 'H'
+let g:NERDTreeMapToggleHidden     = '.'
 " 回到上一级目录
-let g:NERDTreeMapUpdirKeepOpen = '<backspace>'
+let g:NERDTreeMapUpdirKeepOpen    = '<backspace>'
 
 function! s:NERDTreeCustomCROpen(node) abort
   let l:newRoot = a:node.GetSelected()
@@ -238,7 +240,12 @@ if has('nvim')
 endif
 
 "==================== https://github.com/jiz4oh/vim#rails ===================
-Plug 'vim-ruby/vim-ruby', { 'for': ['ruby'] }
+Plug 'vim-ruby/vim-ruby'
+augroup ruby_aucmd
+  autocmd!
+  autocmd FileType ruby compiler ruby
+  autocmd FileType eruby compiler eruby
+augroup END
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-dispatch'

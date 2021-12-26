@@ -363,8 +363,6 @@ if !has('nvim')
   call Terminal_MetaMode(0)
 endif
 
-" netrw
-map <leader>ee :Lexplore<CR>
 " cd pwd to current dir
 nnoremap <silent> <leader>cd :cd %:p:h<CR>
 
@@ -448,7 +446,7 @@ noremap <C-h> <C-W>h
 noremap <C-l> <C-W>l
 
 " switch setting
-map <F1> <nop>
+map <F1> :Lexplore<CR>
 nnoremap <F2> :set nu! nu?<CR>
 nnoremap <F3> :set list! list?<CR>
 nnoremap <F4> :set wrap! wrap?<CR>
