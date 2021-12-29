@@ -90,14 +90,11 @@ NERDTree 代替 netrw
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
-`<space>sb`|search buffer|n|在当前 buffer 搜索
-`<space>swb`|search word in buffer|n/v|在当前 buffer 搜索当前单词/选中内容
-`<space>sp`|search project|n|在git仓库搜索文件名/内容，如果不处于git仓库下则搜索当前工作目录
-`<space>swp`|search word in project|n/v|在git仓库搜索当前单词/选中内容，如果不处于git仓库下则搜索当前工作目录
+`<space>sb`|search buffer|n/v|在当前 buffer 搜索
+`<space>sp`|search project|n/v|在git仓库搜索文件名/内容，如果不处于git仓库下则搜索当前工作目录
 `<space>sd`|search dir|n|在当前工作目录下搜索文件名
 `<space>sh`|search history|n|在 fzf 历史记录中搜索文件名
-`<space>sg`|search gem|n|跳转到指定 gem 中搜索文件内容(需要 bundle)
-`<space>swg`|search word in gem|n|跳转到指定 gem 中搜索当前单词/选中内容(需要 bundle)
+`<space>sg`|search gem|n/v|在所有 gem 中搜索文件内容(需要 bundle)
 ctrl-x/v||fzf|在下/右方打开文件
 ctrl-t||fzf|在新 tab 中打开文件
 ctrl-f/b||fzf|搜索结果下/上一页
@@ -108,7 +105,8 @@ alt-f/b||fzf|预览窗口下/上一页
 Pg|Project Prep|在git仓库搜索文件名/内容，如果不处于git仓库下则搜索当前工作目录
 Rg|RipGrep|在当前工作目录下搜索文件内容
 GGrep/GitGrep||在 git 仓库搜索文件名/内容
-Gems||跳转到指定 gem 中搜索文件内容(需要 bundle)
+Gems||在所有 gem 中搜索文件内容(需要 bundle)
+Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
 
 #### 跳转
 

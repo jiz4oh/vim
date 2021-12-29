@@ -111,11 +111,9 @@ endif
 function! s:fzf_content_shortcut(key, cmd)
   "nnoremap <silent> <leader>sp :Pg<Cr>
   execute 'nnoremap <leader>s' . a:key.' :' . a:cmd . '<CR>'
-  "nnoremap <silent> <expr> <leader>swp ':Pg '.expand('<cword>').'<CR>'
-  execute "nnoremap <silent> <expr> <leader>sw" . a:key . " ':" . a:cmd . " '.expand('<cword>').'<CR>'"
 
-  "vnoremap <silent> <leader>swp :<C-u>execute ':Pg '.VisualSelection()<CR>
-  execute "vnoremap <silent> <leader>sw" . a:key . " :<C-u>execute ':" . a:cmd . " '.VisualSelection()<CR>"
+  "vnoremap <silent> <leader>sp :<C-u>execute ':Pg '.VisualSelection()<CR>
+  execute "vnoremap <silent> <leader>s" . a:key . " :<C-u>execute ':" . a:cmd . " '.VisualSelection()<CR>"
 endfunction
 
 function! s:project_grep(query, fullscreen)
