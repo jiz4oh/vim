@@ -422,18 +422,14 @@ inoremap <M-b> <C-Left>
 " æ is <Alt-F>
 inoremap æ <C-Right>
 inoremap <M-f> <C-Right>
+" known bug: cannot remove first char at beginning of line
 inoremap <C-k> <Esc>lDa
 inoremap <C-u> <Esc>d0dli
 
-nnoremap k gk
-nnoremap gk k
-nnoremap j gj
-nnoremap gj j
-
-vnoremap k gk
-vnoremap gk k
-vnoremap j gj
-vnoremap gj j
+noremap k gk
+noremap gk k
+noremap j gj
+noremap gj j
 
 " close window
 nnoremap <silent> q <esc>:close<cr>
@@ -446,13 +442,15 @@ noremap <C-h> <C-W>h
 noremap <C-l> <C-W>l
 
 " switch setting
-map <F1> :Lexplore<CR>
+nnoremap <F1> :Lexplore<CR>
+inoremap <F1> <Esc>:Lexplore<CR>
 nnoremap <F2> :set nu! nu?<CR>
 nnoremap <F3> :set list! list?<CR>
 nnoremap <F4> :set wrap! wrap?<CR>
-set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
-                                "    paste mode, where you can paste mass data
-                                "    that won't be autoindented
+" when in insert mode, press <F5> to go to
+" paste mode, where you can paste mass data
+" that won't be autoindented
+nnoremap <F5> :set paste! paste?<CR>  
 "au InsertLeave * set nopaste
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 

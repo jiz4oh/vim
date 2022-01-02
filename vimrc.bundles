@@ -175,6 +175,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
   \ }
 
 nnoremap <expr> <F1> g:NERDTree.IsOpen() ? ":NERDTreeClose\<CR>" : ":NERDTreeMirror\<CR>:NERDTreeFind\<CR>"
+inoremap <expr> <F1> g:NERDTree.IsOpen() ? "<Esc>:NERDTreeClose\<CR>" : "<Esc>:NERDTreeMirror\<CR>:NERDTreeFind\<CR>"
 
 let NERDTreeMinimalUI = 1 " 最小化显示，不显示问号
 let NERDTreeDirArrows = 1
