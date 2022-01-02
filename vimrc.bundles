@@ -374,42 +374,8 @@ lua << EOF
   -- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/default.lua
   cmp.setup({
     mapping = {
-      ['<C-k>'] = cmp.mapping.select_prev_item(),
-      ['<C-j>'] = cmp.mapping.select_next_item(),
-      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-      ['<C-e>'] = cmp.config.disable,
       ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
       ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-      ["<Tab>"] = cmp.mapping(
-        function(fallback)
-          local cmp = require('cmp')
-          if #cmp.core:get_sources() > 0 and not cmp.get_config().experimental.native_menu then
-            if cmp.visible() then
-              cmp.select_next_item()
-            else
-              cmp.complete()
-            end
-          else
-            fallback()
-          end
-        end,
-        {"i","s","c"}
-      ),
-      ['<S-Tab>'] = cmp.mapping(
-        function(fallback)
-          local cmp = require('cmp')
-          if #cmp.core:get_sources() > 0 and not cmp.get_config().experimental.native_menu then
-            if cmp.visible() then
-              cmp.select_prev_item()
-            else
-              cmp.complete()
-            end
-          else
-            fallback()
-          end
-        end,
-        {"i","s","c"}
-      ),
       ['<CR>'] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
         select = false,
