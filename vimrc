@@ -217,9 +217,9 @@ let s:stl = ''
 " repo name
 let s:stl .= "%#Directory#%{empty(GitRepoName()) ? '' : GitRepoName().'  '}"
 " brance name
-let s:stl .= "%#ModeMsg#%{empty(GitBranchName()) ? '' : '  '.GitBranchName().' '}"
+let s:stl .= "%#Statement#%{empty(GitBranchName()) ? '' : GitBranchName().'  '}"
 " file name
-let s:stl .= "%#Title#%{StatusLineFileName()}%h%w%r "
+let s:stl .= "%#Identifier#%{StatusLineFileName()}%h%w%r "
 
 let s:stl .= "%="
 let s:stl .= "%<"
@@ -409,11 +409,11 @@ nnoremap <M-l> >>_
 
 " emacs shortcut
 noremap <C-a> <Home>
-noremap! <C-a> <Home>
 noremap <C-e> <End>
-noremap! <C-e> <End>
 inoremap <C-a> <Home>
-inoremap <C-e> <End>
+
+inoremap <expr> <C-e>      pumvisible() ? "\<C-e>" : "\<End>"
+
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 " â is <Alt-B>
@@ -424,7 +424,7 @@ inoremap æ <C-Right>
 inoremap <M-f> <C-Right>
 " known bug: cannot remove first char at beginning of line
 inoremap <C-k> <Esc>lDa
-inoremap <C-u> <Esc>d0dli
+" inoremap <C-u> <Esc>d0dli
 
 noremap k gk
 noremap gk k

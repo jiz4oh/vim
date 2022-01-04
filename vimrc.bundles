@@ -253,8 +253,13 @@ function! s:set_buffer_relative_path(path)
   let b:buffer_relative_path = a:path
 endfunction
 
+function! s:init_rails()
+  let g:rubycomplete_rails = 1
+  call s:set_buffer_relative_path(rails#buffer().relative())
+endfunction
+
 augroup rails_aucmd
-  autocmd User Rails :call <SID>set_buffer_relative_path(rails#buffer().relative())
+  autocmd User Rails :call <SID>init_rails()
 augroup END
 
 function! s:gem_content_search(gem, query, fullscreen)
@@ -303,6 +308,7 @@ Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 autocmd filetype lisp,scheme,art setlocal equalprg=scmindent.rkt
 
 Plug 'mhinz/vim-startify'
+let g:startify_relative_path = 1
 " returns all modified files of the current git repo
 " `2>/dev/null` makes the command fail quietly, so that when we are not
 " in a git repo, the list will be empty
