@@ -81,8 +81,10 @@ endfunction
 
 " `brew install ripgrep` before you use rg command
 if !executable('rg')
-  function! s:git_grep(query, fullscreen, nth = 1)
-    call fzf#vim#grep('git grep --line-number -- '.shellescape(a:query), 0, fzf#vim#with_preview({'dir': GitRepo(), 'options': ['--prompt', ' '.GitBranchName().'> ','--delimiter', ':', '--nth', a:nth.'..']}), a:fullscreen)
+  function! s:git_grep(query, fullscreen)
+    let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
+    let l:grep_cmd = 'git grep --line-number ' . l:query
+    call fzf#vim#grep(l:grep_cmd, 0, fzf#vim#with_preview({'dir': GitRepo(), 'options': ['--prompt', ' '.GitBranchName().'> ']}), a:fullscreen)
   endfunction
 
   function! Rg(query, fullscreen)
@@ -97,14 +99,16 @@ else
   let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!{.git}/*" 2>/dev/null'
   let s:fzf_content_cmd = 'rg --column --line-number --no-heading --smart-case --follow --color=always %s || true'
 
-  function! s:git_grep(query, fullscreen, nth = 1)
-    let l:grep_cmd = printf(s:fzf_content_cmd, shellescape(a:query))
-    call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'dir': GitRepo(), 'options': ['--prompt', ' '.GitBranchName().'> ', '--delimiter', ':', '--nth', a:nth.'..']}), a:fullscreen)
+  function! s:git_grep(query, fullscreen)
+    let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
+    let l:grep_cmd = printf(s:fzf_content_cmd, l:query)
+    call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'dir': GitRepo(), 'options': ['--prompt', ' '.GitBranchName().'> ']}), a:fullscreen)
   endfunction
 
   function! Rg(query, fullscreen)
-    let l:grep_cmd = printf(s:fzf_content_cmd, shellescape(a:query))
-    call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'options': ['--prompt', getcwd().'> ', '--delimiter', ':', '--nth', 4.'..']}), a:fullscreen)
+    let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
+    let l:grep_cmd = printf(s:fzf_content_cmd, l:query)
+    call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'options': ['--prompt', getcwd().'> ']}), a:fullscreen)
   endfunction
 endif
 
@@ -289,7 +293,8 @@ function! s:gems_search(query, fullscreen) abort
     endif
 
     if has_key(s:, 'fzf_content_cmd')
-      let l:grep_cmd = printf(s:fzf_content_cmd, shellescape(a:query) . ' ' . join(b:gem_paths, ' '))
+      let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
+      let l:grep_cmd = printf(s:fzf_content_cmd, l:query . ' ' . join(b:gem_paths, ' '))
     else
       let l:grep_cmd = 'find '. join(b:gem_paths, ' ') . ' -type f'
     endif
