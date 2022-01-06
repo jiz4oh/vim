@@ -422,9 +422,7 @@ inoremap <M-b> <C-Left>
 " æ is <Alt-F>
 inoremap æ <C-Right>
 inoremap <M-f> <C-Right>
-" known bug: cannot remove first char at beginning of line
-inoremap <C-k> <Esc>lDa
-" inoremap <C-u> <Esc>d0dli
+inoremap <C-k> <C-o>D
 
 noremap k gk
 noremap gk k
