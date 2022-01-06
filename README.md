@@ -209,13 +209,12 @@ Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
 
 vim 原始的 c,s,d 会将删除内容保存在寄存器中，更类似于剪切功能。  
 vim-cutlass 使 c,s,d 不再破坏寄存器，  
-而我选择将 x 映射为原始的 d，  
-如果要使用原始的 x 键功能，则使用 dl/xl 代替
+而我选择将 c 映射为原始的 d  
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
-`xx`|cut|n|等于 dd
-`x`|cut|n|等于 d
+`cc`|cut|n|等于 dd
+`c`|cut|n|等于 d
 `gcc`|comment/uncomment|n|注释/取消注释
 `gc`|comment|v|注释/取消注释
 `<space>m`||n|打开当前文件结构

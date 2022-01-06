@@ -341,11 +341,11 @@ let g:startify_lists = [
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'svermeulen/vim-cutlass'
-nnoremap x d
-xnoremap x d
+nnoremap c d
+xnoremap c d
 
-nnoremap xx dd
-nnoremap X D
+nnoremap cc dd
+nnoremap C D
 
 " markdown preview
 " npm -g install instant-markdown-d
