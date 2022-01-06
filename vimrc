@@ -318,7 +318,7 @@ augroup END
 " ============================ key map ============================
 "make vim respond to alt key
 "https://github.com/fgheng/vime/blob/master/plugin/alt.vim
-if !has('nvim')
+if !has('nvim') || !has("gui_running")
   function! Terminal_MetaMode(mode)
     set ttimeout
     if $TMUX != ''
@@ -407,22 +407,8 @@ inoremap <M-l> <Esc>>>_i
 nnoremap <M-h> <<_
 nnoremap <M-l> >>_
 
-" emacs shortcut
 noremap <C-a> <Home>
 noremap <C-e> <End>
-inoremap <C-a> <Home>
-
-inoremap <expr> <C-e>      pumvisible() ? "\<C-e>" : "\<End>"
-
-inoremap <C-b> <Left>
-inoremap <C-f> <Right>
-" â is <Alt-B>
-inoremap â <C-Left>
-inoremap <M-b> <C-Left>
-" æ is <Alt-F>
-inoremap æ <C-Right>
-inoremap <M-f> <C-Right>
-inoremap <C-k> <C-o>D
 
 noremap k gk
 noremap gk k
@@ -489,3 +475,21 @@ for config in configs
   endif
 endfor
 
+if !exists("g:plugs") || !has_key(g:plugs, 'vim-rsi')
+  inoremap        <C-A> <Home>
+  inoremap   <C-X><C-A> <C-A>
+  cnoremap        <C-A> <Home>
+  cnoremap   <C-X><C-A> <C-A>
+
+  inoremap <expr> <C-B> getline('.')=~'^\s*$'&&col('.')>strlen(getline('.'))?"0\<Lt>C-D>\<Lt>Esc>kJs":"\<Lt>Left>"
+  cnoremap        <C-B> <Left>
+
+  inoremap <expr> <C-D> col('.')>strlen(getline('.'))?"\<Lt>C-D>":"\<Lt>Del>"
+  cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())?"\<Lt>C-D>":"\<Lt>Del>"
+
+  inoremap <expr> <C-E> col('.')>strlen(getline('.'))<bar><bar>pumvisible()?"\<Lt>C-E>":"\<Lt>End>"
+
+  inoremap <expr> <C-F> col('.')>strlen(getline('.'))?"\<Lt>C-F>":"\<Lt>Right>"
+  cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
+  inoremap <C-k> <C-o>D
+end

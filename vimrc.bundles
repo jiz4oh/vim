@@ -307,6 +307,7 @@ command! -nargs=? -bang Gems call s:gems_search(<q-args>, <bang>0)
 call s:fzf_content_shortcut('g', 'Gems')
 
 "==================== https://github.com/jiz4oh/vim#其他 ====================
+Plug 'tpope/vim-rsi'
 Plug 'vlime/vlime', {'rtp': 'vim/'}
 
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
