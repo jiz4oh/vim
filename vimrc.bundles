@@ -79,6 +79,10 @@ function ToggleBatEnvVar()
     endif
 endfunction
 
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
 " `brew install ripgrep` before you use rg command
 if !executable('rg')
   function! s:git_grep(query, fullscreen)
@@ -98,6 +102,12 @@ else
   set grepformat=%f:%l:%c:%m
   let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!{.git}/*" 2>/dev/null'
   let s:fzf_content_cmd = 'rg --column --line-number --no-heading --smart-case --follow --color=always %s || true'
+  inoremap <expr> <c-x><c-f> fzf#vim#complete#path($FZF_DEFAULT_COMMAND)
+  inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
+  \ 'prefix': '^.*$',
+  \ 'source': 'rg -n ^ --color always',
+  \ 'options': '--ansi --delimiter : --nth 3..',
+  \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
   function! s:git_grep(query, fullscreen)
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
