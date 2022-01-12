@@ -84,9 +84,9 @@ set shiftround
 
 " indent
 set autoindent smartindent shiftround
-set shiftwidth=2
-set tabstop=2
-set softtabstop=2                " insert mode tab and backspace use 4 spaces
+set shiftwidth=2                " auto indent use 2 spaces
+set tabstop=2                   " insert mode tab use 2 spaces
+set softtabstop=2               " insert mode <Tab> use 2 spaces
 
 " fold
 set foldmethod=indent            " fold based on indent
@@ -174,7 +174,7 @@ endfunction
 
 function! GitBranchName()
   if !has_key(b:, 'git_branch_name')
-    let b:git_branch_name = trim(system('git rev-parse --abbrev-ref HEAD 2>/dev/null')) 
+    let b:git_branch_name = trim(system('git rev-parse --abbrev-ref HEAD 2>/dev/null'))
   endif
   return b:git_branch_name
 endfunction
@@ -231,61 +231,39 @@ hi! link ShowMarksHLl DiffAdd
 hi! link ShowMarksHLu DiffChange
 
 " ================================= autocmd ===================================
-augroup vimrc
+augroup set_file_type
   autocmd!
-   "File types
-  au BufNewFile,BufRead *.icc                           set filetype=cpp
-  au BufNewFile,BufRead *.pde                           set filetype=java
-  au BufNewFile,BufRead *.coffee-processing             set filetype=coffee
-  au BufNewFile,BufRead Dockerfile*                     set filetype=dockerfile
-  au BufNewFile,BufRead *.md,*.mkd,*.markdown           set filetype=markdown.mkd
-  au BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
-  function! AutoSetFileHead()
-       ".sh
-      if &filetype == 'sh'
-          call setline(1, "\#!/bin/bash")
-      endif
+  autocmd BufNewFile,BufRead *.icc                           set filetype=cpp
+  autocmd BufNewFile,BufRead *.pde                           set filetype=java
+  autocmd BufNewFile,BufRead *.coffee-processing             set filetype=coffee
+  autocmd BufNewFile,BufRead Dockerfile*                     set filetype=dockerfile
+  " autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown           set filetype=markdown.mkd
+augroup END
 
-       "python
-      if &filetype == 'python'
-          call setline(1, "\#!/usr/bin/env python")
-          call append(1, "\# encoding: utf-8")
-      endif
+augroup python_group
+  autocmd!
+  autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
+augroup END
 
-      normal G
-      normal o
-      normal o
-  endfunc
-
-  au FileType python set tabstop=4 shiftwidth=4 expandtab ai
-  au FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
-  au FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl au BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-  fun! <SID>StripTrailingWhitespaces()
-      let l = line(".")
-      let c = col(".")
-      %s/\s\+$//e
-      call cursor(l, c)
-  endfun
-
-   "http://vim.wikia.com/wiki/Highlight_unwanted_spaces
-  au BufNewFile,BufRead,InsertLeave * silent! match ExtraWhitespace /\s\+$/
-  au InsertEnter * silent! match ExtraWhitespace /\s\+\%#\@<!$/
-
+augroup other_group
    "Close preview window
   if exists('##CompleteDone')
-    au CompleteDone * pclose
+    autocmd CompleteDone * pclose
   else
-    au InsertLeave * if !pumvisible() && (!exists('*getcmdwintype') || empty(getcmdwintype())) | pclose | endif
+    autocmd InsertLeave * if !pumvisible() && (!exists('*getcmdwintype') || empty(getcmdwintype())) | pclose | endif
   endif
 
    "Automatic rename of tmux window
   if exists('$TMUX') && !exists('$NORENAME')
-    au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
-    au VimLeave * call system('tmux set-window automatic-rename on')
+    autocmd BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
+    autocmd VimLeave * call system('tmux set-window automatic-rename on')
+  endif
 
   "return where you left last time
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif | normal! zvzz
-  endif
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif | normal! zvzz
+
+  "remove extra white spaces
+  autocmd BufWritePre * :%s/\s\+$//e
 augroup END
 
 " ============================ key map ============================
@@ -407,7 +385,7 @@ nnoremap <F4> :set wrap! wrap?<CR>
 " when in insert mode, press <F5> to go to
 " paste mode, where you can paste mass data
 " that won't be autoindented
-nnoremap <F5> :set paste! paste?<CR>  
+nnoremap <F5> :set paste! paste?<CR>
 "au InsertLeave * set nopaste
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
