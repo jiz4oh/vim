@@ -448,6 +448,7 @@ for config in configs
   endif
 endfor
 
+inoremap <C-k> <C-o>D
 if !exists("g:plugs") || !has_key(g:plugs, 'vim-rsi')
   inoremap        <C-A> <Home>
   inoremap   <C-X><C-A> <C-A>
@@ -464,7 +465,6 @@ if !exists("g:plugs") || !has_key(g:plugs, 'vim-rsi')
 
   inoremap <expr> <C-F> col('.')>strlen(getline('.'))?"\<Lt>C-F>":"\<Lt>Right>"
   cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
-  inoremap <C-k> <C-o>D
 end
 
 if !exists("g:plugs") || !has_key(g:plugs, 'nerdtree')

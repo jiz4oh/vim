@@ -174,7 +174,6 @@ nnoremap <leader>gs :<C-U>Git<cr>
 Plug 'preservim/nerdtree' |
       \ Plug 'Xuyuanp/nerdtree-git-plugin'
 
-noremap <expr> <M-r> ':<C-u>%s/'.expand(call s:visual_selection()).'/' 
 let g:NERDTreeGitStatusIndicatorMapCustom = {
   \ "Modified"  : "✹",
   \ "Staged"    : "✚",
