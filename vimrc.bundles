@@ -45,7 +45,7 @@ map  gl <Plug>(easymotion-bd-jk)
 nmap gl <Plug>(easymotion-overwin-line)
 
 "==================== https://github.com/jiz4oh/vim#搜索 ====================
-" fuzzy finder 
+" fuzzy finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 let $FZF_DEFAULT_OPTS="--reverse
   \ --bind ctrl-b:page-up,ctrl-f:page-down,
@@ -358,8 +358,9 @@ nnoremap cc dd
 nnoremap C D
 
 " markdown preview
-" npm -g install instant-markdown-d
-Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
+if has('nvim')
+  Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()' }
+endif
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
@@ -444,7 +445,7 @@ lua << EOF
 
   -- Use a loop to conveniently call 'setup' on multiple servers and
   -- map buffer local keybindings when the language server attaches
-  
+
   local lsp_config = require('lspconfig')
   local servers = { 'solargraph', 'gopls', 'tsserver' }
   for _, lsp in ipairs(servers) do
