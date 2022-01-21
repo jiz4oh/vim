@@ -66,7 +66,7 @@ else
 endif
 
 Plug 'junegunn/fzf.vim'
-command! -bang -nargs=* Tags call fzf#vim#tags(<q-args>, fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0], "placeholder": "--tag {2}:{-1}:{3..}" }), <bang>0)
+command! -bang -nargs=* Tags call fzf#vim#tags(<q-args>, fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0], "placeholder": "--tag {2}:{-1}:{3..}", 'options': '--exact --select-1 --exit-0 +i'}), <bang>0)
 augroup update_bat_theme
     autocmd!
     autocmd colorscheme * call ToggleBatEnvVar()
@@ -88,7 +88,7 @@ if !executable('rg')
   function! s:git_grep(query, fullscreen)
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
     let l:grep_cmd = 'git grep --line-number ' . l:query
-    call fzf#vim#grep(l:grep_cmd, 0, fzf#vim#with_preview({'dir': GitRepo(), 'options': ['--prompt', ' '.GitBranchName().'> ']}), a:fullscreen)
+    call fzf#vim#grep(l:grep_cmd, 0, fzf#vim#with_preview({'dir': GitRepo(), 'options': ['--prompt', ' '.GitBranchName().'> ', '--delimiter', ':', '--nth', '3..']}), a:fullscreen)
   endfunction
 
   function! Rg(query, fullscreen)
@@ -112,13 +112,13 @@ else
   function! s:git_grep(query, fullscreen)
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
     let l:grep_cmd = printf(s:fzf_content_cmd, l:query)
-    call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'dir': GitRepo(), 'options': ['--prompt', ' '.GitBranchName().'> ']}), a:fullscreen)
+    call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'dir': GitRepo(), 'options': ['--prompt', ' '.GitBranchName().'> ', '--delimiter', ':', '--nth', '4..']}), a:fullscreen)
   endfunction
 
   function! Rg(query, fullscreen)
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
     let l:grep_cmd = printf(s:fzf_content_cmd, l:query)
-    call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'options': ['--prompt', getcwd().'> ']}), a:fullscreen)
+    call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'options': ['--prompt', getcwd().'> ', '--delimiter', ':', '--nth', '4..']}), a:fullscreen)
   endfunction
 endif
 
