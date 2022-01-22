@@ -29,11 +29,11 @@ YouCompleteMe 这种非常难以安装的插件。
 
 #### 依赖
 
-1. [`fzf`](https://github.com/junegunn/fzf)  
+1. [`fzf`](https://github.com/junegunn/fzf)
    在启用 IDE 版之后，会自动调用 fzf#install()
-2. [`ripgrep`](https://github.com/BurntSushi/ripgrep)  
+2. [`ripgrep`](https://github.com/BurntSushi/ripgrep)
    可选, [安装教程](https://github.com/BurntSushi/ripgrep#installation)
-3. [`neovim`](https://github.com/neovim/neovim)  
+3. [`neovim`](https://github.com/neovim/neovim)
    可选，至少需要 neovim 0.5+，如果不需要补全可以只使用 vim
 
 ## 功能:
@@ -59,7 +59,7 @@ YouCompleteMe 这种非常难以安装的插件。
 `F6`|n|启用/禁用语法高亮
 q|n|退出当前窗口，在最后一个窗口时不生效
 `<space>/`|n|移除搜索高亮
-`U`|n|重做     
+`U`|n|重做
 `Y`|n|从光标处复制到行尾
 `ctrl-h/j/k/l`|n|移动光标到当前窗口的左/下/上/右侧窗口
 `ctrl-a/e`|n/v/i/c|移动光标到当前行首/尾
@@ -93,6 +93,7 @@ NERDTree 代替 netrw
 ---|---|---|---
 `<space>sb`|search buffer|n/v|在当前 buffer 搜索
 `<space>sp`|search project|n/v|在git仓库搜索文件名/内容，如果不处于git仓库下则搜索当前工作目录
+`<space>st`|search tag|n|在 tags 中搜索，默认精准匹配
 `<space>sd`|search dir|n|在当前工作目录下搜索文件名
 `<space>sh`|search history|n|在 fzf 历史记录中搜索文件名
 `<space>sg`|search gem|n/v|在所有 gem 中搜索文件内容(需要 bundle)
@@ -207,9 +208,9 @@ Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
 - https://github.com/svermeulen/vim-cutlass
 
 
-vim 原始的 c,s,d 会将删除内容保存在寄存器中，更类似于剪切功能。  
-vim-cutlass 使 c,s,d 不再破坏寄存器，  
-而我选择将 c 映射为原始的 d  
+vim 原始的 c,s,d 会将删除内容保存在寄存器中，更类似于剪切功能。
+vim-cutlass 使 c,s,d 不再破坏寄存器，
+而我选择将 c 映射为原始的 d
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
