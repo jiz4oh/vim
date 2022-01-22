@@ -241,11 +241,15 @@ if has('nvim')
   "lsp
   Plug 'neovim/nvim-lspconfig'
   "autocomplte
+  Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
-  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'quangnguyen30192/cmp-nvim-tags'
+  if executable('rg')
+    Plug 'lukas-reineke/cmp-rg'
+  end
   "fzf integration
   "https://github.com/ojroques/nvim-lspfuzzy
   Plug 'ojroques/nvim-lspfuzzy'
@@ -398,7 +402,7 @@ colorscheme onehalfdark
 
 
 "==================== https://github.com/jiz4oh/vim#补全 =====================
-if has('nvim')
+if exists("g:plugs") && has_key(g:plugs, 'nvim-lspconfig')
 nnoremap gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
@@ -411,7 +415,6 @@ nnoremap [d <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap ]d <cmd>lua vim.diagnostic.goto_next()<CR>
 nnoremap <space>f <cmd>lua vim.lsp.buf.formatting()<CR>
 
-set completeopt=menu,menuone,noselect
 lua << EOF
   local cmp = require'cmp'
 
@@ -427,21 +430,23 @@ lua << EOF
       })
     },
     sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
+      { name = 'nvim_lsp', priority = 1 },
       -- { name = 'vsnip' }, -- For vsnip users.
       -- { name = 'luasnip' }, -- For luasnip users.
       -- { name = 'ultisnips' }, -- For ultisnips users.
       -- { name = 'snippy' }, -- For snippy users.
-      },
-      {
-        { name = 'buffer' },
+      { name = 'buffer', priority = 2 },
+      { name = 'tags', priority = 3 },
+      { name = 'rg', priority = 4, option = { additional_arguments = "--smart-case" } },
       })
   })
 
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline('/', {
     sources = {
-      { name = 'buffer' }
+      { name = 'buffer', priority = 1 },
+      { name = 'tags', priority = 2 },
+      { name = 'rg', priority = 3, option = { additional_arguments = "--smart-case" } },
     }
   })
 

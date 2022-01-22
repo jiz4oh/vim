@@ -104,7 +104,6 @@ set formatoptions+=B
 set selection=inclusive
 set selectmode=mouse,key
 
-set completeopt=longest,menu
 set wildmenu                           " show a navigable menu for tab completion"
 set wildmode=longest,list,full
 " 文件搜索和补全时忽略下面的扩展名
@@ -451,7 +450,7 @@ if !exists("g:plugs") || !has_key(g:plugs, 'nerdtree')
   let g:netrw_banner = 0
   let g:netrw_liststyle = 3
   let g:netrw_browse_split = 4
-  "let g:netrw_altv = 1
+  let g:netrw_altv = 1
   let g:netrw_winsize = 25
   let g:netrw_keepdir = 0                " Keep the current directory and the browsing directory synced
   let g:netrw_localcopydircmd = 'cp -r'  " enable recursive copy of directories
