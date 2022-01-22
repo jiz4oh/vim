@@ -207,6 +207,7 @@ Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
 - https://github.com/tpope/vim-commentary
 - https://github.com/iamcco/markdown-preview.nvim
 - https://github.com/svermeulen/vim-cutlass
+- https://github.com/ludovicchabant/vim-gutentags
 
 
 vim 原始的 c,s,d 会将删除内容保存在寄存器中，更类似于剪切功能。
