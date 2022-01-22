@@ -253,7 +253,6 @@ if has('nvim')
 endif
 
 "==================== https://github.com/jiz4oh/vim#rails ===================
-Plug 'vim-ruby/vim-ruby'
 augroup ruby_aucmd
   autocmd!
   autocmd FileType ruby compiler ruby
@@ -317,6 +316,7 @@ command! -nargs=? -bang Gems call s:gems_search(<q-args>, <bang>0)
 call s:fzf_content_shortcut('g', 'Gems')
 
 "==================== https://github.com/jiz4oh/vim#其他 ====================
+Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-rsi'
 Plug 'vlime/vlime', {'rtp': 'vim/'}
 

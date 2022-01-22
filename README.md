@@ -188,7 +188,6 @@ Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
 
 插件：
 
-- https://github.com/vim-ruby/vim-ruby
 - https://github.com/tpope/vim-bundler
 - https://github.com/tpope/vim-rails
 - https://github.com/tpope/vim-dispatch
@@ -201,10 +200,12 @@ Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
 
 插件：
 
+- https://github.com/sheerun/vim-polyglot
+- https://github.com/tpope/vim-rsi
 - https://github.com/preservim/tagbar
 - https://github.com/tpope/vim-endwise
 - https://github.com/tpope/vim-commentary
-- https://github.com/instant-markdown/vim-instant-markdown
+- https://github.com/iamcco/markdown-preview.nvim
 - https://github.com/svermeulen/vim-cutlass
 
 
