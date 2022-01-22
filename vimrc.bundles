@@ -4,7 +4,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     \ https://cdn.jsdelivr.net/gh/junegunn/vim-plug@master/plug.vim
 endif
 
-nnoremap <silent> <leader><leader>i :PlugInstall <CR>
 set updatetime=100
 "Run PlugInstall if there are missing plugins
 "autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
@@ -326,12 +325,14 @@ autocmd filetype lisp,scheme,art setlocal equalprg=scmindent.rkt
 
 Plug 'mhinz/vim-startify'
 let g:startify_relative_path = 1
+let g:startify_files_number  = 5
 " returns all modified files of the current git repo
 " `2>/dev/null` makes the command fail quietly, so that when we are not
 " in a git repo, the list will be empty
+
 function! s:gitModified()
     let files = systemlist('git ls-files -m 2>/dev/null')
-    return map(files, "{'line': v:val, 'path': v:val}")
+    return map(files, "{'line': v:val, 'cmd': ':execute \"e \" . fnameescape(\"' . v:val . '\") | Gvdiffsplit'}")
 endfunction
 
 " same as above, but show untracked files, honouring .gitignore
@@ -340,15 +341,34 @@ function! s:gitUntracked()
     return map(files, "{'line': v:val, 'path': v:val}")
 endfunction
 
+function! s:gitStaged()
+    let files = systemlist('git diff --name-only --staged 2>/dev/null')
+    return map(files, "{'line': v:val, 'cmd': ':execute \"e \" . fnameescape(\"' . v:val . '\") | aboveleft Gvdiffsplit HEAD'}")
+endfunction
+
 let g:startify_lists = [
-        \ { 'type': 'sessions',  'header': ['   Sessions']       },
-        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-        \ { 'type': 'files',     'header': ['   MRU']            },
-        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-        \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
-        \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
-        \ { 'type': 'commands',  'header': ['   Commands']       },
+        \ { 'type': 'sessions',                'header': ['   Sessions']     },
+        \ { 'type': 'dir',                     'header': ['   MRU '.getcwd()]},
+        \ { 'type': 'files',                   'header': ['   MRU']          },
+        \ { 'type': 'bookmarks',               'header': ['   Bookmarks']    },
+        \ { 'type': function('s:gitModified'), 'header': ['   git modified'] },
+        \ { 'type': function('s:gitUntracked'),'header': ['   git untracked']},
+        \ { 'type': function('s:gitStaged'),   'header': ['   git staged']   },
+        \ { 'type': 'commands',                'header': ['   Commands']     },
         \ ]
+
+let g:startify_bookmarks = [
+            \ '~/.vimrc',
+            \ '~/.vim/vimrc.bundles',
+            \ '~/.zshrc',
+            \ ]
+
+let g:startify_commands = [
+    \ {'p': ['搜索项目', 'Pg']},
+    \ {'c': ['查看提交', 'Commits']},
+    \ {'u': ['插件更新', 'PlugUpdate']},
+    \ {'i': ['插件安装', 'PlugInstall']},
+    \ ]
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
