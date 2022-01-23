@@ -153,82 +153,7 @@ endif
 
 " status line
 set laststatus=2                       "  Always show the status line - use 2 lines for the status bar
-let s:disable_statusline =
-    \ ['defx', 'denite', 'vista', 'tagbar', 'undotree', 'diff', 'peekaboo', 'sidemenu', 'qf', 'coc-explorer', 'startify', 'vim-plug']
-
-function! GitRepo()
-  if !has_key(b:, 'git_repo')
-    let b:git_repo = trim(system('git rev-parse --show-toplevel 2>/dev/null'))
-  endif
-  return b:git_repo
-endfunction
-
-function! GitRepoName()
-  let l:repo = GitRepo()
-  if empty(l:repo)
-    return l:repo
-  endif
-  return split(l:repo, '/')[-1]
-endfunction
-
-function! GitBranchName()
-  if !has_key(b:, 'git_branch_name')
-    let b:git_branch_name = trim(system('git rev-parse --abbrev-ref HEAD 2>/dev/null'))
-  endif
-  return b:git_branch_name
-endfunction
-
-function! StatusLineFileName()
-  if !has_key(b:, 'buffer_relative_path')
-    let b:buffer_relative_path = empty(GitRepoName()) ? expand('%:p:~') : expand('%:p:.')
-  endif
-  return b:buffer_relative_path
-endfunction
-
-let s:stl = ''
-" repo name
-let s:stl .= "%#Directory#%{empty(GitRepoName()) ? '' : GitRepoName().'  '}"
-" brance name
-let s:stl .= "%#Statement#%{empty(GitBranchName()) ? '' : GitBranchName().'  '}"
-" file name
-let s:stl .= "%#Identifier#%{StatusLineFileName()}%h%w%r "
-
-let s:stl .= "%="
-let s:stl .= "%<"
-
-let s:stl .= "%#StatusLineNC#  %p%% ☰ %l:%v "
-let s:stl .= "%#StatusLineNC# %{&fileencoding?&fileencoding:&encoding}[%{&fileformat}] "
-let s:stl .= "%#StatusLine# %{&filetype}"
-
-let s:stl_nc = ""
-let s:stl_nc .= "%#PmenuThumb# %n %f%h%w%r"
-
-function s:status_line_active() abort
-    if index(s:disable_statusline, &ft) > 0
-        return
-    endif
-
-    let &l:statusline = s:stl
-endfunction
-
-function s:status_line_inactive() abort
-    let &l:statusline = s:stl_nc
-endfunction
-
-augroup vime_theme_statusline_group
-    autocmd!
-
-    autocmd VimEnter,ColorScheme,FileType,WinEnter,BufWinEnter * call s:status_line_active()
-    autocmd WinLeave * call s:status_line_inactive()
-
-    autocmd FileChangedShellPost,BufFilePost,BufNewFile,BufWritePost * redrawstatus
-augroup END
-
-" set mark column color
-hi! link SignColumn   LineNr
-hi! link ShowMarksHLl DiffAdd
-hi! link ShowMarksHLu DiffChange
-
+set lazyredraw
 " ================================= autocmd ===================================
 augroup set_file_type
   autocmd!
@@ -416,6 +341,28 @@ noremap <silent><leader>/ :nohls<CR>
 " in case you forgot to sudo
 cnoremap w!! %!sudo tee > /dev/null %
 
+function! GitRepo()
+  if !has_key(b:, 'git_repo')
+    let b:git_repo = trim(system('git rev-parse --show-toplevel 2>/dev/null'))
+  endif
+  return b:git_repo
+endfunction
+
+function! GitRepoName()
+  let l:repo = GitRepo()
+  if empty(l:repo)
+    return l:repo
+  endif
+  return split(l:repo, '/')[-1]
+endfunction
+
+function! GitBranchName()
+  if !has_key(b:, 'git_branch_name')
+    let b:git_branch_name = trim(system('git rev-parse --abbrev-ref HEAD 2>/dev/null'))
+  endif
+  return b:git_branch_name
+endfunction
+
 let configs = ['/.vim/vimrc.bundles', '/.vim/vimrc.local']
 
 for config in configs
@@ -471,4 +418,60 @@ if !exists("g:plugs") || !has_key(g:plugs, 'nerdtree')
     autocmd!
     autocmd filetype netrw call NetrwMapping()
   augroup END
+endif
+
+if !(exists("g:plugs") && has_key(g:plugs, 'vim-airline'))
+  let s:disable_statusline =
+    \ ['defx', 'denite', 'vista', 'tagbar', 'undotree', 'diff', 'peekaboo', 'sidemenu', 'qf', 'coc-explorer', 'startify', 'vim-plug']
+
+  let s:stl = ''
+  " repo name
+  let s:stl .= "%#Directory#%{empty(GitRepoName()) ? '' : GitRepoName().'  '}"
+  " brance name
+  let s:stl .= "%#Statement#%{empty(GitBranchName()) ? '' : GitBranchName().'  '}"
+  " file name
+  let s:stl .= "%#Identifier#%{RelativePath()}%h%w%r "
+
+  let s:stl .= "%="
+  let s:stl .= "%#StatusLine# %{&filetype}"
+  let s:stl .= "%#StatusLineNC# %{&fileencoding?&fileencoding:&encoding}[%{&fileformat}] "
+  let s:stl .= "%#StatusLineNC#  %p%% ☰ %l:%v "
+
+  let s:stl_nc = ""
+  let s:stl_nc .= "%f%h%w%r"
+
+  function! RelativePath() abort
+    let l:repo_path = GitRepo()
+    if empty(l:repo_path)
+      return expand('%:p:~')
+    else
+      return substitute(expand('%:p'), l:repo_path . '/', '', '')
+    endif
+  endfunction
+
+  function s:status_line_active() abort
+      if index(s:disable_statusline, &ft) > 0
+          return
+      endif
+
+      let &l:statusline = s:stl
+  endfunction
+
+  function s:status_line_inactive() abort
+      let &l:statusline = s:stl_nc
+  endfunction
+
+  augroup vime_theme_statusline_group
+      autocmd!
+      autocmd WinLeave * call s:status_line_inactive()
+      autocmd VimEnter,ColorScheme,FileType,WinEnter,BufWinEnter * call s:status_line_active()
+      autocmd FileChangedShellPost,BufFilePost,BufNewFile,BufWritePost * redrawstatus
+
+      autocmd FileChangedShellPost,BufFilePost,BufNewFile,BufWritePost * redrawstatus
+  augroup END
+
+  " set mark column color
+  hi! link SignColumn   LineNr
+  hi! link ShowMarksHLl DiffAdd
+  hi! link ShowMarksHLu DiffChange
 endif

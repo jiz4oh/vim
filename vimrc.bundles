@@ -390,8 +390,8 @@ endif
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
-"Plug 'vim-airline/vim-airline'
-"let g:airline_theme='onehalfdark'
+" Plug 'vim-airline/vim-airline'
+" let g:airline_theme='onehalfdark'
 
 Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
 nnoremap <silent> <leader>m :TagbarToggle<CR>
