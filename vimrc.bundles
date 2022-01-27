@@ -403,11 +403,10 @@ colorscheme onehalfdark
 
 "==================== https://github.com/jiz4oh/vim#补全 =====================
 if exists("g:plugs") && has_key(g:plugs, 'nvim-lspconfig')
-nnoremap gD <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <space>D <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <space>rn <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <space>wa <cmd>lua vim.lsp.buf.add_workspace_folder()<CR>
 nnoremap <space>wr <cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>
 nnoremap <space>wl <cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
@@ -459,21 +458,24 @@ lua << EOF
     })
   })
 
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
+  local opts = { noremap=true, silent=true }
   -- Use an on_attach function to only map the following keys
   -- after the language server attaches to the current buffer
   local on_attach = function(client, bufnr)
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    -- Enable completion triggered by <c-x><c-o>
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- Mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   end
 
   -- Use a loop to conveniently call 'setup' on multiple servers and
   -- map buffer local keybindings when the language server attaches
 
   local lsp_config = require('lspconfig')
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   local servers = { 'solargraph', 'gopls', 'tsserver' }
   for _, lsp in ipairs(servers) do
     lsp_config[lsp].setup {
