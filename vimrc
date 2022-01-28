@@ -23,7 +23,7 @@ filetype indent on
 set nocompatible                " don't bother with vi compatibility
 set autochdir
 set autoread                    " reload files when changed on disk, i.e. via `git checkout`
-set shortmess=atI
+set shortmess=atIF
 
 set magic                       " For regular expressions turn magic on
 set title                       " change the terminal's title
