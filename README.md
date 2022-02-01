@@ -147,10 +147,14 @@ Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
+`<space>hs`|hunk stage|n|暂存 当前修改块(hunk) 的改动
+`<space>hp`|hunk preview|n|预览 当前修改块(hunk) 的改动
+`<space>hu`|hunk undo|n|还原 当前修改块(hunk) 的改动
+`<space>gf`|git diff|n|预览当前 buffer 的改动
+`<space>gr`|git read|n|还原当前 buffer 的所有改动
 `<space>gw`|git write|n|将当前文件加入暂存区
 `<space>ga`|git add|n|将当前文件恢复到已提交版本
 `<space>gc`|git commit|n|提交
-`<space>gf`|git diff|n|对比当前文件与已提交版本
 `<space>gl`|git log|n|查看提交日志
 `<space>gs`|git status|n|查看当前仓库状态
 

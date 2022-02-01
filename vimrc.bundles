@@ -157,6 +157,12 @@ call s:fzf_content_shortcut('t', 'Tags')
 
 "==================== https://github.com/jiz4oh/vim#git =====================
 Plug 'airblade/vim-gitgutter'
+omap ih <Plug>(GitGutterTextObjectInnerPending)
+omap ah <Plug>(GitGutterTextObjectOuterPending)
+xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+xmap ah <Plug>(GitGutterTextObjectOuterVisual)
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
 Plug 'tpope/vim-fugitive'
 " 添加当前文件到index
 nnoremap <leader>gw :<C-U>Gwrite<cr>
@@ -333,6 +339,12 @@ let g:startify_files_number  = 5
 " returns all modified files of the current git repo
 " `2>/dev/null` makes the command fail quietly, so that when we are not
 " in a git repo, the list will be empty
+
+function! s:git_repo()
+  if exists('b:sy')
+    return b:sy['info']['dir']
+  endif
+endfunction
 
 function! s:gitModified()
     let files = systemlist('git ls-files -m 2>/dev/null')
