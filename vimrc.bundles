@@ -438,7 +438,19 @@ lua << EOF
       ['<CR>'] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Replace,
         select = false,
-      })
+      }),
+      ["<Tab>"] = cmp.mapping(function(fallback)
+          local cmp = require('cmp')
+          if cmp.visible() then
+            if vim.fn.pumvisible() == 1 then
+              cmp.complete()
+            else
+              cmp.select_next_item()
+            end
+          else
+            fallback()
+          end
+        end, {"i","s","c",}),
     },
     sources = cmp.config.sources({
       { name = 'nvim_lsp', priority = 1 },
@@ -449,7 +461,10 @@ lua << EOF
       { name = 'buffer', priority = 2 },
       { name = 'tags', priority = 3 },
       { name = 'rg', priority = 4, option = { additional_arguments = "--smart-case" } },
-      })
+      }),
+      completion = {
+        completeopt = 'menu,noselect',
+      },
   })
 
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
