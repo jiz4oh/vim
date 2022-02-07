@@ -449,6 +449,7 @@ let g:rainbow_active = 1
 Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
 nnoremap <silent> <leader>m :TagbarToggle<CR>
 
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 colorscheme onehalfdark
