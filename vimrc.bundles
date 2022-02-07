@@ -24,6 +24,9 @@ function! VisualSelection()
 endfunction
 call plug#begin('~/.vim/bundle')
 "==================== https://github.com/jiz4oh/vim#跳转 ====================
+Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
+nnoremap <silent> <leader>m :TagbarToggle<CR>
+
 " https://github.com/easymotion/vim-easymotion
 Plug 'easymotion/vim-easymotion', {'on':
    \ [
@@ -440,15 +443,13 @@ nnoremap C D
 if has('nvim')
   Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()' }
 endif
+
+"==================== https://github.com/jiz4oh/vim#美化 ====================
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
 " Plug 'vim-airline/vim-airline'
 " let g:airline_theme='onehalfdark'
-
-Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
-nnoremap <silent> <leader>m :TagbarToggle<CR>
-
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
 

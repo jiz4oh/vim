@@ -115,11 +115,13 @@ Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
 插件：
 
 - https://github.com/easymotion/vim-easymotion
+- https://github.com/preservim/tagbar
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
 `f`|find|n|通过输入一个字符跳转到指定单词
 `gl`|go to line|n|跳转到某行
+`<space>m`||n|打开当前文件结构
 
 #### 文件浏览器
 
@@ -200,13 +202,20 @@ Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
 ---|---|---|---
 `gf`|go to file|n|跳转到 has_many,belongs_to 等关系对应的类
 
+#### 美化
+
+插件:
+
+- https://github.com/ryanoasis/vim-devicons
+- https://github.com/luochen1990/rainbow
+- https://github.com/sonph/onehalf
+
 #### 其他
 
 插件：
 
 - https://github.com/sheerun/vim-polyglot
 - https://github.com/tpope/vim-rsi
-- https://github.com/preservim/tagbar
 - https://github.com/tpope/vim-endwise
 - https://github.com/tpope/vim-commentary
 - https://github.com/iamcco/markdown-preview.nvim
@@ -224,7 +233,6 @@ vim-cutlass 使 c,s,d 不再破坏寄存器，
 `c`|cut|n|等于 d
 `gcc`|comment/uncomment|n|注释/取消注释
 `gc`|comment|v|注释/取消注释
-`<space>m`||n|打开当前文件结构
 `<space><space>i`|install|n|安装插件
 `<space>ww`||n|打开 wiki 索引页
 `<space>wi`||n|打开日记索引页
