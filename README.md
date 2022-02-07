@@ -212,7 +212,7 @@ Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
 - https://github.com/iamcco/markdown-preview.nvim
 - https://github.com/svermeulen/vim-cutlass
 - https://github.com/ludovicchabant/vim-gutentags
-
+- https://github.com/vimwiki/vimwiki
 
 vim 原始的 c,s,d 会将删除内容保存在寄存器中，更类似于剪切功能。
 vim-cutlass 使 c,s,d 不再破坏寄存器，
@@ -226,6 +226,11 @@ vim-cutlass 使 c,s,d 不再破坏寄存器，
 `gc`|comment|v|注释/取消注释
 `<space>m`||n|打开当前文件结构
 `<space><space>i`|install|n|安装插件
+`<space>ww`||n|打开 wiki 索引页
+`<space>wi`||n|打开日记索引页
+`<space>w<space>w`||n|打开今日日记
+`<space>w<space>y`||n|打开昨日日记
+`<space>w<space>m`||n|打开明日日记
 
 ## Inspire
 
