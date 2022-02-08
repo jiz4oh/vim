@@ -29,11 +29,11 @@ YouCompleteMe 这种非常难以安装的插件。
 
 #### 依赖
 
-1. [`fzf`](https://github.com/junegunn/fzf)
+1. [fzf](https://github.com/junegunn/fzf)
    在启用 IDE 版之后，会自动调用 fzf#install()
-2. [`ripgrep`](https://github.com/BurntSushi/ripgrep)
+2. [ripgrep](https://github.com/BurntSushi/ripgrep)
    可选, [安装教程](https://github.com/BurntSushi/ripgrep#installation)
-3. [`neovim`](https://github.com/neovim/neovim)
+3. [neovim](https://github.com/neovim/neovim)
    可选，至少需要 neovim 0.5+，如果不需要补全可以只使用 vim
 
 ## 功能:
@@ -47,35 +47,35 @@ YouCompleteMe 这种非常难以安装的插件。
 - utf-8 优先
 - 状态栏左侧显示当前文件，右侧显示当前行/列数
 - 给插入模式添加常用的 emacs 快捷键
-- 增加新的 text obj, `ie`/`iv`
+- 增加新的 text obj, <kbd>ie</kbd> / <kbd>iv</kbd>
 
 快捷键|应用模式|描述
 ---|---|---
-`F1`|n/i|打开文件管理器 netrw
-`F2`|n|切换显示行号
-`F3`|n|切换显示不可见字符
-`F4`|n|当行超框时是否换行显示
-`F5`|n|切换粘贴模式
-`F6`|n|启用/禁用语法高亮
-q|n|退出当前窗口，在最后一个窗口时不生效
-`<space>/`|n|移除搜索高亮
-`U`|n|重做
-`Y`|n|从光标处复制到行尾
-`ctrl-h/j/k/l`|n|移动光标到当前窗口的左/下/上/右侧窗口
-`ctrl-a/e`|n/v/i/c|移动光标到当前行首/尾
-`ctrl-f/b`|i|光标向右/左移一位
-`ctrl-u/k`|i|从光标处删除直到行首/尾
-`>>` / `<<`|n|缩进/反向缩进
-`>` / `<`|v|缩进/反向缩进
-`alt-l` / `alt-h`|n/v/i|缩进/反向缩进
-`[e` / `]e`|n/v|向上/下移动当前行
-`alt-k` / `alt-j`|n/v/i|向上/下移动当前行
-`<space>cd>`|n|将当前 buffer 所在目录作为工作目录
-`<space><tab>`|n|切换到上一个 buffer
-`<space>tt` / `<space>tv`|n|在下/右方打开终端
-`<C-W><Esc>`|t|在终端中进入 normal 模式
-`<operate>ie`|n|<操作>当前 buffer
-`<operate>iv`|n|<操作>当前 buffer 可视范围
+<kbd>F1</kbd>|n/i|打开文件管理器 netrw
+<kbd>F2</kbd>|n|切换显示行号
+<kbd>F3</kbd>|n|切换显示不可见字符
+<kbd>F4</kbd>|n|当行超框时是否换行显示
+<kbd>F5</kbd>|n|切换粘贴模式
+<kbd>F6</kbd>|n|启用/禁用语法高亮
+<kbd>q</kbd>|n|退出当前窗口，在最后一个窗口时不生效
+<kbd>\<space>/</kbd>|n|移除搜索高亮
+<kbd>U</kbd>|n|重做
+<kbd>Y</kbd>|n|从光标处复制到行尾
+<kbd>ctrl-h</kbd> / <kbd>ctrl-j</kbd> / <kbd>ctrl-k</kbd> / <kbd>ctrl-l</kbd>|n|移动光标到当前窗口的左/下/上/右侧窗口
+<kbd>ctrl-a</kbd> / <kbd>ctrl-e</kbd>|n/v/i/c|移动光标到当前行首/尾
+<kbd>ctrl-f</kbd> / <kbd>ctrl-b</kbd>|i|光标向右/左移一位
+<kbd>ctrl-u</kbd> / <kbd>ctrl-k</kbd>|i|从光标处删除直到行首/尾
+<kbd>>></kbd> / <kbd><<</kbd>|n|缩进/反向缩进
+<kbd>></kbd> / <kbd><</kbd>|v|缩进/反向缩进
+<kbd>alt-l</kbd> / <kbd>alt-h</kbd>|n/v/i|缩进/反向缩进
+<kbd>[e</kbd> / <kbd>]e</kbd>|n/v|向上/下移动当前行
+<kbd>alt-k</kbd> / <kbd>alt-j</kbd>|n/v/i|向上/下移动当前行
+<kbd>\<space>cd</kbd>|n|将当前 buffer 所在目录作为工作目录
+<kbd>\<space><tab></kbd>|n|切换到上一个 buffer
+<kbd>\<space>tt</kbd> / <kbd><space>tv</kbd>|n|在下/右方打开终端
+<kbd>\<C-W><Esc></kbd>|t|在终端中进入 normal 模式
+<kbd>\<operate>ie</kbd>|n|<操作>当前 buffer
+<kbd>\<operate>iv</kbd>|n|<操作>当前 buffer 可视范围
 
 ### IDE 版
 
@@ -91,24 +91,24 @@ NERDTree 代替 netrw
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
-`<space>sb`|search buffer|n/v|在当前 buffer 搜索
-`<space>sp`|search project|n/v|在git仓库搜索文件名/内容，如果不处于git仓库下则搜索当前工作目录
-`<space>st`|search tag|n|在 tags 中搜索，默认精准匹配
-`<space>sd`|search dir|n|在当前工作目录下搜索文件名
-`<space>sh`|search history|n|在 fzf 历史记录中搜索文件名
-`<space>sg`|search gem|n/v|在所有 gem 中搜索文件内容(需要 bundle)
-ctrl-x/v||fzf|在下/右方打开文件
-ctrl-t||fzf|在新 tab 中打开文件
-ctrl-f/b||fzf|搜索结果下/上一页
-alt-f/b||fzf|预览窗口下/上一页
+<kbd>\<space>sb</kbd>|search buffer|n/v|在当前 buffer 搜索
+<kbd>\<space>sp</kbd>|search project|n/v|在git仓库搜索文件名/内容，如果不处于git仓库下则搜索当前工作目录
+<kbd>\<space>st</kbd>|search tag|n|在 tags 中搜索，默认精准匹配
+<kbd>\<space>sd</kbd>|search dir|n|在当前工作目录下搜索文件名
+<kbd>\<space>sh</kbd>|search history|n|在 fzf 历史记录中搜索文件名
+<kbd>\<space>sg</kbd>|search gem|n/v|在所有 gem 中搜索文件内容(需要 bundle)
+<kbd>ctrl-x</kbd> / <kbd>ctrl-v</kbd>||fzf|在下/右方打开文件
+<kbd>ctrl-t</kbd>||fzf|在新 tab 中打开文件
+<kbd>ctrl-f</kbd> / <kbd>ctrl-b</kbd>||fzf|搜索结果下/上一页
+<kbd>alt-f</kbd> / <kbd>ctrl-b</kbd>||fzf|预览窗口下/上一页
 
 命令|速记|描述
 ---|---|---
-Pg|Project Prep|在git仓库搜索文件名/内容，如果不处于git仓库下则搜索当前工作目录
-Rg|RipGrep|在当前工作目录下搜索文件内容
-GGrep/GitGrep||在 git 仓库搜索文件名/内容
-Gems||在所有 gem 中搜索文件内容(需要 bundle)
-Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
+`Pg`|Project Prep|在git仓库搜索文件名/内容，如果不处于git仓库下则搜索当前工作目录
+`Rg`|RipGrep|在当前工作目录下搜索文件内容
+`GGrep` / `GitGrep`||在 git 仓库搜索文件名/内容
+`Gems`||在所有 gem 中搜索文件内容(需要 bundle)
+`Gem`||跳转到指定 gem 中搜索文件内容(需要 bundle)
 
 #### 跳转
 
@@ -119,9 +119,9 @@ Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
-`f`|find|n|通过输入一个字符跳转到指定单词
-`gl`|go to line|n|跳转到某行
-`<space>m`||n|打开当前文件结构
+<kbd>f</kbd>|find|n|通过输入一个字符跳转到指定单词
+<kbd>gl</kbd>|go to line|n|跳转到某行
+<kbd>\<space>m</kbd>||n|打开当前文件结构
 
 #### 文件浏览器
 
@@ -132,13 +132,13 @@ Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
-`F1`|explore|n/i|打开浏览器并定位到当前文件
-`j`/`k`||nerdtree|上下移动
-`h`||nerdtree|进入上一个目录
-`l`||nerdtree|打开/收起目录或者打开文件
-`H`/`L`||nerdtree|递归收起/打开目录
-`<backspace>`||nerdtree|回退到上一个目录并将工作目录切换为上一个目录
-`<enter>`||nerdtree|进入目录并将切换工作目录或者打开文件
+<kbd>F1</kbd>|explore|n/i|打开浏览器并定位到当前文件
+<kbd>j</kbd> / <kbd>k</kbd>||nerdtree|上下移动
+<kbd>h</kbd>||nerdtree|进入上一个目录
+<kbd>l</kbd>||nerdtree|打开/收起目录或者打开文件
+<kbd>H</kbd> / <kbd>L</kbd>||nerdtree|递归收起/打开目录
+<kbd>\<backspace></kbd>||nerdtree|回退到上一个目录并将工作目录切换为上一个目录
+<kbd>\<enter></kbd>||nerdtree|进入目录并将切换工作目录或者打开文件
 
 #### git
 
@@ -149,16 +149,16 @@ Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
-`<space>hs`|hunk stage|n|暂存 当前修改块(hunk) 的改动
-`<space>hp`|hunk preview|n|预览 当前修改块(hunk) 的改动
-`<space>hu`|hunk undo|n|还原 当前修改块(hunk) 的改动
-`<space>gf`|git diff|n|预览当前 buffer 的改动
-`<space>gr`|git read|n|还原当前 buffer 的所有改动
-`<space>gw`|git write|n|将当前文件加入暂存区
-`<space>ga`|git add|n|将当前文件恢复到已提交版本
-`<space>gc`|git commit|n|提交
-`<space>gl`|git log|n|查看提交日志
-`<space>gs`|git status|n|查看当前仓库状态
+<kbd>\<space>hs</kbd>|hunk stage|n|暂存 当前修改块(hunk) 的改动
+<kbd>\<space>hp</kbd>|hunk preview|n|预览 当前修改块(hunk) 的改动
+<kbd>\<space>hu</kbd>|hunk undo|n|还原 当前修改块(hunk) 的改动
+<kbd>\<space>gf</kbd>|git diff|n|预览当前 buffer 的改动
+<kbd>\<space>gr</kbd>|git read|n|还原当前 buffer 的所有改动
+<kbd>\<space>gw</kbd>|git write|n|将当前文件加入暂存区
+<kbd>\<space>ga</kbd>|git add|n|将当前文件恢复到已提交版本
+<kbd>\<space>gc</kbd>|git commit|n|提交
+<kbd>\<space>gl</kbd>|git log|n|查看提交日志
+<kbd>\<space>gs</kbd>|git status|n|查看当前仓库状态
 
 #### 补全
 
@@ -175,20 +175,20 @@ Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
-`ctrl-n`||i/c|切换到下一个补全选项
-`ctrl-p`||i/c|切换到上一个补全选项
-`ctrl-e`|||取消选中的补全选项
-`<enter>`||i/s/c|使用当前选中选项进行补全
-`K`||n|查看当前符号对应的文档
-`ctrl-f`||n|向下移动文档
-`ctrl-b`||n|向上移动文档
-`gd`|go to definition|n|跳转到定义，如果有多个，激活 fzf 查询窗口
-`gD`|go to declaration|n|跳转到声明，如果有多个，激活 fzf 查询窗口
-`gr`|go to references|n|跳转到引用，如果有多个，激活 fzf 查询窗口
-`gi`|go to implementation|n|跳转到实现，如果有多个，激活 fzf 查询窗口
-`[d`|diagnostic|n|跳转到上一个语法错误
-`]d`|diagnostic|n|跳转到下一个语法错误
-`<space>f`|format|n|根据语法检查格式化当前 buffer
+<kbd>ctrl-n</kbd>||i/c|切换到下一个补全选项
+<kbd>ctrl-p</kbd>||i/c|切换到上一个补全选项
+<kbd>ctrl-e</kbd>|||取消选中的补全选项
+<kbd>\<enter></kbd>||i/s/c|使用当前选中选项进行补全
+<kbd>K</kbd>||n|查看当前符号对应的文档
+<kbd>ctrl-f</kbd>||n|向下移动文档
+<kbd>ctrl-b</kbd>||n|向上移动文档
+<kbd>gd</kbd>|go to definition|n|跳转到定义，如果有多个，激活 fzf 查询窗口
+<kbd>gD</kbd>|go to declaration|n|跳转到声明，如果有多个，激活 fzf 查询窗口
+<kbd>gr</kbd>|go to references|n|跳转到引用，如果有多个，激活 fzf 查询窗口
+<kbd>gi</kbd>|go to implementation|n|跳转到实现，如果有多个，激活 fzf 查询窗口
+<kbd>[d</kbd>|diagnostic|n|跳转到上一个语法错误
+<kbd>]d</kbd>|diagnostic|n|跳转到下一个语法错误
+<kbd>\<space>f</kbd>|format|n|根据语法检查格式化当前 buffer
 
 #### rails
 
@@ -200,7 +200,7 @@ Gem||跳转到指定 gem 中搜索文件内容(需要 bundle)
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
-`gf`|go to file|n|跳转到 has_many,belongs_to 等关系对应的类
+<kbd>gf</kbd>|go to file|n|跳转到 has_many,belongs_to 等关系对应的类
 
 #### 美化
 
@@ -229,16 +229,16 @@ vim-cutlass 使 c,s,d 不再破坏寄存器，
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
-`cc`|cut|n|等于 dd
-`c`|cut|n|等于 d
-`gcc`|comment/uncomment|n|注释/取消注释
-`gc`|comment|v|注释/取消注释
-`<space><space>i`|install|n|安装插件
-`<space>ww`||n|打开 wiki 索引页
-`<space>wi`||n|打开日记索引页
-`<space>w<space>w`||n|打开今日日记
-`<space>w<space>y`||n|打开昨日日记
-`<space>w<space>m`||n|打开明日日记
+<kbd>cc</kbd>|cut|n|等于 dd
+<kbd>c</kbd>|cut|n|等于 d
+<kbd>gcc</kbd>|comment/uncomment|n|注释/取消注释
+<kbd>gc</kbd>|comment|v|注释/取消注释
+<kbd>\<space><space>i</kbd>|install|n|安装插件
+<kbd>\<space>ww</kbd>||n|打开 wiki 索引页
+<kbd>\<space>wi</kbd>||n|打开日记索引页
+<kbd>\<space>w<space>w</kbd>||n|打开今日日记
+<kbd>\<space>w<space>y</kbd>||n|打开昨日日记
+<kbd>\<space>w<space>m</kbd>||n|打开明日日记
 
 ## Inspire
 
