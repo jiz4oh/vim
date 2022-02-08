@@ -49,10 +49,7 @@ nmap gl <Plug>(easymotion-overwin-line)
 "==================== https://github.com/jiz4oh/vim#搜索 ====================
 " fuzzy finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-let $FZF_DEFAULT_OPTS="--reverse
-  \ --bind ctrl-b:page-up,ctrl-f:page-down,
-  \alt-b:preview-page-up,alt-f:preview-page-down
-  \"
+let $FZF_DEFAULT_OPTS="--reverse"
 let g:fzf_preview_window = ['down:60%', 'ctrl-/']
 
 " jump to existed window if possible
@@ -562,14 +559,6 @@ lua << EOF
     jump_one = true,         -- jump immediately if there is only one location
     callback = nil,          -- callback called after jumping to a location
     save_last = false,       -- save last location results for the :LspFuzzyLast command
-    fzf_preview = {          -- arguments to the FZF '--preview-window' option
-      'down:+{2}-/2'          -- preview on the right and centered on entry
-    },
-    fzf_action = {               -- FZF actions
-      ['ctrl-t'] = 'tab split',  -- go to location in a new tab
-      ['ctrl-v'] = 'vsplit',     -- go to location in a vertical split
-      ['ctrl-x'] = 'split',      -- go to location in a horzontal split
-    },
     fzf_modifier = ':~:.',   -- format FZF entries, see |filename-modifiers|
     fzf_trim = true,         -- trim FZF entries
   }
