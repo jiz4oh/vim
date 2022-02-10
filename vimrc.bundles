@@ -61,7 +61,7 @@ else
   "disable popup in favor of location window
   " let g:fzf_layout = { 'down': '60%' }
 
-  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 endif
 
 Plug 'junegunn/fzf.vim'
