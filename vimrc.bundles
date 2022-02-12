@@ -155,7 +155,7 @@ call s:fzf_content_shortcut('b', 'BLines')
 call s:fzf_content_shortcut('p', 'Pg')
 call s:fzf_content_shortcut('t', 'Tags')
 
-"==================== https://github.com/jiz4oh/vim#git =====================
+"==================== https://github.com/jiz4oh/vim#项目结构 ================
 Plug 'airblade/vim-gitgutter'
 omap ih <Plug>(GitGutterTextObjectInnerPending)
 omap ah <Plug>(GitGutterTextObjectOuterPending)
@@ -175,6 +175,11 @@ nnoremap <leader>gf :<C-U>Gvdiffsplit<cr>
 nnoremap <leader>gb :<C-U>Git blame<cr>
 nnoremap <leader>gl :<C-U>Git log<cr>
 nnoremap <leader>gs :<C-U>Git<cr>
+Plug 'airblade/vim-rooter'
+" 当处于非项目下时保持和 autochdir 相同行为
+let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_cd_cmd = 'lcd'
+let g:rooter_resolve_links = 1
 
 "==================== https://github.com/jiz4oh/vim#文件浏览器 ==============
 Plug 'preservim/nerdtree' |
@@ -372,6 +377,7 @@ Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 autocmd filetype lisp,scheme,art setlocal equalprg=scmindent.rkt
 
 Plug 'mhinz/vim-startify'
+let g:startify_change_to_dir = 0
 let g:startify_relative_path = 1
 let g:startify_files_number  = 5
 " returns all modified files of the current git repo

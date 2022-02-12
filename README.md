@@ -140,10 +140,11 @@ NERDTree 代替 netrw
 <kbd>\<backspace></kbd>||nerdtree|回退到上一个目录并将工作目录切换为上一个目录
 <kbd>\<enter></kbd>||nerdtree|进入目录并将切换工作目录或者打开文件
 
-#### git
+#### 项目结构
 
 插件：
 
+- https://github.com/airblade/vim-rooter
 - https://github.com/airblade/vim-gitgutter
 - https://github.com/tpope/vim-fugitive
 
