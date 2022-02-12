@@ -236,7 +236,7 @@ NERDTree 代替 netrw
 插件:
 
 - https://github.com/iamcco/markdown-preview.nvim
-- https://github.com/vimwiki/vimwiki
+- https://github.com/lervag/wiki.vim
 - https://github.com/mzlogin/vim-markdown-toc
 - https://github.com/kkoomen/vim-doge
 - https://github.com/junegunn/goyo.vim
@@ -244,11 +244,8 @@ NERDTree 代替 netrw
 快捷键|速记|应用模式|描述
 ---|---|---|---
 <kbd>\<space>ww</kbd>||n|打开 wiki 索引页
-<kbd>\<space>wi</kbd>||n|打开日记索引页
 <kbd>\<space>w<space>w</kbd>||n|打开今日日记
-<kbd>\<space>w<space>y</kbd>||n|打开昨日日记
-<kbd>\<space>w<space>m</kbd>||n|打开明日日记
-<kbd>\<space>d</kbd>|document|n|为当前光标下的函数生成文档格式，并通过 <kbd>Tab</kbd> 切换到下一个文档
+-<kbd>\<space>d</kbd>|document|n|为当前光标下的函数生成文档格式，并通过 <kbd>Tab</kbd> 切换到下一个文档
 
 命令|速记|描述
 ---|---|---

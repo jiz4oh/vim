@@ -334,43 +334,13 @@ let g:vmt_include_headings_before = 1
 if has('nvim')
   Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown' }
 endif
-Plug 'vimwiki/vimwiki'
-let g:vimwiki_path = $HOME . '/Documents/wiki'
-let g:vimwiki_list = [
-        \ {
-            \ 'path': g:vimwiki_path,
-            \ 'path_html': g:vimwiki_path . '/wiki_html',
-            \ 'custom_wiki2html': 'vimwiki_markdown',
-            \ 'html_filename_parameterization': 1,
-            \ 'syntax': 'markdown',
-            \ 'ext':'.md',
-            \ 'auto_toc': 1,
-            \ 'auto_diary_index': 1,
-        \ }
-    \ ]
 
-" 在 g:vimwiki_list 意外的 markdown 文档不被视为 vimwiki
-let g:vimwiki_global_ext = 0
-" 给 markdown 生成的链接增加 .md 后缀
-let g:vimwiki_markdown_link_ext = 1
-" 高亮checkbox
-let g:vimwiki_hl_cb_checked = 2
-
-" todo符号
-let g:vimwiki_listsyms = '✗○◐●✓'
-
-" 目录标题的等级
-let g:vimwiki_toc_header_level = 2
-
-augroup vime_vimwiki_group
-    autocmd!
-    autocmd FileType vimwiki,md,markdown setl colorcolumn=0
-    autocmd FileType vimwiki,md,markdown setl conceallevel=0
-    autocmd FileType vimwiki,md,markdown setl textwidth=0
-
-    " 避免g:vimwiki_hl_cb_checked设置为2的时候有问题
-    au BufEnter *.wiki :syntax sync fromstart
-augroup END
+Plug 'lervag/wiki.vim'
+let g:wiki_root               = $HOME . '/Documents/wiki'
+let g:wiki_filetypes          = ['md', 'wiki']
+let g:wiki_link_extension     = '.md'
+let g:wiki_link_target_type   = 'md'
+let g:wiki_global_load        = 0
 
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 Plug 'junegunn/goyo.vim'
@@ -432,15 +402,15 @@ let g:startify_lists = [
         \ ]
 
 let g:startify_bookmarks = [
-            \ g:vimwiki_path . '/drafts/todo.md',
-            \ g:vimwiki_path . '/drafts/quicknote.md',
+            \ g:wiki_root . '/drafts/todo.md',
+            \ g:wiki_root . '/drafts/quicknote.md',
             \ '~/.vimrc',
             \ '~/.vim/vimrc.bundles',
             \ '~/.zshrc',
             \ ]
 
 let g:startify_commands = [
-    \ {'w': ['笔记列表', 'VimwikiIndex']},
+    \ {'w': ['笔记列表', 'WikiIndex']},
     \ {'p': ['搜索项目', 'Pg']},
     \ {'c': ['查看提交', 'Commits']},
     \ {'u': ['插件更新', 'PlugUpdate']},
