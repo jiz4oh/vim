@@ -122,12 +122,6 @@ else
     call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'dir': l:dir, 'options': ['--prompt', fnamemodify(l:dir, ':t').''.GitBranchName().'> ', '--delimiter', ':', '--nth', '4..']}), a:fullscreen)
   endfunction
 
-  function! Rg(query, fullscreen)
-    let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
-    let l:grep_cmd = printf(s:fzf_content_cmd, l:query)
-    call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'options': ['--prompt', getcwd().'> ', '--delimiter', ':', '--nth', '4..']}), a:fullscreen)
-  endfunction
-
   function! s:project_grep(query, fullscreen)
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
     let l:grep_cmd = printf(s:fzf_content_cmd, l:query)
@@ -145,7 +139,6 @@ function! s:fzf_content_shortcut(key, cmd)
   execute "vnoremap <silent> <leader>s" . a:key . " :<C-u>execute ':" . a:cmd . " '.VisualSelection()<CR>"
 endfunction
 
-command! -nargs=? -bang Rg        call Rg(<q-args>, <bang>0)
 command! -nargs=? -bang Pg        call s:project_grep(<q-args>, <bang>0)
 command! -nargs=? -bang GitGrep   call s:git_grep(<q-args>, <bang>0)
 command! -nargs=? -bang GGrep     call s:git_grep(<q-args>, <bang>0)
