@@ -267,6 +267,7 @@ if has('nvim')
   if executable('rg')
     Plug 'lukas-reineke/cmp-rg'
   end
+  Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
   "fzf integration
   "https://github.com/ojroques/nvim-lspfuzzy
   Plug 'ojroques/nvim-lspfuzzy'
@@ -513,14 +514,16 @@ lua << EOF
         end, {"i","s","c",}),
     },
     sources = cmp.config.sources({
-      { name = 'nvim_lsp', priority = 1 },
-      -- { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
-      { name = 'buffer', priority = 2 },
-      { name = 'tags', priority = 3 },
-      { name = 'rg', priority = 4, option = { additional_arguments = "--smart-case" } },
+        { name = 'nvim_lsp' },
+        -- { name = 'vsnip' }, -- For vsnip users.
+        -- { name = 'luasnip' }, -- For luasnip users.
+        -- { name = 'ultisnips' }, -- For ultisnips users.
+        -- { name = 'snippy' }, -- For snippy users.
+        { name = 'cmp_tabnine' },
+      }, {
+        { name = 'buffer' },
+        { name = 'tags' },
+        { name = 'rg', option = { additional_arguments = "--smart-case" } },
       }),
       completion = {
         completeopt = 'menu,noselect',
