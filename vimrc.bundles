@@ -242,13 +242,15 @@ augroup nerdtree_group
   autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
   autocmd FileType nerdtree nmap <buffer> <CR> bb
-  autocmd VimEnter * call NERDTreeAddKeyMap({
-      \ 'key': 'bb',
-      \ 'callback': function('<SID>NERDTreeCustomCROpen'),
-      \ 'quickhelpText': 'go to dir and change cwd to it or open a file',
-      \ 'scope': 'Node',
-      \ 'override': 1,
-      \ })
+  if exists('*NERDTreeAddKeyMap')
+    autocmd VimEnter * call NERDTreeAddKeyMap({
+        \ 'key': 'bb',
+        \ 'callback': function('<SID>NERDTreeCustomCROpen'),
+        \ 'quickhelpText': 'go to dir and change cwd to it or open a file',
+        \ 'scope': 'Node',
+        \ 'override': 1,
+        \ })
+  endif
 augroup END
 
 "==================== https://github.com/jiz4oh/vim#补全 ====================
