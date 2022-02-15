@@ -335,7 +335,17 @@ command! -nargs=? -bang Gem  call s:gem_search(<q-args>, <bang>0)
 command! -nargs=? -bang Gems call s:gems_search(<q-args>, <bang>0)
 call s:fzf_content_shortcut('g', 'Gems')
 
-"==================== https://github.com/jiz4oh/vim#其他 ====================
+"==================== https://github.com/jiz4oh/vim#写作 ====================
+Plug 'mzlogin/vim-markdown-toc', { 'for': 'markdown' }
+let g:vmt_fence_text = 'TOC'
+let g:vmt_fence_closing_text = '/TOC'
+let g:vmt_cycle_list_item_markers = 1
+let g:vmt_include_headings_before = 1
+
+" markdown preview
+if has('nvim')
+  Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown' }
+endif
 Plug 'vimwiki/vimwiki'
 let g:vimwiki_path = $HOME . '/Documents/wiki'
 let g:vimwiki_list = [
@@ -374,6 +384,7 @@ augroup vime_vimwiki_group
     au BufEnter *.wiki :syntax sync fromstart
 augroup END
 
+"==================== https://github.com/jiz4oh/vim#其他 ====================
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-rsi'
@@ -448,14 +459,9 @@ xnoremap c d
 nnoremap cc dd
 nnoremap C D
 
-" markdown preview
-if has('nvim')
-  Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()' }
-endif
-
 "==================== https://github.com/jiz4oh/vim#美化 ====================
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
-Plug 'luochen1990/rainbow'
+" Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
 " Plug 'vim-airline/vim-airline'
 " let g:airline_theme='onehalfdark'

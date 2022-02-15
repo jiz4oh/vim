@@ -1,5 +1,3 @@
-# Jiz4oh's vim configuration
-
 从 [wklken/k-vim](https://github.com/wklken/k-vim) 开始，随着自己使用的增加
 而添加了一些自己用着舒服的配置。
 
@@ -9,6 +7,28 @@ IDE 版是尝试将 vim/neovim 作为一个正式的开发环境而配置，包�
 比较好用的插件。宗旨是尽量使用 vimscript 插件和 lua 插件，减少外部依赖，比如
 YouCompleteMe 这种非常难以安装的插件。
 
+<!-- TOC GFM -->
+
+* [依赖与安装](#依赖与安装)
+   - [服务器版](#服务器版)
+   - [IDE 版](#ide-版)
+      + [依赖](#依赖)
+* [功能:](#功能)
+   - [服务器版](#服务器版-1)
+   - [IDE 版](#ide-版-1)
+      + [搜索](#搜索)
+      + [跳转](#跳转)
+      + [文件浏览器](#文件浏览器)
+      + [项目结构](#项目结构)
+      + [补全](#补全)
+      + [rails](#rails)
+      + [美化](#美化)
+      + [写作](#写作)
+* [Inspire](#inspire)
+      + [其他](#其他)
+* [Inspire](#inspire-1)
+
+<!-- /TOC -->
 ## 依赖与安装
 
 ### 服务器版
@@ -211,6 +231,28 @@ NERDTree 代替 netrw
 - https://github.com/luochen1990/rainbow
 - https://github.com/sonph/onehalf
 
+#### 写作
+
+插件:
+
+- https://github.com/iamcco/markdown-preview.nvim
+- https://github.com/vimwiki/vimwiki
+- https://github.com/mzlogin/vim-markdown-toc
+
+快捷键|速记|应用模式|描述
+---|---|---|---
+<kbd>\<space>ww</kbd>||n|打开 wiki 索引页
+<kbd>\<space>wi</kbd>||n|打开日记索引页
+<kbd>\<space>w<space>w</kbd>||n|打开今日日记
+<kbd>\<space>w<space>y</kbd>||n|打开昨日日记
+<kbd>\<space>w<space>m</kbd>||n|打开明日日记
+
+## Inspire
+
+- [Vim-plug](https://github.com/junegunn/vim-plug)
+- [vim-for-server](https://github.com/wklken/vim-for-server)
+- [Vime](https://github.com/fgheng/vime)
+
 #### 其他
 
 插件：
@@ -219,10 +261,8 @@ NERDTree 代替 netrw
 - https://github.com/tpope/vim-rsi
 - https://github.com/tpope/vim-endwise
 - https://github.com/tpope/vim-commentary
-- https://github.com/iamcco/markdown-preview.nvim
 - https://github.com/svermeulen/vim-cutlass
 - https://github.com/ludovicchabant/vim-gutentags
-- https://github.com/vimwiki/vimwiki
 
 vim 原始的 c,s,d 会将删除内容保存在寄存器中，更类似于剪切功能。
 vim-cutlass 使 c,s,d 不再破坏寄存器，
@@ -235,11 +275,6 @@ vim-cutlass 使 c,s,d 不再破坏寄存器，
 <kbd>gcc</kbd>|comment/uncomment|n|注释/取消注释
 <kbd>gc</kbd>|comment|v|注释/取消注释
 <kbd>\<space><space>i</kbd>|install|n|安装插件
-<kbd>\<space>ww</kbd>||n|打开 wiki 索引页
-<kbd>\<space>wi</kbd>||n|打开日记索引页
-<kbd>\<space>w<space>w</kbd>||n|打开今日日记
-<kbd>\<space>w<space>y</kbd>||n|打开昨日日记
-<kbd>\<space>w<space>m</kbd>||n|打开明日日记
 
 ## Inspire
 
