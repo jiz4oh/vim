@@ -23,7 +23,7 @@ YouCompleteMe 这种非常难以安装的插件。
       + [补全](#补全)
       + [rails](#rails)
       + [美化](#美化)
-      + [写作](#写作)
+      + [文档](#文档)
 * [Inspire](#inspire)
       + [其他](#其他)
 * [Inspire](#inspire-1)
@@ -239,6 +239,7 @@ NERDTree 代替 netrw
 - https://github.com/vimwiki/vimwiki
 - https://github.com/mzlogin/vim-markdown-toc
 - https://github.com/kkoomen/vim-doge
+- https://github.com/junegunn/goyo.vim
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
@@ -248,6 +249,10 @@ NERDTree 代替 netrw
 <kbd>\<space>w<space>y</kbd>||n|打开昨日日记
 <kbd>\<space>w<space>m</kbd>||n|打开明日日记
 <kbd>\<space>d</kbd>|document|n|为当前光标下的函数生成文档格式，并通过 <kbd>Tab</kbd> 切换到下一个文档
+
+命令|速记|描述
+---|---|---
+`Goyo`||切换勿扰模式
 
 ## Inspire
 

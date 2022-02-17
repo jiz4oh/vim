@@ -373,6 +373,7 @@ augroup vime_vimwiki_group
 augroup END
 
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+Plug 'junegunn/goyo.vim'
 "==================== https://github.com/jiz4oh/vim#其他 ====================
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sheerun/vim-polyglot'
