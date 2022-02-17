@@ -136,6 +136,7 @@ set whichwrap+=<,>,h,l
 set clipboard+=unnamed
 set updatetime=100
 set diffopt+=vertical                  " make diff windows vertical
+set sessionoptions+=globals
 
 " ============================ theme and status line ============================
 
