@@ -242,11 +242,6 @@ if !has('nvim') || !has("gui_running")
   call Terminal_MetaMode(0)
 endif
 
-" cd pwd to current dir
-nnoremap <silent> <leader>cd :cd %:p:h<CR>
-
-noremap <silent> <leader><tab> <C-^>
-
 " ie = inner entire buffer
 onoremap ie :exec "normal! ggVG"<cr>
 " iv = current viewable text in the buffer
@@ -328,10 +323,6 @@ map Y y$
 nnoremap ' `
 nnoremap ` '
 
-" switch # *
-" nnoremap # *
-" nnoremap * #
-
 "Keep search pattern at the center of the screen."
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
@@ -341,9 +332,6 @@ nnoremap <silent> g* g*zz
 
 " remove highlight
 noremap <silent><leader>/ :nohls<CR>
-
-" in case you forgot to sudo
-cnoremap w!! %!sudo tee > /dev/null %
 
 function! GitRepo()
   if !has_key(b:, 'git_repo')
