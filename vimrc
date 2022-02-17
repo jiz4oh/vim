@@ -54,7 +54,6 @@ set noerrorbells                " don't beep
 set visualbell t_vb=            " turn off error beep/flash
 set t_vb=
 set tm=500
-"set t_ti= t_te=                " 退出vim时显示当前屏幕内容在终端
 
 set cursorline
 set colorcolumn=80
@@ -65,7 +64,12 @@ set scrolloff=7                 " keep 7 lines when scrolling
 " show
 set ruler                       " show the current row and column
 set number                      " show line numbers
-"set nowrap                      " 超过窗口的行不换行显示
+set relativenumber              " show relative number
+augroup relative_numbser
+    autocmd!
+    autocmd InsertEnter * :set norelativenumber
+    autocmd InsertLeave * :set relativenumber
+augroup END
 set showcmd                     " display incomplete commands
 set showmode                    " display current modes
 set showmatch                   " jump to matches when entering parentheses
