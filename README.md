@@ -72,11 +72,7 @@ YouCompleteMe 这种非常难以安装的插件。
 快捷键|应用模式|描述
 ---|---|---
 <kbd>F1</kbd>|n/i|打开文件管理器 netrw
-<kbd>F2</kbd>|n|切换显示行号
-<kbd>F3</kbd>|n|切换显示不可见字符
-<kbd>F4</kbd>|n|当行超框时是否换行显示
-<kbd>F5</kbd>|n|切换粘贴模式
-<kbd>F6</kbd>|n|启用/禁用语法高亮
+<kbd>F3</kbd>|n/i|打开 quickfix list
 <kbd>q</kbd>|n|退出当前窗口，在最后一个窗口时不生效
 <kbd>\<space>/</kbd>|n|移除搜索高亮
 <kbd>U</kbd>|n|重做
@@ -141,7 +137,7 @@ NERDTree 代替 netrw
 ---|---|---|---
 <kbd>f</kbd>|find|n|通过输入一个字符跳转到指定单词
 <kbd>gl</kbd>|go to line|n|跳转到某行
-<kbd>\<space>m</kbd>||n|打开当前文件结构
+<kbd>F2</kbd>||n|打开当前文件结构
 
 #### 文件浏览器
 

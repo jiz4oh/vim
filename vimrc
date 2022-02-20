@@ -301,17 +301,8 @@ noremap <C-h> <C-W>h
 noremap <C-l> <C-W>l
 
 " switch setting
-nnoremap <F1> :Lexplore<CR>
-inoremap <F1> <Esc>:Lexplore<CR>
-nnoremap <F2> :set nu! nu?<CR>
-nnoremap <F3> :set list! list?<CR>
-nnoremap <F4> :set wrap! wrap?<CR>
-" when in insert mode, press <F5> to go to
-" paste mode, where you can paste mass data
-" that won't be autoindented
-nnoremap <F5> :set paste! paste?<CR>
-"au InsertLeave * set nopaste
-nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
+map  <F1> :Lexplore<CR>
+map! <F1> :Lexplore<CR>
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
@@ -333,6 +324,19 @@ nnoremap <silent> g* g*zz
 
 " remove highlight
 noremap <silent><leader>/ :nohls<CR>
+
+map  <silent> <F2> :call QFToggle()<CR>
+map! <silent> <F2> :call QFToggle()<CR>
+
+function! QFToggle()
+  if has_key(g:, 'qf_is_open') && g:qf_is_open
+    let g:qf_is_open = 0
+    cclose
+  else
+    let g:qf_is_open = 1
+    copen
+  endif
+endfunction
 
 function! GitRepo()
   if !has_key(b:, 'git_repo')

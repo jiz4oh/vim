@@ -25,7 +25,8 @@ endfunction
 call plug#begin('~/.vim/bundle')
 "==================== https://github.com/jiz4oh/vim#跳转 ====================
 Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
-nnoremap <silent> <leader>m :TagbarToggle<CR>
+map  <silent> <F3> :TagbarToggle<CR>
+map! <silent> <F3> :TagbarToggle<CR>
 
 " https://github.com/easymotion/vim-easymotion
 Plug 'easymotion/vim-easymotion', {'on':
@@ -202,8 +203,8 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
   \ "Unknown"   : "?"
   \ }
 
-nnoremap <expr> <F1> g:NERDTree.IsOpen() ? ":NERDTreeClose\<CR>" : ":NERDTreeMirror\<CR>:NERDTreeFind\<CR>"
-inoremap <expr> <F1> g:NERDTree.IsOpen() ? "<Esc>:NERDTreeClose\<CR>" : "<Esc>:NERDTreeMirror\<CR>:NERDTreeFind\<CR>"
+map  <expr> <F1> g:NERDTree.IsOpen() ? ":NERDTreeClose\<CR>" : ":NERDTreeMirror\<CR>:NERDTreeFind\<CR>"
+map! <expr> <F1> g:NERDTree.IsOpen() ? "<Esc>:NERDTreeClose\<CR>" : "<Esc>:NERDTreeMirror\<CR>:NERDTreeFind\<CR>"
 
 let NERDTreeMinimalUI = 1 " 最小化显示，不显示问号
 let NERDTreeDirArrows = 1
