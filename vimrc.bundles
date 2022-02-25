@@ -394,11 +394,11 @@ endfunction
 let g:startify_lists = [
         \ { 'type': 'sessions',                'header': ['   Sessions']     },
         \ { 'type': 'bookmarks',               'header': ['   Bookmarks']    },
+        \ { 'type': function('s:gitModified'), 'header': ['   Git Modified'] },
+        \ { 'type': function('s:gitUntracked'),'header': ['   Git Untracked']},
+        \ { 'type': function('s:gitStaged'),   'header': ['   Git Staged']   },
         \ { 'type': 'dir',                     'header': ['   MRU '.getcwd()]},
         \ { 'type': 'files',                   'header': ['   MRU']          },
-        \ { 'type': function('s:gitModified'), 'header': ['   git modified'] },
-        \ { 'type': function('s:gitUntracked'),'header': ['   git untracked']},
-        \ { 'type': function('s:gitStaged'),   'header': ['   git staged']   },
         \ { 'type': 'commands',                'header': ['   Commands']     },
         \ ]
 
