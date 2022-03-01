@@ -64,11 +64,10 @@ set scrolloff=7                 " keep 7 lines when scrolling
 " show
 set ruler                       " show the current row and column
 set number                      " show line numbers
-set relativenumber              " show relative number
 augroup relative_numbser
     autocmd!
-    autocmd InsertEnter * :set norelativenumber
-    autocmd InsertLeave * :set relativenumber
+    autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+    autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
 augroup END
 set showcmd                     " display incomplete commands
 set showmode                    " display current modes
