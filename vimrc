@@ -136,6 +136,9 @@ set clipboard+=unnamed
 set updatetime=100
 set diffopt+=vertical                  " make diff windows vertical
 set sessionoptions+=globals
+if !s:windows
+  set dictionary+=/usr/share/dict/words
+endif
 
 " ============================ theme and status line ============================
 

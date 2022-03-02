@@ -348,6 +348,7 @@ Plug 'junegunn/goyo.vim'
 "==================== https://github.com/jiz4oh/vim#其他 ====================
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'sheerun/vim-polyglot'
+Plug 'asins/vim-dict'
 Plug 'tpope/vim-rsi'
 Plug 'vlime/vlime', {'rtp': 'vim/'}
 
