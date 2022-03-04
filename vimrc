@@ -362,15 +362,6 @@ function! GitBranchName()
   return b:git_branch_name
 endfunction
 
-let configs = ['/.vim/vimrc.bundles', '/.vim/vimrc.local']
-
-for config in configs
-  let path = $HOME.config
-  if filereadable(path)
-    exec "source " . path
-  endif
-endfor
-
 inoremap <C-k> <C-o>D
 if !exists("g:plugs") || !has_key(g:plugs, 'vim-rsi')
   inoremap        <C-A> <Home>
