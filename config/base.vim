@@ -198,53 +198,6 @@ augroup other_group
 augroup END
 
 " ============================ key map ============================
-"make vim respond to alt key
-"https://github.com/fgheng/vime/blob/master/plugin/alt.vim
-if !has('nvim') || !has("gui_running")
-  function! Terminal_MetaMode(mode)
-    set ttimeout
-    if $TMUX != ''
-        set ttimeoutlen=30
-    elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
-        set ttimeoutlen=80
-    endif
-    if has('nvim') || has('gui_running')
-        return
-    endif
-    function! s:metacode(mode, key)
-        if a:mode == 0
-            exec "set <M-".a:key.">=\e".a:key
-        else
-            exec "set <M-".a:key.">=\e]{0}".a:key."~"
-        endif
-    endfunc
-    for i in range(10)
-        call s:metacode(a:mode, nr2char(char2nr('0') + i))
-    endfor
-    for i in range(26)
-        call s:metacode(a:mode, nr2char(char2nr('a') + i))
-        call s:metacode(a:mode, nr2char(char2nr('A') + i))
-    endfor
-    if a:mode != 0
-        for c in [',', '.', '/', ';', '[', ']', '{', '}']
-            call s:metacode(a:mode, c)
-        endfor
-        for c in ['?', ':', '-', '_']
-            call s:metacode(a:mode, c)
-        endfor
-    else
-        for c in [',', '.', '/', ';', '{', '}']
-            call s:metacode(a:mode, c)
-        endfor
-        for c in ['?', ':', '-', '_']
-            call s:metacode(a:mode, c)
-        endfor
-    endif
-  endfunc
-
-  call Terminal_MetaMode(0)
-endif
-
 " ie = inner entire buffer
 onoremap ie :exec "normal! ggVG"<cr>
 " iv = current viewable text in the buffer
@@ -287,11 +240,6 @@ nnoremap <M-l> >>_
 noremap <C-a> <Home>
 noremap <C-e> <End>
 
-noremap k gk
-noremap gk k
-noremap j gj
-noremap gj j
-
 " close window
 nnoremap <silent> q <esc>:close<cr>
 vnoremap <silent> q <esc>:close<cr>
@@ -327,9 +275,6 @@ nnoremap <silent> g* g*zz
 " remove highlight
 noremap <silent><leader>/ :nohls<CR>
 
-map  <silent> <F2> :call QFToggle()<CR>
-map! <silent> <F2> :call QFToggle()<CR>
-
 function! QFToggle()
   if has_key(g:, 'qf_is_open') && g:qf_is_open
     let g:qf_is_open = 0
@@ -340,36 +285,8 @@ function! QFToggle()
   endif
 endfunction
 
-function! GitRepo()
-  if !has_key(b:, 'git_repo')
-    let b:git_repo = trim(system('git rev-parse --show-toplevel 2>/dev/null'))
-  endif
-  return b:git_repo
-endfunction
-
-function! GitRepoName()
-  let l:repo = GitRepo()
-  if empty(l:repo)
-    return l:repo
-  endif
-  return split(l:repo, '/')[-1]
-endfunction
-
-function! GitBranchName()
-  if !has_key(b:, 'git_branch_name')
-    let b:git_branch_name = trim(system('git rev-parse --abbrev-ref HEAD 2>/dev/null'))
-  endif
-  return b:git_branch_name
-endfunction
-
-let configs = ['/.vim/vimrc.bundles', '/.vim/vimrc.local']
-
-for config in configs
-  let path = $HOME.config
-  if filereadable(path)
-    exec "source " . path
-  endif
-endfor
+map  <silent> <F2> :call QFToggle()<CR>
+map! <silent> <F2> :call QFToggle()<CR>
 
 inoremap <C-k> <C-o>D
 if !exists("g:plugs") || !has_key(g:plugs, 'vim-rsi')
@@ -390,87 +307,29 @@ if !exists("g:plugs") || !has_key(g:plugs, 'vim-rsi')
   cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
 end
 
-if !exists("g:plugs") || !has_key(g:plugs, 'nerdtree')
-  " netrw
-  " https://vonheikemen.github.io/devlog/tools/using-netrw-vim-builtin-file-explorer/
-  let g:netrw_banner = 0
-  let g:netrw_liststyle = 3
-  let g:netrw_browse_split = 4
-  let g:netrw_altv = 1
-  let g:netrw_winsize = 25
-  let g:netrw_keepdir = 0                " Keep the current directory and the browsing directory synced
-  let g:netrw_localcopydircmd = 'cp -r'  " enable recursive copy of directories
+" netrw
+" https://vonheikemen.github.io/devlog/tools/using-netrw-vim-builtin-file-explorer/
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+let g:netrw_keepdir = 0                " Keep the current directory and the browsing directory synced
+let g:netrw_localcopydircmd = 'cp -r'  " enable recursive copy of directories
 
-  function! NetrwMapping()
-    nmap <buffer> H u
-    nmap <buffer> h -^
-    nmap <buffer> l <CR>
+function! NetrwMapping()
+  nmap <buffer> H u
+  nmap <buffer> h -^
+  nmap <buffer> l <CR>
 
-    nmap <buffer> . gh
-    nmap <buffer> P <C-w>z
+  nmap <buffer> . gh
+  nmap <buffer> P <C-w>z
 
-    nmap <buffer> L <CR>:Lexplore<CR>
-    nmap <buffer> <Leader>dd :Lexplore<CR>
-  endfunction
+  nmap <buffer> L <CR>:Lexplore<CR>
+  nmap <buffer> <Leader>dd :Lexplore<CR>
+endfunction
 
-  augroup netrw_mapping
-    autocmd!
-    autocmd filetype netrw call NetrwMapping()
-  augroup END
-endif
-
-if !(exists("g:plugs") && has_key(g:plugs, 'vim-airline'))
-  let s:disable_statusline =
-    \ ['defx', 'denite', 'vista', 'tagbar', 'undotree', 'diff', 'peekaboo', 'sidemenu', 'qf', 'coc-explorer', 'startify', 'vim-plug']
-
-  let s:stl = ''
-  " repo name
-  let s:stl .= "%#Directory#%{empty(GitRepoName()) ? '' : GitRepoName().'  '}"
-  " brance name
-  let s:stl .= "%#Statement#%{empty(GitBranchName()) ? '' : GitBranchName().'  '}"
-  " file name
-  let s:stl .= "%#Identifier#%{RelativePath()}%h%w%r "
-
-  let s:stl .= "%="
-  let s:stl .= "%#StatusLine# %{&filetype}"
-  let s:stl .= "%#StatusLineNC# %{&fileencoding?&fileencoding:&encoding}[%{&fileformat}] "
-  let s:stl .= "%#StatusLineNC#  %p%% ☰ %l:%v "
-
-  let s:stl_nc = ""
-  let s:stl_nc .= "%f%h%w%r"
-
-  function! RelativePath() abort
-    let l:repo_path = GitRepo()
-    if empty(l:repo_path)
-      return expand('%:p:~')
-    else
-      return substitute(expand('%:p'), l:repo_path . '/', '', '')
-    endif
-  endfunction
-
-  function s:status_line_active() abort
-      if index(s:disable_statusline, &ft) > 0
-          return
-      endif
-
-      let &l:statusline = s:stl
-  endfunction
-
-  function s:status_line_inactive() abort
-      let &l:statusline = s:stl_nc
-  endfunction
-
-  augroup vime_theme_statusline_group
-      autocmd!
-      autocmd WinLeave * call s:status_line_inactive()
-      autocmd VimEnter,ColorScheme,FileType,WinEnter,BufWinEnter * call s:status_line_active()
-      autocmd FileChangedShellPost,BufFilePost,BufNewFile,BufWritePost * redrawstatus
-
-      autocmd FileChangedShellPost,BufFilePost,BufNewFile,BufWritePost * redrawstatus
-  augroup END
-
-  " set mark column color
-  hi! link SignColumn   LineNr
-  hi! link ShowMarksHLl DiffAdd
-  hi! link ShowMarksHLu DiffChange
-endif
+augroup netrw_mapping
+  autocmd!
+  autocmd filetype netrw call NetrwMapping()
+augroup END

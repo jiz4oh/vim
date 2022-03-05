@@ -33,19 +33,16 @@ YouCompleteMe 这种非常难以安装的插件。
 
 ### 服务器版
 
-`curl https://raw.githubusercontent.com/jiz4oh/vim/master/vimrc > ~/.vimrc`
-
-中国区用户可以使用 jsdelivr 来过墙：
-
-`curl https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/vimrc > ~/.vimrc`
+`curl https://raw.githubusercontent.com/jiz4oh/vim/master/config/base.vim > ~/.vimrc`
 
 ### IDE 版
 
-`curl https://raw.githubusercontent.com/jiz4oh/vim/master/install.sh | bash`
-
-中国区用户可以使用 jsdelivr 来过墙：
-
-`curl https://cdn.jsdelivr.net/gh/jiz4oh/vim@master/install.sh | bash`
+```console
+git clone https://github.com/jiz4oh/vim.git vim
+cd vim
+touch ~/.vimrc && echo "source $PWD/init.vim" >> ~/.vimrc
+touch ~/.config/nvim/init.vim && echo "source $PWD/init.vim" >> ~/.config/nvim/init.vim
+```
 
 #### 依赖
 
