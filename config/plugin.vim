@@ -69,7 +69,7 @@ endif
 
 Plug 'lervag/wiki.vim'
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo', 'for': 'markdown' }
 "==================== https://github.com/jiz4oh/vim#其他 ====================
 Plug 'vlime/vlime', {'rtp': 'vim/'}
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
@@ -80,6 +80,10 @@ Plug 'asins/vim-dict'
 Plug 'tpope/vim-rsi'
 
 Plug 'mhinz/vim-startify'
+Plug 'dstein64/vim-startuptime', {'on':'StartupTime'}
+if has('nvim')
+  Plug 'nathom/filetype.nvim'
+endif
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
