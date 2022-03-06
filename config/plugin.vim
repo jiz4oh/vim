@@ -37,6 +37,7 @@ Plug 'preservim/nerdtree' |
 if has('nvim')
   "lsp
   Plug 'neovim/nvim-lspconfig'
+  Plug 'williamboman/nvim-lsp-installer'
   "autocomplte
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-nvim-lsp'
