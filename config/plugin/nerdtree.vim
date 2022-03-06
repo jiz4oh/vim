@@ -22,8 +22,8 @@ let g:NERDTreeChDirMode = 2
 
 "remove e mapping
 let g:NERDTreeMapOpenExpl         = ''
-let g:NERDTreeMapOpenSplit        = "w"
-let g:NERDTreeMapOpenVSplit       = "W"
+let g:NERDTreeMapOpenSplit        = "<C-X>"
+let g:NERDTreeMapOpenVSplit       = "<C-V>"
 let g:NERDTreeMapActivateNode     = 'l'
 let g:NERDTreeMapPreview          = 'gp'
 let g:NERDTreeMapOpenRecursively  = 'L'

@@ -69,7 +69,7 @@ touch ~/.config/nvim/init.vim && echo "source $PWD/init.vim" >> ~/.config/nvim/i
 快捷键|应用模式|描述
 ---|---|---
 <kbd>F1</kbd>|n/i|打开文件管理器 netrw
-<kbd>F3</kbd>|n/i|打开 quickfix list
+<kbd>F2</kbd>|n/i|打开 quickfix list
 <kbd>q</kbd>|n|退出当前窗口，在最后一个窗口时不生效
 <kbd>\<space>/</kbd>|n|移除搜索高亮
 <kbd>U</kbd>|n|重做
@@ -145,7 +145,10 @@ NERDTree 代替 netrw
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
-<kbd>F1</kbd>|explore|n/i|打开浏览器并定位到当前文件
+<kbd>F1</kbd>||n/i|打开文件浏览器并定位到当前文件
+<kbd>ctrl-e</kbd>|explore|n/i|打开文件浏览器
+<kbd>ctrl-v</kbd>||nerdtree|在水平窗口打开当前文件
+<kbd>ctrl-x</kbd>||nerdtree|在垂直窗口打开当前文件
 <kbd>j</kbd> / <kbd>k</kbd>||nerdtree|上下移动
 <kbd>h</kbd>||nerdtree|进入上一个目录
 <kbd>l</kbd>||nerdtree|打开/收起目录或者打开文件
