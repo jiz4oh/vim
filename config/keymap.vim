@@ -48,3 +48,5 @@ call FzfGrepMap('g', 'Gems')
 " Navigation
 map  <expr> <F1> g:NERDTree.IsOpen() ? ":NERDTreeClose\<CR>" : ":NERDTreeMirror\<CR>:NERDTreeFind\<CR>"
 map! <expr> <F1> g:NERDTree.IsOpen() ? "<Esc>:NERDTreeClose\<CR>" : "<Esc>:NERDTreeMirror\<CR>:NERDTreeFind\<CR>"
+
+map <F4> :call ToggleStartify()<CR>

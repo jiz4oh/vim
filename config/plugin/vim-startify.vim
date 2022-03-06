@@ -37,3 +37,15 @@ let g:startify_commands = [
     \ {'u': ['插件更新', 'PlugUpdate']},
     \ {'i': ['插件安装', 'PlugInstall']},
     \ ]
+
+function! ToggleStartify()
+  let l:buf_name = 'startify_buffer'
+  if bufexists(l:buf_name)
+      exec 'bwipe ' . l:buf_name
+  else
+      exec 'vnew ' . l:buf_name
+      Startify
+      exec 'map <buffer> q :bwipe ' . l:buf_name . '<CR>'
+  endif
+endfunction
+
