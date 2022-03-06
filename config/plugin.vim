@@ -59,7 +59,7 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-dispatch'
 
 "==================== https://github.com/jiz4oh/vim#文档 ====================
-Plug 'mzlogin/vim-markdown-toc', { 'for': 'markdown' }
+Plug 'mzlogin/vim-markdown-toc'
 
 " markdown preview
 if has('nvim')
