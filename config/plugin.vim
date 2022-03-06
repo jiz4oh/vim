@@ -85,8 +85,10 @@ if has('nvim')
   Plug 'nathom/filetype.nvim'
 endif
 
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-repeat'
 Plug 'svermeulen/vim-cutlass'
 "==================== https://github.com/jiz4oh/vim#美化 ====================
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
