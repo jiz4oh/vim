@@ -27,11 +27,11 @@ else
   set grepprg=rg\ --vimgrep\ --smart-case\ --follow
   set grepformat=%f:%l:%c:%m
   let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!{.git}/*" 2>/dev/null'
-  let s:fzf_grep_cmd = 'rg --column --line-number --no-heading --smart-case --follow --color=always %s || true'
+  let g:fzf_grep_cmd = 'rg --column --line-number --no-heading --smart-case --follow --color=always %s || true'
 
   function! s:git_grep(query, fullscreen)
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
-    let l:grep_cmd = printf(s:fzf_grep_cmd, l:query)
+    let l:grep_cmd = printf(g:fzf_grep_cmd, l:query)
     let l:dir = personal#git#Repo()
 
     call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'dir': l:dir, 'options': ['--prompt', fnamemodify(l:dir, ':t').''.personal#git#BranchName().'> ', '--delimiter', ':', '--nth', '4..']}), a:fullscreen)
@@ -39,7 +39,7 @@ else
 
   function! s:project_grep(query, fullscreen)
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
-    let l:grep_cmd = printf(s:fzf_grep_cmd, l:query)
+    let l:grep_cmd = printf(g:fzf_grep_cmd, l:query)
     let l:dir = empty(FindRootDirectory()) ? getcwd() : FindRootDirectory()
 
     call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'dir': l:dir, 'options': ['--prompt', fnamemodify(l:dir, ':t') .'> ', '--delimiter', ':', '--nth', '4..']}), a:fullscreen)

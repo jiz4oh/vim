@@ -13,8 +13,8 @@ endfunction
 
 function! s:gem_content_search(gem, query, fullscreen)
   let l:gemdir = substitute(system("bundle show " . a:gem), '\n\+$', '', '')
-  if has_key(s:, 'fzf_grep_cmd')
-    let l:grep_cmd = printf(s:fzf_grep_cmd, shellescape(a:query))
+  if has_key(g:, 'fzf_grep_cmd')
+    let l:grep_cmd = printf(g:fzf_grep_cmd, shellescape(a:query))
   else
     let l:grep_cmd = 'find '. l:gemdir . ''
   endif
@@ -37,9 +37,9 @@ function! personal#functions#GemsSearch(query, fullscreen) abort
       endfor
     endif
 
-    if has_key(s:, 'fzf_grep_cmd')
+    if has_key(g:, 'fzf_grep_cmd')
       let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
-      let l:grep_cmd = printf(s:fzf_grep_cmd, l:query . ' ' . join(b:gem_paths, ' '))
+      let l:grep_cmd = printf(g:fzf_grep_cmd, l:query . ' ' . join(b:gem_paths, ' '))
     else
       let l:grep_cmd = 'find '. join(b:gem_paths, ' ') . ' -type f'
     endif
