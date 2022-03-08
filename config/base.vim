@@ -250,6 +250,14 @@ noremap <C-k> <C-W>k
 noremap <C-h> <C-W>h
 noremap <C-l> <C-W>l
 
+" save
+inoremap <C-s>     <C-O>:update<cr>
+nnoremap <C-s>     :update<cr>
+nnoremap <leader>s :update<cr>
+
+" Tags
+nnoremap <C-]> g<C-]>
+
 " switch setting
 map  <F1> :Lexplore<CR>
 map! <F1> :Lexplore<CR>
