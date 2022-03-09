@@ -263,6 +263,7 @@ NERDTree 代替 netrw
 - https://github.com/tpope/vim-commentary
 - https://github.com/svermeulen/vim-cutlass
 - https://github.com/ludovicchabant/vim-gutentags
+- https://github.com/justinmk/vim-gtfo
 
 vim 原始的 c,s,d 会将删除内容保存在寄存器中，更类似于剪切功能。
 vim-cutlass 使 c,s,d 不再破坏寄存器，
@@ -270,6 +271,8 @@ vim-cutlass 使 c,s,d 不再破坏寄存器，
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
+<kbd>gof</kbd>|go to file explore|n|使用文件管理器打开当前 buffer 所在目录
+<kbd>got</kbd>|go to file explore|n|使用终端打开当前 buffer 所在目录
 <kbd>cc</kbd>|cut|n|等于 dd
 <kbd>c</kbd>|cut|n|等于 d
 <kbd>gcc</kbd>|comment/uncomment|n|注释/取消注释

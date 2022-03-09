@@ -79,6 +79,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'asins/vim-dict'
 Plug 'tpope/vim-rsi'
 
+Plug 'justinmk/vim-gtfo'
 Plug 'mhinz/vim-startify'
 Plug 'dstein64/vim-startuptime', {'on':'StartupTime'}
 if has('nvim')
