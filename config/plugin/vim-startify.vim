@@ -14,9 +14,6 @@ let g:startify_session_before_save = [
 let g:startify_lists = [
         \ { 'type': 'sessions',                        'header': ['   Sessions']     },
         \ { 'type': 'bookmarks',                       'header': ['   Bookmarks']    },
-        \ { 'type': function('personal#git#Modified'), 'header': ['   Git Modified'] },
-        \ { 'type': function('personal#git#Untracked'),'header': ['   Git Untracked']},
-        \ { 'type': function('personal#git#Staged'),   'header': ['   Git Staged']   },
         \ { 'type': 'dir',                             'header': ['   MRU '.getcwd()]},
         \ { 'type': 'files',                           'header': ['   MRU']          },
         \ { 'type': 'commands',                        'header': ['   Commands']     },
@@ -32,6 +29,7 @@ let g:startify_bookmarks = [
 
 let g:startify_commands = [
     \ {'w': ['笔记列表', 'WikiIndex']},
+    \ {'g': ['Git',      'Git']},
     \ {'p': ['搜索项目', 'Pg']},
     \ {'c': ['查看提交', 'Commits']},
     \ {'u': ['插件更新', 'PlugUpdate']},
