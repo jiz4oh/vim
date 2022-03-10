@@ -104,7 +104,9 @@ NERDTree 代替 netrw
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
-<kbd>\<space>sb</kbd>|search buffer|n/v|在当前 buffer 搜索
+<kbd>\\</kbd>||v|在当前 buffer 向下搜索选中文本
+<kbd>??</kbd>||v|在当前 buffer 向上搜索选中文本
+<kbd>\<space>sb</kbd>|search buffer|n/v|使用 fzf 在当前 buffer 搜索
 <kbd>\<space>sp</kbd>|search project|n/v|在git仓库搜索文件名/内容，如果不处于git仓库下则搜索当前工作目录
 <kbd>\<space>st</kbd>|search tag|n|在 tags 中搜索，默认精准匹配
 <kbd>\<space>sd</kbd>|search dir|n|在当前工作目录下搜索文件名

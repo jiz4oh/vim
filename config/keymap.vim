@@ -45,6 +45,8 @@ call FzfGrepMap('p', 'Pg')
 call FzfGrepMap('t', 'Tags')
 call FzfGrepMap('g', 'Gems')
 
+vnoremap <silent> // :<C-u>execute '/'.personal#functions#Selected()<CR>
+vnoremap <silent> ?? :<C-u>execute '?'.personal#functions#Selected()<CR>
 " Navigation
 map  <expr> <leader>e g:NERDTree.IsOpen() ? ":NERDTreeClose\<CR>" : ":NERDTreeMirror\<CR>:NERDTreeFind\<CR>"
 map  <F1> :NERDTreeToggle<CR>
