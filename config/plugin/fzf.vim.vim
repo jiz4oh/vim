@@ -60,3 +60,28 @@ command! -nargs=? -bang GitGrep   call s:git_grep(<q-args>, <bang>0)
 command! -nargs=? -bang GGrep     call s:git_grep(<q-args>, <bang>0)
 command! -nargs=* -bang Tags      call fzf#vim#tags(<q-args>, fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0], "placeholder": "--tag {2}:{-1}:{3..}", 'options': '--exact --select-1 --exit-0 +i'}), <bang>0)
 
+" fzf
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+if executable('rg')
+  inoremap <expr> <c-x><c-f> fzf#vim#complete#path($FZF_DEFAULT_COMMAND)
+  inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
+  \ 'prefix': '^.*$',
+  \ 'source': 'rg -n ^ --color always',
+  \ 'options': '--ansi --delimiter : --nth 3..',
+  \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
+endif
+
+function! FzfGrepMap(key, cmd)
+  "nnoremap <silent> <leader>sp :Pg<Cr>
+  execute 'nnoremap <leader>s' . a:key.' :' . a:cmd . '<CR>'
+
+  "vnoremap <silent> <leader>sp :<C-u>execute ':Pg '.personal#functions#Selected()<CR>
+  execute "vnoremap <silent> <leader>s" . a:key . " :<C-u>execute ':" . a:cmd . " '.personal#functions#Selected()<CR>"
+endfunction
+
+call FzfGrepMap('b', 'BLines')
+call FzfGrepMap('p', 'Pg')
+call FzfGrepMap('t', 'Tags')
+call FzfGrepMap('g', 'Gems')
