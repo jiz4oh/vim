@@ -44,7 +44,9 @@ if has('nvim')
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/cmp-buffer'
-  Plug 'quangnguyen30192/cmp-nvim-tags'
+  if executable('ctags')
+    Plug 'quangnguyen30192/cmp-nvim-tags'
+  endif
   if executable('rg')
     Plug 'lukas-reineke/cmp-rg'
   end
@@ -52,6 +54,18 @@ if has('nvim')
   "fzf integration
   "https://github.com/ojroques/nvim-lspfuzzy
   Plug 'ojroques/nvim-lspfuzzy'
+else
+  "lsp
+  Plug 'prabirshrestha/vim-lsp'
+  Plug 'mattn/vim-lsp-settings'
+  "autocomplete
+  Plug 'prabirshrestha/asyncomplete.vim'
+  Plug 'prabirshrestha/asyncomplete-buffer.vim'
+  Plug 'prabirshrestha/asyncomplete-file.vim'
+  Plug 'prabirshrestha/asyncomplete-lsp.vim'
+  if executable('ctags')
+    Plug 'prabirshrestha/asyncomplete-tags.vim'
+  endif
 endif
 
 "==================== https://github.com/jiz4oh/vim#rails ===================
@@ -74,7 +88,9 @@ Plug 'junegunn/goyo.vim', { 'on': 'Goyo', 'for': 'markdown' }
 Plug 'vlime/vlime', {'rtp': 'vim/'}
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 
-Plug 'ludovicchabant/vim-gutentags'
+if executable('ctags')
+  Plug 'ludovicchabant/vim-gutentags'
+endif
 Plug 'sheerun/vim-polyglot'
 Plug 'asins/vim-dict'
 Plug 'tpope/vim-rsi'
