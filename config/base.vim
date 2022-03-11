@@ -140,6 +140,10 @@ if !s:windows
   set dictionary+=/usr/share/dict/words
 endif
 
+" make faster
+set re=1
+set ttyfast
+set lazyredraw
 " ============================ theme and status line ============================
 
 colo desert
@@ -160,7 +164,6 @@ endif
 
 " status line
 set laststatus=2                       "  Always show the status line - use 2 lines for the status bar
-set lazyredraw
 " ================================= autocmd ===================================
 augroup set_file_type
   autocmd!
