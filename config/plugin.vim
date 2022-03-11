@@ -23,6 +23,7 @@ Plug 'easymotion/vim-easymotion', {'on':
    \ '<Plug>(easymotion-bd-f)', '<Plug>(easymotion-overwin-f)',
    \ '<Plug>(easymotion-bd-jk)', '<Plug>(easymotion-overwin-line)',
    \ ]}
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 "==================== https://github.com/jiz4oh/vim#搜索 ====================
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } |
