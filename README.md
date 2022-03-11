@@ -264,15 +264,17 @@ NERDTree 代替 netrw
 - https://github.com/tpope/vim-endwise
 - https://github.com/tpope/vim-commentary
 - https://github.com/svermeulen/vim-cutlass
+   vim 原始的 c,s,d 会将删除内容保存在寄存器中，更类似于剪切功能。
+   vim-cutlass 使 c,s,d 不再破坏寄存器，
+   而我选择将 c 映射为原始的 d
 - https://github.com/ludovicchabant/vim-gutentags
 - https://github.com/justinmk/vim-gtfo
-
-vim 原始的 c,s,d 会将删除内容保存在寄存器中，更类似于剪切功能。
-vim-cutlass 使 c,s,d 不再破坏寄存器，
-而我选择将 c 映射为原始的 d
+- https://github.com/AndrewRadev/splitjoin.vim
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
+<kbd>gJ</kbd>|go to join|n|将多行代码缩写为一行
+<kbd>gK</kbd>||n|将一行代码展开为多行
 <kbd>gof</kbd>|go to file explore|n|使用文件管理器打开当前 buffer 所在目录
 <kbd>got</kbd>|go to file explore|n|使用终端打开当前 buffer 所在目录
 <kbd>cc</kbd>|cut|n|等于 dd
