@@ -11,7 +11,6 @@ cmp.setup({
       select = false,
     }),
     ["<Tab>"] = cmp.mapping(function(fallback)
-        local cmp = require('cmp')
         if cmp.visible() then
           if vim.fn.pumvisible() == 1 then
             cmp.complete()
