@@ -81,6 +81,8 @@ if has('nvim')
   Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown' }
 endif
 
+Plug 'ferrine/md-img-paste.vim'
+
 Plug 'lervag/wiki.vim'
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo', 'for': 'markdown' }
