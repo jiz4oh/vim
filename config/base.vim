@@ -53,6 +53,7 @@ set novisualbell                " turn off visual bell
 set noerrorbells                " don't beep
 set visualbell t_vb=            " turn off error beep/flash
 set t_vb=
+set t_RV=
 set tm=500
 
 set cursorline
