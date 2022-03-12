@@ -4,13 +4,14 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     \ https://cdn.jsdelivr.net/gh/junegunn/vim-plug@master/plug.vim
 endif
 
-set updatetime=100
 "Run PlugInstall if there are missing plugins
 "autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   "\| PlugInstall --sync | source $MYVIMRC
 "\| endif
 
-call plug#begin('~/.vim/bundle')
+silent! if plug#begin('~/.vim/bundle')
+set updatetime=100
+
 "==================== https://github.com/jiz4oh/vim#跳转 ====================
 if has("patch-7.3-1058")
   Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
@@ -122,5 +123,6 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
+endif
 
-colorscheme onehalfdark
+silent! colorscheme onehalfdark
