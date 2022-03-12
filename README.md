@@ -174,8 +174,6 @@ NERDTree 代替 netrw
 <kbd>\<space>gf</kbd>|git diff|n|预览当前 buffer 的改动
 <kbd>\<space>gr</kbd>|git read|n|还原当前 buffer 的所有改动
 <kbd>\<space>gw</kbd>|git write|n|将当前文件加入暂存区
-<kbd>\<space>ga</kbd>|git add|n|将当前文件恢复到已提交版本
-<kbd>\<space>gc</kbd>|git commit|n|提交
 <kbd>\<space>gl</kbd>|git log|n|查看提交日志
 <kbd>\<space>gs</kbd>|git status|n|查看当前仓库状态
 
