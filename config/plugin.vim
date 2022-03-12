@@ -28,6 +28,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } |
 "==================== https://github.com/jiz4oh/vim#项目结构 ================
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
+Plug 'rhysd/git-messenger.vim'
 Plug 'airblade/vim-rooter'
 "==================== https://github.com/jiz4oh/vim#文件浏览器 ==============
 Plug 'preservim/nerdtree' |
