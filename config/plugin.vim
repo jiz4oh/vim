@@ -12,7 +12,9 @@ set updatetime=100
 
 call plug#begin('~/.vim/bundle')
 "==================== https://github.com/jiz4oh/vim#跳转 ====================
-Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
+if has("patch-7.3-1058")
+  Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
+endif
 
 " https://github.com/easymotion/vim-easymotion
 Plug 'easymotion/vim-easymotion', {'on':
@@ -28,7 +30,9 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } |
 "==================== https://github.com/jiz4oh/vim#项目结构 ================
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
-Plug 'rhysd/git-messenger.vim'
+if v:version >= 800
+  Plug 'rhysd/git-messenger.vim'
+endif
 Plug 'airblade/vim-rooter'
 "==================== https://github.com/jiz4oh/vim#文件浏览器 ==============
 Plug 'preservim/nerdtree' |
@@ -55,7 +59,7 @@ if has('nvim')
   "fzf integration
   "https://github.com/ojroques/nvim-lspfuzzy
   Plug 'ojroques/nvim-lspfuzzy'
-else
+elseif v:version >= 800
   "lsp
   Plug 'prabirshrestha/vim-lsp'
   Plug 'mattn/vim-lsp-settings'
@@ -75,10 +79,12 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-dispatch'
 
 "==================== https://github.com/jiz4oh/vim#文档 ====================
-Plug 'mzlogin/vim-markdown-toc'
+if v:version >= 704
+  Plug 'mzlogin/vim-markdown-toc'
+endif
 
 " markdown preview
-if has('nvim')
+if v:version >= 800
   Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown' }
 endif
 
