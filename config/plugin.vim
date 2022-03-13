@@ -75,7 +75,9 @@ elseif v:version >= 800
 endif
 
 "==================== https://github.com/jiz4oh/vim#rails ===================
-Plug 'tpope/vim-bundler'
+if executable('bundle')
+  Plug 'tpope/vim-bundler'
+endif
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-dispatch'
 
