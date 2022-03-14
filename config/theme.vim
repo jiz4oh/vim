@@ -3,12 +3,7 @@ if !(exists("g:plugs") && has_key(g:plugs, 'vim-airline'))
     \ ['defx', 'denite', 'vista', 'tagbar', 'undotree', 'diff', 'peekaboo', 'sidemenu', 'qf', 'coc-explorer', 'startify', 'vim-plug']
 
   let s:stl = ''
-  " repo name
-  let s:stl .= "%#Directory#%{empty(personal#git#RepoName()) ? '' : personal#git#RepoName().'  '}"
-  " brance name
-  let s:stl .= "%#Statement#%{empty(personal#git#BranchName()) ? '' : personal#git#BranchName().'  '}"
-  " file name
-  let s:stl .= "%#Identifier#%{personal#git#RelativePath()}%h%w%r "
+  let s:stl .= "%#Identifier#%f%h%w%r "
 
   let s:stl .= "%="
   let s:stl .= "%#StatusLine# %{&filetype}"
