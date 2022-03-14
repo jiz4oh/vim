@@ -123,6 +123,9 @@ Plug 'svermeulen/vim-cutlass'
 Plug 'junegunn/vim-peekaboo'
 Plug 'AndrewRadev/splitjoin.vim'
 "==================== https://github.com/jiz4oh/vim#美化 ====================
+if has('nvim')
+  Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+endif
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
