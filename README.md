@@ -165,17 +165,15 @@ NERDTree 代替 netrw
 - https://github.com/airblade/vim-rooter
 - https://github.com/airblade/vim-gitgutter
 - https://github.com/tpope/vim-fugitive
+- https://github.com/rhysd/git-messenger.vim
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
 <kbd>\<space>hs</kbd>|hunk stage|n|暂存 当前修改块(hunk) 的改动
 <kbd>\<space>hp</kbd>|hunk preview|n|预览 当前修改块(hunk) 的改动
 <kbd>\<space>hu</kbd>|hunk undo|n|还原 当前修改块(hunk) 的改动
-<kbd>\<space>gf</kbd>|git diff|n|预览当前 buffer 的改动
-<kbd>\<space>gr</kbd>|git read|n|还原当前 buffer 的所有改动
-<kbd>\<space>gw</kbd>|git write|n|将当前文件加入暂存区
-<kbd>\<space>gl</kbd>|git log|n|查看提交日志
-<kbd>\<space>gs</kbd>|git status|n|查看当前仓库状态
+<kbd>\<space>g</kbd>|git|n|查看当前仓库状态，并可在上面进行 fugitive 操作
+<kbd>\<space>b</kbd>|git blame messager|n|查看行的历史提交记录
 
 #### 补全
 
