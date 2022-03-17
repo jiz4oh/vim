@@ -13,7 +13,7 @@ silent! if plug#begin('~/.vim/bundle')
 set updatetime=100
 
 "==================== https://github.com/jiz4oh/vim#跳转 ====================
-if has("patch-7.3-1058")
+if has("patch-7.3-1058") && executable('ctags')
   Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
 endif
 
