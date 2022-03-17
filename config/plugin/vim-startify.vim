@@ -38,11 +38,11 @@ let g:startify_commands = [
 function! ToggleStartify()
   let l:buf_name = 'startify_buffer'
   if bufexists(l:buf_name)
-      exec 'bwipe ' . l:buf_name
+      exec 'silent! bwipe ' . l:buf_name
   else
-      exec 'vnew ' . l:buf_name
+      exec 'bot vnew ' . l:buf_name
       Startify
-      exec 'map <buffer> q :bwipe ' . l:buf_name . '<CR>'
+      exec 'map <buffer> q :silent! bwipe ' . l:buf_name . '<CR>'
   endif
 endfunction
 
