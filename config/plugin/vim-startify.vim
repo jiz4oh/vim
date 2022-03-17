@@ -46,3 +46,4 @@ function! ToggleStartify()
   endif
 endfunction
 
+map <F4> :call ToggleStartify()<CR>

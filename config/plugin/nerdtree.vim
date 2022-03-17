@@ -59,3 +59,7 @@ augroup nerdtree_group
   endif
 augroup END
 
+" Navigation
+map  <expr> <leader>e g:NERDTree.IsOpen() ? ":NERDTreeClose\<CR>" : ":NERDTreeMirror\<CR>:NERDTreeFind\<CR>"
+map  <F1> :NERDTreeToggle<CR>
+map! <F1> :NERDTreeToggle<CR>
