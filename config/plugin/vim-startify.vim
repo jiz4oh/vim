@@ -7,6 +7,12 @@ let g:startify_session_before_save = [
     \ 'echo "Cleaning up before saving.."',
     \ 'silent! NERDTreeTabsClose'
     \ ]
+let g:startify_session_remove_lines = ['_loaded']            " let plugin load agian
+let g:startify_session_savevars = [
+    \ 'g:startify_session_savevars',
+    \ 'g:startify_session_savecmds',
+    \ 'g:startify_session_remove_lines',
+    \ ]
 
 " returns all modified files of the current git repo
 " `2>/dev/null` makes the command fail quietly, so that when we are not
