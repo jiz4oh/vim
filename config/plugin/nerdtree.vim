@@ -24,40 +24,73 @@ let g:NERDTreeChDirMode = 2
 let g:NERDTreeMapOpenExpl         = ''
 let g:NERDTreeMapOpenSplit        = "<C-X>"
 let g:NERDTreeMapOpenVSplit       = "<C-V>"
-let g:NERDTreeMapActivateNode     = 'l'
-let g:NERDTreeMapPreview          = 'gp'
 let g:NERDTreeMapOpenRecursively  = 'L'
-let g:NERDTreeMapCloseDir         = 'h'
 let g:NERDTreeMapCloseChildren    = 'H'
-let g:NERDTreeMapToggleHidden     = '.'
 " 回到上一级目录
 let g:NERDTreeMapUpdirKeepOpen    = '<backspace>'
 
-function! s:NERDTreeCustomCROpen(node) abort
-  let l:newRoot = a:node.GetSelected()
+" copy from https://github.com/SpaceVim/SpaceVim/blob/master/config/plugins/nerdtree.vim
+augroup nerdtree_zvim
+  autocmd!
+  " Exit Vim if NERDTree is the only window remaining in the only tab.
+  autocmd BufEnter *
+        \ if (winnr('$') == 1 && exists('b:NERDTree')
+        \ && b:NERDTree.isTabTree())
+        \|   q
+        \| endif
+  autocmd FileType nerdtree call s:nerdtreeinit()
+augroup END
 
-  if l:newRoot.path.isDirectory
-    call b:NERDTree.changeRoot(l:newRoot)
+function! s:nerdtreeinit() abort
+  nnoremap <silent><buffer> h  :<C-u>call <SID>nerdtree_h()<CR>
+  nnoremap <silent><buffer> l  :<C-u>call <SID>nerdtree_l()<CR>
+  nnoremap <silent><buffer> <Left>  :<C-u>call <SID>nerdtree_h()<CR>
+  nnoremap <silent><buffer> <Right>  :<C-u>call <SID>nerdtree_l()<CR>
+  nnoremap <silent><buffer> N  :<C-u>call NERDTreeAddNode()<CR>
+  nnoremap <silent><buffer> d  :<C-u>call NERDTreeDeleteNode()<CR>
+  nnoremap <silent><buffer> . :<C-u>call <SID>nerdtree_dot()<CR>
+  nnoremap <silent><buffer> <C-Home> :<C-u>NERDTreeCWD<CR>
+  nnoremap <silent><buffer> <CR> :<C-u>call <SID>nerdtree_enter()<CR>
+  nnoremap <silent><buffer> <Home> :call cursor(2, 1)<cr>
+  nnoremap <silent><buffer> <End>  :call cursor(line('$'), 1)<cr>
+endfunction
+
+function! s:nerdtree_h() abort
+  if g:NERDTree.ForCurrentTab().getRoot().path.str()
+        \ ==# g:NERDTreeFileNode.GetSelected().path.getParent().str()
+    silent! exe 'NERDTree' g:NERDTreeFileNode.GetSelected().path.getParent().getParent().str()
   else
-    call l:newRoot.activate({'reuse': 'all', 'where': 'p'})
+    call g:NERDTreeKeyMap.Invoke('p')
+    call g:NERDTreeKeyMap.Invoke('o')
   endif
 endfunction
 
-augroup nerdtree_group
-  " Exit Vim if NERDTree is the only window remaining in the only tab.
-  autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-  autocmd FileType nerdtree nmap <buffer> <CR> bb
-  if exists('*NERDTreeAddKeyMap')
-    autocmd VimEnter * call NERDTreeAddKeyMap({
-        \ 'key': 'bb',
-        \ 'callback': function('<SID>NERDTreeCustomCROpen'),
-        \ 'quickhelpText': 'go to dir and change cwd to it or open a file',
-        \ 'scope': 'Node',
-        \ 'override': 1,
-        \ })
+function! s:nerdtree_l() abort
+  let path = g:NERDTreeFileNode.GetSelected().path.str()
+  if isdirectory(path)
+    if matchstr(getline('.'), 'S') ==# g:NERDTreeDirArrowCollapsible
+      normal! gj
+    else
+      call g:NERDTreeKeyMap.Invoke('o')
+      normal! gj
+    endif
+  else
+    call g:NERDTreeKeyMap.Invoke('o')
   endif
-augroup END
+endfunction
+
+function! s:nerdtree_dot() abort
+  call g:NERDTreeKeyMap.Invoke('I')
+endfunction
+
+function! s:nerdtree_enter() abort
+  let path = g:NERDTreeFileNode.GetSelected().path.str()
+  if isdirectory(path)
+    silent! exe 'NERDTree' g:NERDTreeFileNode.GetSelected().path.str()
+  else
+    call g:NERDTreeKeyMap.Invoke('o')
+  endif
+endfunction
 
 " Navigation
 map  <expr> <leader>e g:NERDTree.IsOpen() ? ":NERDTreeClose\<CR>" : ":NERDTreeMirror\<CR>:NERDTreeFind\<CR>"

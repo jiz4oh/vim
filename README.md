@@ -151,10 +151,12 @@ NERDTree 代替 netrw
 <kbd>ctrl-e</kbd>|explore|n/i|打开文件浏览器
 <kbd>ctrl-v</kbd>||nerdtree|在水平窗口打开当前文件
 <kbd>ctrl-x</kbd>||nerdtree|在垂直窗口打开当前文件
+<kbd>.</kbd>||nerdtree|切换隐藏文件和目录
 <kbd>j</kbd> / <kbd>k</kbd>||nerdtree|上下移动
 <kbd>h</kbd>||nerdtree|进入上一个目录
 <kbd>l</kbd>||nerdtree|打开/收起目录或者打开文件
 <kbd>H</kbd> / <kbd>L</kbd>||nerdtree|递归收起/打开目录
+<kbd>N</kbd> / <kbd>d</kbd>||nerdtree|添加/删除节点
 <kbd>\<backspace></kbd>||nerdtree|回退到上一个目录并将工作目录切换为上一个目录
 <kbd>\<enter></kbd>||nerdtree|进入目录并将切换工作目录或者打开文件
 
