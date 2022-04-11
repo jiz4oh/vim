@@ -56,7 +56,7 @@ function! s:nerdtreeinit() abort
 endfunction
 
 function! s:nerdtree_h() abort
-  if g:NERDTree.ForCurrentTab().getRoot().path.str()
+  if !empty(g:NERDTree.ForCurrentTab()) && g:NERDTree.ForCurrentTab().getRoot().path.str()
         \ ==# g:NERDTreeFileNode.GetSelected().path.getParent().str()
     silent! exe 'NERDTree' g:NERDTreeFileNode.GetSelected().path.getParent().getParent().str()
   else
