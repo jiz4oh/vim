@@ -58,7 +58,7 @@ command! -nargs=? -bang RG        call RipgrepFzf(<q-args>, <bang>0)
 command! -nargs=? -bang Pg        call s:project_grep(<q-args>, <bang>0)
 command! -nargs=? -bang GitGrep   call s:git_grep(<q-args>, <bang>0)
 command! -nargs=? -bang GGrep     call s:git_grep(<q-args>, <bang>0)
-command! -nargs=* -bang Tags      call fzf#vim#tags(<q-args>, fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0], "placeholder": "--tag {2}:{-1}:{3..}", 'options': '--exact --select-1 --exit-0 +i'}), <bang>0)
+command! -nargs=* -bang Tags      call fzf#vim#tags(expand('<cword>') . ' ', fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0], "placeholder": "--tag {2}:{-1}:{3..}", 'options': '--exact --select-1 --exit-0 +i'}), <bang>0)
 
 " fzf
 imap <c-x><c-k> <plug>(fzf-complete-word)
