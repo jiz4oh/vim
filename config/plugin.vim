@@ -27,7 +27,8 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 "==================== https://github.com/jiz4oh/vim#搜索 ====================
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } |
-     \ Plug 'junegunn/fzf.vim'
+     \ Plug 'junegunn/fzf.vim' |
+     \ Plug 'zackhsi/fzf-tags'
 
 "==================== https://github.com/jiz4oh/vim#项目结构 ================
 Plug 'airblade/vim-gitgutter'
