@@ -60,7 +60,7 @@ set cursorline
 set colorcolumn=80
 
 " movement
-set scrolloff=7                 " keep 7 lines when scrolling
+" set scrolloff=7                 " keep 7 lines when scrolling
 
 " show
 set ruler                       " show the current row and column
