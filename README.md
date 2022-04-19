@@ -134,7 +134,6 @@ NERDTree 代替 netrw
 
 快捷键|速记|应用模式|描述
 ---|---|---|---
-<kbd>f</kbd>|find|n|通过输入一个字符跳转到指定单词
 <kbd>gl</kbd>|go to line|n|跳转到某行
 <kbd>F2</kbd>||n|打开当前文件结构
 
