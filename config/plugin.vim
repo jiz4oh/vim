@@ -55,9 +55,6 @@ if has('nvim')
   if executable('ctags')
     Plug 'quangnguyen30192/cmp-nvim-tags'
   endif
-  if executable('rg')
-    Plug 'lukas-reineke/cmp-rg'
-  end
   Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
   "fzf integration
   "https://github.com/ojroques/nvim-lspfuzzy

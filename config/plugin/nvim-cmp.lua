@@ -32,7 +32,6 @@ cmp.setup({
     }, {
       { name = 'buffer' },
       { name = 'tags' },
-      { name = 'rg', option = { additional_arguments = "--smart-case" } },
     }),
     completion = {
       completeopt = 'menu,noselect',
@@ -66,7 +65,6 @@ cmp.setup.cmdline('/', {
   sources = {
     { name = 'buffer', priority = 1 },
     { name = 'tags', priority = 2 },
-    { name = 'rg', priority = 3, option = { additional_arguments = "--smart-case" } },
   }
 })
 
