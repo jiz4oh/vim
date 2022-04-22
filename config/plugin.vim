@@ -98,7 +98,7 @@ Plug 'junegunn/goyo.vim', { 'on': 'Goyo', 'for': 'markdown' }
 "==================== https://github.com/jiz4oh/vim#其他 ====================
 Plug 'vlime/vlime', {'rtp': 'vim/'}
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
-Plug 'alvan/vim-closetag'
+" Plug 'alvan/vim-closetag'
 
 if executable('ctags')
   Plug 'ludovicchabant/vim-gutentags'
@@ -121,7 +121,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'svermeulen/vim-cutlass'
 Plug 'junegunn/vim-peekaboo'
-Plug 'AndrewRadev/splitjoin.vim'
+" Plug 'AndrewRadev/splitjoin.vim'
 "==================== https://github.com/jiz4oh/vim#美化 ====================
 if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
