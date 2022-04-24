@@ -98,12 +98,14 @@ Plug 'junegunn/goyo.vim', { 'on': 'Goyo', 'for': 'markdown' }
 "==================== https://github.com/jiz4oh/vim#其他 ====================
 Plug 'vlime/vlime', {'rtp': 'vim/'}
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
-" Plug 'alvan/vim-closetag'
+Plug 'vim-ruby/vim-ruby'
+if has('nvim') || has('patch-8.0-1453')
+  Plug 'fatih/vim-go'
+endif
 
 if executable('ctags')
   Plug 'ludovicchabant/vim-gutentags'
 endif
-Plug 'sheerun/vim-polyglot'
 Plug 'asins/vim-dict'
 Plug 'tpope/vim-rsi'
 
