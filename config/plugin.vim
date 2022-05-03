@@ -116,6 +116,7 @@ if has('nvim')
   Plug 'nathom/filetype.nvim'
 endif
 
+Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
