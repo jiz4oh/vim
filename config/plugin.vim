@@ -28,7 +28,7 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 "==================== https://github.com/jiz4oh/vim#搜索 ====================
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } |
      \ Plug 'junegunn/fzf.vim' |
-     \ Plug 'zackhsi/fzf-tags'
+     \ Plug 'zackhsi/fzf-tags', { 'on': ['<Plug>(fzf_tags)'] }
 
 "==================== https://github.com/jiz4oh/vim#项目结构 ================
 Plug 'airblade/vim-gitgutter'
@@ -81,26 +81,25 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-dispatch'
 
 "==================== https://github.com/jiz4oh/vim#文档 ====================
+Plug 'lervag/wiki.vim'
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+
 if v:version >= 704
-  Plug 'mzlogin/vim-markdown-toc'
+  Plug 'mzlogin/vim-markdown-toc', { 'on': ['GenTocGFM', 'UpdateToc'] }
 endif
 
 " markdown preview
 if v:version >= 800
-  Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown' }
+  Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()' }
 endif
-
-Plug 'ferrine/md-img-paste.vim'
-
-Plug 'lervag/wiki.vim'
-Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-Plug 'junegunn/goyo.vim', { 'on': 'Goyo', 'for': 'markdown' }
+Plug 'ferrine/md-img-paste.vim', { 'for': 'markdown' }
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 "==================== https://github.com/jiz4oh/vim#其他 ====================
 Plug 'vlime/vlime', {'rtp': 'vim/'}
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 Plug 'vim-ruby/vim-ruby'
 if has('nvim') || has('patch-8.0-1453')
-  Plug 'fatih/vim-go'
+  Plug 'fatih/vim-go', { 'for': 'go' }
 endif
 
 if executable('ctags')
@@ -116,7 +115,7 @@ if has('nvim')
   Plug 'nathom/filetype.nvim'
 endif
 
-Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
