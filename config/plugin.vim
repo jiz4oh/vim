@@ -79,6 +79,7 @@ if executable('bundle')
 endif
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-rbenv'
 
 "==================== https://github.com/jiz4oh/vim#文档 ====================
 Plug 'lervag/wiki.vim'
