@@ -81,7 +81,7 @@ function! FzfGrepMap(key, cmd)
   execute "vnoremap <silent> <leader>s" . a:key . " :<C-u>execute ':" . a:cmd . " '.personal#functions#Selected()<CR>"
 endfunction
 
+call FzfGrepMap('<Space>', 'Rg')
 call FzfGrepMap('b', 'BLines')
 call FzfGrepMap('p', 'Pg')
 call FzfGrepMap('t', 'Tags')
-call FzfGrepMap('g', 'Gems')
