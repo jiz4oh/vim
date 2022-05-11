@@ -14,7 +14,6 @@ lsp_installer.settings({
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   local opts = { noremap=true, silent=true }
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)

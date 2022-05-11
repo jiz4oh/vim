@@ -3,13 +3,9 @@ local cmp = require('cmp')
 -- default config
 -- https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/default.lua
 cmp.setup({
-  mapping = {
-    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = false,
-    }),
+  mapping = cmp.mapping.preset.insert({
+    ['<M-n>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<M-p>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           if vim.fn.pumvisible() == 1 then
@@ -21,7 +17,18 @@ cmp.setup({
           fallback()
         end
       end, {"i","s","c",}),
-  },
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          if vim.fn.pumvisible() == 1 then
+            cmp.complete()
+          else
+            cmp.select_prev_item()
+          end
+        else
+          fallback()
+        end
+      end, {"i","s","c",}),
+  }),
   sources = cmp.config.sources({
       { name = 'nvim_lsp' },
       -- { name = 'vsnip' }, -- For vsnip users.
@@ -33,9 +40,9 @@ cmp.setup({
       { name = 'buffer' },
       { name = 'tags' },
     }),
-    completion = {
-      completeopt = 'menu,noselect',
-    },
+  completion = {
+    completeopt = 'menu,noselect',
+  },
   snippet = {
     -- We recommend using *actual* snippet engine.
     -- It's a simple implementation so it might not work in some of the cases.
@@ -60,19 +67,20 @@ cmp.setup({
   }
 })
 
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
-  sources = {
-    { name = 'buffer', priority = 1 },
-    { name = 'tags', priority = 2 },
-  }
-})
+for _, cmd_type in ipairs({'/', '?', '@'}) do
+  cmp.setup.cmdline(cmd_type, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' },
+      { name = 'cmdline_history' },
+    },
+  })
+end
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
+    { name = 'cmdline' },
+    { name = 'path' },
   })
 })
