@@ -31,5 +31,5 @@ if executable('gotags')
 endif
 
 map  <silent> <F3> :TagbarToggle<CR>
-map! <silent> <F3> :TagbarToggle<CR>
+map! <silent> <F3> <esc>:<c-u>TagbarToggle<CR>
 

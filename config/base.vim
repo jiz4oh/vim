@@ -283,7 +283,7 @@ nnoremap <C-]> g<C-]>
 
 " switch setting
 map  <F1> :Lexplore<CR>
-map! <F1> :Lexplore<CR>
+map! <F1> <esc>:<c-u>Lexplore<CR>
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
@@ -317,7 +317,7 @@ function! QFToggle()
 endfunction
 
 map  <silent> <F2> :call QFToggle()<CR>
-map! <silent> <F2> :call QFToggle()<CR>
+map! <silent> <F2> <esc>:<c-u>call QFToggle()<CR>
 
 inoremap <C-k> <C-o>D
 if !exists("g:plugs") || !has_key(g:plugs, 'vim-rsi')
