@@ -33,24 +33,43 @@ else
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
     let l:grep_cmd = printf(g:fzf_grep_cmd, l:query)
     let l:dir = personal#git#Repo()
+    let l:spec = {
+          \'dir': l:dir,
+          \'options': [
+             \'--prompt', fnamemodify(l:dir, ':t') .''.personal#git#BranchName().'> ',
+             \'--delimiter', ':',
+             \'--nth', '4..'
+             \]}
 
-    call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'dir': l:dir, 'options': ['--prompt', fnamemodify(l:dir, ':t').''.personal#git#BranchName().'> ', '--delimiter', ':', '--nth', '4..']}), a:fullscreen)
+    call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview(l:spec), a:fullscreen)
   endfunction
 
   function! s:project_grep(query, fullscreen)
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
     let l:grep_cmd = printf(g:fzf_grep_cmd, l:query)
     let l:dir = empty(FindRootDirectory()) ? getcwd() : FindRootDirectory()
+    let l:spec = {
+          \'dir': l:dir,
+          \'options': [
+             \'--prompt', fnamemodify(l:dir, ':t') .'> ',
+             \'--delimiter', ':',
+             \'--nth', '4..',
+             \]}
 
-    call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'dir': l:dir, 'options': ['--prompt', fnamemodify(l:dir, ':t') .'> ', '--delimiter', ':', '--nth', '4..']}), a:fullscreen)
+    call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview(l:spec), a:fullscreen)
   endfunction
 
   function! RipgrepFzf(query, fullscreen)
-    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-    let initial_command = printf(command_fmt, shellescape(a:query))
-    let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+    let l:grep_cmd = printf(g:fzf_grep_cmd, shellescape(a:query))
+    let l:reload_command = printf(g:fzf_grep_cmd, '{q}')
+    let l:spec = {
+          \'options': [
+             \'--phony',
+             \'--query', a:query,
+             \'--bind', 'change:reload:'.l:reload_command
+             \]}
+
+    call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview(l:spec), a:fullscreen)
   endfunction
 endif
 

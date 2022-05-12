@@ -23,7 +23,6 @@ Plug 'easymotion/vim-easymotion', {'on':
    \ '<Plug>(easymotion-bd-f)', '<Plug>(easymotion-overwin-f)',
    \ '<Plug>(easymotion-bd-jk)', '<Plug>(easymotion-overwin-line)',
    \ ]}
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 "==================== https://github.com/jiz4oh/vim#搜索 ====================
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } |
@@ -74,6 +73,7 @@ elseif v:version >= 800
 endif
 
 "==================== https://github.com/jiz4oh/vim#rails ===================
+Plug 'vim-ruby/vim-ruby'
 if executable('bundle')
   Plug 'tpope/vim-bundler'
 endif
@@ -96,9 +96,8 @@ endif
 Plug 'ferrine/md-img-paste.vim', { 'for': 'markdown' }
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 "==================== https://github.com/jiz4oh/vim#其他 ====================
-Plug 'vlime/vlime', {'rtp': 'vim/'}
-Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
-Plug 'vim-ruby/vim-ruby'
+" Plug 'vlime/vlime', {'rtp': 'vim/'}
+" Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 if has('nvim') || has('patch-8.0-1453')
   Plug 'fatih/vim-go', { 'for': 'go' }
 endif
@@ -116,19 +115,20 @@ if has('nvim')
   Plug 'nathom/filetype.nvim'
 endif
 
-Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'svermeulen/vim-cutlass'
+Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
 Plug 'junegunn/vim-peekaboo'
 " Plug 'AndrewRadev/splitjoin.vim'
 "==================== https://github.com/jiz4oh/vim#美化 ====================
-if has('nvim')
-  Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-endif
+" if has('nvim')
+"   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+" endif
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
