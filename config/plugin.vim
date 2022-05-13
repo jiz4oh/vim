@@ -130,8 +130,13 @@ Plug 'junegunn/vim-peekaboo'
 "   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 " endif
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'tomasr/molokai'
+Plug 'altercation/vim-colors-solarized'
+Plug 'chriskempson/base16-vim'
+Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
 endif
 
-silent! colorscheme onehalfdark
+silent! colorscheme base16-gruvbox-dark-soft
