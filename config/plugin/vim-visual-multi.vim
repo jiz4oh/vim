@@ -10,6 +10,8 @@ let g:VM_theme='ocean'
 let g:VM_maps                       = {}
 let g:VM_maps["Undo"]               = 'u'
 let g:VM_maps["Redo"]               = 'U'
-let g:VM_maps["Add Cursor Down"]    = '<M-n>'
-let g:VM_maps["Add Cursor Up"]      = '<M-p>'
+let g:VM_maps["Find Under"]         = 'gb'
+let g:VM_maps["Find Subword Under"] = 'gb'
+let g:VM_maps["Add Cursor Down"]    = '<C-n>'
+let g:VM_maps["Add Cursor Up"]      = '<C-p>'
 
