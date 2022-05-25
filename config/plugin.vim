@@ -111,6 +111,7 @@ if has('nvim')
   Plug 'nathom/filetype.nvim'
 endif
 
+Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
