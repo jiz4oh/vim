@@ -22,8 +22,7 @@ Plug 'easymotion/vim-easymotion'
 
 "==================== https://github.com/jiz4oh/vim#搜索 ====================
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } |
-     \ Plug 'junegunn/fzf.vim' |
-     \ Plug 'zackhsi/fzf-tags', { 'on': ['<Plug>(fzf_tags)'] }
+     \ Plug 'junegunn/fzf.vim'
 
 "==================== https://github.com/jiz4oh/vim#项目结构 ================
 Plug 'airblade/vim-gitgutter'
@@ -119,7 +118,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
-Plug 'svermeulen/vim-cutlass'
 Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
 Plug 'junegunn/vim-peekaboo'
 " Plug 'AndrewRadev/splitjoin.vim'

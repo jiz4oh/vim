@@ -11,6 +11,10 @@ endfunction
 
 " Gem search
 function! s:gem_search(query, fullscreen) abort
+  if empty(bundler#project())
+    echo 'not in a ruby project'
+    return
+  endif
   " call fzf#vim#grep("bundle list | sed '1d;$d' | cut -d ' ' -f 4", 0, {'sink': {gem -> s:gem_content_search(gem, a:query, a:fullscreen)}}, a:fullscreen)
   " let l:gems = "echo " . shellescape(join(keys(bundler#project().paths()), ' ')) . "|awk '{for(i=1;i<=NF;++i) print $i}'"
   " call fzf#vim#grep(l:gems, 0, {'sink': {gem -> s:gem_content_search(gem, a:query, a:fullscreen)}}, a:fullscreen)
@@ -23,6 +27,10 @@ endfunction
 
 " Gems search
 function! s:gems_search(query, fullscreen) abort
+  if empty(bundler#project())
+    echo 'not in a ruby project'
+    return
+  endif
   let l:project = bundler#project()
   let l:gem_paths = values(bundler#project().paths())
 
@@ -39,5 +47,5 @@ command! -nargs=? -bang Gem  call s:gem_search(<q-args>, <bang>0)
 command! -nargs=? -bang Gems call s:gems_search(<q-args>, <bang>0)
 
 if exists('*FzfGrepMap')
-  call FzfGrepMap('g', 'Gems')
+  call FzfGrepMap('<leader>sg', 'Gems')
 endif

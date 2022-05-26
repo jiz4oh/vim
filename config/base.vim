@@ -31,23 +31,32 @@ set hidden                      " donot hidden after disable terminal
 set splitbelow                  " split a window one the below
 set splitright                  " vsplit a window on the right
 
-if !isdirectory($HOME.'/.vim/files') && exists('*mkdir')
-  call mkdir($HOME.'/.vim/files')
+if has('vim_starting') && exists('+undofile')
+  set undofile
 endif
 
-" backupfiles
-set nobackup
-set nowritebackup
-"set backupdir   =$HOME/.vim/files/backup/
-"set backupext   =-vimbackup
-set backupskip  =
-" swapfiles
-set noswapfile
-"set directory   =$HOME/.vim/files/swap/
-"set updatecount =100
-" undofiles
-set noundofile
-"set undodir     =$HOME/.vim/files/undo/
+if v:version >= 700
+  set viminfo=!,'20,<50,s10,h
+endif
+if !empty($SUDO_USER) && $USER !=# $SUDO_USER
+  set viminfo=
+  set directory-=~/tmp
+  set backupdir-=~/tmp
+elseif exists('+undodir') && !has('nvim-0.5')
+  if !empty($XDG_DATA_HOME)
+    let s:data_home = substitute($XDG_DATA_HOME, '/$', '', '') . '/vim/'
+  elseif s:windows
+    let s:data_home = expand('~/AppData/Local/vim/')
+  else
+    let s:data_home = expand('~/.local/share/vim/')
+  endif
+  let &undodir = s:data_home . 'undo//'
+  let &directory = s:data_home . 'swap//'
+  let &backupdir = s:data_home . 'backup//'
+  if !isdirectory(&undodir) | call mkdir(&undodir, 'p') | endif
+  if !isdirectory(&directory) | call mkdir(&directory, 'p') | endif
+  if !isdirectory(&backupdir) | call mkdir(&backupdir, 'p') | endif
+endif
 
 set novisualbell                " turn off visual bell
 set noerrorbells                " don't beep
@@ -132,12 +141,13 @@ set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
 set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
 set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 " others
+set notagrelative
 set backspace=indent,eol,start         " make that backspace key work the way it should
 set whichwrap+=<,>,h,l
 set clipboard+=unnamed
 set updatetime=100
 set diffopt+=vertical                  " make diff windows vertical
-set sessionoptions+=globals
+set sessionoptions-=buffers sessionoptions-=curdir sessionoptions+=sesdir,globals
 if !s:windows
   set dictionary+=/usr/share/dict/words
 endif
@@ -220,6 +230,11 @@ augroup other_group
 
   "remove extra white spaces
   autocmd BufWritePre * :%s/\s\+$//e
+
+  autocmd VimEnter * nested
+      \ if !argc() && empty(v:this_session) && filereadable('Session.vim') && !&modified |
+      \   source Session.vim |
+      \ endif
 augroup END
 
 " ============================ key map ============================

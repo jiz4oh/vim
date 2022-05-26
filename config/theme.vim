@@ -41,7 +41,7 @@ augroup vime_theme_statusline_group
     autocmd!
     autocmd WinLeave * call s:status_line_inactive()
     autocmd VimEnter,ColorScheme,FileType,WinEnter,BufWinEnter * call s:status_line_active()
-    autocmd FileChangedShellPost,BufFilePost,BufNewFile,BufWritePost * redrawstatus
+    autocmd FileChangedShellPost,BufNewFile,BufWritePost * redrawstatus
 augroup END
 
 " set mark column color

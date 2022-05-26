@@ -92,15 +92,16 @@ if executable('rg')
   \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 endif
 
-function! FzfGrepMap(key, cmd)
+function! FzfGrepMap(lhs, cmd)
   "nnoremap <silent> <leader>sp :Pg<Cr>
-  execute 'nnoremap <leader>s' . a:key.' :' . a:cmd . '<CR>'
+  execute 'nnoremap ' . a:lhs.' :' . a:cmd . '<CR>'
 
   "vnoremap <silent> <leader>sp :<C-u>execute ':Pg '.personal#functions#Selected()<CR>
-  execute "vnoremap <silent> <leader>s" . a:key . " :<C-u>execute ':" . a:cmd . " '.personal#functions#Selected()<CR>"
+  execute "vnoremap <silent> " . a:lhs . " :<C-u>execute ':" . a:cmd . " '.personal#functions#Selected()<CR>"
 endfunction
 
-call FzfGrepMap('<Space>', 'Rg')
-call FzfGrepMap('b', 'BLines')
-call FzfGrepMap('p', 'Pg')
-call FzfGrepMap('t', 'Tags')
+call FzfGrepMap('<leader>s<Space>', 'Rg')
+call FzfGrepMap('<leader>sb', 'BLines')
+call FzfGrepMap('<leader>sp', 'Pg')
+call FzfGrepMap('<leader>st', 'Tags')
+call FzfGrepMap('<C-]>', 'Tags')
