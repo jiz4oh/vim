@@ -1,5 +1,6 @@
 let g:tagbar_width     = 35
 let g:tagbar_autofocus = 1
+let g:tagbar_autoclose = 1
 if executable('gotags')
   let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
@@ -28,6 +29,22 @@ if executable('gotags')
     \ 'ctagsbin'  : 'gotags',
     \ 'ctagsargs' : '-sort -silent'
   \ }
+endif
+
+if executable('ripper-tags')
+  let g:tagbar_type_ruby = {
+      \ 'kinds'      : ['m:modules',
+                      \ 'c:classes',
+                      \ 'C:constants',
+                      \ 'F:singleton methods',
+                      \ 'f:methods',
+                      \ 'a:aliases'],
+      \ 'kind2scope' : { 'c' : 'class',
+                       \ 'm' : 'class' },
+      \ 'scope2kind' : { 'class' : 'c' },
+      \ 'ctagsbin'   : 'ripper-tags',
+      \ 'ctagsargs'  : ['-f', '-']
+      \ }
 endif
 
 map  <silent> <F3> :TagbarToggle<CR>
