@@ -322,6 +322,9 @@ nnoremap <silent> g* g*zz
 " remove highlight
 noremap <silent><leader>/ :nohls<CR>
 
+" change cwd
+noremap <silent>cd. :lcd %:p:h<CR>:echo 'CWD: ' . getcwd()<CR>
+
 function! QFToggle()
   if has_key(g:, 'qf_is_open') && g:qf_is_open
     let g:qf_is_open = 0
