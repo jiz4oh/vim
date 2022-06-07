@@ -47,11 +47,13 @@ else
   function! s:project_grep(query, fullscreen)
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
     let l:grep_cmd = printf(g:fzf_grep_cmd, l:query)
-    let l:dir = empty(FindRootDirectory()) ? getcwd() : FindRootDirectory()
+    let l:dir = exists('*FindRootDirectory') ? FindRootDirectory() : ''
+    let l:dir = empty(l:dir) ? getcwd() : l:dir
+
     let l:spec = {
           \'dir': l:dir,
           \'options': [
-             \'--prompt', fnamemodify(l:dir, ':t') .'> ',
+             \'--prompt', personal#functions#shortpath(fnamemodify(l:dir, ':~:.')) .'> ',
              \'--delimiter', ':',
              \'--nth', '4..',
              \]}
@@ -64,6 +66,7 @@ else
     let l:reload_command = printf(g:fzf_grep_cmd, '{q}')
     let l:spec = {
           \'options': [
+             \'--prompt', personal#functions#shortpath(fnamemodify(getcwd(), ':~:.')) .'> ',
              \'--phony',
              \'--query', a:query,
              \'--bind', 'change:reload:'.l:reload_command
@@ -96,8 +99,8 @@ function! FzfGrepMap(lhs, cmd)
   "nnoremap <silent> <leader>sp :Pg<Cr>
   execute 'nnoremap ' . a:lhs.' :' . a:cmd . '<CR>'
 
-  "vnoremap <silent> <leader>sp :<C-u>execute ':Pg '.personal#functions#Selected()<CR>
-  execute "vnoremap <silent> " . a:lhs . " :<C-u>execute ':" . a:cmd . " '.personal#functions#Selected()<CR>"
+  "vnoremap <silent> <leader>sp :<C-u>execute ':Pg '.personal#functions#selected()<CR>
+  execute "vnoremap <silent> " . a:lhs . " :<C-u>execute ':" . a:cmd . " '.personal#functions#selected()<CR>"
 endfunction
 
 call FzfGrepMap('<leader>s<Space>', 'Rg')

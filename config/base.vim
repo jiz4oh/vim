@@ -1,5 +1,5 @@
-let s:darwin = has('mac')
-let s:windows = has('win32') || has('win64')
+let g:is_darwin = has('mac')
+let g:is_win = has('win32') || has('win64')
 
 " leader
 let mapleader      = ' '
@@ -45,7 +45,7 @@ if !empty($SUDO_USER) && $USER !=# $SUDO_USER
 elseif exists('+undodir') && !has('nvim-0.5')
   if !empty($XDG_DATA_HOME)
     let s:data_home = substitute($XDG_DATA_HOME, '/$', '', '') . '/vim/'
-  elseif s:windows
+  elseif g:is_win
     let s:data_home = expand('~/AppData/Local/vim/')
   else
     let s:data_home = expand('~/.local/share/vim/')
@@ -148,7 +148,7 @@ set clipboard+=unnamed
 set updatetime=100
 set diffopt+=vertical                  " make diff windows vertical
 set sessionoptions-=buffers sessionoptions-=curdir sessionoptions+=sesdir,globals
-if !s:windows
+if !g:is_win
   set dictionary+=/usr/share/dict/words
 endif
 
@@ -323,7 +323,9 @@ nnoremap <silent> g* g*zz
 noremap <silent><leader>/ :nohls<CR>
 
 " change cwd
-noremap <silent>cd. :lcd %:p:h<CR>:echo 'CWD: ' . getcwd()<CR>
+noremap <silent>cd. :lcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
+" set current directory as project root by default
+noremap <silent>cdp :lcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
 
 function! QFToggle()
   if has_key(g:, 'qf_is_open') && g:qf_is_open
