@@ -12,14 +12,23 @@ function! StatusLineMode()
 endfunction
 
 let s:stl = ''
-let s:stl .= "%#StatusLine#%n"
-let s:stl .= "%#ModeMsg#\ %{StatusLineMode()}\ "
-let s:stl .= "%#Identifier#%f\ %m%h%w%r\ "
+let s:stl .= "%#StatusLine#"
+let s:stl .= "%n"
+let s:stl .= "%#ModeMsg#"
+let s:stl .= " %{StatusLineMode()} "
+let s:stl .= "%#StatusLineNC#"
+let s:stl .= "%{personal#functions#shortpath(getcwd())}"
+let s:stl .= "%#Identifier#"
+let s:stl .= "%f %m%h%w%r "
 
+let s:stl .= "%<"
 let s:stl .= "%="
-let s:stl .= "%#StatusLineNC#%<%{&fileencoding?&fileencoding:&encoding}[%{&fileformat}]"
-let s:stl .= "%#ModeMsg#\ %{&filetype}\ "
-let s:stl .= "%#StatusLine#\ \ %p%%\ ☰\ %l:%v\ "
+let s:stl .= "%#StatusLineNC#"
+let s:stl .= "%{&fileencoding?&fileencoding:&encoding}[%{&fileformat}]"
+let s:stl .= "%#ModeMsg#"
+let s:stl .= " %{&filetype} "
+let s:stl .= "%#StatusLine#"
+let s:stl .= "  %p%% ☰ %l:%v "
 
 let s:stl_nc = ""
 let s:stl_nc .= "%f%h%w%r"

@@ -66,7 +66,7 @@ else
     let l:reload_command = printf(g:fzf_grep_cmd, '{q}')
     let l:spec = {
           \'options': [
-             \'--prompt', personal#functions#shortpath(fnamemodify(getcwd(), ':~:.')) .'> ',
+             \'--prompt', personal#functions#shortpath(getcwd()) .'> ',
              \'--phony',
              \'--query', a:query,
              \'--bind', 'change:reload:'.l:reload_command

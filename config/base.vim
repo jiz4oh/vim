@@ -21,7 +21,6 @@ filetype indent on
 
 " base
 set nocompatible                " don't bother with vi compatibility
-set autochdir
 set autoread                    " reload files when changed on disk, i.e. via `git checkout`
 set shortmess=atIF
 
@@ -141,7 +140,6 @@ set wildignore+=*.msi,*.crx,*.deb,*.vfd,*.apk,*.ipa,*.bin,*.msu
 set wildignore+=*.gba,*.sfc,*.078,*.nds,*.smd,*.smc
 set wildignore+=*.linux2,*.win32,*.darwin,*.freebsd,*.linux,*.android
 " others
-set notagrelative
 set backspace=indent,eol,start         " make that backspace key work the way it should
 set whichwrap+=<,>,h,l
 set clipboard+=unnamed
@@ -196,6 +194,8 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 " status line
 set laststatus=2                       "  Always show the status line - use 2 lines for the status bar
+" tabline
+set showtabline=2
 " ================================= autocmd ===================================
 augroup set_file_type
   autocmd!
