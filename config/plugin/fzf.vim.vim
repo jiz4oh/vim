@@ -53,7 +53,23 @@ else
     let l:spec = {
           \'dir': l:dir,
           \'options': [
-             \'--prompt', personal#functions#shortpath(fnamemodify(l:dir, ':~:.')) .'> ',
+             \'--prompt', personal#functions#shortpath(l:dir) .'> ',
+             \'--delimiter', ':',
+             \'--nth', '4..',
+             \]}
+
+    call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview(l:spec), a:fullscreen)
+  endfunction
+
+  function! s:workdir_grep(query, fullscreen)
+    let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
+    let l:grep_cmd = printf(g:fzf_grep_cmd, l:query)
+    let l:dir = getcwd()
+
+    let l:spec = {
+          \'dir': l:dir,
+          \'options': [
+             \'--prompt', personal#functions#shortpath(l:dir) .'> ',
              \'--delimiter', ':',
              \'--nth', '4..',
              \]}
@@ -78,6 +94,7 @@ endif
 
 command! -nargs=? -bang RG        call RipgrepFzf(<q-args>, <bang>0)
 command! -nargs=? -bang Pg        call s:project_grep(<q-args>, <bang>0)
+command! -nargs=? -bang Wg        call s:workdir_grep(<q-args>, <bang>0)
 command! -nargs=? -bang GitGrep   call s:git_grep(<q-args>, <bang>0)
 command! -nargs=? -bang GGrep     call s:git_grep(<q-args>, <bang>0)
 command! -nargs=* -bang Tags      call fzf#vim#tags(expand('<cword>') . ' ', fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0], "placeholder": "--tag {2}:{-1}:{3..}", 'options': '--exact --select-1 --exit-0 +i'}), <bang>0)
@@ -103,8 +120,9 @@ function! FzfGrepMap(lhs, cmd)
   execute "vnoremap <silent> " . a:lhs . " :<C-u>execute ':" . a:cmd . " '.personal#functions#selected()<CR>"
 endfunction
 
-call FzfGrepMap('<leader>s<Space>', 'Rg')
+call FzfGrepMap('<leader>s<Space>', 'RG')
 call FzfGrepMap('<leader>sb', 'BLines')
 call FzfGrepMap('<leader>sp', 'Pg')
+call FzfGrepMap('<leader>sw', 'Wg')
 call FzfGrepMap('<leader>st', 'Tags')
 call FzfGrepMap('<C-]>', 'Tags')
