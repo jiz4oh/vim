@@ -73,11 +73,6 @@ set colorcolumn=80
 " show
 set ruler                       " show the current row and column
 set number                      " show line numbers
-augroup relative_numbser
-    autocmd!
-    autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
-    autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
-augroup END
 set showcmd                     " display incomplete commands
 set showmode                    " display current modes
 set showmatch                   " jump to matches when entering parentheses
@@ -197,21 +192,8 @@ set laststatus=2                       "  Always show the status line - use 2 li
 " tabline
 set showtabline=2
 " ================================= autocmd ===================================
-augroup set_file_type
+augroup vimrc
   autocmd!
-  autocmd BufNewFile,BufRead *.icc                           set filetype=cpp
-  autocmd BufNewFile,BufRead *.pde                           set filetype=java
-  autocmd BufNewFile,BufRead *.coffee-processing             set filetype=coffee
-  autocmd BufNewFile,BufRead Dockerfile*                     set filetype=dockerfile
-  " autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown           set filetype=markdown.mkd
-augroup END
-
-augroup python_group
-  autocmd!
-  autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
-augroup END
-
-augroup other_group
    "Close preview window
   if exists('##CompleteDone')
     autocmd CompleteDone * pclose
@@ -235,6 +217,18 @@ augroup other_group
       \ if !argc() && empty(v:this_session) && filereadable('Session.vim') && !&modified |
       \   source Session.vim |
       \ endif
+
+  "set relative number
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+
+  autocmd BufNewFile,BufRead *.icc                           set filetype=cpp
+  autocmd BufNewFile,BufRead *.pde                           set filetype=java
+  autocmd BufNewFile,BufRead *.coffee-processing             set filetype=coffee
+  autocmd BufNewFile,BufRead Dockerfile*                     set filetype=dockerfile
+  " autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown           set filetype=markdown.mkd
+  autocmd FileType ruby set iskeyword+=!,?
+  autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
 augroup END
 
 " ============================ key map ============================
