@@ -120,6 +120,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
 Plug 'junegunn/vim-peekaboo'
+Plug 'kristijanhusak/vim-carbon-now-sh'
 " Plug 'AndrewRadev/splitjoin.vim'
 "==================== https://github.com/jiz4oh/vim#美化 ====================
 " if has('nvim')
