@@ -24,6 +24,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } |
      \ Plug 'junegunn/fzf.vim'
 
+Plug 'junegunn/vim-slash'
 "==================== https://github.com/jiz4oh/vim#项目结构 ================
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
