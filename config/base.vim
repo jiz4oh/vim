@@ -327,7 +327,11 @@ function! QFToggle()
     cclose
   else
     let g:qf_is_open = 1
-    bot copen
+    if exists(':Copen!')
+      bot Copen!
+    else
+      bot copen
+    end
   endif
 endfunction
 
