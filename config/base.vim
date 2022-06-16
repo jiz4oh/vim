@@ -403,4 +403,4 @@ function! s:rotate_colors()
   echo name
 endfunction
 
-nnoremap <silent> <F8> :call <SID>rotate_colors()<cr>
+nnoremap <silent> <F10> :call <SID>rotate_colors()<cr>

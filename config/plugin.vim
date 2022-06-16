@@ -59,12 +59,7 @@ elseif v:version >= 800
   Plug 'mattn/vim-lsp-settings'
   "autocomplete
   Plug 'prabirshrestha/asyncomplete.vim'
-  Plug 'prabirshrestha/asyncomplete-buffer.vim'
-  Plug 'prabirshrestha/asyncomplete-file.vim'
   Plug 'prabirshrestha/asyncomplete-lsp.vim'
-  if executable('ctags')
-    Plug 'prabirshrestha/asyncomplete-tags.vim'
-  endif
 endif
 
 "==================== https://github.com/jiz4oh/vim#rails ===================
