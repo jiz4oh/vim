@@ -227,8 +227,14 @@ augroup vimrc
   autocmd BufNewFile,BufRead *.coffee-processing             set filetype=coffee
   autocmd BufNewFile,BufRead Dockerfile*                     set filetype=dockerfile
   " autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown           set filetype=markdown.mkd
-  autocmd FileType ruby set iskeyword+=!,?
-  autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
+  autocmd FileType ruby setlocal iskeyword+=!,?
+
+  autocmd FileType coffee,javascript setlocal iskeyword+=$
+  " set '-' to be part of a word when dealing with CSS classes and IDs.
+  autocmd BufReadPost,BufNewFile *.{html,svg,xml,css,scss,less,stylus,js,coffee,erb,jade,blade} setlocal iskeyword+=-
+  autocmd BufReadPost,BufNewFile *.json setlocal iskeyword+=-
+
+  autocmd FileType python setlocal tabstop=4 shiftwidth=4 expandtab ai
 augroup END
 
 " ============================ key map ============================
