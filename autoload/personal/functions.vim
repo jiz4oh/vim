@@ -20,3 +20,7 @@ function! personal#functions#shortpath(path)
   let slash = (g:is_win && !&shellslash) ? '\' : '/'
   return empty(short) ? '~'.slash : short . (short =~ escape(slash, '\').'$' ? '' : slash)
 endfunction
+
+function! personal#functions#escape_for_regexp(str)
+  return escape(a:str, '^$.*?/\[]')
+endfunction
