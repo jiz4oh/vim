@@ -124,11 +124,12 @@ Plug 'kristijanhusak/vim-carbon-now-sh'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'tomasr/molokai'
 Plug 'altercation/vim-colors-solarized'
-Plug 'chriskempson/base16-vim'
 Plug 'morhetz/gruvbox'
+Plug 'junegunn/seoul256.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
 endif
 
-silent! colorscheme base16-gruvbox-dark-soft
+let g:seoul256_srgb = 1
+silent! colorscheme seoul256
