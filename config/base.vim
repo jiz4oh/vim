@@ -298,8 +298,8 @@ nnoremap <leader>s :update<cr>
 nnoremap <C-]> g<C-]>
 
 " switch setting
-map  <F1> :Lexplore<CR>
-map! <F1> <esc>:<c-u>Lexplore<CR>
+map  <special> <F2> :Lexplore<CR>
+map! <special> <F2> <esc>:<c-u>Lexplore<CR>
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
@@ -327,22 +327,15 @@ noremap <silent>cd. :lcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
 " set current directory as project root by default
 noremap <silent>cdp :lcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
 
-function! QFToggle()
-  if has_key(g:, 'qf_is_open') && g:qf_is_open
-    let g:qf_is_open = 0
-    cclose
+function! QFOpen()
+  if exists(':Copen')
+    bot Copen!
   else
-    let g:qf_is_open = 1
-    if exists(':Copen!')
-      bot Copen!
-    else
-      bot copen
-    end
-  endif
+    bot copen
+  end
 endfunction
 
-map  <silent> <F2> :call QFToggle()<CR>
-map! <silent> <F2> <esc>:<c-u>call QFToggle()<CR>
+nnoremap <silent> <leader>q :call QFOpen()<CR>
 
 inoremap <C-k> <C-o>D
 if !exists("g:plugs") || !has_key(g:plugs, 'vim-rsi')

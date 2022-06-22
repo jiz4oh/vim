@@ -17,6 +17,7 @@ let NERDChristmasTree = 1
 " 如果使用vim-plug的话，加上这一句可以避免光标在nerdtree
 " 中的时候进行插件升级而导致nerdtree崩溃
 let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeQuitOnOpen  = 1
 " 进入目录自动将workspace更改为此目录
 let g:NERDTreeChDirMode = 2
 
@@ -93,6 +94,8 @@ function! s:nerdtree_enter() abort
 endfunction
 
 " Navigation
-map  <expr> <leader>e g:NERDTree.IsOpen() ? ":NERDTreeClose\<CR>" : ":NERDTreeMirror\<CR>:NERDTreeFind\<CR>"
-map  <F1> :NERDTreeToggle<CR>
-map! <F1> <esc>:<c-u>NERDTreeToggle<CR>
+map  <leader>e <nop>
+map  <silent> <leader>ep :NERDTreeVCS %<CR>j
+map  <silent> <leader>ef :NERDTreeFind<CR>
+map  <silent> <special> <F2> :NERDTreeToggle<CR>
+map! <silent> <special> <F2> <esc>:<c-u>NERDTreeToggle<CR>
