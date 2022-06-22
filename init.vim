@@ -57,3 +57,6 @@ augroup PlugLazyLoad
   endif
 augroup END
 
+if filereadable($HOME . '/.vimrc.local')
+  exec 'source' $HOME . '/.vimrc.local'
+endif

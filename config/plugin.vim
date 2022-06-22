@@ -131,5 +131,4 @@ Plug 'ryanoasis/vim-devicons'
 call plug#end()
 endif
 
-let g:seoul256_srgb = 1
 silent! colorscheme seoul256
