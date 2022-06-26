@@ -105,6 +105,7 @@ if has('nvim')
   Plug 'nathom/filetype.nvim'
 endif
 
+Plug 'andymass/vim-matchup'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
