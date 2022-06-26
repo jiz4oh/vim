@@ -107,6 +107,8 @@ endif
 
 Plug 'andymass/vim-matchup'
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-surround'
