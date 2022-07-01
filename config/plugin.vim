@@ -110,7 +110,7 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'kana/vim-textobj-user'
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'whatyouhide/vim-textobj-erb'
-Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'inkarkat/vim-ReplaceWithRegister'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'

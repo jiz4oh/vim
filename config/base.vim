@@ -330,9 +330,8 @@ noremap <silent>cdp :lcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
 function! QFOpen()
   if exists(':Copen')
     bot Copen!
-  else
-    bot copen
   end
+  bot copen
 endfunction
 
 nnoremap <silent> <leader>q :call QFOpen()<CR>
