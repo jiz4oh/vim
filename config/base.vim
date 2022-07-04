@@ -228,6 +228,8 @@ augroup vimrc
   autocmd BufNewFile,BufRead Dockerfile*                     set filetype=dockerfile
   " autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown           set filetype=markdown.mkd
   autocmd FileType ruby setlocal iskeyword+=!,?
+  autocmd FileType ruby compiler ruby
+  autocmd FileType eruby compiler eruby
 
   autocmd FileType coffee,javascript setlocal iskeyword+=$
   " set '-' to be part of a word when dealing with CSS classes and IDs.
