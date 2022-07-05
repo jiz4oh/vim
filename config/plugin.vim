@@ -135,4 +135,4 @@ Plug 'ryanoasis/vim-devicons'
 call plug#end()
 endif
 
-silent! colorscheme seoul256
+silent! colorscheme gruvbox
