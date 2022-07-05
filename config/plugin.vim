@@ -105,10 +105,11 @@ if has('nvim')
   Plug 'nathom/filetype.nvim'
 endif
 
-Plug 'andymass/vim-matchup'
+" Plug 'andymass/vim-matchup'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'kana/vim-textobj-user'
 Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'rhysd/vim-textobj-anyblock'
 Plug 'whatyouhide/vim-textobj-erb'
 Plug 'inkarkat/vim-ReplaceWithRegister'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
