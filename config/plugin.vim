@@ -36,6 +36,8 @@ Plug 'preservim/nerdtree', { 'on': ['NERDTreeVCS', 'NERDTreeToggle', 'NERDTreeFi
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeVCS', 'NERDTreeToggle', 'NERDTreeFind'] }
 
 "==================== https://github.com/jiz4oh/vim#补全 ====================
+Plug 'dense-analysis/ale'
+
 if has('nvim')
   "lsp
   Plug 'neovim/nvim-lspconfig'
@@ -56,6 +58,7 @@ if has('nvim')
 elseif v:version >= 800
   "lsp
   Plug 'prabirshrestha/vim-lsp'
+  Plug 'rhysd/vim-lsp-ale'
   Plug 'mattn/vim-lsp-settings'
   "autocomplete
   Plug 'prabirshrestha/asyncomplete.vim'
