@@ -130,13 +130,14 @@ Plug 'kristijanhusak/vim-carbon-now-sh'
 "   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 " endif
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
-Plug 'tomasr/molokai'
-Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
-Plug 'joshdick/onedark.vim'
+Plug 'sainnhe/sonokai'
+Plug 'sainnhe/gruvbox-material'
+Plug 'sainnhe/everforest'
+Plug 'sainnhe/edge'
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
 endif
 
-silent! colorscheme gruvbox
+silent! colorscheme gruvbox-material
