@@ -9,7 +9,7 @@ if !executable('rg')
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
     let l:grep_cmd = 'git grep --line-number ' . l:query . ' -- ' . a:dir
 
-    call fzf#vim#grep(l:grep_cmd, 0, fzf#vim#with_preview({'dir': a:dir, 'options': ['--prompt', fnamemodify(a:dir, ':t').''.personal#git#BranchName().'> ', '--delimiter', ':', '--nth', '3..']}), a:fullscreen)
+    call fzf#vim#grep(l:grep_cmd, 0, fzf#vim#with_preview({'dir': a:dir, 'options': ['--prompt', personal#functions#shortpath(a:dir) . '> ', '--delimiter', ':', '--nth', '3..']}), a:fullscreen)
   endfunction
 
   function! Rg(query, fullscreen)
@@ -44,7 +44,7 @@ else
     let l:spec = {
           \'dir': l:dir,
           \'options': [
-             \'--prompt', fnamemodify(l:dir, ':t') .''.personal#git#BranchName().'> ',
+             \'--prompt', personal#functions#shortpath(l:dir) .'> ',
              \'--delimiter', ':',
              \'--nth', '4..'
              \]}
