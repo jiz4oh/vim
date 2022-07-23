@@ -33,8 +33,8 @@ if v:version >= 800
 endif
 Plug 'airblade/vim-rooter'
 "==================== https://github.com/jiz4oh/vim#文件浏览器 ==============
-Plug 'preservim/nerdtree', { 'on': ['NERDTreeVCS', 'NERDTreeToggle', 'NERDTreeFind'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeVCS', 'NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 "==================== https://github.com/jiz4oh/vim#补全 ====================
 if has('nvim')
