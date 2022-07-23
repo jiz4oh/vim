@@ -28,6 +28,7 @@ let g:startify_lists = [
 let g:startify_bookmarks = [
             \ g:wiki_root . '/drafts/todo.md',
             \ g:wiki_root . '/drafts/quicknote.md',
+            \ g:config_dir,
             \ $MYVIMRC,
             \ '~/.zshrc',
             \ ]
