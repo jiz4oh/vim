@@ -5,12 +5,11 @@ augroup end
 
 " `brew install ripgrep` before you use rg command
 if !executable('rg')
-  function! s:git_grep(query, fullscreen)
+  function! s:git_grep(query, dir, fullscreen)
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
-    let l:grep_cmd = 'git grep --line-number ' . l:query
-    let l:dir = personal#git#Repo()
+    let l:grep_cmd = 'git grep --line-number ' . l:query . ' -- ' . a:dir
 
-    call fzf#vim#grep(l:grep_cmd, 0, fzf#vim#with_preview({'dir': l:dir, 'options': ['--prompt', fnamemodify(l:dir, ':t').''.personal#git#BranchName().'> ', '--delimiter', ':', '--nth', '3..']}), a:fullscreen)
+    call fzf#vim#grep(l:grep_cmd, 0, fzf#vim#with_preview({'dir': a:dir, 'options': ['--prompt', fnamemodify(a:dir, ':t').''.personal#git#BranchName().'> ', '--delimiter', ':', '--nth', '3..']}), a:fullscreen)
   endfunction
 
   function! Rg(query, fullscreen)
@@ -21,7 +20,16 @@ if !executable('rg')
   endfunction
 
   function! s:project_grep(query, fullscreen)
-    call s:git_grep(a:query, a:fullscreen)
+    let l:dir = exists('*FindRootDirectory') ? FindRootDirectory() : ''
+    let l:dir = empty(l:dir) ? personal#git#Repo() : l:dir
+
+    call s:git_grep(a:query, l:dir, a:fullscreen)
+  endfunction
+
+  function! s:workdir_grep(query, fullscreen)
+    let l:dir = getcwd()
+
+    call s:git_grep(a:query, l:dir, a:fullscreen)
   endfunction
 else
   set grepprg=rg\ --vimgrep\ --smart-case\ --follow
@@ -95,8 +103,8 @@ endif
 command! -nargs=? -bang RG        call RipgrepFzf(<q-args>, <bang>0)
 command! -nargs=? -bang Pg        call s:project_grep(<q-args>, <bang>0)
 command! -nargs=? -bang Wg        call s:workdir_grep(<q-args>, <bang>0)
-command! -nargs=? -bang GitGrep   call s:git_grep(<q-args>, <bang>0)
-command! -nargs=? -bang GGrep     call s:git_grep(<q-args>, <bang>0)
+command! -nargs=? -bang GitGrep   call s:git_grep(<q-args>, personal#git#Repo(), <bang>0)
+command! -nargs=? -bang GGrep     call s:git_grep(<q-args>, personal#git#Repo(), <bang>0)
 command! -nargs=* -bang Tags      call fzf#vim#tags(expand('<cword>') . ' ', fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0], "placeholder": "--tag {2}:{-1}:{3..}", 'options': '--exact --select-1 --exit-0 +i'}), <bang>0)
 
 " fzf
