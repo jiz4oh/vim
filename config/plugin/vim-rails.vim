@@ -1,5 +1,11 @@
 " rails decorator
 let g:rails_projections = {
+      \  "app/admin/*.rb": {
+      \    "command": "admin",
+      \    "affinity": "model",
+      \    "alternate": "app/models/{}.rb",
+      \    "template": "ActiveAdmin.register {} do\nend"
+      \  },
       \  "app/controllers/*_controller_decorator.rb": {
       \    "command":  "controller_decorator",
       \    "affinity": "controller",
@@ -57,5 +63,5 @@ let g:rails_projections = {
       \  },
       \}
 
-vnoremap <silent> <F6> :<C-u>execute ":Runner '".personal#functions#selected() . "'"<CR>
+vnoremap <silent> <F6> :<C-u>execute ":Runner ". shellescape(substitute(personal#functions#selected(), '#{', '\#{', 'g')) . ""<CR>
 

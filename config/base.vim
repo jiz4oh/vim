@@ -112,7 +112,13 @@ set selection=inclusive
 set selectmode=mouse,key
 
 set wildmenu                           " show a navigable menu for tab completion"
-set wildmode=longest,list,full
+set wildmode=longest,full
+if has('patch-8.2-4325')
+  set wildoptions=pum
+endif
+if v:version >= 900
+  set wildoptions+=fuzzy
+endif
 " 文件搜索和补全时忽略下面的扩展名
 set suffixes=.bak,~,.o,.h,.info,.swp,.obj,.pyc,.pyo,.egg-info,.class
 "stuff to ignore when tab completing

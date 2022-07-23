@@ -3,6 +3,9 @@ if get(s:, 'loaded', 0) != 0
 endif
 let s:loaded = 1
 
+let s:config_src = 'https://github.com/jiz4oh/vim.git'
+let g:config_dir = resolve(expand('<sfile>:p:h'))
+
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 
 let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
@@ -23,7 +26,7 @@ function SourceConfig(configName) abort
     let l:lua_path = s:home . '/config/' . a:configName . ".lua"
     if filereadable(l:vim_path)
       exec 'source ' . l:vim_path
-    elseif filereadable(l:lua_path)
+    elseif has('nvim') && filereadable(l:lua_path)
       exec 'luafile' . l:lua_path
     endif
 endfunction
@@ -60,3 +63,30 @@ augroup END
 if filereadable($HOME . '/.vimrc.local')
   exec 'source' $HOME . '/.vimrc.local'
 endif
+
+function! s:upgrade() abort
+  echo 'Downloading the latest config'
+  redraw
+  let tmp = resolve(fnamemodify(g:config_dir, ":p:h:h")) . '/vim_config_tmp'
+
+  try
+    let out = system('git clone --depth 1 '. s:config_src . ' ' . tmp)
+    if v:shell_error
+      echoerr 'Error upgrading configuration: '. out
+      return
+    endif
+
+    call rename(g:config_dir, g:config_dir . '.old')
+    call rename(tmp, g:config_dir)
+    unlet s:loaded
+    echo 'configuration has been upgraded'
+    return 1
+  finally
+    if isdirectory(l:tmp)
+      call system('rm -rf '. l:tmp)
+    endif
+  endtry
+endfunction
+
+command! -nargs=0 -bar ConfigUpgrade call s:upgrade()
+

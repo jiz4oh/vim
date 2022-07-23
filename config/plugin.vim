@@ -37,6 +37,9 @@ Plug 'preservim/nerdtree', { 'on': ['NERDTreeVCS', 'NERDTreeToggle', 'NERDTreeFi
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeVCS', 'NERDTreeToggle', 'NERDTreeFind'] }
 
 "==================== https://github.com/jiz4oh/vim#补全 ====================
+if has('nvim')
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+endif
 Plug 'dense-analysis/ale'
 
 if has('nvim')
@@ -57,13 +60,13 @@ if has('nvim')
   "https://github.com/ojroques/nvim-lspfuzzy
   Plug 'ojroques/nvim-lspfuzzy'
 elseif v:version >= 800
-  "lsp
-  Plug 'prabirshrestha/vim-lsp'
-  Plug 'rhysd/vim-lsp-ale'
-  Plug 'mattn/vim-lsp-settings'
-  "autocomplete
-  Plug 'prabirshrestha/asyncomplete.vim'
-  Plug 'prabirshrestha/asyncomplete-lsp.vim'
+  " deprcated lsp due to too slow with large text
+  " " lsp
+  " Plug 'prabirshrestha/vim-lsp'
+  " Plug 'rhysd/vim-lsp-ale'
+  " Plug 'mattn/vim-lsp-settings'
+  " autocomplete
+  " Plug 'prabirshrestha/asyncomplete.vim'
 endif
 
 "==================== https://github.com/jiz4oh/vim#rails ===================
@@ -77,7 +80,7 @@ Plug 'tpope/vim-rbenv'
 
 "==================== https://github.com/jiz4oh/vim#文档 ====================
 Plug 'lervag/wiki.vim'
-Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+" Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 
 if v:version >= 704
   Plug 'mzlogin/vim-markdown-toc', { 'on': ['GenTocGFM', 'UpdateToc'] }

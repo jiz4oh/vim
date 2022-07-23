@@ -7,6 +7,9 @@ augroup fugitive_vim
 augroup END
 
 function! s:fugitive_init() abort
+  " branch track
+  nnoremap <buffer> cbt :execute ':Git branch --set-upstream-to=origin/' . FugitiveHead()
+  " merge force
   nnoremap <buffer> cmf<space> :Git merge -X theirs<space>
   nnoremap <buffer> cob<space> :Git checkout -b<space>
   nnoremap <buffer> cbd<space> :Git branch -d<space>

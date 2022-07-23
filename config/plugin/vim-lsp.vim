@@ -1,37 +1,23 @@
-set foldmethod=expr
-  \ foldexpr=lsp#ui#vim#folding#foldexpr()
-  \ foldtext=lsp#ui#vim#folding#foldtext()
-
-if executable('pyls')
-    " pip install python-language-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'allowlist': ['python'],
-        \ })
-elseif executable('solargraph')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'solargraph',
-        \ 'cmd': {server_info->['solargraph']},
-        \ 'allowlist': ['ruby'],
-        \ })
-endif
+let g:lsp_document_highlight_enabled = 0
 
 function! s:on_lsp_buffer_enabled() abort
+    setlocal foldmethod=expr
+      \ foldexpr=lsp#ui#vim#folding#foldexpr()
+      \ foldtext=lsp#ui#vim#folding#foldtext()
+
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
-    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gs <plug>(lsp-document-symbol-search)
-    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-    nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer> gi <plug>(lsp-implementation)
-    nmap <buffer> gt <plug>(lsp-type-definition)
-    nmap <buffer> <leader>rn <plug>(lsp-rename)
-    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
-    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
-    nmap <buffer> <leader>f <plug>(lsp-document-format)
-    nmap <buffer> K <plug>(lsp-hover)
+    nmap <buffer> <leader>ld <plug>(lsp-definition)
+    nmap <buffer> <leader>lD <plug>(lsp-declaration)
+    nmap <buffer> <leader>lt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>li <plug>(lsp-implementation)
+    nmap <buffer> <leader>lr <plug>(lsp-references)
+    nmap <buffer> <leader>lR <plug>(lsp-rename)
+    nmap <buffer> <leader>ls <plug>(lsp-document-symbol-search)
+    nmap <buffer> <leader>lS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> <leader>lf <plug>(lsp-document-format)
+    vmap <buffer> <leader>lf <plug>(lsp-document-range-format)
+    nmap <buffer> <leader>lK <plug>(lsp-hover)
 
     let g:lsp_format_sync_timeout = 1000
     autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')

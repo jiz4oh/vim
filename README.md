@@ -24,9 +24,8 @@ YouCompleteMe 这种非常难以安装的插件。
     + [rails](#rails)
     + [美化](#美化)
     + [文档](#文档)
-* [Inspire](#inspire)
     + [其他](#其他)
-* [Inspire](#inspire-1)
+* [Inspire](#inspire)
 
 <!-- /TOC -->
 ## 依赖与安装
@@ -41,7 +40,7 @@ YouCompleteMe 这种非常难以安装的插件。
 git clone https://github.com/jiz4oh/vim.git vim
 cd vim
 touch ~/.vimrc && echo "source $PWD/init.vim" >> ~/.vimrc
-touch ~/.config/nvim/init.vim && echo "source $PWD/init.vim" >> ~/.config/nvim/init.vim
+mkdir -p ~/.config/nvim && touch ~/.config/nvim/init.vim && echo "source $PWD/init.vim" >> ~/.config/nvim/init.vim
 ```
 
 #### 依赖
@@ -245,12 +244,6 @@ NERDTree 代替 netrw
 命令|速记|描述
 ---|---|---
 `Goyo`||切换勿扰模式
-
-## Inspire
-
-- [Vim-plug](https://github.com/junegunn/vim-plug)
-- [vim-for-server](https://github.com/wklken/vim-for-server)
-- [Vime](https://github.com/fgheng/vime)
 
 #### 其他
 

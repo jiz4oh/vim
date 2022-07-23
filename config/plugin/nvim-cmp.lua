@@ -40,9 +40,6 @@ cmp.setup({
       { name = 'buffer' },
       { name = 'tags' },
     }),
-  completion = {
-    completeopt = 'menu,noselect',
-  },
   snippet = {
     -- We recommend using *actual* snippet engine.
     -- It's a simple implementation so it might not work in some of the cases.

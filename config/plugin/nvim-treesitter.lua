@@ -2,6 +2,8 @@ vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 
 require'nvim-treesitter.configs'.setup {
+  auto_install = true,
+
   ensure_installed = {
     "vim",
     "html",
