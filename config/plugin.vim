@@ -115,9 +115,9 @@ endif
 " Plug 'andymass/vim-matchup'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'kana/vim-textobj-user'
-Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
 Plug 'rhysd/vim-textobj-anyblock'
-Plug 'whatyouhide/vim-textobj-erb'
+Plug 'whatyouhide/vim-textobj-erb', { 'for': 'eruby' }
 Plug 'inkarkat/vim-ReplaceWithRegister'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-surround'
