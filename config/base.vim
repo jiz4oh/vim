@@ -64,7 +64,6 @@ set t_vb=
 set t_RV=
 set tm=500
 
-set cursorline
 set colorcolumn=80
 
 " movement
@@ -152,9 +151,9 @@ if !g:is_win
 endif
 
 " make faster
-set re=1
 set ttyfast
-set lazyredraw
+" https://github.com/vim/vim/issues/1735#issuecomment-383353563
+set synmaxcol=200
 if v:version < 800 && &term =~ "xterm.*"
     let &t_ti = &t_ti . "\e[?2004h"
     let &t_te = "\e[?2004l" . &t_te
@@ -233,6 +232,7 @@ augroup vimrc
   autocmd BufNewFile,BufRead *.coffee-processing             set filetype=coffee
   autocmd BufNewFile,BufRead Dockerfile*                     set filetype=dockerfile
   " autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown           set filetype=markdown.mkd
+  autocmd FileType ruby setlocal regexpengine=1
   autocmd FileType ruby setlocal iskeyword+=!,?
   autocmd FileType ruby compiler ruby
   autocmd FileType eruby compiler eruby
