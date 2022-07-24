@@ -76,6 +76,7 @@ function! s:upgrade() abort
       return
     endif
 
+    call system('rm -rf '. g:config_dir . '.old')
     call rename(g:config_dir, g:config_dir . '.old')
     call rename(tmp, g:config_dir)
     unlet s:loaded
