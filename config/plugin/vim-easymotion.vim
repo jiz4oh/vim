@@ -1,6 +1,7 @@
 " turn on case-insensitive feature
 let g:EasyMotion_smartcase  = 1
 
+map <Leader><Leader> <Plug>(easymotion-prefix)
 " " move to line
 " nmap <leader><leader>f <Plug>(easymotion-overwin-f)
 " xmap <leader><leader>f <Plug>(easymotion-bd-f)

@@ -19,7 +19,7 @@ if has("patch-7.3-1058") && executable('ctags')
 endif
 
 " https://github.com/easymotion/vim-easymotion
-Plug 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion', { 'on': ['<Plug>(easymotion-prefix)', '<Plug>(easymotion-bd-jk)', '<Plug>(easymotion-overwin-line)'] }
 
 "==================== https://github.com/jiz4oh/vim#搜索 ====================
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } |
