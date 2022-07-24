@@ -30,6 +30,16 @@ let g:NERDTreeMapCloseChildren    = 'H'
 " 回到上一级目录
 let g:NERDTreeMapUpdirKeepOpen    = '<backspace>'
 
+augroup nerd_loader
+  autocmd!
+  autocmd VimEnter * silent! autocmd! FileExplorer
+  autocmd BufEnter,BufNew *
+        \  if isdirectory(expand('<amatch>'))
+        \|   call plug#load('nerdtree')
+        \|   execute 'autocmd! nerd_loader'
+        \| endif
+augroup END
+
 " copy from https://github.com/SpaceVim/SpaceVim/blob/master/config/plugins/nerdtree.vim
 augroup nerdtree_zvim
   autocmd!
@@ -41,6 +51,24 @@ augroup nerdtree_zvim
         \| endif
   autocmd FileType nerdtree call s:nerdtreeinit()
 augroup END
+
+" Function to open the file or NERDTree or netrw.
+"   Returns: 1 if either file explorer was opened; otherwise, 0.
+function! s:OpenFileOrExplorer(...)
+  if a:0 == 0 || a:1 == ''
+    NERDTree
+  elseif filereadable(a:1)
+    execute 'edit '.a:1
+    return 0
+  elseif a:1 =~? '^\(scp\|ftp\)://' " Add other protocols as needed.
+    execute 'Vexplore '. a:1
+  elseif isdirectory(a:1)
+    execute 'NERDTree '. a:1
+  else
+    return 0
+  endif
+  return 1
+endfunction
 
 function! s:nerdtreeinit() abort
   nnoremap <silent><buffer> h  :<C-u>call <SID>nerdtree_h()<CR>
@@ -98,4 +126,11 @@ map  <leader>e <nop>
 map  <silent> <leader>ep :NERDTreeVCS %<CR>j
 map  <silent> <leader>ef :NERDTreeFind<CR>
 map  <silent> <special> <F2> :NERDTreeToggle<CR>
+
+" Command to call the OpenFileOrExplorer function.
+command! -n=? -complete=file -bar Edit :call <SID>OpenFileOrExplorer('<args>')
+
+" Command-mode abbreviation to replace the :edit Vim command.
+cnoreabbrev e Edit
+
 map! <silent> <special> <F2> <esc>:<c-u>NERDTreeToggle<CR>
