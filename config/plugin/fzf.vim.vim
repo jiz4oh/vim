@@ -7,7 +7,7 @@ augroup end
 if !executable('rg')
   function! s:git_grep(query, dir, fullscreen)
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
-    let l:grep_cmd = 'git grep --line-number ' . l:query . ' -- ' . a:dir
+    let l:grep_cmd = 'git grep --color=always --line-number ' . l:query . ' -- ' . a:dir
 
     call fzf#vim#grep(l:grep_cmd, 0, fzf#vim#with_preview({'dir': a:dir, 'options': ['--prompt', personal#functions#shortpath(a:dir) . '> ', '--delimiter', ':', '--nth', '3..']}), a:fullscreen)
   endfunction
