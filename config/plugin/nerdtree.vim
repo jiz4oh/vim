@@ -123,6 +123,7 @@ endfunction
 
 " Navigation
 map  <leader>e <nop>
+map  <silent> <leader>ee :NERDTree<CR>j
 map  <silent> <leader>ep :NERDTreeVCS %<CR>j
 map  <silent> <leader>ef :NERDTreeFind<CR>
 map  <silent> <special> <F2> :NERDTreeToggle<CR>
