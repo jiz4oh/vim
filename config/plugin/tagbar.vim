@@ -47,6 +47,6 @@ if executable('ripper-tags')
       \ }
 endif
 
+map  <silent> <leader>et :TagbarToggle<CR>
 map  <silent> <F8> :TagbarToggle<CR>
 map! <silent> <F8> <esc>:<c-u>TagbarToggle<CR>
-

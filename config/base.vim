@@ -342,7 +342,7 @@ function! QFOpen()
   bot copen
 endfunction
 
-nnoremap <silent> <leader>q :call QFOpen()<CR>
+nnoremap <silent> <leader>eq :call QFOpen()<CR>
 
 inoremap <C-k> <C-o>D
 if !exists("g:plugs") || !has_key(g:plugs, 'vim-rsi')

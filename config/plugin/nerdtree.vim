@@ -82,6 +82,7 @@ function! s:nerdtreeinit() abort
   nnoremap <silent><buffer> <CR> :<C-u>call <SID>nerdtree_enter()<CR>
   nnoremap <silent><buffer> <Home> :call cursor(2, 1)<cr>
   nnoremap <silent><buffer> <End>  :call cursor(line('$'), 1)<cr>
+  nnoremap <silent><buffer> <leader>ef :wincmd w <CR>:NERDTreeFind<CR>
 endfunction
 
 function! s:nerdtree_h() abort
