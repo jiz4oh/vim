@@ -141,6 +141,7 @@ Plug 'sainnhe/gruvbox-material'
 Plug 'sainnhe/everforest'
 Plug 'sainnhe/edge'
 Plug 'ryanoasis/vim-devicons'
+Plug 'uguu-org/vim-matrix-screensaver'
 call plug#end()
 endif
 
