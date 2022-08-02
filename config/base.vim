@@ -199,6 +199,8 @@ set showtabline=2
 " ================================= autocmd ===================================
 augroup vimrc
   autocmd!
+  " Exit Vim if quickfix is the only window remaining in the only tab.
+  autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
    "Close preview window
   if exists('##CompleteDone')
     autocmd CompleteDone * pclose
