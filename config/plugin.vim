@@ -142,6 +142,7 @@ Plug 'sainnhe/everforest'
 Plug 'sainnhe/edge'
 Plug 'ryanoasis/vim-devicons'
 Plug 'uguu-org/vim-matrix-screensaver'
+Plug 'vim/killersheep'
 call plug#end()
 endif
 
