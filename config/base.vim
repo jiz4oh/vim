@@ -29,6 +29,7 @@ set title                       " change the terminal's title
 set hidden                      " donot hidden after disable terminal
 set splitbelow                  " split a window one the below
 set splitright                  " vsplit a window on the right
+set exrc
 
 if has('vim_starting') && exists('+undofile')
   set undofile
