@@ -39,6 +39,7 @@ let g:startify_commands = [
     \ {'w': ['笔记列表', 'WikiIndex']},
     \ {'g': ['Git',      'Git']},
     \ {'p': ['搜索项目', 'Pg']},
+    \ {'d': ['数据库',   'DBUI']},
     \ {'c': ['查看提交', 'Commits']},
     \ {'u': ['插件更新', 'PlugUpdate']},
     \ {'i': ['插件安装', 'PlugInstall']},

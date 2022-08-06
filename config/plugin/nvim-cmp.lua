@@ -81,3 +81,11 @@ cmp.setup.cmdline(':', {
     { name = 'path' },
   })
 })
+
+for _, file_type in ipairs({ 'sql', 'mysql', 'plsql'}) do
+  cmp.setup.filetype(file_type, {
+    sources = cmp.config.sources({
+      { name = 'vim-dadbod-completion' },
+    })
+  })
+end

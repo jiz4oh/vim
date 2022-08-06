@@ -93,6 +93,9 @@ endif
 Plug 'ferrine/md-img-paste.vim', { 'for': 'markdown' }
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 "==================== https://github.com/jiz4oh/vim#其他 ====================
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'kristijanhusak/vim-dadbod-completion'
 " Plug 'vlime/vlime', {'rtp': 'vim/'}
 " Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 if has('nvim') || has('patch-8.0-1453')
