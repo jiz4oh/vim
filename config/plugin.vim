@@ -14,7 +14,7 @@ set updatetime=100
 
 Plug 'vim-scripts/LargeFile'
 "==================== https://github.com/jiz4oh/vim#跳转 ====================
-if has("patch-7.3-1058") && executable('ctags')
+if has("patch-7.3.1058") && executable('ctags')
   Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
 endif
 
@@ -99,7 +99,7 @@ Plug 'kristijanhusak/vim-dadbod-completion'
 Plug 'christoomey/vim-tmux-navigator'
 " Plug 'vlime/vlime', {'rtp': 'vim/'}
 " Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
-if has('nvim') || has('patch-8.0-1453')
+if has('nvim') || has('patch-8.0.1453')
   Plug 'fatih/vim-go', { 'for': 'go' }
 endif
 
