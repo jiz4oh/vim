@@ -246,6 +246,7 @@ augroup vimrc
   autocmd BufReadPost,BufNewFile *.json setlocal iskeyword+=-
 
   autocmd FileType python setlocal tabstop=4 shiftwidth=4 expandtab ai
+  autocmd Filetype gitcommit setlocal spell textwidth=72
 augroup END
 
 " ============================ key map ============================
