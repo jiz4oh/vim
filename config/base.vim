@@ -146,7 +146,7 @@ set whichwrap+=<,>,h,l
 set clipboard+=unnamed
 set updatetime=100
 set diffopt+=vertical                  " make diff windows vertical
-set sessionoptions-=buffers sessionoptions-=curdir sessionoptions+=sesdir,globals
+set sessionoptions-=options sessionoptions-=buffers sessionoptions-=curdir sessionoptions+=sesdir,globals
 if !g:is_win
   set dictionary+=/usr/share/dict/words
 endif
@@ -247,6 +247,14 @@ augroup vimrc
 
   autocmd FileType python setlocal tabstop=4 shiftwidth=4 expandtab ai
   autocmd Filetype gitcommit setlocal spell textwidth=72
+
+  autocmd BufRead,BufNewFile
+    \ zshenv.local,zlogin.local,zlogout.local,zshrc.local,zprofile.local,
+    \ */zsh/configs/*
+    \ set filetype=sh
+  autocmd BufRead,BufNewFile gitconfig,gitconfig.local set filetype=gitconfig
+  autocmd BufRead,BufNewFile tmux.conf,tmux.conf.local set filetype=tmux
+  autocmd BufRead,BufNewFile vimrc,vimrc.local set filetype=vim
 augroup END
 
 " ============================ key map ============================
