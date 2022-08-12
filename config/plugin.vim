@@ -28,9 +28,11 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } |
 "==================== https://github.com/jiz4oh/vim#项目结构 ================
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
-if v:version >= 800
-  Plug 'rhysd/git-messenger.vim'
-endif
+Plug 'tpope/vim-rhubarb'
+Plug 'junegunn/gv.vim', { 'on': ['GV', 'GV!'] }
+" if v:version >= 800
+"   Plug 'rhysd/git-messenger.vim'
+" endif
 Plug 'airblade/vim-rooter'
 "==================== https://github.com/jiz4oh/vim#文件浏览器 ==============
 Plug 'preservim/nerdtree', { 'on': ['NERDTree', 'NERDTreeVCS', 'NERDTreeToggle', 'NERDTreeFind'] }
@@ -148,6 +150,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'uguu-org/vim-matrix-screensaver'
 Plug 'vim/killersheep'
 call plug#end()
+let g:startify_session_savevars = ['g:startify_session_savevars', 'g:startify_session_savecmds', 'g:startify_session_remove_lines']
+let g:startify_session_remove_lines = ['_loaded']
 endif
 
 silent! colorscheme gruvbox-material
