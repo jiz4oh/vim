@@ -1,3 +1,6 @@
+let g:ale_set_quickfix = 0
+let g:ale_set_loclist = 0
+
 let g:ale_linters                       = {'java': [], 'yaml': [], 'scala': [], 'clojure': []}
 let g:ale_fixers                        = {'ruby': ['rubocop']}
 let g:ale_ruby_rubocop_auto_correct_all = 1
