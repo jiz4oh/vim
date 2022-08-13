@@ -277,25 +277,15 @@ endif
 " move line upforward/downward
 nnoremap [e :<c-u>move .-2<CR>==
 nnoremap ]e :<c-u>move .+1<CR>==
-vnoremap [e :move '<-2<CR>gv=gv
-vnoremap ]e :move '>+1<CR>gv=gv
-nnoremap <M-k> :<c-u>move .-2<CR>==
-nnoremap <M-j> :<c-u>move .+1<CR>==
-inoremap <M-k> <Esc>:move .-2<CR>==gi
-inoremap <M-j> <Esc>:move .+1<CR>==gi
-vnoremap <M-k> :move '<-2<CR>gv=gv
-vnoremap <M-j> :move '>+1<CR>gv=gv
+xnoremap <silent> <C-k> :move-2<cr>gv
+xnoremap <silent> <C-j> :move'>+<cr>gv
 " move line leftward/rightward
-vnoremap < <gv
-vnoremap > >gv
+xnoremap < <gv
+xnoremap > >gv
 nnoremap << <<_
 nnoremap >> >>_
-vnoremap <M-h> <gv
-vnoremap <M-l> >gv
-inoremap <M-h> <Esc><<_i
-inoremap <M-l> <Esc>>>_i
-nnoremap <M-h> <<_
-nnoremap <M-l> >>_
+xnoremap <silent> <C-h> <gv
+xnoremap <silent> <C-l> >gv
 
 noremap <C-a> <Home>
 noremap <C-e> <End>
@@ -304,10 +294,10 @@ noremap <C-e> <End>
 nnoremap <silent> q :close<cr>
 " use Q to record macro instead of q
 noremap Q q
-noremap <C-j> <C-W>j
-noremap <C-k> <C-W>k
-noremap <C-h> <C-W>h
-noremap <C-l> <C-W>l
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
 " save
 inoremap <C-s>     <C-O>:update<cr>
