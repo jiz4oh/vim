@@ -134,6 +134,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
 Plug 'junegunn/vim-peekaboo'
 Plug 'haya14busa/vim-asterisk', { 'on': ['<Plug>(asterisk-z*)', '<Plug>(asterisk-z#)', '<Plug>(asterisk-gz*)', '<Plug>(asterisk-gz#)'] }
+Plug 'markonm/traces.vim'
 Plug 'kristijanhusak/vim-carbon-now-sh'
 " Plug 'AndrewRadev/splitjoin.vim'
 "==================== https://github.com/jiz4oh/vim#美化 ====================
