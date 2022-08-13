@@ -40,7 +40,6 @@ call LoadVim('config.vim')
 call SourceConfig('base')
 call SourceConfig('plugin')
 call SourceConfig('theme')
-call SourceConfig('keymap')
 
 augroup PlugLazyLoad
   autocmd!
