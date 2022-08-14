@@ -1,3 +1,8 @@
+if get(s:, 'loaded', 0) != 0
+	finish
+endif
+let s:loaded = 1
+
 "make vim respond to alt key
 "https://github.com/fgheng/vime/blob/master/plugin/alt.vim
 let s:alt_compatible_programs = ['iTerm.app']
