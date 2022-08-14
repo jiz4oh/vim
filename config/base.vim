@@ -10,9 +10,6 @@ let g:mapleader    = ' '
 syntax on
 syntax enable
 
-" history : how many lines of history VIM has to remember
-set history=2000
-
 " filetype
 filetype on
 " Enable filetype plugins
@@ -30,6 +27,9 @@ set hidden                      " donot hidden after disable terminal
 set splitbelow                  " split a window one the below
 set splitright                  " vsplit a window on the right
 set exrc
+set virtualedit=block
+
+set history=2000                " how many lines of history VIM has to remember
 
 if has('vim_starting') && exists('+undofile')
   set undofile
