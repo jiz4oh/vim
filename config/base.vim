@@ -432,8 +432,8 @@ nnoremap <C-]> g<C-]>
 map  <special> <F2> :Lexplore<CR>
 map! <special> <F2> <esc>:<c-u>Lexplore<CR>
 
-" remap U to <C-r> for easier redo
-nnoremap U <C-r>
+" " remap U to <C-r> for easier redo
+" nnoremap U <C-r>
 " y$ -> Y Make Y behave like other capitals
 map Y y$
 
