@@ -1,2 +1,9 @@
+.DS_Store
 tags
+tags.lock
+tags.temp
+session/
 Session.vim
+bundle/
+.netrwhist
+pack/
