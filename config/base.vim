@@ -96,8 +96,11 @@ set tabstop=2                   " insert mode tab use 2 spaces
 set softtabstop=2               " insert mode <Tab> use 2 spaces
 
 " fold
-set foldmethod=indent            " fold based on indent
-set nofoldenable                 " disable fold when open vim
+if has('vim_starting')
+  set foldmethod=marker
+  set foldopen+=jump
+  set commentstring=#\ %s
+endif
 
 " encoding
 set encoding=utf-8
@@ -241,6 +244,11 @@ augroup vimrc
   autocmd FileType eruby compiler eruby
 
   autocmd FileType coffee,javascript setlocal iskeyword+=$
+  autocmd FileType c,cpp,cs,java,arduino setlocal commentstring=//\ %s
+  autocmd FileType desktop              setlocal commentstring=#\ %s
+  autocmd FileType sql                  setlocal commentstring=--\ %s
+  autocmd FileType xdefaults            setlocal commentstring=!%s
+  autocmd FileType git,gitcommit        setlocal foldmethod=syntax foldlevel=1
   " set '-' to be part of a word when dealing with CSS classes and IDs.
   autocmd BufReadPost,BufNewFile *.{html,svg,xml,css,scss,less,stylus,js,coffee,erb,jade,blade} setlocal iskeyword+=-
   autocmd BufReadPost,BufNewFile *.json setlocal iskeyword+=-
