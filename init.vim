@@ -1,9 +1,9 @@
-if get(s:, 'loaded', 0) != 0
+if get(g:, 'vimrc_loaded', 0) != 0
 	finish
 endif
-let s:loaded = 1
+let g:vimrc_loaded = 1
 
-let s:config_src = 'https://github.com/jiz4oh/vim.git'
+let g:config_src = 'https://github.com/jiz4oh/vim.git'
 let g:config_dir = resolve(expand('<sfile>:p:h'))
 
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
@@ -39,7 +39,6 @@ endfunction
 call LoadVim('config.vim')
 call SourceConfig('base')
 call SourceConfig('plugin')
-call SourceConfig('theme')
 
 augroup PlugLazyLoad
   autocmd!
@@ -63,30 +62,4 @@ if filereadable($HOME . '/.vimrc.local')
   exec 'source' $HOME . '/.vimrc.local'
 endif
 
-function! s:upgrade() abort
-  echo 'Downloading the latest config'
-  redraw
-  let tmp = resolve(fnamemodify(g:config_dir, ":p:h:h")) . '/vim_config_tmp'
-
-  try
-    let out = system('git clone --depth 1 '. s:config_src . ' ' . tmp)
-    if v:shell_error
-      echoerr 'Error upgrading configuration: '. out
-      return
-    endif
-
-    call system('rm -rf '. g:config_dir . '.old')
-    call rename(g:config_dir, g:config_dir . '.old')
-    call rename(tmp, g:config_dir)
-    unlet s:loaded
-    echo 'configuration has been upgraded'
-    return 1
-  finally
-    if isdirectory(l:tmp)
-      call system('rm -rf '. l:tmp)
-    endif
-  endtry
-endfunction
-
-command! -nargs=0 -bar ConfigUpgrade call s:upgrade()
-
+command! -nargs=0 -bar ConfigUpgrade call personal#config#upgrade()
