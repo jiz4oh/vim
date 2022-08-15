@@ -42,9 +42,6 @@ inoremap <C-s>     <C-O>:update<cr>
 nnoremap <C-s>     :update<cr>
 nnoremap <leader>s :update<cr>
 
-" Tags
-nnoremap <C-]> g<C-]>
-
 " switch setting
 map  <special> <F2> :Lexplore<CR>
 map! <special> <F2> <esc>:<c-u>Lexplore<CR>
