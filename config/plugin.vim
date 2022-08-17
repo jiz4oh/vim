@@ -9,6 +9,12 @@ endif
   "\| PlugInstall --sync | source $MYVIMRC
 "\| endif
 
+if exists(':packadd')
+  silent! packadd! matchit
+else
+  runtime macros/matchit.vim
+endif
+
 silent! if plug#begin('~/.vim/bundle')
 set updatetime=100
 
