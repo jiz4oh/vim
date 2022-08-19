@@ -133,6 +133,8 @@ Plug 'tpope/vim-rsi'
 Plug 'justinmk/vim-gtfo'
 Plug 'mhinz/vim-startify'
 Plug 'dstein64/vim-startuptime', {'on':'StartupTime'}
+
+Plug 'vim-utils/vim-man'
 " Plug 'andymass/vim-matchup'
 Plug 'inkarkat/vim-ReplaceWithRegister'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
