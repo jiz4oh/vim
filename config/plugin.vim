@@ -45,9 +45,6 @@ Plug 'preservim/nerdtree', { 'on': ['NERDTree', 'NERDTreeVCS', 'NERDTreeToggle',
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'for': 'NERDTree' }
 
 "==================== https://github.com/jiz4oh/vim#补全 ====================
-if has('nvim')
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-endif
 Plug 'dense-analysis/ale'
 
 if has('nvim')
@@ -77,15 +74,6 @@ elseif v:version >= 800
   " Plug 'prabirshrestha/asyncomplete.vim'
 endif
 
-"==================== https://github.com/jiz4oh/vim#rails ===================
-Plug 'vim-ruby/vim-ruby'
-if executable('bundle')
-  Plug 'tpope/vim-bundler'
-endif
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-rbenv'
-
 "==================== https://github.com/jiz4oh/vim#文档 ====================
 Plug 'lervag/wiki.vim'
 " Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
@@ -105,6 +93,18 @@ Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'kristijanhusak/vim-dadbod-completion'
 Plug 'christoomey/vim-tmux-navigator'
+"
+" FILETYPE {{{
+if has('nvim')
+  Plug 'nathom/filetype.nvim'
+endif
+Plug 'vim-ruby/vim-ruby'
+if executable('bundle')
+  Plug 'tpope/vim-bundler'
+endif
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-rbenv'
 Plug 'towolf/vim-helm'
 Plug 'kchmck/vim-coffee-script'
 Plug 'chrisbra/csv.vim'
@@ -113,6 +113,16 @@ Plug 'chrisbra/csv.vim'
 if has('nvim') || has('patch-8.0.1453')
   Plug 'fatih/vim-go', { 'for': 'go' }
 endif
+" }}}
+
+" TEXT OBJECTS {{{
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
+Plug 'adriaanzon/vim-textobj-matchit'
+Plug 'rhysd/vim-textobj-anyblock'
+Plug 'whatyouhide/vim-textobj-erb', { 'for': 'eruby' }
+" }}}
 
 if executable('ctags')
   Plug 'ludovicchabant/vim-gutentags'
@@ -123,17 +133,7 @@ Plug 'tpope/vim-rsi'
 Plug 'justinmk/vim-gtfo'
 Plug 'mhinz/vim-startify'
 Plug 'dstein64/vim-startuptime', {'on':'StartupTime'}
-if has('nvim')
-  Plug 'nathom/filetype.nvim'
-endif
-
 " Plug 'andymass/vim-matchup'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'kana/vim-textobj-user'
-Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
-Plug 'adriaanzon/vim-textobj-matchit'
-Plug 'rhysd/vim-textobj-anyblock'
-Plug 'whatyouhide/vim-textobj-erb', { 'for': 'eruby' }
 Plug 'inkarkat/vim-ReplaceWithRegister'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-surround'
@@ -149,9 +149,10 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'kristijanhusak/vim-carbon-now-sh'
 " Plug 'AndrewRadev/splitjoin.vim'
 "==================== https://github.com/jiz4oh/vim#美化 ====================
-" if has('nvim')
-"   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-" endif
+" BEAUTIFY {{{
+if has('nvim')
+  Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+endif
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/seoul256.vim'
@@ -162,6 +163,7 @@ Plug 'sainnhe/edge'
 Plug 'ryanoasis/vim-devicons'
 Plug 'uguu-org/vim-matrix-screensaver'
 Plug 'vim/killersheep'
+"}}}
 call plug#end()
 let g:startify_session_savevars = ['g:startify_session_savevars', 'g:startify_session_savecmds', 'g:startify_session_remove_lines']
 let g:startify_session_remove_lines = ['_loaded']
