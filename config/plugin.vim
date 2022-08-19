@@ -107,6 +107,7 @@ Plug 'kristijanhusak/vim-dadbod-completion'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'towolf/vim-helm'
 Plug 'kchmck/vim-coffee-script'
+Plug 'chrisbra/csv.vim'
 " Plug 'vlime/vlime', {'rtp': 'vim/'}
 " Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 if has('nvim') || has('patch-8.0.1453')
