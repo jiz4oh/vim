@@ -1,4 +1,6 @@
-vnoremap  <silent> <leader>g :GV!<CR>
+vnoremap <silent> <leader>gv :GV!<cr>
+nnoremap <silent> <leader>gv :GV!<cr>
+nnoremap <silent> <leader>gV :GV<cr>
 
 function! s:gv_expand()
   let line = getline('.')

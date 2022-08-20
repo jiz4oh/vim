@@ -1,5 +1,13 @@
-nmap <leader>g :Git<cr>gg)
-nnoremap g<space> :Git<space>
+nnoremap g<space>   :Git<space>
+nmap     <leader>g  :Git<cr>gg)
+nmap     <leader>eg :Git<cr>gg)
+nnoremap <leader>gd :Gdiffsplit<cr>
+nnoremap <leader>gb :Git blame<cr>
+vnoremap <leader>gb :Git blame<cr>
+nnoremap <leader>gl :Gllog<cr>
+vnoremap <leader>gl :Gllog<cr>
+nnoremap <leader>gr :Gread<cr>
+nnoremap <leader>gw :Gwrite<cr>
 
 augroup fugitive_vim
   autocmd!
@@ -7,6 +15,8 @@ augroup fugitive_vim
 augroup END
 
 function! s:fugitive_init() abort
+  let b:start    = ':Git push'
+  nnoremap '<space> :Git push<space>
   " branch track
   nnoremap <buffer> cbt :execute ':Git branch --set-upstream-to=origin/' . FugitiveHead()
   " merge force
