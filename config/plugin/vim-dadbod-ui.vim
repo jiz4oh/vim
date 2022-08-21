@@ -9,7 +9,7 @@ endif
 
 let g:db_ui_auto_execute_table_helpers = 1
 
-map  <silent> <leader>ed :DBUIToggle<CR>
+nmap  <silent> <leader>ed :DBUIToggle<CR>
 
 augroup dbui_zvim
   autocmd!

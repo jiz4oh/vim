@@ -129,8 +129,10 @@ function! FzfGrepMap(lhs, cmd)
 endfunction
 
 call FzfGrepMap('<leader>s<Space>', 'RG')
-call FzfGrepMap('<leader>sb', 'BLines')
 call FzfGrepMap('<leader>sp', 'Pg')
 call FzfGrepMap('<leader>sw', 'Wg')
-call FzfGrepMap('<leader>st', 'Tags')
-call FzfGrepMap('<C-]>', 'Tags')
+
+nnoremap <leader>st :Tags<cr>
+nnoremap <leader>sb :BLines<cr>
+nnoremap <C-]>      :Tags<cr>
+

@@ -3,12 +3,12 @@
 " ============================================================================
 " open a terminal window
 if has('nvim')
-  map <Leader>tt <C-W>s :term<CR>
-  map <Leader>tv <C-W>v :term<CR>
+  nmap <Leader>tt <C-W>s :term<CR>
+  nmap <Leader>tv <C-W>v :term<CR>
   tnoremap <C-W><Esc> <C-\><C-N>
 else
-  map <Leader>tt :below :term<CR>
-  map <Leader>tv :belowright :vert :term<CR>
+  nmap <Leader>tt :below :term<CR>
+  nmap <Leader>tv :belowright :vert :term<CR>
   tnoremap <C-W><Esc> <C-W>N
 endif
 
@@ -40,7 +40,6 @@ nnoremap <C-l> <C-W>l
 " save
 inoremap <C-s>     <C-O>:update<cr>
 nnoremap <C-s>     :update<cr>
-nnoremap <leader>s :update<cr>
 
 " switch setting
 map  <special> <F2> :Lexplore<CR>
@@ -65,7 +64,7 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
 " remove highlight
-noremap <silent><leader>/ :nohls<CR>
+nnoremap <silent><leader>/ :nohls<CR>
 
 " change cwd
 noremap <silent>cd. :lcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>

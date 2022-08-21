@@ -1,5 +1,5 @@
 nnoremap g<space>   :Git<space>
-nmap     <leader>g  :Git<cr>gg)
+nmap     <leader>gg :Git<cr>gg)
 nmap     <leader>eg :Git<cr>gg)
 nnoremap <leader>gd :Gdiffsplit<cr>
 nnoremap <leader>gb :Git blame<cr>

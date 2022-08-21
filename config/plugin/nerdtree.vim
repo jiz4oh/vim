@@ -123,11 +123,10 @@ function! s:nerdtree_enter() abort
 endfunction
 
 " Navigation
-map  <leader>e <nop>
-map  <silent> <leader>ee :NERDTree<CR>j
-map  <silent> <leader>ep :NERDTreeVCS %<CR>j
-map  <silent> <leader>ef :NERDTreeFind<CR>
-map  <silent> <special> <F2> :NERDTreeToggle<CR>
+nmap  <silent> <leader>ee :NERDTree<CR>j
+nmap  <silent> <leader>ep :NERDTreeVCS %<CR>j
+nmap  <silent> <leader>ef :NERDTreeFind<CR>
+nmap  <silent> <special> <F2> :NERDTreeToggle<CR>
 
 " Command to call the OpenFileOrExplorer function.
 command! -n=? -complete=file -bar Edit :call <SID>OpenFileOrExplorer('<args>')
