@@ -11,6 +11,9 @@ endif
 
 if exists(':packadd')
   silent! packadd! matchit
+  if has("patch-8.1.0311")
+    silent! packadd! cfilter
+  endif
 else
   runtime macros/matchit.vim
 endif
