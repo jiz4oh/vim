@@ -261,8 +261,8 @@ augroup vimrc
   autocmd Filetype gitcommit setlocal spell textwidth=72
 
   autocmd BufRead,BufNewFile
-    \ zshenv.local,zlogin.local,zlogout.local,zshrc.local,zprofile.local,
-    \ */zsh/configs/*
+    \ zshenv.local,zlogin.local,zlogout.local,zshrc.local,zprofile.local,*/zsh/configs/*,
+    \.env.*
     \ set filetype=sh
   autocmd BufRead,BufNewFile gitconfig,gitconfig.local set filetype=gitconfig
   autocmd BufRead,BufNewFile tmux.conf,tmux.conf.local set filetype=tmux
