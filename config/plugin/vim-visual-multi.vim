@@ -15,3 +15,4 @@ let g:VM_maps["Find Subword Under"] = 'gb'
 let g:VM_maps["Add Cursor Down"]    = '<C-n>'
 let g:VM_maps["Add Cursor Up"]      = '<C-p>'
 
+let g:VM_insert_special_keys = ['c-v', 'c-a', 'c-e']
