@@ -78,6 +78,9 @@ function! QFOpen()
   bot copen
 endfunction
 
+" repeat last replacement operation
+nnoremap g. /\V\C<C-r>"<CR>cgn<C-@>
+
 nnoremap <silent> <leader>eq :call QFOpen()<CR>
 
 nnoremap <silent> <F12> :call personal#functions#rotate_colors()<cr>
