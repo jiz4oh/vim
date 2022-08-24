@@ -11,9 +11,9 @@ if has('nvim')
   finish
 endif
 
-" if index(s:alt_compatible_programs, $TERM_PROGRAM) >= 0
-"   finish
-" endif
+if index(s:alt_compatible_programs, $TERM_PROGRAM) >= 0
+  finish
+endif
 
 if has("gui_running")
   finish
