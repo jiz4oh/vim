@@ -37,14 +37,13 @@ else
   let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!{.git}/*" 2>/dev/null'
   let g:fzf_grep_cmd = 'rg --column --line-number --no-heading --smart-case --follow --color=always %s || true'
 
-  function! s:git_grep(query, fullscreen)
+  function! s:git_grep(query, dir, fullscreen)
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
     let l:grep_cmd = printf(g:fzf_grep_cmd, l:query)
-    let l:dir = personal#git#Repo()
     let l:spec = {
-          \'dir': l:dir,
+          \'dir': a:dir,
           \'options': [
-             \'--prompt', personal#functions#shortpath(l:dir) .'> ',
+             \'--prompt', personal#functions#shortpath(a:dir) .'> ',
              \'--delimiter', ':',
              \'--nth', '4..'
              \]}
