@@ -6,6 +6,9 @@ augroup end
 " `brew install ripgrep` before you use rg command
 if !executable('rg')
   function! s:git_grep(query, dir, fullscreen)
+    if !empty(a:query)
+      let @/ = a:query
+    endif
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
     let l:grep_cmd = 'git grep --color=always --line-number ' . l:query . ' -- ' . a:dir
 
@@ -38,6 +41,9 @@ else
   let g:fzf_grep_cmd = 'rg --column --line-number --no-heading --smart-case --follow --color=always %s || true'
 
   function! s:git_grep(query, dir, fullscreen)
+    if !empty(a:query)
+      let @/ = a:query
+    endif
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
     let l:grep_cmd = printf(g:fzf_grep_cmd, l:query)
     let l:spec = {
@@ -52,6 +58,9 @@ else
   endfunction
 
   function! s:project_grep(query, fullscreen)
+    if !empty(a:query)
+      let @/ = a:query
+    endif
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
     let l:grep_cmd = printf(g:fzf_grep_cmd, l:query)
     let l:dir = exists('*FindRootDirectory') ? FindRootDirectory() : ''
@@ -69,6 +78,9 @@ else
   endfunction
 
   function! s:workdir_grep(query, fullscreen)
+    if !empty(a:query)
+      let @/ = a:query
+    endif
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
     let l:grep_cmd = printf(g:fzf_grep_cmd, l:query)
     let l:dir = getcwd()
@@ -85,6 +97,9 @@ else
   endfunction
 
   function! RipgrepFzf(query, fullscreen)
+    if !empty(a:query)
+      let @/ = a:query
+    endif
     let l:grep_cmd = printf(g:fzf_grep_cmd, shellescape(a:query))
     let l:reload_command = printf(g:fzf_grep_cmd, '{q}')
     let l:spec = {
