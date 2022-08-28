@@ -26,6 +26,8 @@ highlight! link ALEVirtualTextWarning ALEWarningSign
 nmap ]a <Plug>(ale_next_wrap)
 nmap [a <Plug>(ale_previous_wrap)
 
+nmap <leader>ff <Plug>(ale_fix)
+
 if has('nvim')
   autocmd VimEnter * lua vim.diagnostic.disable()
 endif

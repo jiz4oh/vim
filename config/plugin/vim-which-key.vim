@@ -45,6 +45,12 @@ let g:which_key_map['e'] = {
       \ 'g': 'open fugitive',
       \ }
 
+let g:which_key_map['f'] = {
+      \ 'name' : '+format/fix',
+      \ 'f': 'fix by ale',
+      \ }
+
+
 let g:which_key_map['g'] = {
       \ 'name' : '+git/version-control',
       \ 'g': 'open fugitive',
