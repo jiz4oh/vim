@@ -11,15 +11,16 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
   \ "Unknown"   : "?"
   \ }
 
-let NERDTreeMinimalUI = 1 " 最小化显示，不显示问号
-let NERDTreeDirArrows = 1
-let NERDChristmasTree = 1
+let NERDTreeMinimalMenu      = 1 " https://github.com/preservim/nerdtree/issues/1321
+let NERDTreeMinimalUI        = 1 " 最小化显示，不显示问号
+let NERDTreeDirArrows        = 1
+let NERDChristmasTree        = 1
 " 如果使用vim-plug的话，加上这一句可以避免光标在nerdtree
 " 中的时候进行插件升级而导致nerdtree崩溃
 let NERDTreeAutoDeleteBuffer = 1
-let NERDTreeQuitOnOpen  = 1
+let NERDTreeQuitOnOpen       = 1
 " 进入目录自动将workspace更改为此目录
-let g:NERDTreeChDirMode = 2
+let g:NERDTreeChDirMode      = 2
 
 "remove e mapping
 let g:NERDTreeMapOpenExpl         = ''
