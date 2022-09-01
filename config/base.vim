@@ -99,6 +99,7 @@ set softtabstop=2               " insert mode <Tab> use 2 spaces
 if has('vim_starting')
   set foldmethod=marker
   set foldopen+=jump
+  set foldlevel=1
   set commentstring=#\ %s
 endif
 
