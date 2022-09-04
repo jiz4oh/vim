@@ -34,6 +34,10 @@ let g:which_key_map['l'] = {
       \ }
 endif
 
+let g:which_key_map['y']  = 'yank {motion} to clipboard'
+let g:which_key_map['yy'] = 'yank current line to clipboard'
+let g:which_key_map['Y']  = 'yank from the cursor to the end of line to clipboard'
+
 let g:which_key_map['e'] = {
       \ 'name' : '+explorer',
       \ 'e': 'open file explorer',
@@ -99,6 +103,8 @@ let g:which_key_map['t'] = {
       \ }
 
 let g:which_key_map_visual = {}
+
+let g:which_key_map_visual['y'] = 'yank to clipboard'
 
 let g:which_key_map_visual['h'] = {
       \ 'name' : '+hunk',

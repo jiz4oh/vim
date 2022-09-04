@@ -23,6 +23,7 @@ set updatetime=100
 
 Plug 'vim-scripts/LargeFile'
 Plug 'liuchengxu/vim-which-key'
+Plug 'ojroques/vim-oscyank'
 "==================== https://github.com/jiz4oh/vim#跳转 ====================
 if has("patch-7.3.1058") && executable('ctags')
   Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
