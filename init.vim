@@ -3,9 +3,6 @@ if get(g:, 'vimrc_loaded', 0) != 0
 endif
 let g:vimrc_loaded = 1
 
-let g:config_src = 'https://github.com/jiz4oh/vim.git'
-let g:config_dir = resolve(expand('<sfile>:p:h'))
-
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 
 let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')

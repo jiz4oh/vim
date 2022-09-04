@@ -43,6 +43,7 @@ let g:which_key_map['e'] = {
       \ 'q': 'open quickfix list',
       \ 't': 'open tagbar',
       \ 'g': 'open fugitive',
+      \ 's': 'open startify',
       \ }
 
 let g:which_key_map['f'] = {

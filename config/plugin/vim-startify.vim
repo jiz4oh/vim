@@ -27,14 +27,6 @@ let g:startify_lists = [
         \ { 'type': 'commands',                        'header': ['   Commands']     },
         \ ]
 
-let g:startify_bookmarks = [
-            \ g:wiki_root . '/drafts/todo.md',
-            \ g:wiki_root . '/drafts/quicknote.md',
-            \ g:config_dir,
-            \ $MYVIMRC,
-            \ '~/.zshrc',
-            \ ]
-
 let g:startify_commands = [
     \ {'w': ['笔记列表', 'WikiIndex']},
     \ {'g': ['Git',      'Git']},
@@ -56,4 +48,4 @@ function! ToggleStartify()
   endif
 endfunction
 
-map <F4> :call ToggleStartify()<CR>
+map <leader>es :call ToggleStartify()<CR>
