@@ -7,9 +7,7 @@ let g:rails_vim_enter         = 0
 let g:startify_bookmarks = [
             \ $MYVIMRC,
             \ g:config_dir,
-            \ '~/.zshrc',
             \ g:wiki_root,
-            \ '~/.ssh',
             \ ]
 
 let g:startify_commands = get(g:, 'startify_commands', {})
