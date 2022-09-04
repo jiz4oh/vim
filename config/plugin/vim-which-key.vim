@@ -68,6 +68,12 @@ let g:which_key_map['h'] = {
       \ 'u' : ['<Plug>(GitGutterUndoHunk)',    'undo hunk'],
       \ }
 
+let g:which_key_map['r'] = {
+      \ 'name' : '+run',
+      \ 'r' : 'run repl',
+      \ 'l' : 'hot reload repl',
+      \ }
+
 let g:which_key_map['s'] = {
       \ 'name' : '+search',
       \ ' ': 'search with ripgrep',

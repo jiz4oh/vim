@@ -63,5 +63,14 @@ let g:rails_projections = {
       \  },
       \}
 
-vnoremap <silent> <F6> :<C-u>execute ":Runner ". shellescape(substitute(personal#functions#selected(), '#{', '\#{', 'g')) . ""<CR>
+autocmd FileType ruby
+      \ vnoremap <silent> <buffer> dr :<C-u>execute ":Runner ". shellescape(substitute(personal#functions#selected(), '#{', '\#{', 'g')) . ""<CR>
 
+autocmd FileType ruby
+      \ if !empty(rails#app())|call s:setup_zepl()|endif
+
+function! s:setup_zepl() abort
+  let b:repl_config = { 'cmd': 'rails console' }
+
+  nnoremap <silent> <buffer> <leader>rl :ReplSend reload!<cr>
+endfunction
