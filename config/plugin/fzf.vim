@@ -7,9 +7,6 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 if exists('$TMUX')
   let g:fzf_layout = { 'tmux': '-p90%,60%' }
 elseif has('nvim') || has('patch-8.2.191')
-  " https://github.com/junegunn/fzf.vim/issues/672#issuecomment-1191112563
-  autocmd! FileType fzf tnoremap <expr> <C-r> getreg(getcharstr())
-
   let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 else
   autocmd! FileType fzf tnoremap <expr> <C-r> getreg(getcharstr())

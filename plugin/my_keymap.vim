@@ -3,13 +3,18 @@
 " ============================================================================
 " open a terminal window
 if has('nvim')
-  nmap <Leader>tt <C-W>s :term<CR>
-  nmap <Leader>tv <C-W>v :term<CR>
-  tnoremap <C-W><Esc> <C-\><C-N>
+  nmap <Leader>tt <C-W>s<bar>:term<CR>i
+  nmap <Leader>tv <C-W>v<bar>:term<CR>i
+  tnoremap <C-W><Esc>     <C-\><C-N>
+  tnoremap <C-D>          <C-\><C-N>:quit<CR>
+  tnoremap <C-W>w         <C-\><C-N><bar><C-W>w
+  tnoremap <C-W><C-W>     <C-\><C-N><bar><C-W>w
+  tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 else
   nmap <Leader>tt :below :term<CR>
   nmap <Leader>tv :belowright :vert :term<CR>
   tnoremap <C-W><Esc> <C-W>N
+  tnoremap <expr> <C-r> getreg(nr2char(getchar()))
 endif
 
 " move line upforward/downward
@@ -69,7 +74,9 @@ nnoremap <silent><leader>/ :nohls<CR>
 " change cwd
 noremap <silent>cd. :lcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
 " set current directory as project root by default
-noremap <silent>cdp :lcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
+if empty(maparg('cdp'))
+  noremap <silent>cdp :lcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
+endif
 
 function! QFOpen()
   if exists(':Copen')
