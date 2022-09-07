@@ -90,7 +90,7 @@ nnoremap g. /\V\C<C-r>"<CR>cgn<C-@>
 
 nnoremap <silent> <leader>eq :call QFOpen()<CR>
 
-nnoremap <silent> <F12> :call personal#functions#rotate_colors()<cr>
+nnoremap <silent> <F10> :call personal#functions#rotate_colors()<cr>
 inoremap <C-k> <C-o>D
 
 " if !exists("g:plugs") || !has_key(g:plugs, 'vim-rsi')
