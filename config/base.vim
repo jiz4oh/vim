@@ -234,6 +234,11 @@ augroup vimrc
       \   source Session.vim |
       \ endif
 
+  if has('nvim')
+    autocmd TermOpen * setlocal nonumber norelativenumber
+  else
+    autocmd TerminalOpen * setlocal nonumber norelativenumber
+  endif
   "set relative number
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
