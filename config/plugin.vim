@@ -117,6 +117,7 @@ Plug 'axvr/zepl.vim'
 if has('nvim')
   Plug 'nathom/filetype.nvim'
 endif
+Plug 'hallison/vim-rdoc'
 Plug 'vim-ruby/vim-ruby'
 if executable('bundle')
   Plug 'tpope/vim-bundler'
