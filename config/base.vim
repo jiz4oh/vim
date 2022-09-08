@@ -72,7 +72,6 @@ set colorcolumn=80
 
 " show
 set ruler                       " show the current row and column
-set number                      " show line numbers
 set showcmd                     " display incomplete commands
 set showmode                    " display current modes
 set showmatch                   " jump to matches when entering parentheses
@@ -241,7 +240,7 @@ augroup vimrc
   endif
   "set relative number
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * set nornu
 
   autocmd BufNewFile,BufRead *.icc                           set filetype=cpp
   autocmd BufNewFile,BufRead *.pde                           set filetype=java
