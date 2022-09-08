@@ -4,19 +4,11 @@ endif
 let g:vimrc_loaded = 1
 
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
-
 let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 exec 'set runtimepath+='.s:home
-
 let &packpath = &runtimepath
 
-function! LoadVim(path)
-  exec 'source ' . s:home.'/' . a:path
-endfunction
-
-function! LoadLua(path)
-  exec 'luafile' . s:home.'/' . a:path
-endfunction
+exec 'source ' . s:home . '/config.vim'
 
 function SourceConfig(configName) abort
     let l:vim_path = s:home . '/config/' . a:configName . ".vim"
@@ -33,7 +25,6 @@ function! HasInstall(plugName) abort
     return isdirectory(g:plugs[a:plugName].dir)
 endfunction
 
-call LoadVim('config.vim')
 call SourceConfig('base')
 call SourceConfig('plugin')
 

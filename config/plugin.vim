@@ -70,13 +70,26 @@ if has('nvim')
   "https://github.com/ojroques/nvim-lspfuzzy
   Plug 'ojroques/nvim-lspfuzzy'
 elseif v:version >= 800
+  " autocomplete
+  Plug 'prabirshrestha/asyncomplete.vim'
+  Plug 'prabirshrestha/asyncomplete-buffer.vim'
+  Plug 'prabirshrestha/asyncomplete-file.vim'
+
+  if executable('ctags')
+    Plug 'prabirshrestha/asyncomplete-tags.vim'
+  endif
+
+  Plug 'machakann/asyncomplete-ezfilter.vim'
+  if has('win32') || has('win64')
+    Plug 'kitagry/asyncomplete-tabnine.vim', { 'do': 'powershell.exe .\install.ps1' }
+  else
+    Plug 'kitagry/asyncomplete-tabnine.vim', { 'do': './install.sh' }
+  endif
   " deprcated lsp due to too slow with large text
   " " lsp
   " Plug 'prabirshrestha/vim-lsp'
   " Plug 'rhysd/vim-lsp-ale'
   " Plug 'mattn/vim-lsp-settings'
-  " autocomplete
-  " Plug 'prabirshrestha/asyncomplete.vim'
 endif
 
 "==================== https://github.com/jiz4oh/vim#文档 ====================
