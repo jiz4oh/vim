@@ -225,9 +225,6 @@ augroup vimrc
   "return where you left last time
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif | normal! zvzz
 
-  "remove extra white spaces
-  autocmd BufWritePre * :%s/\s\+$//e
-
   autocmd VimEnter * nested
       \ if !argc() && empty(v:this_session) && filereadable('Session.vim') && !&modified |
       \   source Session.vim |
