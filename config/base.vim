@@ -209,6 +209,10 @@ set showtabline=2
 " ============================================================================
 augroup vimrc
   autocmd!
+  " Make the yanked region apparent
+  if has('nvim')
+    au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
+  endif
    "Close preview window
   if exists('##CompleteDone')
     autocmd CompleteDone * pclose
