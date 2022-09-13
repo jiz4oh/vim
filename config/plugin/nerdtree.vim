@@ -124,7 +124,7 @@ function! s:nerdtree_enter() abort
 endfunction
 
 " Navigation
-nmap  <silent> <leader>ee :NERDTree<CR>j
+nmap  <silent> <leader>ee :NERDTreeToggle<CR>
 nmap  <silent> <leader>ep :NERDTreeVCS %<CR>j
 nmap  <silent> <leader>ef :NERDTreeFind<CR>
 nmap  <silent> <special> <F2> :NERDTreeToggle<CR>
