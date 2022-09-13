@@ -51,6 +51,7 @@ Plug 'airblade/vim-rooter'
 "==================== https://github.com/jiz4oh/vim#文件浏览器 ==============
 Plug 'preservim/nerdtree', { 'on': ['NERDTree', 'NERDTreeVCS', 'NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'for': 'NERDTree' }
+Plug 'tpope/vim-projectionist'
 
 "==================== https://github.com/jiz4oh/vim#补全 ====================
 Plug 'dense-analysis/ale'
