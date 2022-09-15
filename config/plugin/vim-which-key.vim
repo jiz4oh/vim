@@ -53,6 +53,7 @@ let g:which_key_map['e'] = {
 let g:which_key_map['f'] = {
       \ 'name' : '+format/fix',
       \ 'f': 'fix by ale',
+      \ 't': 'show one or all warnings',
       \ }
 
 

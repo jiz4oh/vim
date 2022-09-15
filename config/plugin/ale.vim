@@ -36,7 +36,7 @@ let g:ale_echo_msg_warning_str           = 'W'
 let g:ale_echo_msg_error_str             = 'E'
 let g:ale_echo_msg_format                = '[%severity%] [%linter%] %s'
 
-let g:ale_virtualtext_cursor             = 2
+let g:ale_virtualtext_cursor             = 1
 let g:ale_virtualtext_prefix             = ' ◉  '
 
 highlight! link ALEVirtualTextError ALEErrorSign
@@ -46,6 +46,20 @@ nmap ]a <Plug>(ale_next_wrap)
 nmap [a <Plug>(ale_previous_wrap)
 
 nmap <leader>ff <Plug>(ale_fix)
+
+function! s:toggle_virtualtext_cursor() abort
+  if g:ale_virtualtext_cursor == 1
+    let g:ale_virtualtext_cursor = 2
+    ALEDisableBuffer | ALEEnableBuffer
+    echomsg 'all warnings be shown'
+  else
+    let g:ale_virtualtext_cursor = 1
+    ALEDisableBuffer | ALEEnableBuffer
+    echomsg 'message will be shown when a cursor is near a warning or error'
+  endif
+endfunction
+
+nmap <silent> <leader>ft :call <SID>toggle_virtualtext_cursor()<cr>
 
 if has('nvim')
   autocmd VimEnter * lua vim.diagnostic.disable()
