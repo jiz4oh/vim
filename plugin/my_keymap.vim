@@ -9,12 +9,11 @@ if has('nvim')
   tnoremap <C-D>          <C-\><C-N>:quit<CR>
   tnoremap <C-W>w         <C-\><C-N><bar><C-W>w
   tnoremap <C-W><C-W>     <C-\><C-N><bar><C-W>w
-  tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+  tnoremap <expr> <C-W>" '<C-\><C-N>"'.nr2char(getchar()).'pi'
 else
   nmap <Leader>tt :below :term<CR>
   nmap <Leader>tv :belowright :vert :term<CR>
   tnoremap <C-W><Esc> <C-W>N
-  tnoremap <expr> <C-r> getreg(nr2char(getchar()))
 endif
 
 " move line upforward/downward
