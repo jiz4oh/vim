@@ -177,7 +177,7 @@ Plug 'kristijanhusak/vim-carbon-now-sh'
 "==================== https://github.com/jiz4oh/vim#美化 ====================
 " BEAUTIFY {{{
 if has('nvim')
-  Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+  " Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 endif
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'morhetz/gruvbox'
