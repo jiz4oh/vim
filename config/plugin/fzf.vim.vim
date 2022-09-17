@@ -114,6 +114,27 @@ else
   endfunction
 endif
 
+function! s:search_dependencies(query, fullscreen) abort
+  let l:slash = (g:is_win && !&shellslash) ? '\\' : '/'
+  let l:paths = substitute(&path, '[/\\]*$', l:slash, 'g')
+  let l:paths = substitute(&path, ',', ' ', 'g')
+
+  if has_key(g:, 'fzf_grep_cmd')
+    let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
+    let l:grep_cmd = printf(g:fzf_grep_cmd, l:query . ' ' . l:paths)
+  else
+    let l:grep_cmd = 'find '. l:paths . ' -type f'
+  endif
+  let l:spec = {
+        \'options': [
+            \'--prompt', personal#functions#shortpath(getcwd()) .'> ',
+            \]}
+
+  call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview(l:spec), a:fullscreen)
+endfunction
+
+command! -nargs=? -bang Dep       call s:search_dependencies(<q-args>, <bang>0)
+
 command! -nargs=? -bang RG        call RipgrepFzf(<q-args>, <bang>0)
 command! -nargs=? -bang Pg        call s:project_grep(<q-args>, <bang>0)
 command! -nargs=? -bang Wg        call s:workdir_grep(<q-args>, <bang>0)
@@ -143,10 +164,13 @@ function! FzfGrepMap(lhs, cmd)
 endfunction
 
 call FzfGrepMap('<leader>s<Space>', 'RG')
+call FzfGrepMap('<leader>sd', 'Dep')
 call FzfGrepMap('<leader>sp', 'Pg')
 call FzfGrepMap('<leader>sw', 'Wg')
 
 nnoremap <leader>st :Tags<cr>
 nnoremap <leader>sb :BLines<cr>
+nnoremap <leader>s: :History:<cr>
+nnoremap <leader>s/ :History/<cr>
 nnoremap <C-]>      :Tags<cr>
 
