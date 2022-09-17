@@ -32,7 +32,7 @@ let g:startify_commands = [
     \ {'g': ['Git',      'Git']},
     \ {'p': ['搜索项目', 'Pg']},
     \ {'d': ['数据库',   'DBUI']},
-    \ {'c': ['查看提交', 'GV']},
+    \ {'c': ['查看提交', 'Flog']},
     \ {'u': ['插件更新', 'PlugUpdate']},
     \ {'i': ['插件安装', 'PlugInstall']},
     \ ]

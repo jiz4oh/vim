@@ -62,9 +62,8 @@ let g:which_key_map['g'] = {
       \ 'g': 'open fugitive',
       \ 'd': 'perform a vimdiff against the current buffer',
       \ 'b': 'run git-blame on the current file',
-      \ 'l': 'load the commit history into the location list',
-      \ 'v': 'open commit history of current buffer',
-      \ 'V': 'open commit history',
+      \ 'l': 'open git log of current buffer',
+      \ 'L': 'open git log',
       \ }
 
 let g:which_key_map['h'] = {
@@ -115,8 +114,7 @@ let g:which_key_map_visual['h'] = {
 let g:which_key_map_visual['g'] = {
       \ 'name' : '+git/version-control',
       \ 'b': 'run git-blame on the current file',
-      \ 'l': 'load the commit history into the location list',
-      \ 'v': 'open commit history of selected lines',
+      \ 'l': 'open git log of selected lines',
       \ }
 
 let g:which_key_map_visual['s'] = {

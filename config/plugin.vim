@@ -43,7 +43,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } |
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'junegunn/gv.vim', { 'on': ['GV', 'GV!'] }
+" Plug 'junegunn/gv.vim', { 'on': ['GV', 'GV!'] }
+Plug 'rbong/vim-flog', { 'on': ['Flog', 'Flogsplit'] }
 " if v:version >= 800
 "   Plug 'rhysd/git-messenger.vim'
 " endif
@@ -193,8 +194,6 @@ Plug 'uguu-org/vim-matrix-screensaver'
 Plug 'vim/killersheep'
 "}}}
 call plug#end()
-let g:startify_session_savevars = ['g:startify_session_savevars', 'g:startify_session_savecmds', 'g:startify_session_remove_lines']
-let g:startify_session_remove_lines = ['_loaded']
 endif
 
 silent! colorscheme gruvbox-material
