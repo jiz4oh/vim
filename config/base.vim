@@ -237,6 +237,9 @@ augroup vimrc
   if has('nvim')
     au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
   endif
+  " Exit Vim if quickfix is the only window remaining in the only tab.
+  autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
+
    "Close preview window
   if exists('##CompleteDone')
     autocmd CompleteDone * pclose

@@ -33,7 +33,7 @@ noremap <C-a> <Home>
 noremap <C-e> <End>
 
 " close window
-nnoremap <silent> q :close<cr>
+nnoremap <silent> q :quit<cr>
 " use Q to record macro instead of q
 noremap Q q
 nnoremap <C-j> <C-W>j
