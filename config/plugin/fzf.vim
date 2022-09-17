@@ -9,11 +9,11 @@ if exists('$TMUX')
 elseif has('nvim') || has('patch-8.2.191')
   " https://github.com/junegunn/fzf.vim/issues/672#issuecomment-1191112563
   " autocmd! FileType fzf tnoremap <expr> <C-r> getreg(nr2char(getchar()))
-  autocmd! FileType fzf tnoremap <expr> <C-W>" getreg(nr2char(getchar()))
+  autocmd! FileType fzf tnoremap <expr> <C-r> getreg(nr2char(getchar()))
 
   let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 else
-  autocmd! FileType fzf tnoremap <expr> <C-W>" getreg(nr2char(getchar()))
+  autocmd! FileType fzf tnoremap <expr> <C-r> getreg(nr2char(getchar()))
 
   " disable popup in favor of location window
   let g:fzf_layout = { 'down': '60%' }
