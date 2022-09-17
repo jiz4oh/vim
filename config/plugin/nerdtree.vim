@@ -39,6 +39,10 @@ augroup nerd_loader
         \|   call plug#load('nerdtree')
         \|   execute 'autocmd! nerd_loader'
         \| endif
+
+  " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+  autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+      \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 augroup END
 
 " copy from https://github.com/SpaceVim/SpaceVim/blob/master/config/plugins/nerdtree.vim
