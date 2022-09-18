@@ -92,6 +92,24 @@ nnoremap <silent> <leader>eq :call QFOpen()<CR>
 nnoremap <silent> <F10> :call personal#functions#rotate_colors()<cr>
 inoremap <C-k> <C-o>D
 
+" Use Ctrl-Tab and Alt-Tab to switch tab
+map    <C-Tab>  :tabnext<CR>
+imap   <C-Tab>  <C-O>:tabnext<CR>
+map    <M-Tab>  :tabprev<CR>
+imap   <M-Tab>  <C-O>:tabprev<CR>
+
+for s:i in range(1, 9)
+  " <Leader>[1-9] move to window [1-9]
+  execute 'nnoremap <Leader>'.s:i ' :'.s:i.'wincmd w<CR>'
+
+  " <Leader><leader>[1-9] move to tab [1-9]
+  execute 'nnoremap <Leader><Leader>'.s:i s:i.'gt'
+
+  " <Leader>b[1-9] move to buffer [1-9]
+  execute 'nnoremap <Leader>b'.s:i ':b'.s:i.'<CR>'
+endfor
+unlet s:i
+
 " if !exists("g:plugs") || !has_key(g:plugs, 'vim-rsi')
 "   inoremap        <C-A> <Home>
 "   inoremap   <C-X><C-A> <C-A>
