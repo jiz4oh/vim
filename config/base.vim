@@ -61,7 +61,6 @@ endif
 set novisualbell                " turn off visual bell
 set noerrorbells                " don't beep
 set visualbell t_vb=            " turn off error beep/flash
-set t_vb=
 set t_RV=
 set tm=500
 
@@ -172,55 +171,95 @@ if v:version < 800 && &term =~ "xterm.*"
     cmap <Esc>[200~ <nop>
     cmap <Esc>[201~ <nop>
 endif
-
-if has('nvim')
-  " https://github.com/neovim/neovim/issues/2897#issuecomment-115464516
-  let g:terminal_color_0 = '#4e4e4e'
-  let g:terminal_color_1 = '#d68787'
-  let g:terminal_color_2 = '#5f865f'
-  let g:terminal_color_3 = '#d8af5f'
-  let g:terminal_color_4 = '#85add4'
-  let g:terminal_color_5 = '#d7afaf'
-  let g:terminal_color_6 = '#87afaf'
-  let g:terminal_color_7 = '#d0d0d0'
-  let g:terminal_color_8 = '#626262'
-  let g:terminal_color_9 = '#d75f87'
-  let g:terminal_color_10 = '#87af87'
-  let g:terminal_color_11 = '#ffd787'
-  let g:terminal_color_12 = '#add4fb'
-  let g:terminal_color_13 = '#ffafaf'
-  let g:terminal_color_14 = '#87d7d7'
-  let g:terminal_color_15 = '#e4e4e4'
-else
-  let g:terminal_ansi_colors = [
-    \ '#4e4e4e', '#d68787', '#5f865f', '#d8af5f',
-    \ '#85add4', '#d7afaf', '#87afaf', '#d0d0d0',
-    \ '#626262', '#d75f87', '#87af87', '#ffd787',
-    \ '#add4fb', '#ffafaf', '#87d7d7', '#e4e4e4']
-endif
 " ============================================================================
-" THEME {{{
+" UI {{{
 " ============================================================================
-
 set background=dark
-set t_Co=256                           " 指定配色方案是256色
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" https://github.com/sainnhe/gruvbox-material/issues/5#issuecomment-729586348
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Luxi\ Mono\ 12
+  elseif has("x11")
+" Also for GTK 1
+    set guifont=*-lucidatypewriter-medium-r-normal-*-*-180-*-*-m-*-*
+  elseif has("gui_win32")
+    set guifont=Luxi_Mono:h12:cANSI
+  elseif has("gui_macvim")
+    set guifont=Hack\ Nerd\ Font:h18
   endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
+
+  set guioptions-=r        " Hide the right scrollbar
+  set guioptions-=L        " Hide the left scrollbar
+  set guioptions-=T
+  " set guioptions-=e
+  " No annoying sound on errors
+  set noerrorbells
+  set novisualbell
+  set visualbell t_vb=
 endif
 
-" cursor style
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+" color {{{
+  set t_Co=256                           " 指定配色方案是256色
+  if has('nvim')
+    " https://github.com/neovim/neovim/issues/2897#issuecomment-115464516
+    let g:terminal_color_0 = '#4e4e4e'
+    let g:terminal_color_1 = '#d68787'
+    let g:terminal_color_2 = '#5f865f'
+    let g:terminal_color_3 = '#d8af5f'
+    let g:terminal_color_4 = '#85add4'
+    let g:terminal_color_5 = '#d7afaf'
+    let g:terminal_color_6 = '#87afaf'
+    let g:terminal_color_7 = '#d0d0d0'
+    let g:terminal_color_8 = '#626262'
+    let g:terminal_color_9 = '#d75f87'
+    let g:terminal_color_10 = '#87af87'
+    let g:terminal_color_11 = '#ffd787'
+    let g:terminal_color_12 = '#add4fb'
+    let g:terminal_color_13 = '#ffafaf'
+    let g:terminal_color_14 = '#87d7d7'
+    let g:terminal_color_15 = '#e4e4e4'
+  else
+    let g:terminal_ansi_colors = [
+      \ '#4e4e4e', '#d68787', '#5f865f', '#d8af5f',
+      \ '#85add4', '#d7afaf', '#87afaf', '#d0d0d0',
+      \ '#626262', '#d75f87', '#87af87', '#ffd787',
+      \ '#add4fb', '#ffafaf', '#87d7d7', '#e4e4e4']
+  endif
+  if (empty($TMUX))
+    if (has("nvim"))
+      "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+      let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    endif
+    "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+    "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+    " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+    if (has("termguicolors"))
+      set termguicolors
+    endif
+  endif
+" }}}
+
+" cursor style {{{
+  if $TERM_PROGRAM =~# 'iTerm'
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+  endif
+
+  " inside tmux
+  if exists('$TMUX') && $TERM != 'xterm-kitty'
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+  endif
+
+  " inside neovim
+  if has('nvim')
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=2
+  endif
+"}}}
 
 " status line
 set laststatus=2                       "  Always show the status line - use 2 lines for the status bar
