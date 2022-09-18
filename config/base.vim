@@ -148,7 +148,7 @@ set whichwrap+=<,>,h,l
 set clipboard+=unnamed
 set updatetime=100
 set diffopt+=vertical                  " make diff windows vertical
-set sessionoptions-=options sessionoptions-=buffers sessionoptions-=curdir sessionoptions+=sesdir,globals
+set sessionoptions-=options sessionoptions-=buffers sessionoptions-=tabpages sessionoptions+=globals
 if !g:is_win
   set dictionary+=/usr/share/dict/words
 endif
@@ -295,10 +295,11 @@ augroup vimrc
   "return where you left last time
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif | normal! zvzz
 
-  autocmd VimEnter * nested
-      \ if !argc() && empty(v:this_session) && filereadable('Session.vim') && !&modified |
-      \   source Session.vim |
-      \ endif
+  " restore session automatically if no file is opened
+  " autocmd VimEnter * nested
+  "     \ if !argc() && empty(v:this_session) && filereadable('Session.vim') && !&modified |
+  "     \   source Session.vim |
+  "     \ endif
 
   if has('nvim')
     autocmd TermOpen * setlocal nonumber norelativenumber
