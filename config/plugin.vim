@@ -21,7 +21,9 @@ endif
 silent! if plug#begin('~/.vim/bundle')
 set updatetime=100
 
-Plug 'vim-scripts/LargeFile'
+if !has('gui_running')
+  Plug 'vim-scripts/LargeFile'
+endif
 Plug 'liuchengxu/vim-which-key'
 Plug 'ojroques/vim-oscyank'
 if exists('##TextYankPost')
