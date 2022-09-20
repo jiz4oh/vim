@@ -21,6 +21,11 @@ function! personal#functions#shortpath(path)
   return empty(short) ? '~'.slash : short . (short =~ escape(slash, '\').'$' ? '' : slash)
 endfunction
 
+function! personal#functions#escape(path)
+  let path = fnameescape(a:path)
+  return g:is_win ? escape(path, '$') : path
+endfunction
+
 function! personal#functions#escape_for_regexp(str)
   return escape(a:str, '^$.*?/\[]')
 endfunction

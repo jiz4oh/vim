@@ -19,10 +19,21 @@ function! s:gem_search(query, fullscreen) abort
   " let l:gems = "echo " . shellescape(join(keys(bundler#project().paths()), ' ')) . "|awk '{for(i=1;i<=NF;++i) print $i}'"
   " call fzf#vim#grep(l:gems, 0, {'sink': {gem -> s:gem_content_search(gem, a:query, a:fullscreen)}}, a:fullscreen)
   let l:gems = keys(bundler#project().paths())
-  call fzf#run(fzf#wrap({'options': ['--prompt', 'Gem> '],
-                        \'source': l:gems,
-                        \'sink': {gem -> s:gem_content_search(gem, a:query, a:fullscreen)}
-                        \}, a:fullscreen))
+
+  let l:fzf_action = {
+    \ 'enter':  {gem -> s:gem_content_search(gem[0], a:query, a:fullscreen)},
+    \}
+
+  let l:spec = {
+                \'options': [
+                  \'--prompt', 'Gem> ',
+                  \'--expect', join(keys(l:fzf_action), ','),
+                \],
+                \'source': l:gems,
+                \'sink*': {lines -> FzfPathSink(l:fzf_action, lines) }
+                \}
+
+  call fzf#run(fzf#wrap(l:spec, a:fullscreen))
 endfunction
 
 " Gems search

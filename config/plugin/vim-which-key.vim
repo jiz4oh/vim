@@ -113,6 +113,10 @@ let g:which_key_map['r'] = {
 let g:which_key_map['s'] = {
       \ 'name' : '+search',
       \ ' ': 'search with ripgrep',
+      \ '/': 'search Search hisotry',
+      \ ':': 'search Command history',
+      \ 'd': 'search Dependencies',
+      \ 'l': 'search Library',
       \ 'g': 'search in gems',
       \ 'p': 'search in project',
       \ 't': 'search <cword> in tags',
