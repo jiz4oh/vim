@@ -52,12 +52,12 @@ let g:which_key_map[' '] = {
 
 if has('nvim')
 let g:which_key_map['l'] = {
-      \ 'name' : '+lsp',
+      \ 'name' : '+Lsp',
       \ }
 endif
 
 let g:which_key_map['b'] = {
-      \ 'name' : '+buffer',
+      \ 'name' : '+Buffer',
       \ '1' : 'buffer-1'  ,
       \ '2' : 'buffer-2'  ,
       \ '3' : 'buffer-3'  ,
@@ -69,8 +69,14 @@ let g:which_key_map['b'] = {
       \ '9' : 'buffer-9'  ,
       \ }
 
+let g:which_key_map['c'] = {
+      \ 'name' : '+Close',
+      \ 's' : ['SClose', 'close session and open startify'],
+      \ 't' : ['UndoableTabclose', 'close tabpage'],
+      \}
+
 let g:which_key_map['e'] = {
-      \ 'name' : '+explorer',
+      \ 'name' : '+Explorer',
       \ 'e': 'open file explorer',
       \ 'p': 'open file explorer of project root',
       \ 'f': 'open file explorer and locate current buffer',
@@ -82,14 +88,14 @@ let g:which_key_map['e'] = {
       \ }
 
 let g:which_key_map['f'] = {
-      \ 'name' : '+format/fix',
+      \ 'name' : '+Format/Fix',
       \ 'f': 'fix by ale',
       \ 't': 'show one or all warnings',
       \ }
 
 
 let g:which_key_map['g'] = {
-      \ 'name' : '+git/version-control',
+      \ 'name' : '+Git/version-control',
       \ 'g': 'open fugitive',
       \ 'd': 'perform a vimdiff against the current buffer',
       \ 'b': 'run git-blame on the current file',
@@ -98,20 +104,20 @@ let g:which_key_map['g'] = {
       \ }
 
 let g:which_key_map['h'] = {
-      \ 'name' : '+hunk',
+      \ 'name' : '+Hunk',
       \ 'p' : ['<Plug>(GitGutterPreviewHunk)', 'preview hunk'],
       \ 's' : ['<Plug>(GitGutterStageHunk)',   'stage hunk'],
       \ 'u' : ['<Plug>(GitGutterUndoHunk)',    'undo hunk'],
       \ }
 
 let g:which_key_map['r'] = {
-      \ 'name' : '+run',
+      \ 'name' : '+Run',
       \ 'r' : 'run repl',
       \ 'l' : 'hot reload repl',
       \ }
 
 let g:which_key_map['s'] = {
-      \ 'name' : '+search',
+      \ 'name' : '+Search',
       \ ' ': 'search with ripgrep',
       \ '/': 'search Search hisotry',
       \ ':': 'search Command history',
@@ -126,14 +132,14 @@ let g:which_key_map['s'] = {
       \ }
 
 let g:which_key_map['w'] = {
-      \ 'name' : '+wiki',
+      \ 'name' : '+Wiki',
       \ 'l' : {
         \   'name' : '+wiki-link',
         \ }
       \ }
 
 let g:which_key_map['t'] = {
-      \ 'name' : '+terminal',
+      \ 'name' : '+Terminal',
       \ 't' : 'open terminal horizontal',
       \ 'v' : 'open terminal vertical',
       \ }
@@ -143,18 +149,18 @@ let g:which_key_map_visual = {}
 let g:which_key_map_visual['y'] = 'yank to clipboard'
 
 let g:which_key_map_visual['h'] = {
-      \ 'name' : '+hunk',
+      \ 'name' : '+Hunk',
       \ 's' : ['<Plug>(GitGutterStageHunk)',   'stage hunk'],
       \ }
 
 let g:which_key_map_visual['g'] = {
-      \ 'name' : '+git/version-control',
+      \ 'name' : '+Git/version-control',
       \ 'b': 'run git-blame on the current file',
       \ 'l': 'open git log of selected lines',
       \ }
 
 let g:which_key_map_visual['s'] = {
-      \ 'name' : '+search',
+      \ 'name' : '+Search',
       \ ' ': 'search selected with ripgrep',
       \ 'g': 'search selected in gems',
       \ 'p': 'search selected in project',
@@ -163,4 +169,3 @@ let g:which_key_map_visual['s'] = {
 
 call which_key#register('<Space>', "g:which_key_map", 'n')
 call which_key#register('<Space>', "g:which_key_map_visual", 'v')
-
