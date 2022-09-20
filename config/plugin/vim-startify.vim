@@ -30,6 +30,7 @@ let g:startify_lists = [
 let g:startify_commands = [
     \ {'w': ['笔记列表', 'WikiIndex']},
     \ {'g': ['Git',      'Git']},
+    \ {'S': ['Session',  'Sessions']},
     \ {'p': ['搜索项目', 'Pg']},
     \ {'d': ['数据库',   'DBUI']},
     \ {'c': ['查看提交', 'Flog']},
@@ -37,15 +38,6 @@ let g:startify_commands = [
     \ {'i': ['插件安装', 'PlugInstall']},
     \ ]
 
-function! ToggleStartify()
-  let l:buf_name = 'startify_buffer'
-  if bufexists(l:buf_name)
-      exec 'silent! bwipe ' . l:buf_name
-  else
-      exec 'bot vnew ' . l:buf_name
-      Startify
-      exec 'map <buffer> q :silent! bwipe ' . l:buf_name . '<CR>'
-  endif
+function! LoadSessionFromFzf(name) abort
+  execute 'SLoad ' . a:name
 endfunction
-
-map <leader>es :call ToggleStartify()<CR>

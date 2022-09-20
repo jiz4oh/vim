@@ -122,6 +122,7 @@ let g:which_key_map['s'] = {
       \ 't': 'search <cword> in tags',
       \ 'w': 'search in cwd',
       \ 'b': 'search lines in the current buffer',
+      \ 's': 'search available Sessions',
       \ }
 
 let g:which_key_map['w'] = {

@@ -174,6 +174,29 @@ function! Find(query, fullscreen) abort
   call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview(l:spec), a:fullscreen)
 endfunction
 
+function! s:sessions(fullscreen) abort
+  if !isdirectory(g:session_dir)
+    call mkdir(fnamemodify(g:session_dir, ':p'), 'p')
+  endif
+
+  let l:paths = systemlist('ls ' . g:session_dir)
+
+  let l:fzf_action = {
+    \ 'enter': {name -> LoadSessionFromFzf(name[0])},
+    \}
+
+  let l:spec = {
+                \'options': [
+                  \'--prompt', 'Sessions> ',
+                  \'--expect', join(keys(l:fzf_action), ','),
+                \],
+                \'source': l:paths,
+                \'sink*': {lines -> FzfPathSink(l:fzf_action, lines) }
+                \}
+
+  call fzf#run(fzf#wrap(l:spec, a:fullscreen))
+endfunction
+
 function! s:search_path(query, fullscreen) abort
   let l:slash = (g:is_win && !&shellslash) ? '\\' : '/'
   let l:paths = substitute(&path, '[/\\]*$', l:slash, 'g')
@@ -202,6 +225,7 @@ endfunction
 
 command! -nargs=? -bang Find      call Find(<q-args>, <bang>0)
 command! -nargs=? -bang Sp        call s:search_path(<q-args>, <bang>0)
+command! -nargs=? -bang Sessions  call s:sessions(<bang>0)
 
 command! -nargs=? -bang RG        call RipgrepFzf(<q-args>, <bang>0)
 command! -nargs=? -bang Pg        call s:project_grep(<q-args>, <bang>0)
@@ -232,6 +256,7 @@ function! FzfGrepMap(lhs, cmd)
 endfunction
 
 call FzfGrepMap('<leader>s<Space>', 'RG')
+call FzfGrepMap('<leader>ss', 'Sessions')
 call FzfGrepMap('<leader>sd', 'Find')
 call FzfGrepMap('<leader>sl', 'Sp')
 call FzfGrepMap('<leader>sp', 'Pg')
