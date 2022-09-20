@@ -71,11 +71,19 @@ nnoremap <silent> g* g*zz
 nnoremap <silent><leader>/ :nohls<CR>
 
 " change cwd
-noremap <silent>cd. :lcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
-" set current directory as project root by default
-if empty(maparg('cdp'))
-  noremap <silent>cdp :lcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
-endif
+if exists(':tcd')
+  noremap <silent>cd. :tcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
+  " set current directory as project root by default
+  if empty(maparg('cdp'))
+    noremap <silent>cdp :tcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
+  endif
+else
+  noremap <silent>cd. :cd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
+  " set current directory as project root by default
+  if empty(maparg('cdp'))
+    noremap <silent>cdp :cd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
+  endif
+end
 
 function! QFOpen()
   if exists(':Copen')

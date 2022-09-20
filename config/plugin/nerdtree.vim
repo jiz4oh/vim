@@ -21,6 +21,7 @@ let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeQuitOnOpen       = 1
 " 进入目录自动将workspace更改为此目录
 let g:NERDTreeChDirMode      = 2
+let g:NERDTreeUseTCD         = 1
 
 "remove e mapping
 let g:NERDTreeMapOpenExpl         = ''
