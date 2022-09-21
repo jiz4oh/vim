@@ -9,7 +9,7 @@ augroup vim_dispatch_improved
       \ endif
   autocmd FileType ruby
         \ if !exists('b:rails_root') && !exists('b:start') |
-        \   let b:start = executable('pry') ? 'pry -r %:p:S' : 'irb -r %:p:S' |
+        \   let b:start = 'irb -r %:p:S' |
         \ endif |
         \ if exists('b:rails_root') || exists('b:dispatch') |
         \ elseif expand('%') =~# '_spec\.rb$' |

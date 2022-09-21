@@ -1,6 +1,6 @@
 let g:repl_config = {
             \   'javascript': { 'cmd': 'node' },
-            \   'ruby': { 'cmd': executable('pry') ? 'pry' : 'irb'},
+            \   'ruby': { 'cmd': 'irb'},
             \ }
 
 nnoremap <silent> <leader>rr :botright keep 16 Repl<cr>
