@@ -64,8 +64,6 @@ set visualbell t_vb=            " turn off error beep/flash
 set t_RV=
 set tm=500
 
-set colorcolumn=80
-
 " movement
 " set scrolloff=7                 " keep 7 lines when scrolling
 
@@ -331,7 +329,7 @@ augroup vimrc
   autocmd BufReadPost,BufNewFile *.json setlocal iskeyword+=-
 
   autocmd FileType python setlocal tabstop=4 shiftwidth=4 expandtab ai
-  autocmd Filetype gitcommit setlocal spell textwidth=72
+  autocmd Filetype gitcommit setlocal spell textwidth=72 colorcolumn=72
 
   autocmd BufRead,BufNewFile
     \ zshenv.local,zlogin.local,zlogout.local,zshrc.local,zprofile.local,*/zsh/configs/*,
