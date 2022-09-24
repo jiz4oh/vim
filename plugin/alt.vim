@@ -15,6 +15,11 @@ if index(s:alt_compatible_programs, $TERM_PROGRAM) >= 0
   finish
 endif
 
+if has("gui_macvim")
+	set macmeta
+  finish
+end
+
 if has("gui_running")
   finish
 endif
