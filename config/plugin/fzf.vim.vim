@@ -88,10 +88,7 @@ if !executable('rg')
   endfunction
 
   function! s:project_grep(query, fullscreen)
-    let l:dir = exists('*FindRootDirectory') ? FindRootDirectory() : ''
-    let l:dir = empty(l:dir) ? personal#git#Repo() : l:dir
-
-    call s:git_grep(a:query, l:dir, a:fullscreen)
+    call s:git_grep(a:query, personal#project#find_home(), a:fullscreen)
   endfunction
 
   function! s:workdir_grep(query, fullscreen)
@@ -123,9 +120,7 @@ else
   endfunction
 
   function! s:project_grep(query, fullscreen)
-    let l:dir = exists('*FindRootDirectory') ? FindRootDirectory() : ''
-    let l:dir = empty(l:dir) ? getcwd() : l:dir
-    call s:grep_in(l:dir, a:query, a:fullscreen)
+    call s:grep_in(personal#project#find_home(), a:query, a:fullscreen)
   endfunction
 
   function! s:workdir_grep(query, fullscreen)

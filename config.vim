@@ -34,8 +34,12 @@ let markers = [
 
 
 let g:projectionist_heuristics = {
-      \ ".git/|.hg/|.svn/|.bzr/|package.json|Gemfile": {
+      \ ".git/|.hg/|.svn/|.bzr/|Makefile": {
       \   },
+      \ "package.json": {
+      \   },
+      \ "Gemfile|Rakefile": {
+      \   }
       \ }
 
 let g:gutentags_project_root = markers

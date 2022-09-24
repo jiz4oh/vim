@@ -56,6 +56,7 @@ augroup nerdtree_zvim
         \|   q
         \| endif
   autocmd FileType nerdtree call s:nerdtreeinit()
+  autocmd User ProjectionistActivate call s:projectionist_init()
 augroup END
 
 " Function to open the file or NERDTree or netrw.
@@ -128,6 +129,9 @@ function! s:nerdtree_enter() abort
   endif
 endfunction
 
+function! s:projectionist_init() abort
+  nnoremap <silent><expr> <leader>ep empty(projectionist#path()) ? ':NERDTreeVCS %<cr>j' : ':NERDTree' . projectionist#path() . '<cr>j'
+endfunction
 " Navigation
 nmap  <silent> <leader>ee :NERDTreeToggle<CR>
 nmap  <silent> <leader>ep :NERDTreeVCS %<CR>j

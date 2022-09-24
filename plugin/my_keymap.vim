@@ -73,16 +73,10 @@ nnoremap <silent><leader>/ :nohls<CR>
 " change cwd
 if exists(':tcd')
   noremap <silent>cd. :tcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
-  " set current directory as project root by default
-  if empty(maparg('cdp'))
-    noremap <silent>cdp :tcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
-  endif
+  noremap <expr><silent>cdp ':tcd ' . personal#project#find_home() . "<CR>:echo 'cwd: ' . getcwd()<CR>"
 else
   noremap <silent>cd. :cd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
-  " set current directory as project root by default
-  if empty(maparg('cdp'))
-    noremap <silent>cdp :cd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
-  endif
+  noremap <expr><silent>cdp ':cd ' . personal#project#find_home() . "<CR>:echo 'cwd: ' . getcwd()<CR>"
 end
 
 function! QFOpen()
