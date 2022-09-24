@@ -4,30 +4,21 @@ vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 let g:which_key_map = {}
 
 let g:which_key_map['/'] = 'clear highlight'
-let g:which_key_map['1'] = 'window-1'
-let g:which_key_map['2'] = 'window-2'
-let g:which_key_map['3'] = 'window-3'
-let g:which_key_map['4'] = 'window-4'
-let g:which_key_map['5'] = 'window-5'
-let g:which_key_map['6'] = 'window-6'
-let g:which_key_map['7'] = 'window-7'
-let g:which_key_map['8'] = 'window-8'
-let g:which_key_map['9'] = 'window-9'
+let g:which_key_map['1'] = 'tab-1'
+let g:which_key_map['2'] = 'tab-2'
+let g:which_key_map['3'] = 'tab-3'
+let g:which_key_map['4'] = 'tab-4'
+let g:which_key_map['5'] = 'tab-5'
+let g:which_key_map['6'] = 'tab-6'
+let g:which_key_map['7'] = 'tab-7'
+let g:which_key_map['8'] = 'tab-8'
+let g:which_key_map['9'] = 'tab-9'
 let g:which_key_map['y']  = 'yank {motion} to clipboard'
 let g:which_key_map['yy'] = 'yank current line to clipboard'
 let g:which_key_map['Y']  = 'yank from the cursor to the end of line to clipboard'
 
 let g:which_key_map[' '] = {
       \ 'name' : '+easymotion/tab' ,
-      \ '1' : 'tab-1'  ,
-      \ '2' : 'tab-2'  ,
-      \ '3' : 'tab-3'  ,
-      \ '4' : 'tab-4'  ,
-      \ '5' : 'tab-5'  ,
-      \ '6' : 'tab-6'  ,
-      \ '7' : 'tab-7'  ,
-      \ '8' : 'tab-8'  ,
-      \ '9' : 'tab-9'  ,
       \ 'f' : ['<plug>(easymotion-prefix)f' , 'find {char} to the right'],
       \ 'F' : ['<plug>(easymotion-prefix)F' , 'find {char} to the left'],
       \ 't' : ['<plug>(easymotion-prefix)t' , 'till before the {char} to the right'],
@@ -132,7 +123,16 @@ let g:which_key_map['s'] = {
       \ }
 
 let g:which_key_map['w'] = {
-      \ 'name' : '+Wiki',
+      \ 'name' : '+Wiki/Window',
+      \ '1' : 'window-1'  ,
+      \ '2' : 'window-2'  ,
+      \ '3' : 'window-3'  ,
+      \ '4' : 'window-4'  ,
+      \ '5' : 'window-5'  ,
+      \ '6' : 'window-6'  ,
+      \ '7' : 'window-7'  ,
+      \ '8' : 'window-8'  ,
+      \ '9' : 'window-9'  ,
       \ 'l' : {
         \   'name' : '+wiki-link',
         \ }

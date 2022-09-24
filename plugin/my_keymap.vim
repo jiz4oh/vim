@@ -107,11 +107,11 @@ map    <M-Tab>  :tabprev<CR>
 imap   <M-Tab>  <C-O>:tabprev<CR>
 
 for s:i in range(1, 9)
-  " <Leader>[1-9] move to window [1-9]
-  execute 'nnoremap <Leader>'.s:i ' :'.s:i.'wincmd w<CR>'
+  " <Leader>[1-9] move to tab [1-9]
+  execute 'nnoremap <Leader>'.s:i s:i.'gt'
 
-  " <Leader><leader>[1-9] move to tab [1-9]
-  execute 'nnoremap <Leader><Leader>'.s:i s:i.'gt'
+  " <Leader>w[1-9] move to window [1-9]
+  execute 'nnoremap <Leader>w'.s:i ' :'.s:i.'wincmd w<CR>'
 
   " <Leader>b[1-9] move to buffer [1-9]
   execute 'nnoremap <Leader>b'.s:i ':b'.s:i.'<CR>'
