@@ -3,41 +3,6 @@ augroup update_bat_theme
     autocmd colorscheme * if &background == 'dark' | let $BAT_THEME='OneHalfDark' | else | let $BAT_THEME='' | endif
 augroup end
 
-" stole from fzf https://github.com/junegunn/fzf/blob/b5efc68737e8231001d2a18234c18aa3f658a973/plugin/fzf.vim#L302
-function! FzfPathSink(action, lines) abort
-  if len(a:lines) < 2
-    return
-  endif
-  let key = remove(a:lines, 0)
-  let Cmd = get(a:action, key, 'e')
-  if type(Cmd) == type(function('call'))
-    return Cmd(a:lines)
-  endif
-  try
-    let empty = empty(expand('%', 1)) && line('$') == 1 && empty(getline(1)) && !&modified
-    " Preserve the current working directory in case it's changed during
-    " the execution (e.g. `set autochdir` or `autocmd BufEnter * lcd ...`)
-    let cwd = exists('w:fzf_pushd') ? w:fzf_pushd.dir : expand('%:p:h')
-    for item in a:lines
-      if item[0] != '~' && item !~ (g:is_win ? '^[A-Z]:\' : '^/')
-        let sep = g:is_win ? '\' : '/'
-        let item = join([cwd, item], cwd[len(cwd)-1] == sep ? '' : sep)
-      endif
-      if empty
-        execute 'e' personal#functions#escape(item)
-        let empty = 0
-      else
-        execute Cmd personal#functions#escape(item)
-      endif
-      if !has('patch-8.0.0177') && !has('nvim-0.2') && exists('#BufEnter')
-            \ && isdirectory(item)
-        doautocmd BufEnter
-      endif
-    endfor
-  catch /^Vim:Interrupt$/
-  endtry
-endfunction
-
 function! s:grep_in(dir, query, fullscreen) abort
   if !isdirectory(a:dir)
     echomsg a:dir . ' is not a directory or is not exists'
@@ -176,20 +141,26 @@ function! s:sessions(fullscreen) abort
 
   let l:paths = systemlist('ls ' . g:session_dir)
 
-  let l:fzf_action = {
-    \ 'enter': {name -> LoadSessionFromFzf(name[0])},
-    \}
+  try
+    let action = get(g:, 'fzf_action')
+    let g:fzf_action = {
+      \ 'enter': {name -> LoadSessionFromFzf(name[0])},
+      \}
+    let l:spec = {
+                  \'options': [
+                    \'--prompt', 'Sessions> ',
+                  \],
+                  \'source': l:paths,
+                  \}
 
-  let l:spec = {
-                \'options': [
-                  \'--prompt', 'Sessions> ',
-                  \'--expect', join(keys(l:fzf_action), ','),
-                \],
-                \'source': l:paths,
-                \'sink*': {lines -> FzfPathSink(l:fzf_action, lines) }
-                \}
-
-  call fzf#run(fzf#wrap(l:spec, a:fullscreen))
+    call fzf#run(fzf#wrap(l:spec, a:fullscreen))
+  finally
+    if exists('action') && action != 0
+      let g:fzf_action = action
+    else
+      unlet! g:fzf_action
+    endif
+  endtry
 endfunction
 
 function! s:search_path(query, fullscreen) abort
@@ -198,23 +169,30 @@ function! s:search_path(query, fullscreen) abort
   let l:paths = uniq(sort(sort(l:paths), {i1, i2 -> len(split(i1, l:slash)) - len(split(i2, l:slash))}))
   let l:paths = filter(l:paths, {_, v -> isdirectory(fnamemodify(v, ':p')) })
 
-  let l:fzf_action = {
-    \ 'enter':  {dir -> s:grep_in(fnamemodify(dir[0], ':p'), a:query, a:fullscreen) },
-    \ 'ctrl-t': 'NERDTree ',
-    \ 'ctrl-x': 'NERDTree ',
-    \ 'ctrl-v': 'NERDTree '
-    \}
+  try
+    let action = get(g:, 'fzf_action')
+    let g:fzf_action = {
+      \ 'enter':  {dir -> s:grep_in(fnamemodify(dir[0], ':p'), a:query, a:fullscreen) },
+      \ 'ctrl-t': 'NERDTree ',
+      \ 'ctrl-x': 'NERDTree ',
+      \ 'ctrl-v': 'NERDTree '
+      \}
 
-  let l:spec = {
-                \'options': [
-                  \'--prompt', personal#functions#shortpath(getcwd()) .'> ',
-                  \'--expect', join(keys(l:fzf_action), ','),
-                \],
-                \'source': l:paths,
-                \'sink*': {lines -> FzfPathSink(l:fzf_action, lines) }
-                \}
+    let l:spec = {
+                  \'options': [
+                    \'--prompt', personal#functions#shortpath(getcwd()) .'> ',
+                  \],
+                  \'source': l:paths,
+                  \}
 
-  call fzf#run(fzf#wrap(l:spec, a:fullscreen))
+    call fzf#run(fzf#wrap(l:spec, a:fullscreen))
+  finally
+    if exists('action') && action != 0
+      let g:fzf_action = action
+    else
+      unlet! g:fzf_action
+    endif
+  endtry
 endfunction
 
 command! -nargs=? -bang Find      call Find(<q-args>, <bang>0)

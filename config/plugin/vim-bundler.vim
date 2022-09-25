@@ -20,20 +20,26 @@ function! s:gem_search(query, fullscreen) abort
   " call fzf#vim#grep(l:gems, 0, {'sink': {gem -> s:gem_content_search(gem, a:query, a:fullscreen)}}, a:fullscreen)
   let l:gems = keys(bundler#project().paths())
 
-  let l:fzf_action = {
-    \ 'enter':  {gem -> s:gem_content_search(gem[0], a:query, a:fullscreen)},
-    \}
+  try
+    let action = get(g:, 'fzf_action')
+    let g:fzf_action = {
+      \ 'enter':  {gem -> s:gem_content_search(gem[0], a:query, a:fullscreen)},
+      \}
+    let l:spec = {
+                  \'options': [
+                    \'--prompt', 'Gem> ',
+                  \],
+                  \'source': l:gems,
+                  \}
 
-  let l:spec = {
-                \'options': [
-                  \'--prompt', 'Gem> ',
-                  \'--expect', join(keys(l:fzf_action), ','),
-                \],
-                \'source': l:gems,
-                \'sink*': {lines -> FzfPathSink(l:fzf_action, lines) }
-                \}
-
-  call fzf#run(fzf#wrap(l:spec, a:fullscreen))
+    call fzf#run(fzf#wrap(l:spec, a:fullscreen))
+  finally
+    if exists('action') && action != 0
+      let g:fzf_action = action
+    else
+      unlet! g:fzf_action
+    endif
+  endtry
 endfunction
 
 " Gems search
