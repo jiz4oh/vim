@@ -3,39 +3,9 @@ augroup update_bat_theme
     autocmd colorscheme * if &background == 'dark' | let $BAT_THEME='OneHalfDark' | else | let $BAT_THEME='' | endif
 augroup end
 
-function! s:grep_in(dir, query, fullscreen) abort
-  if !isdirectory(a:dir)
-    echomsg a:dir . ' is not a directory or is not exists'
-    return
-  endif
-
-  if !empty(a:query)
-    let @/ = a:query
-  endif
-
-  let l:dir = fnamemodify(a:dir, ':p:h')
-  let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
-
-  if has_key(g:, 'fzf_grep_cmd')
-    let l:grep_cmd = printf(g:fzf_grep_cmd, l:query)
-  else
-    let l:grep_cmd = 'find '. l:dir . ''
-  endif
-
-  let l:spec = {
-      \'dir': l:dir,
-      \'options': [
-          \'--prompt', personal#functions#shortpath(l:dir) .'> ',
-            \'--delimiter', ':',
-            \'--nth', '4..',
-          \]}
-
-  call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview(l:spec), a:fullscreen)
-endfunction
-
 " `brew install ripgrep` before you use rg command
 if !executable('rg')
-  function! s:git_grep(query, dir, fullscreen)
+  function! s:grep_in(dir, query, fullscreen) abort
     if !empty(a:query)
       let @/ = a:query
     endif
@@ -51,46 +21,35 @@ if !executable('rg')
     echohl None
     return 0
   endfunction
-
-  function! s:project_grep(query, fullscreen)
-    call s:git_grep(a:query, personal#project#find_home(), a:fullscreen)
-  endfunction
-
-  function! s:workdir_grep(query, fullscreen)
-    let l:dir = getcwd()
-
-    call s:git_grep(a:query, l:dir, a:fullscreen)
-  endfunction
 else
   set grepprg=rg\ --vimgrep\ --smart-case\ --follow
   set grepformat=%f:%l:%c:%m
   let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!{.git}/*" 2>/dev/null'
   let g:fzf_grep_cmd = 'rg --column --line-number --no-heading --smart-case --follow --color=always %s || true'
 
-  function! s:git_grep(query, dir, fullscreen)
+  function! s:grep_in(dir, query, fullscreen) abort
     if !empty(a:query)
       let @/ = a:query
     endif
+
+    let l:dir = fnamemodify(a:dir, ':p:h')
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
-    let l:grep_cmd = printf(g:fzf_grep_cmd, l:query)
+
+    if has_key(g:, 'fzf_grep_cmd')
+      let l:grep_cmd = printf(g:fzf_grep_cmd, l:query)
+    else
+      let l:grep_cmd = 'find '. l:dir . ''
+    endif
+
     let l:spec = {
-          \'dir': a:dir,
-          \'options': [
-             \'--prompt', personal#functions#shortpath(a:dir) .'> ',
-             \'--delimiter', ':',
-             \'--nth', '4..'
-             \]}
+        \'dir': l:dir,
+        \'options': [
+            \'--prompt', personal#functions#shortpath(l:dir) .'> ',
+              \'--delimiter', ':',
+              \'--nth', '4..',
+            \]}
 
     call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview(l:spec), a:fullscreen)
-  endfunction
-
-  function! s:project_grep(query, fullscreen)
-    call s:grep_in(personal#project#find_home(), a:query, a:fullscreen)
-  endfunction
-
-  function! s:workdir_grep(query, fullscreen)
-    let l:dir = getcwd()
-    call s:grep_in(l:dir, a:query, a:fullscreen)
   endfunction
 
   function! RipgrepFzf(query, fullscreen)
@@ -200,10 +159,10 @@ command! -nargs=? -bang Sp        call s:search_path(<q-args>, <bang>0)
 command! -nargs=? -bang Sessions  call s:sessions(<bang>0)
 
 command! -nargs=? -bang RG        call RipgrepFzf(<q-args>, <bang>0)
-command! -nargs=? -bang Pg        call s:project_grep(<q-args>, <bang>0)
-command! -nargs=? -bang Wg        call s:workdir_grep(<q-args>, <bang>0)
-command! -nargs=? -bang GitGrep   call s:git_grep(<q-args>, personal#git#Repo(), <bang>0)
-command! -nargs=? -bang GGrep     call s:git_grep(<q-args>, personal#git#Repo(), <bang>0)
+command! -nargs=? -bang Pg        call s:grep_in(personal#project#find_home(), <q-args>, <bang>0)
+command! -nargs=? -bang Wg        call s:grep_in(getcwd(), <q-args>, <bang>0)
+command! -nargs=? -bang GitGrep   call s:grep_in(personal#git#Repo(), <q-args>, <bang>0)
+command! -nargs=? -bang GGrep     call s:grep_in(personal#git#Repo(), <q-args>, <bang>0)
 command! -nargs=* -bang Tags      call fzf#vim#tags(expand('<cword>') . ' ', fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0], "placeholder": "--tag {2}:{-1}:{3..}", 'options': '--exact --select-1 --exit-0 +i'}), <bang>0)
 
 " fzf
