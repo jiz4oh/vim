@@ -48,7 +48,7 @@ function! s:grep_in(dir, query, fullscreen) abort
     let @/ = a:query
   endif
 
-  let l:dir = a:dir
+  let l:dir = fnamemodify(a:dir, ':p:h')
   let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
 
   if has_key(g:, 'fzf_grep_cmd')
@@ -194,8 +194,7 @@ endfunction
 
 function! s:search_path(query, fullscreen) abort
   let l:slash = (g:is_win && !&shellslash) ? '\\' : '/'
-  let l:paths = substitute(&path, '[/\\]*$', l:slash, 'g')
-  let l:paths = map(split(&path, ','), {_, val -> fnamemodify(val, ':.:~')})
+  let l:paths = map(split(&path, ','), {_, val -> fnamemodify(expand(val), ':~:.')})
   let l:paths = uniq(sort(sort(l:paths), {i1, i2 -> len(split(i1, l:slash)) - len(split(i2, l:slash))}))
   let l:paths = filter(l:paths, {_, v -> isdirectory(fnamemodify(v, ':p')) })
 
@@ -208,7 +207,7 @@ function! s:search_path(query, fullscreen) abort
 
   let l:spec = {
                 \'options': [
-                  \'--prompt', 'Path> ',
+                  \'--prompt', personal#functions#shortpath(getcwd()) .'> ',
                   \'--expect', join(keys(l:fzf_action), ','),
                 \],
                 \'source': l:paths,
