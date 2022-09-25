@@ -10,7 +10,7 @@ if has('nvim')
   tnoremap <C-W>w         <C-\><C-N><bar><C-W>w
   tnoremap <C-W><C-W>     <C-\><C-N><bar><C-W>w
   tnoremap <expr> <C-W>" '<C-\><C-N>"'.nr2char(getchar()).'pi'
-else
+elseif has('terminal')
   nmap <Leader>tt :below :term<CR>
   nmap <Leader>tv :belowright :vert :term<CR>
   tnoremap <C-W><Esc> <C-W>N
@@ -36,10 +36,31 @@ noremap <C-e> <End>
 nnoremap <silent> q :quit<cr>
 " use Q to record macro instead of q
 noremap Q q
+
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
+" fast window switching: ALT+SHIFT+HJKL
+noremap <m-H> <c-w>h
+noremap <m-L> <c-w>l
+noremap <m-J> <c-w>j
+noremap <m-K> <c-w>k
+if has('nvim')
+  tnoremap <m-H> <c-\><c-N><bar><c-w>h
+  tnoremap <m-L> <c-\><c-N><bar><c-w>l
+  tnoremap <m-J> <c-\><c-N><bar><c-w>j
+  tnoremap <m-K> <c-\><c-N><bar><c-w>k
+elseif has('terminal')
+  tnoremap <m-H> <c-w>h
+  tnoremap <m-L> <c-w>l
+  tnoremap <m-J> <c-w>j
+  tnoremap <m-K> <c-w>k
+endif
+inoremap <m-H> <esc><c-w>h
+inoremap <m-L> <esc><c-w>l
+inoremap <m-J> <esc><c-w>j
+inoremap <m-K> <esc><c-w>k
 
 " save
 inoremap <C-s>     <C-O>:update<cr>
@@ -111,6 +132,21 @@ for s:i in range(1, 9)
   execute 'nnoremap <Leader>b'.s:i ':b'.s:i.'<CR>'
 endfor
 unlet s:i
+
+" insert mode fast
+inoremap <c-x>( ()<esc>i
+inoremap <c-x>[ []<esc>i
+inoremap <c-x>' ''<esc>i
+inoremap <c-x>" ""<esc>i
+inoremap <c-x>< <><esc>i
+inoremap <c-x>{ {<esc>o}<esc>ko
+
+inoremap <M-(> ()<esc>i
+inoremap <M-[> []<esc>i
+inoremap <M-'> ''<esc>i
+inoremap <M-"> ""<esc>i
+inoremap <M-<> <><esc>i
+inoremap <M-{> {<esc>o}<esc>ko
 
 " if !exists("g:plugs") || !has_key(g:plugs, 'vim-rsi')
 "   inoremap        <C-A> <Home>
