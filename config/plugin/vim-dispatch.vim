@@ -1,7 +1,7 @@
 augroup vim_dispatch_improved
   autocmd!
   
-  autocmd FileType vim let b:start = 'vim -e'
+  autocmd FileType vim let b:start = 'vim -E'
   autocmd BufReadPost *
       \ if getline(1) =~# '^#!' |
       \   let b:dispatch =

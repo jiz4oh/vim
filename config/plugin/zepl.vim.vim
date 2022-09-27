@@ -1,7 +1,7 @@
 let g:repl_config = {
             \   'javascript': { 'cmd': 'node' },
             \   'ruby': { 'cmd': 'irb'},
-            \   'vim': { 'cmd': 'vim -e'},
+            \   'vim': { 'cmd': 'vim -E'},
             \ }
 
 nnoremap <silent> <leader>rr :botright keep 16 Repl<cr>
