@@ -178,6 +178,7 @@ Plug 'haya14busa/vim-asterisk', { 'on': ['<Plug>(asterisk-z*)', '<Plug>(asterisk
 Plug 'markonm/traces.vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'AndrewRadev/undoquit.vim'
+Plug 'troydm/zoomwintab.vim'
 Plug 'kristijanhusak/vim-carbon-now-sh'
 " Plug 'AndrewRadev/splitjoin.vim'
 "==================== https://github.com/jiz4oh/vim#美化 ====================
