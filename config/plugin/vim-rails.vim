@@ -70,7 +70,9 @@ autocmd FileType ruby
       \ if !empty(rails#app())|call s:setup_zepl()|endif
 
 function! s:setup_zepl() abort
-  let b:repl_config = { 'cmd': 'rails console' }
+  if empty(get(b:, 'start', ''))
+    let b:repl_config = { 'cmd': 'rails console' }
+  endif
 
   nnoremap <silent> <buffer> <leader>rl :ReplSend reload!<cr>
 endfunction
