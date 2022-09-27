@@ -13,9 +13,9 @@ let g:which_key_map['6'] = 'tab-6'
 let g:which_key_map['7'] = 'tab-7'
 let g:which_key_map['8'] = 'tab-8'
 let g:which_key_map['9'] = 'tab-9'
-let g:which_key_map['y']  = 'yank {motion} to clipboard'
-let g:which_key_map['yy'] = 'yank current line to clipboard'
-let g:which_key_map['Y']  = 'yank from the cursor to the end of line to clipboard'
+let g:which_key_map['y']  = 'Yank {motion} to clipboard'
+let g:which_key_map['yy'] = 'Yank current line to clipboard'
+let g:which_key_map['Y']  = 'Yank from the cursor to the end of line to clipboard'
 
 let g:which_key_map[' '] = {
       \ 'name' : '+easymotion/tab' ,
@@ -62,25 +62,25 @@ let g:which_key_map['b'] = {
 
 let g:which_key_map['c'] = {
       \ 'name' : '+Close',
-      \ 's' : ['SClose', 'close session and open startify'],
-      \ 't' : ['UndoableTabclose', 'close tabpage'],
+      \ 's' : ['SClose', 'Close Session and open startify'],
+      \ 't' : ['UndoableTabclose', 'Close Tabpage'],
       \}
 
 let g:which_key_map['e'] = {
       \ 'name' : '+Explorer',
-      \ 'e': 'open file explorer',
-      \ 'p': 'open file explorer of project root',
+      \ 'e': 'open file Explorer',
+      \ 'p': 'open file explorer of Project root',
       \ 'f': 'open file explorer and locate current buffer',
-      \ 'd': 'open db connector',
-      \ 'q': 'open quickfix list',
-      \ 't': 'open tagbar',
+      \ 'd': 'open Db connector',
+      \ 'q': 'open Quickfix list',
+      \ 't': 'open Tagbar',
       \ 'g': 'open fugitive',
-      \ 's': 'open startify',
+      \ 's': 'open Startify',
       \ }
 
 let g:which_key_map['f'] = {
       \ 'name' : '+Format/Fix',
-      \ 'f': 'fix by ale',
+      \ 'f': 'Fix by ale',
       \ 't': 'show one or all warnings',
       \ }
 
@@ -88,39 +88,39 @@ let g:which_key_map['f'] = {
 let g:which_key_map['g'] = {
       \ 'name' : '+Git/version-control',
       \ 'g': 'open fugitive',
-      \ 'd': 'perform a vimdiff against the current buffer',
-      \ 'b': 'run git-blame on the current file',
-      \ 'l': 'open git log of current buffer',
-      \ 'L': 'open git log',
+      \ 'd': 'perform a vimDiff against the current buffer',
+      \ 'b': 'run git-Blame on the current file',
+      \ 'l': 'open git Log of current buffer',
+      \ 'L': 'open git Log',
       \ }
 
 let g:which_key_map['h'] = {
       \ 'name' : '+Hunk',
-      \ 'p' : ['<Plug>(GitGutterPreviewHunk)', 'preview hunk'],
-      \ 's' : ['<Plug>(GitGutterStageHunk)',   'stage hunk'],
-      \ 'u' : ['<Plug>(GitGutterUndoHunk)',    'undo hunk'],
+      \ 'p' : ['<Plug>(GitGutterPreviewHunk)', 'Preview Hunk'],
+      \ 's' : ['<Plug>(GitGutterStageHunk)',   'Stage Hunk'],
+      \ 'u' : ['<Plug>(GitGutterUndoHunk)',    'Undo Hunk'],
       \ }
 
 let g:which_key_map['r'] = {
       \ 'name' : '+Run',
-      \ 'r' : 'run repl',
-      \ 'k' : 'run repl but keep focus on current window',
-      \ 'l' : 'hot reload repl',
+      \ 'r' : 'Run Repl',
+      \ 'k' : 'Run repl but Keep focus on current window',
+      \ 'l' : 'hot reLoad Repl',
       \ }
 
 let g:which_key_map['s'] = {
       \ 'name' : '+Search',
-      \ ' ': 'search with ripgrep',
-      \ '/': 'search Search hisotry',
-      \ ':': 'search Command history',
-      \ 'd': 'search Dependencies',
-      \ 'l': 'search Library',
-      \ 'g': 'search in gems',
-      \ 'p': 'search in project',
-      \ 't': 'search <cword> in tags',
-      \ 'w': 'search in cwd',
-      \ 'b': 'search lines in the current buffer',
-      \ 's': 'search available Sessions',
+      \ ' ': 'Search with ripgrep',
+      \ '/': 'Search search hisotry',
+      \ ':': 'Search command history',
+      \ 'd': 'Search Dependencies',
+      \ 'l': 'Search Library',
+      \ 'g': 'Search in Gems',
+      \ 'p': 'Search in Project',
+      \ 't': 'Search <cword> in Tags',
+      \ 'w': 'Search in cWd',
+      \ 'b': 'Search lines in the current Buffer',
+      \ 's': 'Search available Sessions',
       \ }
 
 let g:which_key_map['w'] = {
@@ -141,31 +141,31 @@ let g:which_key_map['w'] = {
 
 let g:which_key_map['t'] = {
       \ 'name' : '+Terminal',
-      \ 't' : 'open terminal horizontal',
-      \ 'v' : 'open terminal vertical',
+      \ 't' : 'open Terminal horizontal',
+      \ 'v' : 'open Terminal Vertical',
       \ }
 
 let g:which_key_map_visual = {}
 
-let g:which_key_map_visual['y'] = 'yank to clipboard'
+let g:which_key_map_visual['y'] = 'Yank to clipboard'
 
 let g:which_key_map_visual['h'] = {
       \ 'name' : '+Hunk',
-      \ 's' : ['<Plug>(GitGutterStageHunk)',   'stage hunk'],
+      \ 's' : ['<Plug>(GitGutterStageHunk)',   'Stage Hunk'],
       \ }
 
 let g:which_key_map_visual['g'] = {
       \ 'name' : '+Git/version-control',
-      \ 'b': 'run git-blame on the current file',
-      \ 'l': 'open git log of selected lines',
+      \ 'b': 'run git-Blame on the current file',
+      \ 'l': 'open git Log of selected lines',
       \ }
 
 let g:which_key_map_visual['s'] = {
       \ 'name' : '+Search',
-      \ ' ': 'search selected with ripgrep',
-      \ 'g': 'search selected in gems',
-      \ 'p': 'search selected in project',
-      \ 'w': 'search selected in cwd',
+      \ ' ': 'Search selected with ripgrep',
+      \ 'g': 'Search selected in Gems',
+      \ 'p': 'Search selected in Project',
+      \ 'w': 'Search selected in cWd',
       \ }
 
 call which_key#register('<Space>', "g:which_key_map", 'n')
