@@ -20,28 +20,26 @@ endif
 
 silent! if plug#begin('~/.vim/bundle')
 set updatetime=100
-
-if !has('gui_running')
-  Plug 'vim-scripts/LargeFile'
-endif
-Plug 'liuchengxu/vim-which-key'
-Plug 'ojroques/vim-oscyank'
-if exists('##TextYankPost')
-  Plug 'machakann/vim-highlightedyank'
-end
-"==================== https://github.com/jiz4oh/vim#跳转 ====================
-if has("patch-7.3.1058") && executable('ctags')
-  Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
-endif
-
+" ============================================================================
+" NAVIGATION / MOVE / Easier READ {{{
+" ============================================================================
+Plug 'christoomey/vim-tmux-navigator'
 " https://github.com/easymotion/vim-easymotion
 Plug 'easymotion/vim-easymotion', { 'on': ['<Plug>(easymotion-prefix)', '<Plug>(easymotion-bd-jk)', '<Plug>(easymotion-overwin-line)'] }
 
-"==================== https://github.com/jiz4oh/vim#搜索 ====================
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } |
      \ Plug 'junegunn/fzf.vim'
 
-"==================== https://github.com/jiz4oh/vim#项目结构 ================
+Plug 'preservim/nerdtree', { 'on': ['NERDTree', 'NERDTreeVCS', 'NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'for': 'NERDTree' }
+Plug 'PhilRunninger/nerdtree-visual-selection'
+" }}}
+
+" ============================================================================
+" VCS / PROJECT {{{
+" ============================================================================
+Plug 'tpope/vim-projectionist'
+Plug 'airblade/vim-rooter'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -50,14 +48,88 @@ Plug 'rbong/vim-flog', { 'on': ['Flog', 'Flogsplit'] }
 " if v:version >= 800
 "   Plug 'rhysd/git-messenger.vim'
 " endif
-Plug 'airblade/vim-rooter'
-"==================== https://github.com/jiz4oh/vim#文件浏览器 ==============
-Plug 'preservim/nerdtree', { 'on': ['NERDTree', 'NERDTreeVCS', 'NERDTreeToggle', 'NERDTreeFind'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'for': 'NERDTree' }
-Plug 'PhilRunninger/nerdtree-visual-selection'
-Plug 'tpope/vim-projectionist'
+" }}}
 
-"==================== https://github.com/jiz4oh/vim#补全 ====================
+" ============================================================================
+" DOCUMENT / MARKDOWN {{{
+" ============================================================================
+Plug 'lervag/wiki.vim'
+" Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+
+if v:version >= 704
+  Plug 'mzlogin/vim-markdown-toc', { 'on': ['GenTocGFM', 'UpdateToc'] }
+endif
+
+" markdown preview
+if v:version >= 800
+  Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()' }
+endif
+Plug 'ferrine/md-img-paste.vim', { 'for': 'markdown' }
+" }}}
+
+" ============================================================================
+" DATABASE {{{
+" ============================================================================
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'kristijanhusak/vim-dadbod-completion'
+" }}}
+"
+" ============================================================================
+" REPL / BUILD / COMPILE {{{
+" ============================================================================
+Plug 'axvr/zepl.vim'
+Plug 'tpope/vim-dispatch'
+" }}}
+
+" ============================================================================
+" FILETYPE {{{
+" ============================================================================
+if has('nvim')
+  Plug 'nathom/filetype.nvim'
+endif
+Plug 'hallison/vim-rdoc'
+Plug 'vim-ruby/vim-ruby'
+if executable('bundle')
+  Plug 'tpope/vim-bundler'
+endif
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rbenv'
+Plug 'towolf/vim-helm'
+Plug 'kchmck/vim-coffee-script'
+Plug 'chrisbra/csv.vim'
+" Plug 'vlime/vlime', {'rtp': 'vim/'}
+" Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
+if has('nvim') || has('patch-8.0.1453')
+  Plug 'fatih/vim-go', { 'for': 'go' }
+endif
+" }}}
+
+" ============================================================================
+" TEXT OBJECTS {{{
+" ============================================================================
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
+Plug 'adriaanzon/vim-textobj-matchit'
+Plug 'rhysd/vim-textobj-anyblock'
+Plug 'whatyouhide/vim-textobj-erb', { 'for': 'eruby' }
+" }}}
+
+" ============================================================================
+" TAGS {{{
+" ============================================================================
+if executable('ctags')
+  Plug 'ludovicchabant/vim-gutentags'
+  if has("patch-7.3.1058")
+    Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
+  endif
+endif
+"}}}
+
+" ============================================================================
+" Easier EDIT {{{
+" ============================================================================
 Plug 'dense-analysis/ale'
 
 if has('nvim')
@@ -100,89 +172,55 @@ elseif v:version >= 800
   " Plug 'mattn/vim-lsp-settings'
 endif
 
-"==================== https://github.com/jiz4oh/vim#文档 ====================
-Plug 'lervag/wiki.vim'
-" Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-
-if v:version >= 704
-  Plug 'mzlogin/vim-markdown-toc', { 'on': ['GenTocGFM', 'UpdateToc'] }
-endif
-
-" markdown preview
-if v:version >= 800
-  Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()' }
-endif
-Plug 'ferrine/md-img-paste.vim', { 'for': 'markdown' }
-Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
-"==================== https://github.com/jiz4oh/vim#其他 ====================
-Plug 'tpope/vim-dadbod'
-Plug 'kristijanhusak/vim-dadbod-ui'
-Plug 'kristijanhusak/vim-dadbod-completion'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'axvr/zepl.vim'
-"
-" FILETYPE {{{
-if has('nvim')
-  Plug 'nathom/filetype.nvim'
-endif
-Plug 'hallison/vim-rdoc'
-Plug 'vim-ruby/vim-ruby'
-if executable('bundle')
-  Plug 'tpope/vim-bundler'
-endif
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-rbenv'
-Plug 'towolf/vim-helm'
-Plug 'kchmck/vim-coffee-script'
-Plug 'chrisbra/csv.vim'
-" Plug 'vlime/vlime', {'rtp': 'vim/'}
-" Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
-if has('nvim') || has('patch-8.0.1453')
-  Plug 'fatih/vim-go', { 'for': 'go' }
-endif
-" }}}
-
-" TEXT OBJECTS {{{
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'kana/vim-textobj-user'
-Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
-Plug 'adriaanzon/vim-textobj-matchit'
-Plug 'rhysd/vim-textobj-anyblock'
-Plug 'whatyouhide/vim-textobj-erb', { 'for': 'eruby' }
-" }}}
-
-if executable('ctags')
-  Plug 'ludovicchabant/vim-gutentags'
-endif
-Plug 'asins/vim-dict'
 Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+" Plug 'AndrewRadev/splitjoin.vim'
+" }}}
 
+" ============================================================================
+" Utils {{{
+" ============================================================================
+if !has('gui_running')
+  Plug 'vim-scripts/LargeFile'
+endif
+Plug 'liuchengxu/vim-which-key'
+Plug 'ojroques/vim-oscyank'
+Plug 'asins/vim-dict'
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'justinmk/vim-gtfo'
 Plug 'mhinz/vim-startify'
 Plug 'dstein64/vim-startuptime', {'on':'StartupTime'}
 
-Plug 'vim-utils/vim-man'
-" Plug 'andymass/vim-matchup'
-Plug 'inkarkat/vim-ReplaceWithRegister'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-apathy'
-Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
+Plug 'AndrewRadev/undoquit.vim'
+Plug 'kristijanhusak/vim-carbon-now-sh'
+" }}}
+
+" ============================================================================
+" Butil-in Enhance {{{
+" ============================================================================
+" Plug 'andymass/vim-matchup'
+Plug 'vim-utils/vim-man'
+Plug 'inkarkat/vim-ReplaceWithRegister'
+Plug 'tpope/vim-repeat'
+if exists('##TextYankPost')
+  Plug 'machakann/vim-highlightedyank'
+end
+Plug 'markonm/traces.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'haya14busa/vim-asterisk', { 'on': ['<Plug>(asterisk-z*)', '<Plug>(asterisk-z#)', '<Plug>(asterisk-gz*)', '<Plug>(asterisk-gz#)'] }
-Plug 'markonm/traces.vim'
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'AndrewRadev/undoquit.vim'
 Plug 'troydm/zoomwintab.vim'
-Plug 'kristijanhusak/vim-carbon-now-sh'
-" Plug 'AndrewRadev/splitjoin.vim'
-"==================== https://github.com/jiz4oh/vim#美化 ====================
+" }}}
+
+" ============================================================================
 " BEAUTIFY {{{
+" ============================================================================
 if has('nvim')
   " Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 endif
