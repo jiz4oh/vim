@@ -104,6 +104,7 @@ let g:which_key_map['h'] = {
 let g:which_key_map['r'] = {
       \ 'name' : '+Run',
       \ 'r' : 'run repl',
+      \ 'k' : 'run repl but keep focus on current window',
       \ 'l' : 'hot reload repl',
       \ }
 

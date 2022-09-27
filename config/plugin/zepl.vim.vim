@@ -33,7 +33,8 @@ function! s:cmd() abort
   return cmd
 endfunction
 
-nnoremap <silent> <leader>rr :execute 'botright keep 16 Repl ' . <SID>cmd()<cr>
+nnoremap <silent> <leader>rr :execute 'botright 16 Repl ' . <SID>cmd()<cr>
+nnoremap <silent> <leader>rk :execute 'botright keep 16 Repl ' . <SID>cmd()<cr>
 
 if has('nvim')
   runtime zepl/contrib/nvim_autoscroll_hack.vim
