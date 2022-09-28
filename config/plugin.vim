@@ -190,7 +190,7 @@ if !has('gui_running')
 endif
 Plug 'liuchengxu/vim-which-key'
 Plug 'ojroques/vim-oscyank'
-Plug 'asins/vim-dict'
+Plug 'skywind3000/vim-dict'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'justinmk/vim-gtfo'
 Plug 'mhinz/vim-startify'
