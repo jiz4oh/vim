@@ -108,6 +108,11 @@ set formatoptions+=m
 set formatoptions+=B
 
 " select & complete
+set completeopt=menuone,noinsert,noselect,preview
+if has('textprop')
+  set completeopt+=popup
+  set completepopup=height:10,width:60,highlight:InfoPopup
+endif
 set selection=inclusive
 set selectmode=mouse,key
 
