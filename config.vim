@@ -34,13 +34,16 @@ let markers = [
 
 
 let g:projectionist_heuristics = {
-      \ ".git/|.hg/|.svn/|.bzr/|Makefile": {
-      \   },
+      \ ".git/": {
+      \   ".git/hooks/*": {"type": "githook"},
+      \   ".github/workflows/*": {"type": "githubworkflow"}
+      \ },
+      \ ".hg/|.svn/|.bzr/|Makefile": {
+      \ },
       \ "package.json": {
-      \   },
+      \ },
       \ "Gemfile|Rakefile": {
-      \   }
-      \ }
+      \ }}
 
 let g:gutentags_project_root = markers
 let g:rooter_patterns        = markers
