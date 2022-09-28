@@ -1,6 +1,9 @@
 " ============================================================================
 " KEY MAP {{{
 " ============================================================================
+" Determining the highlight group that the word under the cursor belongs to
+nmap <silent> <F11>   :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 " open a terminal window
 if has('nvim')
   nmap <Leader>tt <C-W>s<bar>:term<CR>i
