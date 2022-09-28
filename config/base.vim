@@ -70,7 +70,7 @@ set tm=500
 " show
 set ruler                       " show the current row and column
 set showcmd                     " display incomplete commands
-set showmode                    " display current modes
+set noshowmode                  " do not display current modes
 set showmatch                   " jump to matches when entering parentheses
 set matchtime=2                 " tenths of a second to show the matching parenthesis
 
