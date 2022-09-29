@@ -150,6 +150,7 @@ if has('nvim')
   "https://github.com/ojroques/nvim-lspfuzzy
   Plug 'ojroques/nvim-lspfuzzy'
 elseif v:version >= 800
+  " Plug 'lifepillar/vim-mucomplete'
   " autocomplete
   Plug 'prabirshrestha/asyncomplete.vim'
   Plug 'prabirshrestha/asyncomplete-buffer.vim'
