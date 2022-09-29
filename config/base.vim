@@ -191,7 +191,7 @@ if has("gui_running")
   elseif has("gui_win32")
     set guifont=Luxi_Mono:h12:cANSI
   elseif has("gui_macvim")
-    set guifont=Hack\ Nerd\ Font:h18
+    set guifont=Hack\ Nerd\ Font:h16
   endif
 
   set guioptions-=r        " Hide the right scrollbar
