@@ -4,6 +4,8 @@ nmap     <leader>eg :Git<cr>gg)
 nnoremap <leader>gd :Gdiffsplit<cr>
 nnoremap <leader>gb :Git blame<cr>
 vnoremap <leader>gb :Git blame<cr>
+nnoremap <leader>gx :GBrowse<cr>
+vnoremap <leader>gx :GBrowse<cr>
 nnoremap <leader>gr :Gread<cr>
 nnoremap <leader>gw :Gwrite<cr>
 

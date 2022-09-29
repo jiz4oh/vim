@@ -92,6 +92,7 @@ let g:which_key_map['g'] = {
       \ 'b': 'run git-Blame on the current file',
       \ 'l': 'open git Log of current buffer',
       \ 'L': 'open git Log',
+      \ 'x': 'open the current file, blob, tree, commit, or tag in your browser',
       \ }
 
 let g:which_key_map['h'] = {
@@ -158,6 +159,7 @@ let g:which_key_map_visual['g'] = {
       \ 'name' : '+Git/version-control',
       \ 'b': 'run git-Blame on the current file',
       \ 'l': 'open git Log of selected lines',
+      \ 'x': 'open the selected lines in your browser',
       \ }
 
 let g:which_key_map_visual['s'] = {
