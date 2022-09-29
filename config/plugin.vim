@@ -173,6 +173,7 @@ elseif v:version >= 800
   " Plug 'mattn/vim-lsp-settings'
 endif
 
+Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'eruby', 'xml'] }
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
