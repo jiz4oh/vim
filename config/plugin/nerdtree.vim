@@ -63,7 +63,9 @@ augroup END
 "   Returns: 1 if either file explorer was opened; otherwise, 0.
 function! s:OpenFileOrExplorer(...)
   if a:0 == 0 || a:1 == ''
-    NERDTree
+    edit
+  elseif a:2
+    edit!
   elseif filereadable(a:1)
     execute 'edit '.a:1
     return 0
@@ -139,7 +141,7 @@ nmap  <silent> <leader>ef :NERDTreeFind<CR>
 nmap  <silent> <special> <F2> :NERDTreeToggle<CR>
 
 " Command to call the OpenFileOrExplorer function.
-command! -n=? -complete=file -bar Edit :call <SID>OpenFileOrExplorer('<args>')
+command! -n=? -complete=file -bar -bang Edit :call <SID>OpenFileOrExplorer('<args>', <bang>0)
 
 " Command-mode abbreviation to replace the :edit Vim command.
 cnoreabbrev e Edit
