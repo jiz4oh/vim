@@ -1,5 +1,5 @@
-let g:is_darwin = has('mac')
-let g:is_win = has('win32') || has('win64')
+let g:is_darwin = get(g:, 'is_darwin', has('mac'))
+let g:is_win    = get(g:, 'is_win', has('win32') || has('win64'))
 
 " leader
 let mapleader      = ' '

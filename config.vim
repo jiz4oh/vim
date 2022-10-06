@@ -1,3 +1,7 @@
+let g:is_darwin  = has('mac')
+let g:is_mac_gui = has('gui_macvim') && has('gui_running')
+let g:is_win     = has('win32') || has('win64')
+
 let g:config_src = 'https://github.com/jiz4oh/vim.git'
 let g:config_dir = resolve(expand('<sfile>:p:h'))
 
@@ -48,4 +52,4 @@ let g:projectionist_heuristics = {
 let g:gutentags_project_root = markers
 let g:rooter_patterns        = markers
 
-let g:use_nerd_font          = 1
+let g:use_nerd_font          = g:is_mac_gui || index(['iTerm.app'], $TERM_PROGRAM) >= 0
