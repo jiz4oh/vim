@@ -178,6 +178,12 @@ endif
 " ============================================================================
 " UI {{{
 " ============================================================================
+if has('fullscreen')
+  set fullscreen
+  set macthinstrokes
+  let macvim_skip_cmd_opt_movement = 1
+endif
+
 set background=dark
 " https://github.com/sainnhe/gruvbox-material/issues/5#issuecomment-729586348
 let &t_ZH="\e[3m"
