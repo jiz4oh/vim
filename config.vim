@@ -47,3 +47,5 @@ let g:projectionist_heuristics = {
 
 let g:gutentags_project_root = markers
 let g:rooter_patterns        = markers
+
+let g:use_nerd_font          = 1

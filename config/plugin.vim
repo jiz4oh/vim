@@ -236,9 +236,12 @@ Plug 'sainnhe/sonokai'
 Plug 'sainnhe/gruvbox-material'
 Plug 'sainnhe/everforest'
 Plug 'sainnhe/edge'
-Plug 'ryanoasis/vim-devicons'
 Plug 'uguu-org/vim-matrix-screensaver'
 Plug 'vim/killersheep'
+
+if get(g:, 'use_nerd_font', 0)
+  Plug 'ryanoasis/vim-devicons'
+endif
 "}}}
 call plug#end()
 endif

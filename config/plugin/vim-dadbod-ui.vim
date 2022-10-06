@@ -3,10 +3,7 @@ let g:dbs = {
 \ 'reids_development': 'redis:0',
 \ }
 
-if g:is_darwin
-  let g:db_ui_use_nerd_fonts = 1
-endif
-
+let g:db_ui_use_nerd_fonts = get(g:, 'use_nerd_font', 0)
 let g:db_ui_auto_execute_table_helpers = 1
 
 nmap  <silent> <leader>ed :DBUIToggle<CR>
