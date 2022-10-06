@@ -12,5 +12,9 @@ endfunction
 " returns nearest parent directory contains one of the markers
 function! personal#project#find_home()
   let l:dir = personal#project#find_root()
-  return empty(l:dir) ? getcwd() : l:dir
+  " fallback to the directory containing the file
+  let l:dir = get(l:, 'dir', expand('%:p'))
+  " or the user's home directory
+  let l:dir = get(l:, 'dir', expand('~'))
+  return l:dir
 endfunction
