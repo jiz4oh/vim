@@ -56,23 +56,32 @@ augroup nerdtree_zvim
         \|   q
         \| endif
   autocmd FileType nerdtree call s:nerdtreeinit()
-  autocmd User ProjectionistActivate call s:projectionist_init()
 augroup END
 
 " Function to open the file or NERDTree or netrw.
 "   Returns: 1 if either file explorer was opened; otherwise, 0.
 function! s:OpenFileOrExplorer(...)
+  let edit_cmd = a:2 ? 'edit!' : 'edit'
+  
   if a:0 == 0 || a:1 == ''
-    edit
-  elseif a:2
-    edit!
-  elseif filereadable(a:1)
-    execute 'edit '.a:1
+    " open NERDTree if current buffer is not a persisted file
+    if empty(expand('%'))
+      execute ':NERDTree' . personal#project#find_home()
+    else
+      " :Edit  "behave like edit
+      " :Edit! "behave like edit
+      execute edit_cmd
+    endif
+  elseif filereadable(expand(a:1))
+    " :Edit  {file}  "behave like edit
+    " :Edit! {file}  "behave like edit
+    execute edit_cmd . ' ' . expand(a:1)
     return 0
   elseif a:1 =~? '^\(scp\|ftp\)://' " Add other protocols as needed.
     execute 'Vexplore '. a:1
-  elseif isdirectory(a:1)
-    execute 'NERDTree '. a:1
+  elseif isdirectory(expand(a:1))
+    " :Edit {dir} " open NERDTree
+    execute 'NERDTree '. expand(a:1)
   else
     return 0
   endif
@@ -131,19 +140,14 @@ function! s:nerdtree_enter() abort
   endif
 endfunction
 
-function! s:projectionist_init() abort
-  nnoremap <silent><expr> <leader>ep empty(projectionist#path()) ? ':NERDTreeVCS %<cr>j' : ':NERDTree' . projectionist#path() . '<cr>j'
-endfunction
+nnoremap <silent><expr> <leader>ep ':NERDTree' . personal#project#find_home() . '<cr>'
 " Navigation
 nmap  <silent> <leader>ee :NERDTreeToggle<CR>
-nmap  <silent> <leader>ep :NERDTreeVCS %<CR>j
 nmap  <silent> <leader>ef :NERDTreeFind<CR>
 nmap  <silent> <special> <F2> :NERDTreeToggle<CR>
 
 " Command to call the OpenFileOrExplorer function.
+command! -n=? -complete=file -bar -bang E    :call <SID>OpenFileOrExplorer('<args>', <bang>0)
 command! -n=? -complete=file -bar -bang Edit :call <SID>OpenFileOrExplorer('<args>', <bang>0)
-
-" Command-mode abbreviation to replace the :edit Vim command.
-cnoreabbrev e Edit
 
 map! <silent> <special> <F2> <esc>:<c-u>NERDTreeToggle<CR>
