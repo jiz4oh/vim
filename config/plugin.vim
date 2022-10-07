@@ -201,6 +201,7 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 if !has('gui_running')
   Plug 'vim-scripts/LargeFile'
 endif
+Plug 'yegappan/mru'
 Plug 'liuchengxu/vim-which-key'
 Plug 'ojroques/vim-oscyank'
 Plug 'skywind3000/vim-dict'
