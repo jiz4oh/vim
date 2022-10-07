@@ -110,7 +110,7 @@ set formatoptions+=B
 
 " select & complete
 set completeopt=menuone,noinsert,noselect,preview
-if has('textprop')
+if has('textprop') && has('patch-8.1.1880')
   set completeopt+=popup
   set completepopup=height:10,width:60,highlight:InfoPopup
 endif
