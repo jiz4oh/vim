@@ -1,4 +1,4 @@
-let g:NERDTreeGitStatusUseNerdFonts = get(g:, 'use_nerd_font', 0)
+let g:NERDTreeGitStatusUseNerdFonts = get(g:, 'enable_nerd_font', 0)
 
 let NERDTreeMinimalMenu      = 1 " https://github.com/preservim/nerdtree/issues/1321
 let NERDTreeMinimalUI        = 1 " 最小化显示，不显示问号

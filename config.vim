@@ -1,6 +1,8 @@
-let g:is_darwin  = has('mac')
-let g:is_mac_gui = has('gui_macvim') && has('gui_running')
-let g:is_win     = has('win32') || has('win64')
+let g:is_darwin         = has('mac')
+let g:is_mac_gui        = has('gui_macvim') && has('gui_running')
+let g:is_win            = has('win32') || has('win64')
+" https://unix.stackexchange.com/a/78220
+let g:has_linux_desktop = !empty($XDG_CURRENT_DESKTOP)
 
 let g:config_src = 'https://github.com/jiz4oh/vim.git'
 let g:config_dir = resolve(expand('<sfile>:p:h'))
@@ -52,4 +54,8 @@ let g:projectionist_heuristics = {
 let g:gutentags_project_root = markers
 let g:rooter_patterns        = markers
 
-let g:use_nerd_font          = g:is_mac_gui || index(['iTerm.app'], $TERM_PROGRAM) >= 0
+let g:enable_nerd_font        = g:is_mac_gui || index(['iTerm.app'], $TERM_PROGRAM) >= 0
+let g:enable_markdown_preview = g:is_win || g:is_darwin || g:has_linux_desktop
+let g:enable_autocomplete     = g:is_win || g:is_darwin || g:has_linux_desktop
+let g:enable_lsp              = g:is_win || g:is_darwin || g:has_linux_desktop
+

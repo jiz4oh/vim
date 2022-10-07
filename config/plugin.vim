@@ -61,7 +61,7 @@ if v:version >= 704
 endif
 
 " markdown preview
-if v:version >= 800
+if v:version >= 800 && get(g:, 'enable_markdown_preview', 0)
   Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()' }
 endif
 Plug 'ferrine/md-img-paste.vim', { 'for': 'markdown' }
@@ -130,47 +130,61 @@ endif
 " ============================================================================
 " Easier EDIT {{{
 " ============================================================================
-Plug 'dense-analysis/ale'
+if has('timers') && (has('nvim-0.2.0') || exists('*job_start') && exists('*ch_close_in'))
+  Plug 'dense-analysis/ale'
+endif
 
-if has('nvim')
-  "lsp
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'williamboman/nvim-lsp-installer'
-  "autocomplte
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-cmdline'
-  Plug 'hrsh7th/cmp-buffer'
-  if executable('ctags')
-    Plug 'quangnguyen30192/cmp-nvim-tags'
-  endif
-  Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-  "fzf integration
-  "https://github.com/ojroques/nvim-lspfuzzy
-  Plug 'ojroques/nvim-lspfuzzy'
-elseif v:version >= 800
-  " Plug 'lifepillar/vim-mucomplete'
-  " autocomplete
-  Plug 'prabirshrestha/asyncomplete.vim'
-  Plug 'prabirshrestha/asyncomplete-buffer.vim'
-  Plug 'prabirshrestha/asyncomplete-file.vim'
+let g:enable_lsp = get(g:, 'enable_lsp', 0)
 
-  if executable('ctags')
-    Plug 'prabirshrestha/asyncomplete-tags.vim'
-  endif
-
-  Plug 'machakann/asyncomplete-ezfilter.vim'
-  if has('win32') || has('win64')
-    Plug 'kitagry/asyncomplete-tabnine.vim', { 'do': 'powershell.exe .\install.ps1' }
+"lsp
+if g:enable_lsp
+  if has('nvim')
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'williamboman/nvim-lsp-installer'
+    "fzf integration
+    "https://github.com/ojroques/nvim-lspfuzzy
+    Plug 'ojroques/nvim-lspfuzzy'
   else
-    Plug 'kitagry/asyncomplete-tabnine.vim', { 'do': './install.sh' }
+    " deprcated lsp due to too slow with large text
+    " " lsp
+    " Plug 'prabirshrestha/vim-lsp'
+    " Plug 'rhysd/vim-lsp-ale'
+    " Plug 'mattn/vim-lsp-settings'
   endif
-  " deprcated lsp due to too slow with large text
-  " " lsp
-  " Plug 'prabirshrestha/vim-lsp'
-  " Plug 'rhysd/vim-lsp-ale'
-  " Plug 'mattn/vim-lsp-settings'
+endif
+
+let g:enable_autocomplete = get(g:, 'enable_autocomplete', 0)
+
+"autocomplte
+if g:enable_autocomplete
+  if has('nvim')
+    Plug 'hrsh7th/nvim-cmp'
+    if g:enable_lsp
+      Plug 'hrsh7th/cmp-nvim-lsp'
+    endif
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/cmp-buffer'
+
+    if executable('ctags')
+      Plug 'quangnguyen30192/cmp-nvim-tags'
+    endif
+
+    Plug 'tzachar/cmp-tabnine', { 'do': g:is_win ? 'powershell.exe .\install.ps1' : './install.sh' }
+  elseif v:version >= 800
+    " Plug 'lifepillar/vim-mucomplete'
+    " autocomplete
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'machakann/asyncomplete-ezfilter.vim'
+    Plug 'prabirshrestha/asyncomplete-buffer.vim'
+    Plug 'prabirshrestha/asyncomplete-file.vim'
+
+    if executable('ctags')
+      Plug 'prabirshrestha/asyncomplete-tags.vim'
+    endif
+
+    Plug 'kitagry/asyncomplete-tabnine.vim', { 'do': g:is_win ? 'powershell.exe .\install.ps1' : './install.sh' }
+  endif
 endif
 
 Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'eruby', 'xml'] }
@@ -211,7 +225,7 @@ Plug 'kristijanhusak/vim-carbon-now-sh'
 Plug 'vim-utils/vim-man'
 Plug 'inkarkat/vim-ReplaceWithRegister'
 Plug 'tpope/vim-repeat'
-if exists('##TextYankPost')
+if !has('nvim') && exists('##TextYankPost')
   Plug 'machakann/vim-highlightedyank'
 end
 Plug 'markonm/traces.vim'
@@ -239,7 +253,7 @@ Plug 'sainnhe/edge'
 Plug 'uguu-org/vim-matrix-screensaver'
 Plug 'vim/killersheep'
 
-if get(g:, 'use_nerd_font', 0)
+if get(g:, 'enable_nerd_font', 0)
   Plug 'ryanoasis/vim-devicons'
 endif
 "}}}
