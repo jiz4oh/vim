@@ -20,6 +20,9 @@ filetype indent on
 set nocompatible                " don't bother with vi compatibility
 set autoread                    " reload files when changed on disk, i.e. via `git checkout`
 set shortmess=atIF
+set shortmess+=A                " this is needed to avoid swapfile warning when auto-reloading
+
+set shortmess+=I                " Don't display the intro message on starting Vim.
 
 set magic                       " For regular expressions turn magic on
 set title                       " change the terminal's title
@@ -53,9 +56,10 @@ elseif exists('+undodir') && !has('nvim-0.5')
   let &undodir = s:data_home . 'undo//'
   let &directory = s:data_home . 'swap//'
   let &backupdir = s:data_home . 'backup//'
-  if !isdirectory(&undodir) | call mkdir(&undodir, 'p') | endif
-  if !isdirectory(&directory) | call mkdir(&directory, 'p') | endif
-  if !isdirectory(&backupdir) | call mkdir(&backupdir, 'p') | endif
+  " automatically create directories for backup, undo files.
+  if !isdirectory(expand(s:data_home))
+    call system("mkdir -p " . expand(s:data_home) . "/{backup,undo,swap}")
+  end
 endif
 
 set novisualbell                " turn off visual bell
@@ -64,8 +68,16 @@ set visualbell t_vb=            " turn off error beep/flash
 set t_RV=
 set tm=500
 
+" fix issues with fish shell
+" https://github.com/tpope/vim-sensible/issues/50
+if &shell =~# 'fish$' && (v:version < 704 || v:version == 704 && !has('patch276'))
+  set shell=/usr/bin/env\ bash
+endif
+
+set tabpagemax=50               " allow for up to 50 opened tabs on Vim start.
 " movement
-" set scrolloff=7                 " keep 7 lines when scrolling
+set scrolloff=1                 " keep 1 lines when scrolling
+set sidescrolloff=5             " keep 5 columns next to the cursor when scrolling horizontally.
 
 " show
 set ruler                       " show the current row and column
@@ -73,6 +85,11 @@ set showcmd                     " display incomplete commands
 set noshowmode                  " do not display current modes
 set showmatch                   " jump to matches when entering parentheses
 set matchtime=2                 " tenths of a second to show the matching parenthesis
+set display+=lastline           " when 'wrap' is on, display last line even if it doesn't fit.
+
+" wrap lines by default
+set wrap linebreak
+set showbreak=" "
 
 " search
 set hlsearch                    " highlight searches
@@ -94,7 +111,7 @@ set softtabstop=2               " insert mode <Tab> use 2 spaces
 " fold
 if has('vim_starting')
   set foldmethod=marker
-  set foldnestmax=2
+  set foldnestmax=3
   set foldopen+=jump
   set foldlevel=1
   set commentstring=#\ %s
@@ -105,10 +122,27 @@ set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,gb2312,gbk,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set termencoding=utf-8
 set ffs=unix,dos,mac
+
+if &listchars ==# 'eol:$'
+  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+  " set default whitespace characters when using `:set list`
+endif
+
+if v:version > 703 || v:version == 703 && has("patch541") 
+  set formatoptions+=j          " delete comment character when joining commented lines
+endif
 set formatoptions+=m
 set formatoptions+=B
 
 " select & complete
+if has('path_extra')
+  set tags-=./tags tags-=./tags; tags^=./tags; " search upwards for tags file instead only locally
+endif
+
+set tags+=gems.tags             " add gems.tags to files searched for tags.
+
+if executable('ctags')
+  set complete-=i                 " don't scan included files. The .tags file is more performant.
+endif
 set completeopt=menuone,noinsert,noselect,preview
 if has('textprop') && has('patch-8.1.1880')
   set completeopt+=popup
@@ -153,6 +187,7 @@ set clipboard+=unnamed
 set updatetime=100
 set diffopt+=vertical                  " make diff windows vertical
 set sessionoptions-=options sessionoptions-=buffers sessionoptions-=tabpages sessionoptions+=globals
+set viewoptions-=options
 if !g:is_win
   set dictionary+=/usr/share/dict/words
 endif

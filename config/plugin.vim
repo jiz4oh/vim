@@ -14,7 +14,7 @@ if exists(':packadd')
   if has("patch-8.1.0311")
     silent! packadd! cfilter
   endif
-else
+elseif !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime macros/matchit.vim
 endif
 

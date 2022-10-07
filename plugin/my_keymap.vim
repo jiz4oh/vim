@@ -4,6 +4,15 @@
 " Determining the highlight group that the word under the cursor belongs to
 nmap <silent> <F11>   :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
+" " Prevent common mistake of pressing q: instead :q
+" map q: :q
+
+" visually select the text that was last edited/pasted (Vimcast#26).
+noremap gV `[v`]
+
+" expand %% to path of current buffer in command mode.
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
 " open a terminal window
 if has('nvim')
   nmap <Leader>tt <C-W>s<bar>:term<CR>i
