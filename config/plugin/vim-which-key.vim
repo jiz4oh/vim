@@ -63,7 +63,6 @@ let g:which_key_map['b'] = {
 let g:which_key_map['c'] = {
       \ 'name' : '+Close',
       \ 's' : ['SClose', 'Close Session and open startify'],
-      \ 't' : ['UndoableTabclose', 'Close Tabpage'],
       \}
 
 let g:which_key_map['e'] = {
