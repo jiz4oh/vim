@@ -10,6 +10,9 @@ let g:config_dir = resolve(expand('<sfile>:p:h'))
 let g:wiki_root               = $HOME . '/Documents/wiki'
 let g:rails_vim_enter         = 0
 
+" needs to be defined before vim-polyglot is loaded
+let g:polyglot_disabled = ['sensible', 'autoindent']
+
 if has('nvim')
   let session_dir = has('nvim-0.3.1')
         \ ? stdpath('data').'/session'
