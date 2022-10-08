@@ -10,7 +10,7 @@ function! personal#config#upgrade() abort
       return
     endif
 
-    call system('rm -rf '. g:config_dir . '.old')
+    call delete(g:config_dir . '.old', 'rf')
     call rename(g:config_dir, g:config_dir . '.old')
     call rename(tmp, g:config_dir)
     unlet g:vimrc_loaded
@@ -18,7 +18,7 @@ function! personal#config#upgrade() abort
     return 1
   finally
     if isdirectory(l:tmp)
-      call system('rm -rf '. l:tmp)
+      call delete(l:tmp, 'rf')
     endif
   endtry
 endfunction
