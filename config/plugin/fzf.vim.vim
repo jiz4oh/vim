@@ -1,6 +1,7 @@
 augroup update_bat_theme
     autocmd!
-    autocmd colorscheme * if &background == 'dark' | let $BAT_THEME='OneHalfDark' | else | let $BAT_THEME='' | endif
+
+    autocmd VimEnter,colorscheme * if &background == 'dark' | let $BAT_THEME='OneHalfDark' | else | let $BAT_THEME='' | endif
 augroup end
 
 " `brew install ripgrep` before you use rg command
