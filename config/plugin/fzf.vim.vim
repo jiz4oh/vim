@@ -26,7 +26,12 @@ else
   set grepprg=rg\ --vimgrep\ --smart-case\ --follow
   set grepformat=%f:%l:%c:%m
   let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!{.git}/*" 2>/dev/null'
-  let g:fzf_grep_cmd = 'rg --column --line-number --no-heading --smart-case --follow --color=always %s || true'
+
+  " https://github.com/junegunn/fzf.vim/issues/133#issuecomment-225541566
+  let rgignore = '/tmp/rgignore-for-fzf'
+  let entries = split(&wildignore, ',')
+  call writefile(entries, rgignore)
+  let g:fzf_grep_cmd = 'rg --no-ignore-vcs --ignore-file ' . rgignore .' --column --line-number --no-heading --smart-case --follow --color=always %s || true'
 
   function! s:grep_in(dir, query, fullscreen) abort
     if !empty(a:query)
