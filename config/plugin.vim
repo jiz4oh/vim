@@ -53,6 +53,8 @@ Plug 'rbong/vim-flog', { 'on': ['Flog', 'Flogsplit'] }
 " ============================================================================
 " DOCUMENT / MARKDOWN {{{
 " ============================================================================
+Plug 'mattn/webapi-vim'
+Plug 'mattn/vim-gist'
 Plug 'lervag/wiki.vim'
 " Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 
