@@ -322,6 +322,18 @@ set showtabline=2
 " ============================================================================
 augroup vimrc
   autocmd!
+
+  " Make directory automatically.
+  function! s:mkdir_as_necessary(dir, force) abort
+    if &l:buftype ==# '' && !isdirectory(a:dir) &&
+          \ (a:force || input(printf('"%s" does not exist. Create? [y/N]',
+          \              a:dir)) =~? '^y\%[es]$')
+      call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+    endif
+  endfunction
+
+  autocmd BufWritePre * call s:mkdir_as_necessary(expand('<afile>:p:h'), v:cmdbang)
+
   " Make the yanked region apparent
   if has('nvim')
     au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
