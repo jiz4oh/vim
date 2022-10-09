@@ -256,6 +256,7 @@ Plug 'vim/killersheep'
 if get(g:, 'enable_nerd_font', 0)
   Plug 'ryanoasis/vim-devicons'
 endif
+Plug 'kana/vim-submode'
 "}}}
 call plug#end()
 endif
