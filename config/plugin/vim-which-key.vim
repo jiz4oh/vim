@@ -140,9 +140,10 @@ let g:which_key_map['w'] = {
       \ }
 
 let g:which_key_map['t'] = {
-      \ 'name' : '+Terminal',
+      \ 'name' : '+Terminal/Tab',
       \ 't' : 'open Terminal horizontal',
       \ 'v' : 'open Terminal Vertical',
+      \ 'n' : ['tabnew', 'New Tab'],
       \ }
 
 let g:which_key_map_visual = {}

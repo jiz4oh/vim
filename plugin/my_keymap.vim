@@ -87,6 +87,15 @@ nnoremap U <C-r>
 " y$ -> Y Make Y behave like other capitals
 map Y y$
 
+" Better x
+nnoremap x "_x
+
+" Better s
+nnoremap s "_s
+
+" Substitute.
+xnoremap s :s//g<Left><Left>
+
 " Swap implementations of ` and ' jump to markers
 " By default, ' jumps to the marked line, ` jumps to the marked line and
 " column, so swap them
