@@ -185,6 +185,11 @@ set backspace=indent,eol,start         " make that backspace key work the way it
 set whichwrap+=<,>,h,l
 set clipboard+=unnamed
 set updatetime=100
+
+" https://vi.stackexchange.com/a/24938
+set timeoutlen=1500
+set ttimeoutlen=50
+
 set diffopt+=vertical                  " make diff windows vertical
 set sessionoptions-=options sessionoptions-=buffers sessionoptions-=tabpages sessionoptions+=globals
 set viewoptions-=options
