@@ -30,7 +30,6 @@ set hidden                      " donot hidden after disable terminal
 set splitbelow                  " split a window one the below
 set splitright                  " vsplit a window on the right
 set exrc
-set virtualedit=block
 
 set history=2000                " how many lines of history VIM has to remember
 
