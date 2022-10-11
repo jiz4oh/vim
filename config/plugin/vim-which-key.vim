@@ -16,6 +16,10 @@ let g:which_key_map['9'] = 'tab-9'
 let g:which_key_map['y']  = 'Yank {motion} to clipboard'
 let g:which_key_map['yy'] = 'Yank current line to clipboard'
 let g:which_key_map['Y']  = 'Yank from the cursor to the end of line to clipboard'
+let g:which_key_map['-']  = 'decrease window height, and can be repeat by dot'
+let g:which_key_map['+']  = 'increase window height, and can be repeat by dot'
+let g:which_key_map['<']  = 'decrease window width, and can be repeat by dot'
+let g:which_key_map['>']  = 'increase window width, and can be repeat by dot'
 
 let g:which_key_map[' '] = {
       \ 'name' : '+easymotion/tab' ,
