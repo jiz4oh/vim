@@ -69,6 +69,12 @@ let g:which_key_map['c'] = {
       \ 'c' : ['SClose', 'Close Session and open startify'],
       \}
 
+let g:which_key_map['d'] = {
+      \ 'name' : '+Database',
+      \ 'b' : 'run the {motion} as sql',
+      \ 'bb' : 'run the current line as sql',
+      \}
+
 let g:which_key_map['e'] = {
       \ 'name' : '+Explorer',
       \ 'e': 'open file Explorer',
@@ -151,6 +157,11 @@ let g:which_key_map['t'] = {
       \ }
 
 let g:which_key_map_visual = {}
+
+let g:which_key_map_visual['d'] = {
+      \ 'name' : '+Database',
+      \ 'b' : 'run the selected content as sql',
+      \}
 
 let g:which_key_map_visual['y'] = 'Yank to clipboard'
 

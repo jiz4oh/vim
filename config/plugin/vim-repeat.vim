@@ -1,4 +1,4 @@
-namp U <Plug>(RepeatRedo)
+nmap U <Plug>(RepeatRedo)
 
 map <silent> <Plug>DecreaseWindowHeight :3wincmd -<bar>silent! call repeat#set("\<Plug>DecreaseWindowHeight", v:count)<cr>
 map <silent> <Plug>IncreaseWindowHeight :3wincmd +<bar>silent! call repeat#set("\<Plug>IncreaseWindowHeight", v:count)<cr>
