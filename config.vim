@@ -30,8 +30,6 @@ let g:startify_session_dir = g:session_dir
 
 let g:startify_bookmarks = [
             \ $MYVIMRC,
-            \ g:config_dir,
-            \ g:wiki_root,
             \ ]
 
 let g:startify_commands = get(g:, 'startify_commands', {})

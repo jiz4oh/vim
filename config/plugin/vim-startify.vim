@@ -16,18 +16,26 @@ let g:startify_session_savevars = [
     \ 'g:startify_session_remove_lines',
     \ ]
 
+function! MRUCwd() abort
+  let files = MruGetFiles(personal#project#find_home())[0: g:startify_files_number - 1]
+  return map(files, { _, val -> {
+        \ 'line': fnamemodify(val, ':~:.'),
+        \ 'path': val
+        \}})
+endfunction
+
 " returns all modified files of the current git repo
 " `2>/dev/null` makes the command fail quietly, so that when we are not
 " in a git repo, the list will be empty
 let g:startify_lists = [
         \ { 'type': 'sessions',                        'header': ['   Sessions']     },
+        \ { 'type': function('MRUCwd'),                'header': ['   MRU '.getcwd()]},
         \ { 'type': 'bookmarks',                       'header': ['   Bookmarks']    },
-        \ { 'type': 'dir',                             'header': ['   MRU '.getcwd()]},
-        \ { 'type': 'files',                           'header': ['   MRU']          },
         \ { 'type': 'commands',                        'header': ['   Commands']     },
         \ ]
 
 let g:startify_commands = [
+    \ {'f': ['MRU',             'MRU']         },
     \ {'w': ['Notes',           'WikiIndex']   },
     \ {'g': ['Git',             'Git']         },
     \ {'l': ['Git Log',         'Flog']        },
@@ -41,3 +49,4 @@ let g:startify_commands = [
 function! LoadSessionFromFzf(name) abort
   execute 'SLoad ' . a:name
 endfunction
+
