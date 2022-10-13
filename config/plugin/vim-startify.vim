@@ -28,14 +28,14 @@ let g:startify_lists = [
         \ ]
 
 let g:startify_commands = [
-    \ {'w': ['笔记列表', 'WikiIndex']},
-    \ {'g': ['Git',      'Git']},
-    \ {'S': ['Session',  'Sessions']},
-    \ {'p': ['搜索项目', 'Pg']},
-    \ {'d': ['数据库',   'DBUI']},
-    \ {'c': ['查看提交', 'Flog']},
-    \ {'u': ['插件更新', 'PlugUpdate']},
-    \ {'i': ['插件安装', 'PlugInstall']},
+    \ {'w': ['Notes',           'WikiIndex']   },
+    \ {'g': ['Git',             'Git']         },
+    \ {'l': ['Git Log',         'Flog']        },
+    \ {'S': ['Session',         'Sessions']    },
+    \ {'p': ['Search Project',  'Pg']          },
+    \ {'d': ['Databases',       'DBUI']        },
+    \ {'u': ['Update Plugins',  'PlugUpdate']  },
+    \ {'i': ['Install Plugins', 'PlugInstall'] },
     \ ]
 
 function! LoadSessionFromFzf(name) abort
