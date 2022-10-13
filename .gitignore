@@ -1,7 +1,5 @@
 .DS_Store
-tags
-tags.lock
-tags.temp
+tags*
 session/
 Session.vim
 bundle/
