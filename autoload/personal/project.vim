@@ -6,15 +6,19 @@ function! personal#project#find_root()
   if exists('*FindRootDirectory')
     let l:dir = get(l:, 'dir', FindRootDirectory())
   endif
-  return l:dir
+  return get(l:, 'dir', '')
 endfunction
 
 " returns nearest parent directory contains one of the markers
 function! personal#project#find_home()
-  let l:dir = personal#project#find_root()
+  let dir = personal#project#find_root()
   " fallback to the directory containing the file
-  let l:dir = get(l:, 'dir', expand('%:p'))
+  if empty(dir)
+    let dir = expand('%:h:p')
+  endif
   " or the user's home directory
-  let l:dir = get(l:, 'dir', expand('~'))
-  return l:dir
+  if empty(dir)
+    let dir = expand('~')
+  endif
+  return dir
 endfunction
