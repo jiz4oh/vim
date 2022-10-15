@@ -17,11 +17,13 @@ let g:startify_session_savevars = [
     \ ]
 
 function! MRUCwd() abort
-  let files = MruGetFiles(personal#project#find_home())[0: g:startify_files_number - 1]
-  return map(files, { _, val -> {
-        \ 'line': fnamemodify(val, ':~:.'),
-        \ 'path': val
-        \}})
+  if exists('*MruGetFiles')
+    let files = MruGetFiles(personal#project#find_home())[0: g:startify_files_number - 1]
+    return map(files, { _, val -> {
+          \ 'line': fnamemodify(val, ':~:.'),
+          \ 'path': val
+          \}})
+  endif
 endfunction
 
 " returns all modified files of the current git repo
