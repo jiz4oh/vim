@@ -114,11 +114,11 @@ nnoremap <silent><leader>/ :nohls<CR>
 
 " change cwd
 if exists(':tcd')
-  noremap <silent>cd. :tcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
-  noremap <expr><silent>cdp ':tcd ' . personal#project#find_home() . "<CR>:echo 'cwd: ' . getcwd()<CR>"
+  noremap <silent>       <leader>cd. :tcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
+  noremap <expr><silent> <leader>cdp ':tcd ' . personal#project#find_home() . "<CR>:echo 'cwd: ' . getcwd()<CR>"
 else
-  noremap <silent>cd. :cd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
-  noremap <expr><silent>cdp ':cd ' . personal#project#find_home() . "<CR>:echo 'cwd: ' . getcwd()<CR>"
+  noremap <silent>       <leader>cd. :cd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
+  noremap <expr><silent> <leader>cdp ':cd ' . personal#project#find_home() . "<CR>:echo 'cwd: ' . getcwd()<CR>"
 end
 
 function! QFOpen()
