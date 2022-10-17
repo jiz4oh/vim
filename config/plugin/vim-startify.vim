@@ -1,7 +1,7 @@
 let g:startify_skiplist               = ['^/mnt/nfs']
 let g:startify_change_to_dir          = 1
 let g:startify_relative_path          = 1
-let g:startify_files_number           = 5
+let g:startify_files_number           = 10
 let g:startify_session_delete_buffers = 1
 let g:startify_session_persistence    = 1
 let g:startify_session_before_save    = [
@@ -14,6 +14,7 @@ let g:startify_session_savevars = [
     \ 'g:startify_session_savevars',
     \ 'g:startify_session_savecmds',
     \ 'g:startify_session_remove_lines',
+    \ 'MRU_Exclude_Files',
     \ ]
 
 function! MRUCwd() abort
