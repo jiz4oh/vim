@@ -169,6 +169,10 @@ inoremap <M-"> ""<esc>i
 inoremap <M-<> <><esc>i
 inoremap <M-{> {<esc>o}<esc>ko
 
+" https://forum.obsidian.md/t/open-note-in-obsidian-from-within-vim-and-vice-versa/6837
+" Open file in Obsidian vault
+nnoremap <silent> <leader>io :execute "silent !open 'obsidian://open?vault=" . fnamemodify(g:notes_root, ':t') . "&file=index" . expand('%:r') . "'"<cr>
+
 " if !exists("g:plugs") || !has_key(g:plugs, 'vim-rsi')
 "   inoremap        <C-A> <Home>
 "   inoremap   <C-X><C-A> <C-A>

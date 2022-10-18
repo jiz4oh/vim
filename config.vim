@@ -7,7 +7,8 @@ let g:has_linux_desktop = !empty($XDG_CURRENT_DESKTOP)
 let g:config_src = 'https://github.com/jiz4oh/vim.git'
 let g:config_dir = resolve(expand('<sfile>:p:h'))
 
-let g:wiki_root               = $HOME . '/Documents/wiki'
+let g:notes_root              = $HOME . '/Notes'
+let g:wiki_root               = g:notes_root
 let g:rails_vim_enter         = 0
 
 " needs to be defined before vim-polyglot is loaded
