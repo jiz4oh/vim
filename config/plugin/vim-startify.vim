@@ -31,10 +31,10 @@ endfunction
 " `2>/dev/null` makes the command fail quietly, so that when we are not
 " in a git repo, the list will be empty
 let g:startify_lists = [
-        \ { 'type': 'sessions',                        'header': ['   Sessions']     },
-        \ { 'type': function('MRUCwd'),                'header': ['   MRU '.getcwd()]},
-        \ { 'type': 'bookmarks',                       'header': ['   Bookmarks']    },
-        \ { 'type': 'commands',                        'header': ['   Commands']     },
+        \ { 'type': function('MRUCwd'),                'header': ['   MRU']                     },
+        \ { 'type': 'sessions',                        'header': ['   Sessions']                },
+        \ { 'type': 'bookmarks',                       'header': ['   Bookmarks']               },
+        \ { 'type': 'commands',                        'header': ['   Commands']                },
         \ ]
 
 let g:startify_commands = [
