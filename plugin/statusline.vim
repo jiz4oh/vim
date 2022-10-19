@@ -22,7 +22,7 @@ let s:stl .= "%n"
 let s:stl .= "%#ModeMsg#"
 let s:stl .= " %{StatusLineMode()} "
 let s:stl .= "%#StatusLineNC#"
-let s:stl .= "%{personal#functions#shortpath(getcwd())}"
+let s:stl .= "%{personal#functions#shortdir(getcwd())}"
 let s:stl .= "%#Identifier#"
 let s:stl .= "%f %m%h%w%r "
 

@@ -13,7 +13,7 @@ if !executable('rg')
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
     let l:grep_cmd = 'git grep --color=always --line-number ' . l:query . ' -- ' . a:dir
 
-    call fzf#vim#grep(l:grep_cmd, 0, fzf#vim#with_preview({'dir': a:dir, 'options': ['--prompt', personal#functions#shortpath(a:dir) . '> ', '--delimiter', ':', '--nth', '3..']}), a:fullscreen)
+    call fzf#vim#grep(l:grep_cmd, 0, fzf#vim#with_preview({'dir': a:dir, 'options': ['--prompt', personal#functions#shortpath(a:dir) . ' ', '--delimiter', ':', '--nth', '3..']}), a:fullscreen)
   endfunction
 
   function! Rg(query, fullscreen)
@@ -50,7 +50,7 @@ else
     let l:spec = {
         \'dir': l:dir,
         \'options': [
-            \'--prompt', personal#functions#shortpath(l:dir) .'> ',
+            \'--prompt', personal#functions#shortpath(l:dir) .' ',
               \'--delimiter', ':',
               \'--nth', '4..',
             \]}
@@ -93,7 +93,7 @@ function! Find(query, fullscreen) abort
   endif
   let l:spec = {
         \'options': [
-            \'--prompt', personal#functions#shortpath(getcwd()) .'> ',
+            \'--prompt', personal#functions#shortpath(getcwd()) .' ',
             \]}
 
   call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview(l:spec), a:fullscreen)
@@ -145,7 +145,7 @@ function! s:search_path(query, fullscreen) abort
 
     let l:spec = {
                   \'options': [
-                    \'--prompt', personal#functions#shortpath(getcwd()) .'> ',
+                    \'--prompt', personal#functions#shortpath(getcwd()) .' ',
                   \],
                   \'source': l:paths,
                   \}

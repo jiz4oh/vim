@@ -11,14 +11,24 @@ function! personal#functions#selected()
   return selection
 endfunction
 
-" stole from fzf.vim https://github.com/junegunn/fzf.vim/blob/d5f1f8641b24c0fd5b10a299824362a2a1b20ae0/autoload/fzf/vim.vim#L362
+function! personal#functions#shortdir(path)
+  let short = fnamemodify(a:path, ':h:~:.')
+  if !has('win32unix')
+    let short = pathshorten(short)
+  endif
+  let slash = (g:is_win && !&shellslash) ? '\' : '/'
+
+  " add last slash
+  return empty(short) ? '~'.slash : short . (short =~ escape(slash, '\').'$' ? '' : slash)
+endfunction
+
 function! personal#functions#shortpath(path)
   let short = fnamemodify(a:path, ':~:.')
   if !has('win32unix')
     let short = pathshorten(short)
   endif
-  let slash = (g:is_win && !&shellslash) ? '\' : '/'
-  return empty(short) ? '~'.slash : short . (short =~ escape(slash, '\').'$' ? '' : slash)
+
+  return short
 endfunction
 
 function! personal#functions#escape(path)
