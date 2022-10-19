@@ -28,6 +28,17 @@ elseif has('terminal')
   tnoremap <C-W><Esc> <C-W>N
 endif
 
+" https://vi.stackexchange.com/a/8535
+command! Cnext try | cnext | catch | cfirst | catch | endtry
+command! Cprev try | cprev | catch | clast | catch | endtry
+nnoremap <silent> ]q :Cnext<cr>
+nnoremap <silent> [q :Cprev<cr>
+
+command! Lnext try | lnext | catch | lfirst | catch | endtry
+command! Lprev try | lprev | catch | llast | catch | endtry
+nnoremap <silent> ]l :Lnext<cr>
+nnoremap <silent> [l :Lprev<cr>
+
 " move line upforward/downward
 nnoremap [e :<c-u>move .-2<CR>==
 nnoremap ]e :<c-u>move .+1<CR>==
