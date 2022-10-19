@@ -129,7 +129,7 @@ function! s:nerdtree_enter() abort
   endif
 endfunction
 
-nnoremap <silent><expr> <leader>ep ':NERDTree' . personal#project#find_home() . '<cr>'
+nnoremap <silent><expr> <leader>ep ':NERDTree ' . personal#project#find_home() . '<cr>'
 " Navigation
 nmap  <silent> <leader>ee :NERDTreeToggle<CR>
 nmap  <silent> <leader>ef :NERDTreeFind<CR>
