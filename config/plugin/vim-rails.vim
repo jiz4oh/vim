@@ -1,3 +1,5 @@
+let g:rails_vim_enter         = 0
+
 " rails decorator
 let g:rails_projections = {
       \  "app/admin/*.rb": {

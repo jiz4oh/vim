@@ -1,3 +1,7 @@
+if exists('g:session_dir')
+  let g:startify_session_dir          = g:session_dir
+endif
+
 let g:startify_skiplist               = ['^/mnt/nfs']
 let g:startify_change_to_dir          = 1
 let g:startify_relative_path          = 1
@@ -16,6 +20,10 @@ let g:startify_session_savevars = [
     \ 'g:startify_session_remove_lines',
     \ 'MRU_Exclude_Files',
     \ ]
+
+let g:startify_bookmarks = [
+            \ $MYVIMRC,
+            \ ]
 
 function! MRUCwd() abort
   if exists('*MruGetFiles')

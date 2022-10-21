@@ -8,8 +8,6 @@ let g:config_src = 'https://github.com/jiz4oh/vim.git'
 let g:config_dir = resolve(expand('<sfile>:p:h'))
 
 let g:notes_root              = $HOME . '/Notes'
-let g:wiki_root               = g:notes_root
-let g:rails_vim_enter         = 0
 
 " needs to be defined before vim-polyglot is loaded
 let g:polyglot_disabled = ['sensible', 'autoindent']
@@ -27,34 +25,11 @@ else " Vim
 endif
 
 let g:session_dir          = session_dir
-let g:startify_session_dir = g:session_dir
 
-let g:startify_bookmarks = [
-            \ $MYVIMRC,
-            \ ]
-
-let g:startify_commands = get(g:, 'startify_commands', {})
-
-let markers = [
+let g:project_markers = [
       \'.git', '.hg', '.svn', '.bzr', '_darcs', '_FOSSIL_',
       \'.fslckout', 'package.json', 'Gemfile', '.projections.json'
       \]
-
-
-let g:projectionist_heuristics = {
-      \ ".git/": {
-      \   ".git/hooks/*": {"type": "githook"},
-      \   ".github/workflows/*": {"type": "githubworkflow"}
-      \ },
-      \ ".hg/|.svn/|.bzr/|Makefile": {
-      \ },
-      \ "package.json": {
-      \ },
-      \ "Gemfile|Rakefile": {
-      \ }}
-
-let g:gutentags_project_root = markers
-let g:rooter_patterns        = markers
 
 let g:enable_nerd_font        = g:is_mac_gui || index(['iTerm.app'], $TERM_PROGRAM) >= 0
 let g:enable_markdown_preview = g:is_win || g:is_darwin || g:has_linux_desktop

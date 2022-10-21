@@ -19,3 +19,7 @@ function MyTextToLink(text) abort
   return [substitute(tolower(a:text), '\s\+', '-', 'g'), a:text]
 endfunction
 
+if exists('g:notes_root')
+  let g:wiki_root = g:notes_root
+endif
+
