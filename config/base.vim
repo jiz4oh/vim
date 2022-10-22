@@ -524,9 +524,16 @@ nnoremap ` '
 "Keep search pattern at the center of the screen."
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
+
+" Utility maps for repeatable quickly change/delete current word
+nnoremap c*   *``cgn
+nnoremap c#   *``cgN
+nnoremap cg* g*``cgn
+nnoremap cg# g*``cgN
+nnoremap d*   *``dgn
+nnoremap d#   *``dgN
+nnoremap dg* g*``dgn
+nnoremap dg# g*``dgN
 
 " remove highlight
 nnoremap <silent><leader>/ :nohls<CR>
