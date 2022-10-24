@@ -190,7 +190,7 @@ set timeoutlen=1500
 set ttimeoutlen=50
 
 set diffopt+=vertical                  " make diff windows vertical
-set sessionoptions-=options sessionoptions-=buffers sessionoptions-=tabpages sessionoptions+=globals
+set sessionoptions-=options sessionoptions-=buffers sessionoptions+=globals
 set viewoptions-=options
 if !g:is_win
   set dictionary+=/usr/share/dict/words
@@ -406,6 +406,11 @@ augroup vimrc
   autocmd BufRead,BufNewFile vimrc,vimrc.local set filetype=vim
 augroup END
 " }}}
+"
+" ============================================================================
+" KEY MAP {{{
+" ============================================================================
+command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 " ============================================================================
 " KEY MAP {{{
 " ============================================================================
