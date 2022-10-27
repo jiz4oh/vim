@@ -458,12 +458,14 @@ nnoremap ]e :<c-u>move .+1<CR>==
 xnoremap <silent> <C-k> :move-2<cr>gv
 xnoremap <silent> <C-j> :move'>+<cr>gv
 " move line leftward/rightward
-xnoremap < <gv
 xnoremap > >gv
-nnoremap << <<_
+xnoremap < <gv
+xnoremap <Tab> >gv
+xnoremap <S-Tab> <gv
 nnoremap >> >>_
-xnoremap <silent> <C-h> <gv
+nnoremap << <<_
 xnoremap <silent> <C-l> >gv
+xnoremap <silent> <C-h> <gv
 
 noremap <C-a> <Home>
 noremap <C-e> <End>
@@ -525,6 +527,10 @@ xnoremap s :s//g<Left><Left>
 " column, so swap them
 nnoremap ' `
 nnoremap ` '
+
+" Improve scroll, credits: https://github.com/Shougo
+nnoremap <expr> zz (winline() == (winheight(0)+1) / 2) ?
+      \ 'zt' : (winline() == &scrolloff + 1) ? 'zb' : 'zz'
 
 "Keep search pattern at the center of the screen."
 nnoremap <silent> n nzz
