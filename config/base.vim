@@ -235,7 +235,7 @@ if has("gui_running")
     set guifont=*-lucidatypewriter-medium-r-normal-*-*-180-*-*-m-*-*
   elseif has("gui_win32")
     set guifont=Luxi_Mono:h12:cANSI
-  elseif has("gui_macvim")
+  elseif g:is_darwin
     set guifont=Hack\ Nerd\ Font:h16
   endif
 
