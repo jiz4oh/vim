@@ -190,7 +190,7 @@ set timeoutlen=1500
 set ttimeoutlen=50
 
 set diffopt+=vertical                  " make diff windows vertical
-set sessionoptions-=options sessionoptions-=buffers sessionoptions+=globals
+set sessionoptions-=options sessionoptions-=buffers
 set viewoptions-=options
 if !g:is_win
   set dictionary+=/usr/share/dict/words
