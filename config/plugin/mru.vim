@@ -4,6 +4,7 @@ if g:is_win
   let MRU_Exclude_Files = '^D:\\temp\\.*'           " For MS-Windows
 else
   let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'
-  let MRU_Exclude_Files .= '\|Session.vim'
-  let MRU_Exclude_Files .= '\|^'. resolve(expand(g:session_dir)) . '/.*'
+  " ignore session
+  let MRU_Exclude_Files .= '\|Session.vim\|^'. resolve(expand(g:session_dir)) . '/.*'
+  let MRU_Exclude_Files .= '\|.git/*MSG'
 endif
