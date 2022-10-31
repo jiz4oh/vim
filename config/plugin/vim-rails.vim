@@ -69,12 +69,19 @@ let g:rails_projections = {
 "       \ vnoremap <silent> <buffer> dr :<C-u>execute ":Runner ". shellescape(substitute(personal#functions#selected(), '#{', '\#{', 'g')) . ""<CR>
 
 autocmd FileType ruby
-      \ if !empty(rails#app())|call s:setup_zepl()|endif
+      \ if !empty(rails#app())|call <SID>setup_zepl()|endif
+
+autocmd User Rails call <SID>setup_rails()
+
+function! s:setup_rails() abort
+  nnoremap <silent><buffer> `<CR> :Rails<cr>
+  xnoremap <silent><buffer> `<CR> :Rails<cr>
+endfunction
 
 function! s:setup_zepl() abort
   if empty(get(b:, 'start', ''))
     let b:repl_config = { 'cmd': 'rails console' }
   endif
 
-  nnoremap <silent> <buffer> <leader>rl :ReplSend reload!<cr>
+  nnoremap <silent><buffer> <leader>rl :ReplSend reload!<cr>
 endfunction

@@ -21,3 +21,6 @@ augroup vim-dispatch-autocmd
         \   let b:dispatch = 'ruby -wc %' |
         \ endif
 augroup END
+
+xnoremap <silent><buffer> `<CR> :Dispatch<cr>
+xnoremap <silent><buffer> g'<CR> :Spawn<cr>
