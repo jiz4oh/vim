@@ -46,12 +46,6 @@ let g:startify_lists = [
         \ ]
 
 let g:startify_commands = [
-    \ {'f': ['MRU',             'MRU']         },
-    \ {'w': ['Notes',           'WikiIndex']   },
-    \ {'g': ['Git',             'Git']         },
-    \ {'l': ['Git Log',         'Flog']        },
-    \ {'S': ['Session',         'Sessions']    },
-    \ {'p': ['Search Project',  'Pg']          },
     \ {'d': ['Databases',       'DBUI']        },
     \ {'u': ['Update Plugins',  'PlugUpdate']  },
     \ {'i': ['Install Plugins', 'PlugInstall'] },
