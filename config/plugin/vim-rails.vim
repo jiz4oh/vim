@@ -85,3 +85,15 @@ function! s:setup_zepl() abort
 
   nnoremap <silent><buffer> <leader>rl :ReplSend reload!<cr>
 endfunction
+
+function! s:ac() abort
+  let pre = &confirm
+  try
+    set confirm
+    A
+  finally
+    let &confirm = pre
+  endtry
+endfunction
+
+command! AC :call <SID>ac()
