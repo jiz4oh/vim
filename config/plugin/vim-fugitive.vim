@@ -18,7 +18,7 @@ function! s:fugitive_init() abort
   let b:start    = ':Git push'
   nnoremap '<space> :Git push<space>
   " branch track
-  nnoremap <buffer> cbt :execute ':Git branch --set-upstream-to=origin/' . FugitiveHead()
+  nnoremap <buffer><silent> cbt :execute ':Git branch --set-upstream-to=origin/' . FugitiveHead()<cr>
   " merge force
   nnoremap <buffer> cmf :Git merge -X theirs<space>
   nnoremap <buffer> cob :Git checkout -b<space>
