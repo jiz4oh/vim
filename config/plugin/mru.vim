@@ -6,5 +6,5 @@ else
   let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'
   " ignore session
   let MRU_Exclude_Files .= '\|Session.vim\|^'. resolve(expand(g:session_dir)) . '/.*'
-  let MRU_Exclude_Files .= '\|.git/*MSG'
+  let MRU_Exclude_Files .= '\|.git/.*MSG'
 endif
