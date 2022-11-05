@@ -26,7 +26,7 @@ onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<CR>
 " ----------------------------------------------------------------------------
 " ?iv | current viewable text in the buffer
 " ----------------------------------------------------------------------------
-onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! HVL"<CR>
+onoremap <silent> iv :<C-U>execute "normal! m`"<Bar>keepjumps normal! HVL"<CR>
 
 " ----------------------------------------------------------------------------
 " ?il | inner line
