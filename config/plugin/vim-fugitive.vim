@@ -16,7 +16,7 @@ augroup END
 
 function! s:fugitive_init() abort
   let b:start    = ':Git push'
-  nnoremap '<space> :Git push<space>
+  nnoremap <buffer>'<space> :Git push<space>
   " branch track
   nnoremap <buffer><silent> cbt :execute ':Git branch --set-upstream-to=origin/' . FugitiveHead()<cr>
   " merge force
