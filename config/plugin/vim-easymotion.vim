@@ -13,3 +13,6 @@ map <Leader><Leader> <Plug>(easymotion-prefix)
 
 map  gl <Plug>(easymotion-bd-jk)
 nmap gl <Plug>(easymotion-overwin-line)
+
+autocmd User EasyMotionPromptBegin :let b:coc_diagnostic_disable = 1
+autocmd User EasyMotionPromptEnd :let b:coc_diagnostic_disable = 0

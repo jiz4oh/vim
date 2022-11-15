@@ -8,6 +8,19 @@ let g:disable_personal_stl = get(g:, 'disable_personal_stl', 0)
 let s:diabled_fts =
   \ ['defx', 'denite', 'vista', 'tagbar', 'undotree', 'diff', 'peekaboo', 'sidemenu', 'qf', 'coc-explorer', 'startify', 'vim-plug']
 
+function! StatusDiagnostic() abort
+  let info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info) | return '' | endif
+  let msgs = []
+  if get(info, 'error', 0)
+    call add(msgs, 'E' . info['error'])
+  endif
+  if get(info, 'warning', 0)
+    call add(msgs, 'W' . info['warning'])
+  endif
+  return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
+endfunction
+
 function! StatusLineMode()
   let s:mode_map = {
   \  'n': 'NORMAL', 'i': 'INSERT', 'R': 'REPLACE', 'v': 'VISUAL', 'V': 'V-LINE', "\<C-v>": 'V-BLOCK',
@@ -28,6 +41,7 @@ let s:stl .= "%f %m%h%w%r "
 
 let s:stl .= "%<"
 let s:stl .= "%="
+let s:stl .= "%{StatusDiagnostic()}"
 let s:stl .= "%#StatusLineNC#"
 let s:stl .= "%{&fileencoding?&fileencoding:&encoding}[%{&fileformat}]"
 let s:stl .= "%#ModeMsg#"

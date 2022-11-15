@@ -45,12 +45,6 @@ let g:which_key_map[' '] = {
       \ 's' : ['<plug>(easymotion-prefix)s' , 'find(search) {char} forward and backward.'],
       \ }
 
-if has('nvim')
-let g:which_key_map['l'] = {
-      \ 'name' : '+Lsp',
-      \ }
-endif
-
 let g:which_key_map['b'] = {
       \ 'name' : '+Buffer',
       \ '1' : 'buffer-1'  ,
@@ -116,6 +110,20 @@ let g:which_key_map['h'] = {
       \ 'u' : ['<Plug>(GitGutterUndoHunk)',    'Undo Hunk'],
       \ }
 
+let g:which_key_map['l'] = {
+      \ 'name' : '+Lsp',
+      \ 'd   ' : 'find Definitions',
+      \ 'D   ' : 'find Declarations',
+      \ 't   ' : 'find Type definitions',
+      \ 'i   ' : 'find Implementations',
+      \ 'r   ' : 'find References',
+      \ 'R   ' : 'Rename',
+      \ 's   ' : 'find Symbols on current buffer',
+      \ 'S   ' : 'find Symbols on workspace',
+      \ 'f   ' : 'Format',
+      \ 'K   ' : 'show documentation of current symbol',
+      \ }
+
 let g:which_key_map['r'] = {
       \ 'name' : '+Run',
       \ 'r' : 'Run Repl',
@@ -174,6 +182,12 @@ let g:which_key_map_visual['h'] = {
       \ 'name' : '+Hunk',
       \ 's' : ['<Plug>(GitGutterStageHunk)',   'Stage Hunk'],
       \ }
+
+let g:which_key_map['l'] = {
+      \ 'name' : '+Lsp',
+      \ 'f   ' : 'Format Selected',
+      \ }
+
 
 let g:which_key_map_visual['g'] = {
       \ 'name' : '+Git/version-control',

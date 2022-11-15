@@ -21,6 +21,10 @@ function SourceConfig(configName) abort
 endfunction
 
 function! HasInstall(plugName) abort
+    let spec = get(get(g:, 'plugs', {}), a:plugName, {})
+    if empty(spec)
+      return 0
+    endif
     " 判断插件是否已经安装在本地
     return isdirectory(g:plugs[a:plugName].dir)
 endfunction

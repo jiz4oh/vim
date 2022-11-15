@@ -156,34 +156,40 @@ let g:enable_autocomplete = get(g:, 'enable_autocomplete', 0)
 
 "autocomplte
 if g:enable_autocomplete
-  if has('nvim')
-    Plug 'hrsh7th/nvim-cmp'
-    if g:enable_lsp
-      Plug 'hrsh7th/cmp-nvim-lsp'
-    endif
-    Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/cmp-cmdline'
-    Plug 'hrsh7th/cmp-buffer'
-
-    if executable('ctags')
-      Plug 'quangnguyen30192/cmp-nvim-tags'
-    endif
-
-    Plug 'tzachar/cmp-tabnine', { 'do': g:is_win ? 'powershell.exe .\install.ps1' : './install.sh' }
-  elseif v:version >= 800
-    " Plug 'lifepillar/vim-mucomplete'
-    " autocomplete
-    Plug 'prabirshrestha/asyncomplete.vim'
-    Plug 'machakann/asyncomplete-ezfilter.vim'
-    Plug 'prabirshrestha/asyncomplete-buffer.vim'
-    Plug 'prabirshrestha/asyncomplete-file.vim'
-
-    if executable('ctags')
-      Plug 'prabirshrestha/asyncomplete-tags.vim'
-    endif
-
-    Plug 'kitagry/asyncomplete-tabnine.vim', { 'do': g:is_win ? 'powershell.exe .\install.ps1' : './install.sh' }
+  if executable('node')
+    Plug 'Shougo/neco-vim'
+    Plug 'neoclide/coc-neco'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
   endif
+  
+  " if has('nvim')
+  "   Plug 'hrsh7th/nvim-cmp'
+  "   if g:enable_lsp
+      " Plug 'hrsh7th/cmp-nvim-lsp'
+  "   endif
+  "   Plug 'hrsh7th/cmp-path'
+  "   Plug 'hrsh7th/cmp-cmdline'
+  "   Plug 'hrsh7th/cmp-buffer'
+
+  "   if executable('ctags')
+  "     Plug 'quangnguyen30192/cmp-nvim-tags'
+  "   endif
+
+  "   Plug 'tzachar/cmp-tabnine', { 'do': g:is_win ? 'powershell.exe .\install.ps1' : './install.sh' }
+  " elseif v:version >= 800
+  "   " Plug 'lifepillar/vim-mucomplete'
+  "   " autocomplete
+  "   Plug 'prabirshrestha/asyncomplete.vim'
+  "   Plug 'machakann/asyncomplete-ezfilter.vim'
+  "   Plug 'prabirshrestha/asyncomplete-buffer.vim'
+  "   Plug 'prabirshrestha/asyncomplete-file.vim'
+
+  "   if executable('ctags')
+  "     Plug 'prabirshrestha/asyncomplete-tags.vim'
+  "   endif
+
+  "   Plug 'kitagry/asyncomplete-tabnine.vim', { 'do': g:is_win ? 'powershell.exe .\install.ps1' : './install.sh' }
+  " endif
 endif
 
 Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'eruby', 'xml'] }
