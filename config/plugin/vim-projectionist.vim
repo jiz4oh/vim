@@ -7,7 +7,7 @@ let g:projectionist_heuristics = {
       \ },
       \ "package.json": {
       \ },
-      \ "Gemfile|Rakefile": {
+      \ "Gemfile|Rakefile|*.gemspec": {
       \ }}
 
 function! s:init() abort
