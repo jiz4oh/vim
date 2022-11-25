@@ -5,7 +5,7 @@ augroup vim-dispatch-autocmd
   autocmd BufReadPost *
       \ if getline(1) =~# '^#!' |
       \   let b:dispatch =
-      \       matchstr(getline(1), '#!\%(/usr/bin/env \+\)\=\zs.*') . ' %:S' |
+      \       matchstr(getline(1), '#!\%(/usr/bin/env \+\)\=\zs.*') . ' %:p:S' |
       \   let b:start = '-wait=always ' . b:dispatch |
       \ endif
   autocmd FileType ruby
