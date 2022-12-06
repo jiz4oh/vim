@@ -22,5 +22,5 @@ augroup vim-dispatch-autocmd
         \ endif
 augroup END
 
-xnoremap <silent><buffer> `<CR> :Dispatch<cr>
-xnoremap <silent><buffer> g'<CR> :Spawn<cr>
+xnoremap <silent> `<CR> :Dispatch<cr>
+xnoremap <silent> g'<CR> :Spawn<cr>
