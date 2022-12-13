@@ -209,6 +209,7 @@ call FzfGrepMap('<leader>sw', 'Wg')
 
 nnoremap <leader>st :Tags<cr>
 nnoremap <leader>sb :BLines<cr>
+nnoremap <leader>sm :Marks<cr>
 nnoremap <leader>s: :History:<cr>
 nnoremap <leader>s/ :History/<cr>
 nnoremap <C-]>      :Tags<cr>
