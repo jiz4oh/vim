@@ -12,6 +12,11 @@ augroup update_bat_theme
     autocmd VimEnter,colorscheme * if &background == 'dark' | let $BAT_THEME='OneHalfDark' | else | let $BAT_THEME='' | endif
 augroup end
 
+let s:default_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
 " `brew install ripgrep` before you use rg command
 if !executable('rg')
   function! s:grep_in(dir, query, fullscreen) abort
@@ -39,7 +44,7 @@ else
   let rgignore = '/tmp/rgignore-for-fzf'
   let entries = split(&wildignore, ',')
   call writefile(entries, rgignore)
-  let g:fzf_grep_cmd = 'rg --no-ignore-vcs --ignore-file ' . rgignore .' --column --line-number --no-heading --smart-case --follow --color=always %s || true'
+  let g:fzf_grep_cmd = 'rg --no-ignore-vcs --ignore-file ' . rgignore .' --column --line-number --no-heading --smart-case --follow %s || true'
 
   function! s:grep_in(dir, query, fullscreen) abort
     if !empty(a:query)
@@ -50,7 +55,7 @@ else
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
 
     if has_key(g:, 'fzf_grep_cmd')
-      let l:grep_cmd = printf(g:fzf_grep_cmd, l:query)
+      let l:grep_cmd = printf(g:fzf_grep_cmd, '--color=always ' .l:query)
     else
       let l:grep_cmd = 'find '. l:dir . ''
     endif
@@ -70,8 +75,8 @@ else
     if !empty(a:query)
       let @/ = a:query
     endif
-    let l:grep_cmd = printf(g:fzf_grep_cmd, shellescape(a:query))
-    let l:reload_command = printf(g:fzf_grep_cmd, '{q}')
+    let l:grep_cmd = printf(g:fzf_grep_cmd, '--color=always ' . shellescape(a:query))
+    let l:reload_command = printf(g:fzf_grep_cmd, '--color=always {q}')
     let l:spec = {
           \'options': [
              \'--prompt', personal#functions#shortpath(getcwd()) .'> ',
@@ -83,29 +88,6 @@ else
     call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview(l:spec), a:fullscreen)
   endfunction
 endif
-
-function! Find(query, fullscreen) abort
-  if !empty(a:query)
-    let @/ = a:query
-  endif
-
-  let l:slash = (g:is_win && !&shellslash) ? '\\' : '/'
-  let l:paths = substitute(&path, '[/\\]*$', l:slash, 'g')
-  let l:paths = substitute(&path, ',', ' ', 'g')
-
-  if has_key(g:, 'fzf_grep_cmd')
-    let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
-    let l:grep_cmd = printf(g:fzf_grep_cmd, l:query . ' ' . l:paths)
-  else
-    let l:grep_cmd = 'find '. l:paths . ' -type f'
-  endif
-  let l:spec = {
-        \'options': [
-            \'--prompt', personal#functions#shortpath(getcwd()) .' ',
-            \]}
-
-  call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview(l:spec), a:fullscreen)
-endfunction
 
 function! s:sessions(fullscreen) abort
   if !isdirectory(g:session_dir)
@@ -136,6 +118,51 @@ function! s:sessions(fullscreen) abort
   endtry
 endfunction
 
+function! s:search_path_for_files(query, fullscreen) abort
+  if !empty(a:query)
+    let @/ = a:query
+  endif
+
+  let l:slash = (g:is_win && !&shellslash) ? '\\' : '/'
+  let l:paths = substitute(&path, ',', ' ', 'g')
+
+  if has_key(g:, 'fzf_grep_cmd')
+    let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
+    let l:grep_cmd = printf(g:fzf_grep_cmd, l:query . ' ' . l:paths)
+  else
+    let l:grep_cmd = 'find '. l:paths . ' -type f'
+  endif
+
+  try
+    let action = get(g:, 'fzf_action')
+    let g:fzf_action = extend({
+      \ 'ctrl-/':  {_ -> s:search_path(a:query, a:fullscreen) },
+      \}, get(g:, 'fzf_action', s:default_action), 'keep'
+      \)
+    let l:dir = getcwd()
+    let l:spec = {
+                  \'dir': l:dir,
+                  \'options': [
+                    \'--prompt', personal#functions#shortpath(l:dir) .' ',
+                  \]}
+
+    try
+      let prev_default_command = $FZF_DEFAULT_COMMAND
+      let $FZF_DEFAULT_COMMAND = l:grep_cmd
+      call fzf#run(fzf#wrap(fzf#vim#with_preview(l:spec), a:fullscreen))
+    finally
+      let $FZF_DEFAULT_COMMAND = prev_default_command
+    endtry
+  finally
+    if exists('action') && action != 0
+      let g:fzf_action = action
+    else
+      unlet! g:fzf_action
+    endif
+  endtry
+endfunction
+
+" pick up from 'path'
 function! s:search_path(query, fullscreen) abort
   let l:slash = (g:is_win && !&shellslash) ? '\\' : '/'
   let l:paths = map(split(&path, ','), {_, val -> fnamemodify(expand(val), ':~:.')})
@@ -146,12 +173,15 @@ function! s:search_path(query, fullscreen) abort
     let action = get(g:, 'fzf_action')
     let g:fzf_action = {
       \ 'enter':  {dir -> s:grep_in(fnamemodify(dir[0], ':p'), a:query, a:fullscreen) },
+      \ 'ctrl-/':  {_ -> s:search_path_for_files(a:query, a:fullscreen) },
       \ 'ctrl-t': 'NERDTree ',
       \ 'ctrl-x': 'NERDTree ',
       \ 'ctrl-v': 'NERDTree '
       \}
 
+    let l:dir = getcwd()
     let l:spec = {
+                  \'dir': l:dir,
                   \'options': [
                     \'--prompt', personal#functions#shortpath(getcwd()) .' ',
                   \],
@@ -168,8 +198,7 @@ function! s:search_path(query, fullscreen) abort
   endtry
 endfunction
 
-command! -nargs=? -bang Find      call Find(<q-args>, <bang>0)
-command! -nargs=? -bang Sp        call s:search_path(<q-args>, <bang>0)
+command! -nargs=? -bang Path      call s:search_path(<q-args>, <bang>0)
 command! -nargs=? -bang Sessions  call s:sessions(<bang>0)
 
 command! -nargs=? -bang RG        call RipgrepFzf(<q-args>, <bang>0)
@@ -202,8 +231,7 @@ endfunction
 
 call FzfGrepMap('<leader>s<Space>', 'RG')
 call FzfGrepMap('<leader>ss', 'Sessions')
-call FzfGrepMap('<leader>sd', 'Find')
-call FzfGrepMap('<leader>sl', 'Sp')
+call FzfGrepMap('<leader>sl', 'Path')
 call FzfGrepMap('<leader>sp', 'Pg')
 call FzfGrepMap('<leader>sw', 'Wg')
 
