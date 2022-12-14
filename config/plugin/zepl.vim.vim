@@ -39,3 +39,5 @@ nnoremap <silent> <leader>rk :execute 'botright keep 16 Repl ' . <SID>cmd()<cr>
 if has('nvim')
   runtime zepl/contrib/nvim_autoscroll_hack.vim
 endif
+
+xnoremap '<CR> :<C-u>execute 'botright keep 16 Repl ' . <SID>cmd()<cr>gv:ReplSend<cr>
