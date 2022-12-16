@@ -10,6 +10,10 @@ let g:ale_linters = {
       \   'go': ['gofmt',]
       \}
 
+let g:ale_linters_ignore = {
+      \   'ruby': ['standardrb'],
+      \}
+
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \   'json': ['fixjson', 'jq', 'remove_trailing_lines', 'trim_whitespace'],
