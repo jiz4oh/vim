@@ -12,7 +12,7 @@ augroup update_bat_theme
     autocmd VimEnter,colorscheme * if &background == 'dark' | let $BAT_THEME='OneHalfDark' | else | let $BAT_THEME='' | endif
 augroup end
 
-let s:default_action = {
+let g:fzf_default_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
@@ -118,7 +118,7 @@ function! s:sessions(fullscreen) abort
   endtry
 endfunction
 
-function! s:search_path_for_files(query, fullscreen) abort
+function! s:search_paths(query, fullscreen) abort
   if !empty(a:query)
     let @/ = a:query
   endif
@@ -128,7 +128,7 @@ function! s:search_path_for_files(query, fullscreen) abort
 
   if has_key(g:, 'fzf_grep_cmd')
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
-    let l:grep_cmd = printf(g:fzf_grep_cmd, l:query . ' ' . l:paths)
+    let l:grep_cmd = printf(g:fzf_grep_cmd, '--color=always '.l:query . ' ' . l:paths)
   else
     let l:grep_cmd = 'find '. l:paths . ' -type f'
   endif
@@ -137,13 +137,16 @@ function! s:search_path_for_files(query, fullscreen) abort
     let action = get(g:, 'fzf_action')
     let g:fzf_action = extend({
       \ 'ctrl-l':  {_ -> s:search_path(a:query, a:fullscreen) },
-      \}, get(g:, 'fzf_action', s:default_action), 'keep'
+      \}, get(g:, 'fzf_action', g:fzf_default_action), 'keep'
       \)
     let l:dir = getcwd()
     let l:spec = {
                   \'dir': l:dir,
                   \'options': [
+                    \'--ansi', 
                     \'--prompt', personal#functions#shortpath(l:dir) .' ',
+                    \'--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
+                    \'--delimiter', ':', '--preview-window', '+{2}-/2'
                   \]}
 
     try
@@ -173,7 +176,7 @@ function! s:search_path(query, fullscreen) abort
     let action = get(g:, 'fzf_action')
     let g:fzf_action = {
       \ 'enter':  {dir -> s:grep_in(fnamemodify(dir[0], ':p'), a:query, a:fullscreen) },
-      \ 'ctrl-l':  {_ -> s:search_path_for_files(a:query, a:fullscreen) },
+      \ 'ctrl-l':  {_ -> s:search_paths(a:query, a:fullscreen) },
       \ 'ctrl-t': 'NERDTree ',
       \ 'ctrl-x': 'NERDTree ',
       \ 'ctrl-v': 'NERDTree '

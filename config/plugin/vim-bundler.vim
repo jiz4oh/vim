@@ -24,6 +24,7 @@ function! s:gem_search(query, fullscreen) abort
     let action = get(g:, 'fzf_action')
     let g:fzf_action = {
       \ 'enter':  {gem -> s:gem_content_search(gem[0], a:query, a:fullscreen)},
+      \ 'ctrl-l':  {_ -> s:gems_search(a:query, a:fullscreen) },
       \}
     let l:spec = {
                   \'options': [
@@ -57,7 +58,37 @@ function! s:gems_search(query, fullscreen) abort
   else
     let l:grep_cmd = 'find '. join(l:gem_paths, ' ') . ' -type f'
   endif
-  call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'options': ['--prompt', 'Gems> ']}), a:fullscreen)
+
+  try
+    let action = get(g:, 'fzf_action')
+    let g:fzf_action = extend({
+      \ 'ctrl-l':  {_ -> s:gem_search(a:query, a:fullscreen) },
+      \}, get(g:, 'fzf_action', g:fzf_default_action), 'keep'
+      \)
+    let l:dir = getcwd()
+    let l:spec = {
+                  \'dir': l:dir,
+                  \'options': [
+                    \'--ansi', 
+                    \'--prompt', 'Gems> ',
+                    \'--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
+                    \'--delimiter', ':', '--preview-window', '+{2}-/2'
+                  \]}
+
+    try
+      let prev_default_command = $FZF_DEFAULT_COMMAND
+      let $FZF_DEFAULT_COMMAND = l:grep_cmd
+      call fzf#run(fzf#wrap(fzf#vim#with_preview(l:spec), a:fullscreen))
+    finally
+      let $FZF_DEFAULT_COMMAND = prev_default_command
+    endtry
+  finally
+    if exists('action') && action != 0
+      let g:fzf_action = action
+    else
+      unlet! g:fzf_action
+    endif
+  endtry
 endfunction
 
 command! -nargs=? -bang Gem  call s:gem_search(<q-args>, <bang>0)
