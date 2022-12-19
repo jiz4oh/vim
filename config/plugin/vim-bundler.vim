@@ -2,7 +2,7 @@ function! s:gem_content_search(gem, query, fullscreen) abort
   " let l:gemdir = substitute(system("bundle show " . a:gem), '\n\+$', '', '')
   let l:gemdir = bundler#project().paths()[a:gem]
   if has_key(g:, 'fzf_grep_cmd')
-    let l:grep_cmd = printf(g:fzf_grep_cmd, shellescape(a:query))
+    let l:grep_cmd = printf(g:fzf_grep_cmd, '--color=always '. shellescape(a:query))
   else
     let l:grep_cmd = 'find '. l:gemdir . ''
   endif
@@ -53,7 +53,7 @@ function! s:gems_search(query, fullscreen) abort
 
   if has_key(g:, 'fzf_grep_cmd')
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
-    let l:grep_cmd = printf(g:fzf_grep_cmd, l:query . ' ' . join(l:gem_paths, ' '))
+    let l:grep_cmd = printf(g:fzf_grep_cmd, '--color=always '.l:query . ' ' . join(l:gem_paths, ' '))
   else
     let l:grep_cmd = 'find '. join(l:gem_paths, ' ') . ' -type f'
   endif
