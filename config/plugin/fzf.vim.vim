@@ -136,7 +136,7 @@ function! s:search_path_for_files(query, fullscreen) abort
   try
     let action = get(g:, 'fzf_action')
     let g:fzf_action = extend({
-      \ 'ctrl-/':  {_ -> s:search_path(a:query, a:fullscreen) },
+      \ 'ctrl-l':  {_ -> s:search_path(a:query, a:fullscreen) },
       \}, get(g:, 'fzf_action', s:default_action), 'keep'
       \)
     let l:dir = getcwd()
@@ -173,7 +173,7 @@ function! s:search_path(query, fullscreen) abort
     let action = get(g:, 'fzf_action')
     let g:fzf_action = {
       \ 'enter':  {dir -> s:grep_in(fnamemodify(dir[0], ':p'), a:query, a:fullscreen) },
-      \ 'ctrl-/':  {_ -> s:search_path_for_files(a:query, a:fullscreen) },
+      \ 'ctrl-l':  {_ -> s:search_path_for_files(a:query, a:fullscreen) },
       \ 'ctrl-t': 'NERDTree ',
       \ 'ctrl-x': 'NERDTree ',
       \ 'ctrl-v': 'NERDTree '
