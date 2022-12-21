@@ -151,7 +151,7 @@ set selection=inclusive
 set selectmode=mouse,key
 
 set wildmenu                           " show a navigable menu for tab completion"
-set wildmode=longest,full
+set wildmode=longest:full,full
 if has('patch-8.2.4325')
   set wildoptions=pum
 endif
