@@ -59,35 +59,30 @@ function! s:gems_search(query, fullscreen) abort
     let l:grep_cmd = 'find '. join(l:gem_paths, ' ') . ' -type f'
   endif
 
-  try
-    let action = get(g:, 'fzf_action')
-    let g:fzf_action = extend({
-      \ 'ctrl-l':  {_ -> s:gem_search(a:query, a:fullscreen) },
-      \}, get(g:, 'fzf_action', g:fzf_default_action), 'keep'
-      \)
-    let l:dir = getcwd()
-    let l:spec = {
-                  \'dir': l:dir,
-                  \'options': [
-                    \'--ansi', 
-                    \'--prompt', 'Gems> ',
-                    \'--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
-                    \'--delimiter', ':', '--preview-window', '+{2}-/2'
-                  \]}
+  let actions = {
+    \ 'ctrl-l':  {_ -> s:gem_search(a:query, a:fullscreen) },
+    \ 'ctrl-t': 'tab split',
+    \ 'ctrl-x': 'split',
+    \ 'ctrl-v': 'vsplit'
+    \}
+  let l:dir = getcwd()
+  let l:spec = {
+                \'dir': l:dir,
+                \'sink*': { lines -> fzf#customized#handler(lines, 1, actions) },
+                \'options': [
+                  \'--expect', join(keys(actions), ','),
+                  \'--ansi', 
+                  \'--prompt', 'Gems> ',
+                  \'--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
+                  \'--delimiter', ':', '--preview-window', '+{2}-/2'
+                \]}
 
-    try
-      let prev_default_command = $FZF_DEFAULT_COMMAND
-      let $FZF_DEFAULT_COMMAND = l:grep_cmd
-      call fzf#run(fzf#wrap(fzf#vim#with_preview(l:spec), a:fullscreen))
-    finally
-      let $FZF_DEFAULT_COMMAND = prev_default_command
-    endtry
+  try
+    let prev_default_command = $FZF_DEFAULT_COMMAND
+    let $FZF_DEFAULT_COMMAND = l:grep_cmd
+    call fzf#run(fzf#wrap(fzf#vim#with_preview(l:spec), a:fullscreen))
   finally
-    if exists('action') && action != 0
-      let g:fzf_action = action
-    else
-      unlet! g:fzf_action
-    endif
+    let $FZF_DEFAULT_COMMAND = prev_default_command
   endtry
 endfunction
 

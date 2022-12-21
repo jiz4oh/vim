@@ -133,36 +133,30 @@ function! s:search_paths(query, fullscreen) abort
     let l:grep_cmd = 'find '. l:paths . ' -type f'
   endif
 
-  try
-    let action = get(g:, 'fzf_action')
-    let g:fzf_action = extend({
+  let container = {}
+  function! container.func() closure
+    let $FZF_DEFAULT_COMMAND = l:grep_cmd
+    let actions = {
       \ 'ctrl-l':  {_ -> s:search_path(a:query, a:fullscreen) },
-      \}, get(g:, 'fzf_action', g:fzf_default_action), 'keep'
-      \)
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-x': 'split',
+      \ 'ctrl-v': 'vsplit'
+      \}
     let l:dir = getcwd()
     let l:spec = {
                   \'dir': l:dir,
+                  \'sink*': { lines -> fzf#customized#handler(lines, 1, actions) },
                   \'options': [
-                    \'--ansi', 
+                    \'--expect', join(keys(actions), ','),
+                    \'--ansi',
                     \'--prompt', personal#functions#shortpath(l:dir) .' ',
                     \'--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
                     \'--delimiter', ':', '--preview-window', '+{2}-/2'
                   \]}
-
-    try
-      let prev_default_command = $FZF_DEFAULT_COMMAND
-      let $FZF_DEFAULT_COMMAND = l:grep_cmd
       call fzf#run(fzf#wrap(fzf#vim#with_preview(l:spec), a:fullscreen))
-    finally
-      let $FZF_DEFAULT_COMMAND = prev_default_command
-    endtry
-  finally
-    if exists('action') && action != 0
-      let g:fzf_action = action
-    else
-      unlet! g:fzf_action
-    endif
-  endtry
+  endfunction
+
+  call fzf#customized#reserve_cmd(container.func)()
 endfunction
 
 " pick up from 'path'
@@ -172,8 +166,8 @@ function! s:search_path(query, fullscreen) abort
   let l:paths = uniq(sort(sort(l:paths), {i1, i2 -> len(split(i1, l:slash)) - len(split(i2, l:slash))}))
   let l:paths = filter(l:paths, {_, v -> isdirectory(fnamemodify(v, ':p')) })
 
-  try
-    let action = get(g:, 'fzf_action')
+  let container = {}
+  function! container.func() closure
     let g:fzf_action = {
       \ 'enter':  {dir -> s:grep_in(fnamemodify(dir[0], ':p'), a:query, a:fullscreen) },
       \ 'ctrl-l':  {_ -> s:search_paths(a:query, a:fullscreen) },
@@ -192,13 +186,9 @@ function! s:search_path(query, fullscreen) abort
                   \}
 
     call fzf#run(fzf#wrap(l:spec, a:fullscreen))
-  finally
-    if exists('action') && action != 0
-      let g:fzf_action = action
-    else
-      unlet! g:fzf_action
-    endif
-  endtry
+  endfunction
+
+  call fzf#customized#reserve_action(container.func)()
 endfunction
 
 command! -nargs=? -bang Path      call s:search_path(<q-args>, <bang>0)
@@ -244,4 +234,3 @@ nnoremap <leader>sm :Marks<cr>
 nnoremap <leader>s: :History:<cr>
 nnoremap <leader>s/ :History/<cr>
 nnoremap <C-]>      :Tags<cr>
-
