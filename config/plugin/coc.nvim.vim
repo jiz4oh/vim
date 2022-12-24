@@ -34,16 +34,16 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-nnoremap <silent> <leader>ld :call CocActionAsync('definitions')<cr>
-nnoremap <silent> <leader>lD :call CocActionAsync('declarations')<cr>
-nnoremap <silent> <leader>lt :call CocActionAsync('typeDefinitions')<cr>
-nnoremap <silent> <leader>li :call CocActionAsync('implementations')<cr>
-nnoremap <silent> <leader>lr :call CocActionAsync('references')<cr>
-nnoremap <silent> <leader>lR :call CocActionAsync('rename')<cr>
+nnoremap <silent> <leader>ld <Plug>(coc-definition)
+nnoremap <silent> <leader>lD <Plug>(coc-declaration)
+nnoremap <silent> <leader>lt <Plug>(coc-type-definition)
+nnoremap <silent> <leader>li <Plug>(coc-implementation)
+nnoremap <silent> <leader>lr <Plug>(coc-references-used)
+nnoremap <silent> <leader>lR <Plug>(coc-rename)
+nnoremap <silent> <leader>lf <Plug>(coc-format-selected)
+xnoremap <silent> <leader>lf <Plug>(coc-format-selected)
 nnoremap <silent> <leader>ls :call CocActionAsync('documentSymbols')<cr>
 nnoremap <silent> <leader>lS :call CocActionAsync('getWorkspaceSymbols', '')<cr>
-nnoremap <silent> <leader>lf :call CocActionAsync('format')<cr>
-vnoremap <silent> <leader>lf :call CocActionAsync('formatSelected', 'v')<cr>
 nnoremap <silent> <leader>lK :call CocActionAsync('doHover')<cr>
 
 " Highlight the symbol and its references when holding the cursor.

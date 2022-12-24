@@ -120,7 +120,7 @@ let g:which_key_map['l'] = {
       \ 'R   ' : 'Rename',
       \ 's   ' : 'find Symbols on current buffer',
       \ 'S   ' : 'find Symbols on workspace',
-      \ 'f   ' : 'Format',
+      \ 'f   ' : 'Format a {motion}',
       \ 'K   ' : 'show documentation of current symbol',
       \ }
 
@@ -183,7 +183,7 @@ let g:which_key_map_visual['h'] = {
       \ 's' : ['<Plug>(GitGutterStageHunk)',   'Stage Hunk'],
       \ }
 
-let g:which_key_map['l'] = {
+let g:which_key_map_visual['l'] = {
       \ 'name' : '+Lsp',
       \ 'f   ' : 'Format Selected',
       \ }
