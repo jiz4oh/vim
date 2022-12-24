@@ -10,14 +10,9 @@ let g:ale_linters = {
       \   'go': ['gofmt',]
       \}
 
-let g:ale_linters_ignore = {
-      \   'ruby': ['standardrb'],
-      \}
-
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \   'json': ['fixjson', 'jq', 'remove_trailing_lines', 'trim_whitespace'],
-      \   'ruby': ['rubocop'],
       \   'python': ['black', 'isort', 'remove_trailing_lines', 'trim_whitespace'],
       \   'sh': ['shfmt', ],
       \   'md': ['prettier', ],
@@ -65,9 +60,16 @@ endfunction
 
 nmap <silent> <leader>ft :call <SID>toggle_virtualtext_cursor()<cr>
 
-if has('nvim')
-  autocmd VimEnter * lua vim.diagnostic.disable()
-endif
+augroup ale_vim
+  if has('nvim')
+    autocmd VimEnter * lua vim.diagnostic.disable()
+  endif
 
-au BufRead,BufNewFile */.github/*/*.y{,a}ml
-    \ let b:ale_linters = {'yaml': ['actionlint']}
+  au BufRead,BufNewFile */.github/*/*.y{,a}ml
+      \ let b:ale_linters = {'yaml': ['actionlint']}
+
+  autocmd FileType ruby if filereadable(expand(".rubocop.yml")) |
+        \ let b:ale_linters = { 'ruby': ['rubocop'] } |
+        \ let b:ale_fixers = { 'ruby': ['rubocop'] } |
+        \ endif
+augroup END
