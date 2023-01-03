@@ -14,6 +14,11 @@ let g:wiki_journal = {
       \ 'index_use_journal_scheme': v:true,
       \}
 
+let g:wiki_mappings_local_journal = {
+      \ '<plug>(wiki-journal-prev)' : '[w',
+      \ '<plug>(wiki-journal-next)' : ']w',
+      \}
+
 let g:wiki_map_text_to_link = 'MyTextToLink'
 function MyTextToLink(text) abort
   return [substitute(tolower(a:text), '\s\+', '-', 'g'), a:text]
