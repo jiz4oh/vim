@@ -489,6 +489,14 @@ if has('nvim')
   tnoremap <m-L> <c-\><c-N><bar><c-w>l
   tnoremap <m-J> <c-\><c-N><bar><c-w>j
   tnoremap <m-K> <c-\><c-N><bar><c-w>k
+  tnoremap <c-w>h <c-\><c-N><bar><c-w>h
+  tnoremap <c-w>l <c-\><c-N><bar><c-w>l
+  tnoremap <c-w>j <c-\><c-N><bar><c-w>j
+  tnoremap <c-w>k <c-\><c-N><bar><c-w>k
+  tnoremap <c-w><c-h> <c-\><c-N><bar><c-w>h
+  tnoremap <c-w><c-l> <c-\><c-N><bar><c-w>l
+  tnoremap <c-w><c-j> <c-\><c-N><bar><c-w>j
+  tnoremap <c-w><c-k> <c-\><c-N><bar><c-w>k
 elseif has('terminal')
   tnoremap <m-H> <c-w>h
   tnoremap <m-L> <c-w>l
