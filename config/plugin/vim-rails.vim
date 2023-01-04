@@ -201,12 +201,12 @@ let g:rails_gem_projections = {
 autocmd FileType ruby
       \ if !empty(rails#app())|call <SID>setup_zepl()|endif
 
-autocmd User Rails call <SID>setup_rails()
+" autocmd User Rails call <SID>setup_rails()
 
-function! s:setup_rails() abort
-  nnoremap <silent><buffer> `<CR> :Rails<cr>
-  xnoremap <silent><buffer> `<CR> :Rails<cr>
-endfunction
+" function! s:setup_rails() abort
+  " nnoremap <silent><buffer> `<CR> :Rails<cr>
+  " xnoremap <silent><buffer> `<CR> :Rails<cr>
+" endfunction
 
 function! s:setup_zepl() abort
   if empty(get(b:, 'start', ''))
