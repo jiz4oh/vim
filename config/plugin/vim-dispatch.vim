@@ -23,4 +23,5 @@ augroup vim-dispatch-autocmd
 augroup END
 
 xnoremap <silent> `<CR> :Dispatch<cr>
+xnoremap <silent> m<CR> :Make<cr>
 xnoremap <silent> g'<CR> :Spawn<cr>
