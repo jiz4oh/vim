@@ -6,7 +6,19 @@ function! s:gem_content_search(gem, query, fullscreen) abort
   else
     let l:grep_cmd = 'find '. l:gemdir . ''
   endif
-  call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview({'dir': l:gemdir, 'options': ['--prompt', a:gem.'> ']}), a:fullscreen)
+
+  let l:spec = {
+        \'dir': l:gemdir, 
+        \'options': [
+          \'--prompt', a:gem.'> '
+        \]}
+
+  if !empty(a:query)
+    call add(l:spec['options'], '--header')
+    call add(l:spec['options'], a:query)
+  endif
+
+  call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview(l:spec), a:fullscreen)
 endfunction
 
 " Gem search
@@ -32,6 +44,11 @@ function! s:gem_search(query, fullscreen) abort
                   \],
                   \'source': l:gems,
                   \}
+
+    if !empty(a:query)
+      call add(l:spec['options'], '--header')
+      call add(l:spec['options'], a:query)
+    endif
 
     call fzf#run(fzf#wrap(l:spec, a:fullscreen))
   finally
@@ -76,6 +93,11 @@ function! s:gems_search(query, fullscreen) abort
                   \'--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
                   \'--delimiter', ':', '--preview-window', '+{2}-/2'
                 \]}
+
+  if !empty(a:query)
+    call add(l:spec['options'], '--header')
+    call add(l:spec['options'], a:query)
+  endif
 
   try
     let prev_default_command = $FZF_DEFAULT_COMMAND

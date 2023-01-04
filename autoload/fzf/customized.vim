@@ -39,6 +39,11 @@ else
               \'--nth', '4..',
             \]}
 
+    if !empty(a:query)
+      call add(l:spec['options'], '--header')
+      call add(l:spec['options'], a:query)
+    endif
+
     call fzf#vim#grep(l:grep_cmd, 1, fzf#vim#with_preview(l:spec), a:fullscreen)
   endfunction
 
@@ -124,7 +129,13 @@ function! s:search_paths(query, fullscreen) abort
                     \'--multi', '--bind', 'alt-a:select-all,alt-d:deselect-all',
                     \'--delimiter', ':', '--preview-window', '+{2}-/2'
                   \]}
-      call fzf#run(fzf#wrap(fzf#vim#with_preview(l:spec), a:fullscreen))
+
+    if !empty(a:query)
+      call add(l:spec['options'], '--header')
+      call add(l:spec['options'], a:query)
+    endif
+
+    call fzf#run(fzf#wrap(fzf#vim#with_preview(l:spec), a:fullscreen))
   endfunction
 
   call fzf#helper#reserve_cmd(container.func)()
@@ -155,6 +166,11 @@ function! fzf#customized#path(query, fullscreen) abort
                   \],
                   \'source': l:paths,
                   \}
+
+    if !empty(a:query)
+      call add(l:spec['options'], '--header')
+      call add(l:spec['options'], a:query)
+    endif
 
     call fzf#run(fzf#wrap(l:spec, a:fullscreen))
   endfunction
