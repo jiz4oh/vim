@@ -206,6 +206,7 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 " ============================================================================
 " Utils {{{
 " ============================================================================
+Plug 'jiz4oh/vim-terminal-help'
 Plug 'tweekmonster/helpful.vim'
 if !has('gui_running')
   Plug 'vim-scripts/LargeFile'
