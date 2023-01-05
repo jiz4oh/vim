@@ -429,16 +429,12 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " open a terminal window
 if has('nvim')
-  nmap <Leader>tt <C-W>s<bar>:term<CR>i
-  nmap <Leader>tv <C-W>v<bar>:term<CR>i
   tnoremap <C-W><Esc>     <C-\><C-N>
   tnoremap <C-D>          <C-\><C-N>:quit<CR>
   tnoremap <C-W>w         <C-\><C-N><bar><C-W>w
   tnoremap <C-W><C-W>     <C-\><C-N><bar><C-W>w
   tnoremap <expr> <C-W>" '<C-\><C-N>"'.nr2char(getchar()).'pi'
 elseif has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
-  nmap <Leader>tt :below :term<CR>
-  nmap <Leader>tv :belowright :vert :term<CR>
   let termwinkey = empty(&termwinkey) ? '<c-w>' : &termwinkey
   execute 'tnoremap '. termwinkey .'<Esc> ' . termwinkey .'N'
 endif

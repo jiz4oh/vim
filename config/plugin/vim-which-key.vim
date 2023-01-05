@@ -163,9 +163,7 @@ let g:which_key_map['w'] = {
       \ }
 
 let g:which_key_map['t'] = {
-      \ 'name' : '+Terminal/Tab',
-      \ 't' : 'open Terminal horizontal',
-      \ 'v' : 'open Terminal Vertical',
+      \ 'name' : '+Tab',
       \ 'n' : ['tabnew', 'New Tab'],
       \ }
 
