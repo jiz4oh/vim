@@ -15,54 +15,46 @@ if index(s:alt_compatible_programs, $TERM_PROGRAM) >= 0
   finish
 endif
 
-if has("gui_macvim")
-	set macmeta
-  finish
-end
-
 if has("gui_running")
+  if has("gui_macvim")
+    set macmeta
+  end
+
   finish
 endif
 
-function! Terminal_MetaMode(mode)
+function! Terminal_MetaMode()
   set ttimeout
   if $TMUX != ''
-      set ttimeoutlen=30
+    set ttimeoutlen=35
   elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
-      set ttimeoutlen=80
+    set ttimeoutlen=85
   endif
-  if has('nvim') || has('gui_running')
-      return
-  endif
-  function! s:metacode(mode, key)
-      if a:mode == 0
-          exec "set <M-".a:key.">=\e".a:key
-      else
-          exec "set <M-".a:key.">=\e]{0}".a:key."~"
-      endif
+  function! s:meta_code(key)
+    exec "set <M-".a:key.">=\e".a:key
   endfunc
   for i in range(10)
-      call s:metacode(a:mode, nr2char(char2nr('0') + i))
+    call s:meta_code(nr2char(char2nr('0') + i))
   endfor
   for i in range(26)
-      call s:metacode(a:mode, nr2char(char2nr('a') + i))
-      call s:metacode(a:mode, nr2char(char2nr('A') + i))
+    call s:meta_code(nr2char(char2nr('a') + i))
   endfor
-  if a:mode != 0
-      for c in [',', '.', '/', ';', '[', ']', '{', '}']
-          call s:metacode(a:mode, c)
-      endfor
-      for c in ['?', ':', '-', '_']
-          call s:metacode(a:mode, c)
-      endfor
-  else
-      for c in [',', '.', '/', ';', '{', '}']
-          call s:metacode(a:mode, c)
-      endfor
-      for c in ['?', ':', '-', '_']
-          call s:metacode(a:mode, c)
-      endfor
-  endif
+  for i in range(15) + range(16, 25)
+    call s:meta_code(nr2char(char2nr('A') + i))
+  endfor
+  for c in [',', '.', '/', ';', '{', '}']
+    call s:meta_code(c)
+  endfor
+  for c in ['?', ':', '-', '_', '+', '=', "'"]
+    call s:meta_code(c)
+  endfor
+  function! s:key_escape(name, code)
+    exec "set ".a:name."=\e".a:code
+  endfunc
+  call s:key_escape('<F1>', 'OP')
+  call s:key_escape('<F2>', 'OQ')
+  call s:key_escape('<F3>', 'OR')
+  call s:key_escape('<F4>', 'OS')
 endfunc
 
-call Terminal_MetaMode(0)
+call Terminal_MetaMode()
