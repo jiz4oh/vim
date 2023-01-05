@@ -435,10 +435,11 @@ if has('nvim')
   tnoremap <C-W>w         <C-\><C-N><bar><C-W>w
   tnoremap <C-W><C-W>     <C-\><C-N><bar><C-W>w
   tnoremap <expr> <C-W>" '<C-\><C-N>"'.nr2char(getchar()).'pi'
-elseif has('terminal')
+elseif has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
   nmap <Leader>tt :below :term<CR>
   nmap <Leader>tv :belowright :vert :term<CR>
-  tnoremap <C-W><Esc> <C-W>N
+  let termwinkey = empty(&termwinkey) ? '<c-w>' : &termwinkey
+  execute 'tnoremap '. termwinkey .'<Esc> ' . termwinkey .'N'
 endif
 
 " https://vi.stackexchange.com/a/8535
@@ -497,11 +498,12 @@ if has('nvim')
   tnoremap <c-w><c-l> <c-\><c-N><bar><c-w>l
   tnoremap <c-w><c-j> <c-\><c-N><bar><c-w>j
   tnoremap <c-w><c-k> <c-\><c-N><bar><c-w>k
-elseif has('terminal')
-  tnoremap <m-H> <c-w>h
-  tnoremap <m-L> <c-w>l
-  tnoremap <m-J> <c-w>j
-  tnoremap <m-K> <c-w>k
+elseif has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
+  let termwinkey = empty(&termwinkey) ? '<c-w>' : &termwinkey
+  execute 'tnoremap <m-H> ' . termwinkey .'h'
+  execute 'tnoremap <m-L> ' . termwinkey .'l'
+  execute 'tnoremap <m-J> ' . termwinkey .'j'
+  execute 'tnoremap <m-K> ' . termwinkey .'k'
 endif
 inoremap <m-H> <esc><c-w>h
 inoremap <m-L> <esc><c-w>l
