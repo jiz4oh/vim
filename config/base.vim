@@ -283,7 +283,7 @@ endif
     endif
     " https://stackoverflow.com/a/62703167
     " https://github.com/termstandard/colors#checking-for-colorterm
-    if $COLORTERM == 'truecolor' && (has("termguicolors"))
+    if ($COLORTERM == 'truecolor' || has('gui_running')) && (has("termguicolors"))
       let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
       let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
       set termguicolors
