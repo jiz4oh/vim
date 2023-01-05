@@ -80,8 +80,9 @@ Plug 'kristijanhusak/vim-dadbod-completion'
 " ============================================================================
 " REPL / BUILD / COMPILE {{{
 " ============================================================================
-Plug 'axvr/zepl.vim'
+" Plug 'axvr/zepl.vim'
 Plug 'tpope/vim-dispatch'
+Plug 'jpalardy/vim-slime'
 " }}}
 
 " ============================================================================
