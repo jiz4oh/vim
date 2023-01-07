@@ -78,18 +78,16 @@ function! s:OpenFileOrExplorer(...)
 endfunction
 
 function! s:nerdtreeinit() abort
-  nnoremap <silent><buffer> h  :<C-u>call <SID>nerdtree_h()<CR>
-  nnoremap <silent><buffer> l  :<C-u>call <SID>nerdtree_l()<CR>
-  nnoremap <silent><buffer> <Left>  :<C-u>call <SID>nerdtree_h()<CR>
-  nnoremap <silent><buffer> <Right>  :<C-u>call <SID>nerdtree_l()<CR>
-  nnoremap <silent><buffer> N  :<C-u>call NERDTreeAddNode()<CR>
-  nnoremap <silent><buffer> d  :<C-u>call NERDTreeDeleteNode()<CR>
-  nnoremap <silent><buffer> . :<C-u>call <SID>nerdtree_dot()<CR>
-  nnoremap <silent><buffer> <C-Home> :<C-u>NERDTreeCWD<CR>
-  nnoremap <silent><buffer> <CR> :<C-u>call <SID>nerdtree_enter()<CR>
-  nnoremap <silent><buffer> <Home> :call cursor(2, 1)<cr>
-  nnoremap <silent><buffer> <End>  :call cursor(line('$'), 1)<cr>
-  nnoremap <silent><buffer> <leader>ef :wincmd w <CR>:NERDTreeFind<CR>
+  nnoremap <silent><buffer> h             :<C-u>call <SID>nerdtree_h()<CR>
+  nnoremap <silent><buffer> l             :<C-u>call <SID>nerdtree_l()<CR>
+  nnoremap <silent><buffer> <Left>        :<C-u>call <SID>nerdtree_h()<CR>
+  nnoremap <silent><buffer> <Right>       :<C-u>call <SID>nerdtree_l()<CR>
+  nnoremap <silent><buffer> <C-N>         :<C-u>call NERDTreeAddNode()<CR>
+  nnoremap <silent><buffer> d             :<C-u>call NERDTreeDeleteNode()<CR>
+  nnoremap <silent><buffer> <CR>          :<C-u>call <SID>nerdtree_enter()<CR>
+  nnoremap <silent><buffer> <Home>        :call cursor(2, 1)<cr>
+  nnoremap <silent><buffer> <End>         :call cursor(line('$'), 1)<cr>
+  nnoremap <silent><buffer> <leader>ef    :wincmd w <CR>:NERDTreeFind<CR>
 endfunction
 
 function! s:nerdtree_h() abort
@@ -114,10 +112,6 @@ function! s:nerdtree_l() abort
   else
     call g:NERDTreeKeyMap.Invoke('o')
   endif
-endfunction
-
-function! s:nerdtree_dot() abort
-  call g:NERDTreeKeyMap.Invoke('I')
 endfunction
 
 function! s:nerdtree_enter() abort
