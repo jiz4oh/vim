@@ -108,11 +108,11 @@ endif
 " ============================================================================
 " TEXT OBJECTS {{{
 " ============================================================================
+Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'kana/vim-textobj-user'
 Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
 Plug 'adriaanzon/vim-textobj-matchit'
-Plug 'rhysd/vim-textobj-anyblock'
 Plug 'whatyouhide/vim-textobj-erb', { 'for': 'eruby' }
 " }}}
 
