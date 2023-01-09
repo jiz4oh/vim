@@ -253,13 +253,10 @@ endif
 if has('nvim') || has('gui_running')
   " Plug 'vim-airline/vim-airline'
 endif
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
-Plug 'morhetz/gruvbox'
-Plug 'junegunn/seoul256.vim'
-Plug 'sainnhe/sonokai'
 Plug 'sainnhe/gruvbox-material'
 Plug 'sainnhe/everforest'
 Plug 'sainnhe/edge'
+Plug 'rafi/awesome-vim-colorschemes'
 Plug 'uguu-org/vim-matrix-screensaver'
 Plug 'vim/killersheep'
 
