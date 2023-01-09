@@ -225,6 +225,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-apathy'
 Plug 'AndrewRadev/undoquit.vim'
 Plug 'kristijanhusak/vim-carbon-now-sh'
+Plug 'romainl/vim-qf'
 " }}}
 
 " ============================================================================
