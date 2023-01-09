@@ -5,4 +5,9 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " In normal mode, press bar (|) to select table and align it
-au FileType markdown noremap <Bar> vip:EasyAlign*<Bar><Enter>
+
+augroup vim-easy-align-group
+  autocmd!
+
+  autocmd FileType markdown nnoremap <buffer> <Bar> vip:EasyAlign*<Bar><Enter>
+augroup END
