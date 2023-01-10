@@ -1,5 +1,7 @@
 let g:dbs = {
-\ 'mysql_development': 'mysql://root@localhost/development',
+\ 'mysql': 'mysql://root@localhost/mysql',
+\ 'mysql_sys': 'mysql://root@localhost/sys',
+\ 'mysql_information_schema': 'mysql://root@localhost/information_schema',
 \ 'reids_development': 'redis:0',
 \ }
 
