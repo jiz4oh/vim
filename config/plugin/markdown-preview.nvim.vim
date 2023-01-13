@@ -1,3 +1,5 @@
+let g:mkdp_refresh_slow = 1
+
 augroup markdown-preview-autocmd
   autocmd!
 
