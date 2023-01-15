@@ -112,16 +112,16 @@ let g:which_key_map['h'] = {
 
 let g:which_key_map['l'] = {
       \ 'name' : '+Lsp',
-      \ 'd   ' : 'find Definitions',
-      \ 'D   ' : 'find Declarations',
-      \ 't   ' : 'find Type definitions',
-      \ 'i   ' : 'find Implementations',
-      \ 'r   ' : 'find References',
-      \ 'R   ' : 'Rename',
-      \ 's   ' : 'find Symbols on current buffer',
-      \ 'S   ' : 'find Symbols on workspace',
-      \ 'f   ' : 'Format a {motion}',
-      \ 'K   ' : 'show documentation of current symbol',
+      \ 'd' : 'find Definitions',
+      \ 'D' : 'find Declarations',
+      \ 't' : 'find Type definitions',
+      \ 'i' : 'find Implementations',
+      \ 'r' : 'find References',
+      \ 'R' : 'Rename',
+      \ 's' : 'find Symbols on current buffer',
+      \ 'S' : 'find Symbols on workspace',
+      \ 'f' : 'Format a {motion}',
+      \ 'K' : 'show documentation of current symbol',
       \ }
 
 let g:which_key_map['r'] = {
