@@ -69,7 +69,13 @@ augroup ale_vim
       \ let b:ale_linters = {'yaml': ['actionlint']}
 
   autocmd FileType ruby if filereadable(expand(".rubocop.yml")) |
-        \ let b:ale_linters = { 'ruby': ['rubocop'] } |
-        \ let b:ale_fixers = { 'ruby': ['rubocop'] } |
+        \   let b:ale_linters = { 'ruby': ['rubocop'] } |
+        \   let b:ale_fixers = { 'ruby': ['rubocop'] } |
+        \ elseif executable('standardrb') |
+        \   let b:ale_linters = { 'ruby': ['standardrb'] } |
+        \   let b:ale_fixers = { 'ruby': ['standardrb'] } |
+        \ else |
+        \   let b:ale_linters = { 'ruby': ['rubocop'] } |
+        \   let b:ale_fixers = { 'ruby': ['rubocop'] } |
         \ endif
 augroup END
