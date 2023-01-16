@@ -124,13 +124,6 @@ let g:which_key_map['l'] = {
       \ 'K' : 'show documentation of current symbol',
       \ }
 
-let g:which_key_map['r'] = {
-      \ 'name' : '+Run',
-      \ 'r' : 'Run Repl',
-      \ 'k' : 'Run repl but Keep focus on current window',
-      \ 'l' : 'hot reLoad Repl',
-      \ }
-
 let g:which_key_map['s'] = {
       \ 'name' : '+Search',
       \ ' ': 'Search with ripgrep',
