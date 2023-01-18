@@ -566,7 +566,7 @@ end
 
 function! QFOpen()
   if exists(':Copen')
-    bot Copen!
+    bot Copen
   end
   bot copen
 endfunction
