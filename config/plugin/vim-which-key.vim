@@ -60,7 +60,6 @@ let g:which_key_map['b'] = {
 
 let g:which_key_map['c'] = {
       \ 'name' : '+Close/Change',
-      \ 'c' : ['SClose', 'Close Session and open startify'],
       \ 'd' : {
         \ 'name': 'Directory',
         \ '.'   : 'Change work Directory to the directory containing the buffer',

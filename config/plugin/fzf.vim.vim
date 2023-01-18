@@ -24,10 +24,9 @@ command! -bar -bang Imaps call fzf#vim#maps("i", <bang>0)
 command! -bar -bang Xmaps call fzf#vim#maps("x", <bang>0)
 command! -bar -bang Omaps call fzf#vim#maps("o", <bang>0)
 
-nmap <leader><tab> <plug>(fzf-maps-n)
-imap <c-x><tab>    <plug>(fzf-maps-i)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
+nmap <M-Tab> <plug>(fzf-maps-n)
+imap <M-Tab> <plug>(fzf-maps-i)
+xmap <M-Tab> <plug>(fzf-maps-x)
 
 " fzf
 imap <c-x><c-k> <plug>(fzf-complete-word)

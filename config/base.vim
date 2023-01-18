@@ -579,12 +579,6 @@ nnoremap <silent> <leader>eq :call QFOpen()<CR>
 nnoremap <silent> <F10> :call personal#functions#rotate_colors()<cr>
 inoremap <C-k> <C-o>D
 
-" Use Ctrl-Tab and Alt-Tab to switch tab
-map    <C-Tab>  :tabnext<CR>
-imap   <C-Tab>  <C-O>:tabnext<CR>
-map    <M-Tab>  :tabprev<CR>
-imap   <M-Tab>  <C-O>:tabprev<CR>
-
 for s:i in range(1, 9)
   " <Leader>[1-9] move to tab [1-9]
   execute 'nnoremap <Leader>'.s:i s:i.'gt'

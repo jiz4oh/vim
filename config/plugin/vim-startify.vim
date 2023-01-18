@@ -55,3 +55,4 @@ function! LoadSessionFromFzf(name) abort
   execute 'SLoad ' . a:name
 endfunction
 
+nnoremap <silent> <leader><tab> :SClose<cr>
