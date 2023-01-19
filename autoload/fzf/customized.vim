@@ -177,3 +177,15 @@ function! fzf#customized#path(query, fullscreen) abort
 
   call fzf#helper#reserve_action(container.func)()
 endfunction
+
+function! fzf#customized#compilers()
+  let compilers = split(globpath(&rtp, "compiler/*.vim"), "\n")
+  if has('packages')
+    let compilers += split(globpath(&packpath, "pack/*/opt/*/compiler/*.vim"), "\n")
+  endif
+  return fzf#run(fzf#wrap('compilers', {
+  \ 'source':  fzf#vim#_uniq(map(compilers, "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')")),
+  \ 'sink':    'compiler ',
+  \ 'options': '+m --prompt="Compilers> "'
+  \}))
+endfunction

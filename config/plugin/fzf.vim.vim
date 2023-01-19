@@ -11,6 +11,7 @@ let g:fzf_default_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
+command! -nargs=? -bang Compilers call fzf#customized#compilers()
 command! -nargs=? -bang Path      call fzf#customized#path(<q-args>, <bang>0)
 command! -nargs=? -bang Sessions  call fzf#customized#sessions(<bang>0)
 
