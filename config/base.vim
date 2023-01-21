@@ -365,7 +365,7 @@ augroup vimrc
 
   if has('nvim')
     autocmd TermOpen * setlocal nonumber norelativenumber
-  else
+  elseif exists('##TerminalOpen')
     autocmd TerminalOpen * setlocal nonumber norelativenumber
   endif
   "set relative number

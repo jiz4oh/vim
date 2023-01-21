@@ -32,7 +32,7 @@ augroup vim-terminal-help-augroup
   " exit_cb in term_start
   if has('nvim')
     autocmd TermOpen * let t:__terminal_bid__ = bufnr('')
-  else
+  elseif exists('##TerminalWinOpen')
     autocmd TerminalWinOpen * let t:__terminal_bid__ = bufnr('')
   endif
 augroup END
