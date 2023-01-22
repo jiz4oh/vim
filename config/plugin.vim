@@ -39,12 +39,12 @@ Plug 'PhilRunninger/nerdtree-visual-selection'
 " VCS / PROJECT {{{
 " ============================================================================
 Plug 'tpope/vim-projectionist'
-Plug 'airblade/vim-rooter'
+" Plug 'airblade/vim-rooter'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 " Plug 'junegunn/gv.vim', { 'on': ['GV', 'GV!'] }
-Plug 'rbong/vim-flog', { 'on': ['Flog', 'Flogsplit'] }
+Plug 'rbong/vim-flog'
 " if v:version >= 800
 "   Plug 'rhysd/git-messenger.vim'
 " endif
