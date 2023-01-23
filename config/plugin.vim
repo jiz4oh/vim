@@ -235,6 +235,7 @@ Plug 'kristijanhusak/vim-carbon-now-sh'
 " Butil-in Enhance {{{
 " ============================================================================
 " Plug 'andymass/vim-matchup'
+Plug 'tyru/open-browser.vim'
 Plug 'vim-utils/vim-man'
 Plug 'inkarkat/vim-ReplaceWithRegister'
 Plug 'tpope/vim-repeat'
