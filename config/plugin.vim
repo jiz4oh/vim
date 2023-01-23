@@ -44,7 +44,12 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 " Plug 'junegunn/gv.vim', { 'on': ['GV', 'GV!'] }
-Plug 'rbong/vim-flog'
+
+if has('nvim') || executable('luajit')
+  Plug 'rbong/vim-flog'
+else
+  Plug 'rbong/vim-flog', { 'branch': 'v1' }
+end
 " if v:version >= 800
 "   Plug 'rhysd/git-messenger.vim'
 " endif
