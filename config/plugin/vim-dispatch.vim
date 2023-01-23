@@ -1,6 +1,7 @@
 augroup vim-dispatch-autocmd
   autocmd!
   
+  autocmd BufNewFile,BufRead Dockerfile* let b:dispatch = 'docker build %:p:h -t %:p:h:t:gs/.*/\L&/:S'
   autocmd FileType vim let b:start = 'vim -E' | let b:dispatch = ':source %:p'
   autocmd BufReadPost *
       \ if getline(1) =~# '^#!' |
@@ -25,6 +26,10 @@ augroup END
 xnoremap <silent> `<CR> :Dispatch<cr>
 xnoremap <silent> m<CR> :Make<cr>
 xnoremap <silent> g'<CR> :Spawn<cr>
+
+if !exists('g:dispatch_compilers')
+  let g:dispatch_compilers = {}
+endif
 
 let g:dispatch_compilers = {
       \ 'hexo': 'hexo'
