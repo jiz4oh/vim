@@ -29,13 +29,28 @@ function! StatusLineMode()
   return get(s:mode_map, mode(), '')
 endfunction
 
+function! ShortDir() abort
+  try
+    let short = fnamemodify(fnamemodify('%', ':p'), ':h:~:.')
+    if !has('win32unix')
+      let short = pathshorten(short)
+    endif
+    let slash = (g:is_win && !&shellslash) ? '\' : '/'
+
+    " add last slash
+    return empty(short) ? '~'.slash : short . (short =~ escape(slash, '\').'$' ? '' : slash)
+  catch
+    return fnamemodify('%', ':p:h:~:.') . '/'
+  endtry
+endfunction
+
 let s:stl = ''
 let s:stl .= "%#StatusLine#"
 let s:stl .= "%n"
 let s:stl .= "%#ModeMsg#"
 let s:stl .= " %{StatusLineMode()} "
 let s:stl .= "%#StatusLineNC#"
-let s:stl .= "%{personal#functions#shortdir(fnamemodify('%', ':p'))}"
+let s:stl .= "%{ShortDir()}"
 let s:stl .= "%#Identifier#"
 let s:stl .= "%f %m%h%w%r "
 

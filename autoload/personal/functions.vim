@@ -11,17 +11,6 @@ function! personal#functions#selected()
   return selection
 endfunction
 
-function! personal#functions#shortdir(path)
-  let short = fnamemodify(a:path, ':h:~:.')
-  if !has('win32unix')
-    let short = pathshorten(short)
-  endif
-  let slash = (g:is_win && !&shellslash) ? '\' : '/'
-
-  " add last slash
-  return empty(short) ? '~'.slash : short . (short =~ escape(slash, '\').'$' ? '' : slash)
-endfunction
-
 function! personal#functions#shortpath(path)
   let short = fnamemodify(a:path, ':~:.')
   if !has('win32unix')
