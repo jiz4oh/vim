@@ -10,10 +10,23 @@ let g:projectionist_heuristics = {
       \ "Gemfile|Rakefile|*.gemspec": {
       \ }}
 
-function! s:init() abort
-  if exists(':tcd')
-    noremap <buffer> <silent>cdp :Ptcd<CR>:echo 'cwd: ' . getcwd()<CR>
-  else
-    noremap <buffer> <silent>cdp :Pcd<CR>:echo 'cwd: ' . getcwd()<CR>
-  end
+let g:projects = []
+
+function! s:activate() abort
+  let ps = filter(keys(b:projectionist), 'v:val !~ "^fugitive:.*"')
+  call extend(g:projects, ps)
+
+  let dict = {}
+  for l in g:projects
+    let dict[l] = ''
+  endfor
+
+  let g:projects = keys(dict)
+  return g:projects
 endfunction
+
+
+augroup projectionist-augroup
+  autocmd!
+  autocmd User ProjectionistActivate call s:activate()
+augroup END

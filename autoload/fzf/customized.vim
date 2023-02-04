@@ -141,6 +141,38 @@ function! s:search_paths(query, fullscreen) abort
   call fzf#helper#reserve_cmd(container.func)()
 endfunction
 
+function! fzf#customized#projects(query, fullscreen) abort
+  let l:projects = get(g:, 'projects', [])
+
+  let container = {}
+  function! container.func() closure
+    let g:fzf_action = {
+      \ 'enter':  {dir -> fzf#customized#grep(fnamemodify(dir[0], ':p'), a:query, a:fullscreen) },
+      \ 'ctrl-t': 'NERDTree ',
+      \ 'ctrl-x': 'NERDTree ',
+      \ 'ctrl-v': 'NERDTree '
+      \}
+
+    let l:dir = getcwd()
+    let l:spec = {
+                  \'dir': l:dir,
+                  \'options': [
+                    \'--prompt', personal#functions#shortpath(getcwd()) .' ',
+                  \],
+                  \'source': l:projects,
+                  \}
+
+    if !empty(a:query)
+      call add(l:spec['options'], '--header')
+      call add(l:spec['options'], a:query)
+    endif
+
+    call fzf#run(fzf#wrap(l:spec, a:fullscreen))
+  endfunction
+
+  call fzf#helper#reserve_action(container.func)()
+endfunction
+
 " pick up from 'path'
 function! fzf#customized#path(query, fullscreen) abort
   let l:slash = (g:is_win && !&shellslash) ? '\\' : '/'

@@ -12,6 +12,7 @@ let g:fzf_default_action = {
   \ 'ctrl-v': 'vsplit' }
 
 command! -nargs=? -bang Compilers call fzf#customized#compilers()
+command! -nargs=? -bang Projects  call fzf#customized#projects(<q-args>, <bang>0)
 command! -nargs=? -bang Path      call fzf#customized#path(<q-args>, <bang>0)
 command! -nargs=? -bang Sessions  call fzf#customized#sessions(<bang>0)
 
@@ -66,6 +67,7 @@ call FzfGrepMap('<leader>sl', 'Path')
 call FzfGrepMap('<leader>sp', 'Pg')
 call FzfGrepMap('<leader>sw', 'Wg')
 
+nnoremap <leader>pp :Projects<cr>
 nnoremap <leader>st :Tags<cr>
 nnoremap <leader>sb :BLines<cr>
 nnoremap <leader>sm :Marks<cr>
