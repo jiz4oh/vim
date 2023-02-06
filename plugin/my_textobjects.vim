@@ -29,10 +29,10 @@ onoremap <silent> ie :<C-U>execute "normal! m`"<Bar>keepjumps normal! ggVG<CR>
 onoremap <silent> iv :<C-U>execute "normal! m`"<Bar>keepjumps normal! HVL"<CR>
 
 " ----------------------------------------------------------------------------
-" ?il | inner line
+" ?iL | inner Line
 " ----------------------------------------------------------------------------
-xnoremap <silent> il <Esc>^vg_
-onoremap <silent> il :<C-U>normal! ^vg_<CR>
+xnoremap <silent> iL <Esc>^vg_
+onoremap <silent> iL :<C-U>normal! ^vg_<CR>
 
 " " ----------------------------------------------------------------------------
 " " ?i# | inner comment
