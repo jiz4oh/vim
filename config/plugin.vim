@@ -14,7 +14,7 @@ if exists(':packadd')
   if has("patch-8.1.0311")
     silent! packadd! cfilter
   endif
-elseif !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+else
   runtime macros/matchit.vim
 endif
 
@@ -114,7 +114,7 @@ endif
 Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'kana/vim-textobj-user'
-Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
+Plug 'jeremiahkellick/vim-textobj-rubyblock', { 'for': 'ruby' }
 Plug 'adriaanzon/vim-textobj-matchit'
 Plug 'whatyouhide/vim-textobj-erb', { 'for': 'eruby' }
 " }}}
