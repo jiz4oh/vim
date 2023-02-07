@@ -23,21 +23,22 @@ else
     endif
 
     let l:dir = fnamemodify(a:dir, ':p:h')
-
-    if exists('*FzfWithWildignore')
-      let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
-      let l:grep_cmd = FzfWithWildignore(l:query)
-    else
-      let l:grep_cmd = 'find '. l:dir . ''
-    endif
-
     let l:spec = {
         \'dir': l:dir,
         \'options': [
             \'--prompt', personal#functions#shortpath(l:dir) .' ',
               \'--delimiter', ':',
-              \'--nth', '4..',
             \]}
+
+    if exists('*FzfWithWildignore')
+      let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
+      let l:grep_cmd = FzfWithWildignore(l:query)
+
+      call add(l:spec['options'], '--nth')
+      call add(l:spec['options'], '4..')
+    else
+      let l:grep_cmd = 'find '. l:dir . ''
+    endif
 
     if !empty(a:query)
       call add(l:spec['options'], '--header')
