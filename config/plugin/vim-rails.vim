@@ -1,6 +1,12 @@
 let g:rails_vim_enter         = 0
 
 let g:rails_projections = {
+      \  "config/routes.rb": {
+      \    "type": "route"
+      \  },
+      \  "config/routes/*.rb": {
+      \    "type": "route"
+      \  },
       \  "app/jobs/*_job.rb": {
       \    "affinity": "model",
       \    "template": [
