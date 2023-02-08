@@ -87,7 +87,7 @@ function! fzf#customized#sessions(fullscreen) abort
 
     call fzf#run(fzf#wrap(l:spec, a:fullscreen))
   finally
-    if exists('action') && action != 0
+    if exists('action') && type(action) != type(0)
       let g:fzf_action = action
     else
       unlet! g:fzf_action

@@ -76,7 +76,7 @@ function! fzf#helper#reserve_action(func) abort
       let action = get(g:, 'fzf_action')
       call a:func()
     finally
-      if exists('action') && action != 0
+      if exists('action') && type(action) != type(0)
         let g:fzf_action = action
       else
         unlet! g:fzf_action
