@@ -539,6 +539,9 @@ nnoremap ` '
 nnoremap <expr> zz (winline() == (winheight(0)+1) / 2) ?
       \ 'zt' : (winline() == &scrolloff + 1) ? 'zb' : 'zz'
 
+" Show last search in quickfix (http://travisjeffery.com/b/2011/10/m-x-occur-for-vim/)
+nmap g/ :vimgrep /<C-R>//j %<CR>\|:cw<CR>
+
 "Keep search pattern at the center of the screen."
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
