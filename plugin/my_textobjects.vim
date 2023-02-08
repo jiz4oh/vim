@@ -34,84 +34,41 @@ onoremap <silent> iv :<C-U>execute "normal! m`"<Bar>keepjumps normal! HVL"<CR>
 xnoremap <silent> iL <Esc>^vg_
 onoremap <silent> iL :<C-U>normal! ^vg_<CR>
 
-" " ----------------------------------------------------------------------------
-" " ?i# | inner comment
-" " ----------------------------------------------------------------------------
-" function! s:inner_comment(vis)
-"   if synIDattr(synID(line('.'), col('.'), 0), 'name') !~? 'comment'
-"     call s:textobj_cancel()
-"     if a:vis
-"       normal! gv
-"     endif
-"     return
-"   endif
+" ----------------------------------------------------------------------------
+" ?a= / i= | a erb text object
+" ----------------------------------------------------------------------------
+" https://github.com/AndrewRadev/Vimfiles/blob/215a193d1906c354b29451ff806a86ddf28bfdfb/ftplugin/eruby.vim#L22
+augroup textobjects-augroup
+  autocmd!
 
-"   let origin = line('.')
-"   let lines = []
-"   for dir in [-1, 1]
-"     let line = origin
-"     let line += dir
-"     while line >= 1 && line <= line('$')
-"       execute 'normal!' line.'G^'
-"       if synIDattr(synID(line('.'), col('.'), 0), 'name') !~? 'comment'
-"         break
-"       endif
-"       let line += dir
-"     endwhile
-"     let line -= dir
-"     call add(lines, line)
-"   endfor
+  autocmd FileType eruby onoremap <silent><buffer> a= :<c-u>call <SID>ErbTextObject('a')<cr>
+  autocmd FileType eruby xnoremap <silent><buffer> a= :<c-u>call <SID>ErbTextObject('a')<cr>
+  autocmd FileType eruby onoremap <silent><buffer> i= :<c-u>call <SID>ErbTextObject('i')<cr>
+  autocmd FileType eruby xnoremap <silent><buffer> i= :<c-u>call <SID>ErbTextObject('i')<cr>
+augroup END
 
-"   execute 'normal!' lines[0].'GV'.lines[1].'G'
-" endfunction
-" xmap <silent> i# :<C-U>call <SID>inner_comment(1)<CR><Plug>(TOC)
-" omap <silent> i# :<C-U>call <SID>inner_comment(0)<CR><Plug>(TOC)
+function! s:ErbTextObject(mode)
+  if search('<%.*\%#.*%>', 'n') <= 0
+    return
+  endif
 
-" " ----------------------------------------------------------------------------
-" " ?ic / ?iC | Blockwise column object
-" " ----------------------------------------------------------------------------
-" function! s:inner_blockwise_column(vmode, cmd)
-"   if a:vmode == "\<C-V>"
-"     let [pvb, pve] = [getpos("'<"), getpos("'>")]
-"     normal! `z
-"   endif
+  if a:mode == 'i'
+    let [start_flags, end_flags] = ['be', '']
+  else " a:mode == 'a'
+    let [start_flags, end_flags] = ['b', 'e']
+  endif
 
-"   execute "normal! \<C-V>".a:cmd."o\<C-C>"
-"   let [line, col] = [line('.'), col('.')]
-"   let [cb, ce]    = [col("'<"), col("'>")]
-"   let [mn, mx]    = [line, line]
+  call search('<%=\?\s*.', start_flags, line('.'))
+  let start = col('.') - 1
+  call search('.\s*-\?%>', end_flags, line('.'))
+  let end = col('.') - 1
 
-"   for dir in [1, -1]
-"     let l = line + dir
-"     while line('.') > 1 && line('.') < line('$')
-"       execute "normal! ".l."G".col."|"
-"       execute "normal! v".a:cmd."\<C-C>"
-"       if cb != col("'<") || ce != col("'>")
-"         break
-"       endif
-"       let [mn, mx] = [min([line('.'), mn]), max([line('.'), mx])]
-"       let l += dir
-"     endwhile
-"   endfor
+  let interval = end - start
 
-"   execute printf("normal! %dG%d|\<C-V>%s%dG", mn, col, a:cmd, mx)
-
-"   if a:vmode == "\<C-V>"
-"     normal! o
-"     if pvb[1] < line('.') | execute "normal! ".pvb[1]."G" | endif
-"     if pvb[2] < col('.')  | execute "normal! ".pvb[2]."|" | endif
-"     normal! o
-"     if pve[1] > line('.') | execute "normal! ".pve[1]."G" | endif
-"     if pve[2] > col('.')  | execute "normal! ".pve[2]."|" | endif
-"   endif
-" endfunction
-
-" xnoremap <silent> ic mz:<C-U>call <SID>inner_blockwise_column(visualmode(), 'iw')<CR>
-" xnoremap <silent> iC mz:<C-U>call <SID>inner_blockwise_column(visualmode(), 'iW')<CR>
-" xnoremap <silent> ac mz:<C-U>call <SID>inner_blockwise_column(visualmode(), 'aw')<CR>
-" xnoremap <silent> aC mz:<C-U>call <SID>inner_blockwise_column(visualmode(), 'aW')<CR>
-" onoremap <silent> ic :<C-U>call   <SID>inner_blockwise_column('',           'iw')<CR>
-" onoremap <silent> iC :<C-U>call   <SID>inner_blockwise_column('',           'iW')<CR>
-" onoremap <silent> ac :<C-U>call   <SID>inner_blockwise_column('',           'aw')<CR>
-" onoremap <silent> aC :<C-U>call   <SID>inner_blockwise_column('',           'aW')<CR>
+  if start == 0
+    exe 'normal! 0v'.interval.'l'
+  else
+    exe 'normal! 0'.start.'lv'.interval.'l'
+  endif
+endfunction
 " " }}}
