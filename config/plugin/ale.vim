@@ -16,7 +16,8 @@ let g:ale_fixers = {
       \   'python': ['black', 'isort', 'remove_trailing_lines', 'trim_whitespace'],
       \   'sh': ['shfmt', ],
       \   'md': ['prettier', ],
-      \   'go': ['gofmt', ]
+      \   'go': ['gofmt', ],
+      \   'eruby': ['erblint', 'remove_trailing_lines', 'trim_whitespace']
       \}
 
 let g:ale_dockerfile_hadolint_use_docker = 'yes'
