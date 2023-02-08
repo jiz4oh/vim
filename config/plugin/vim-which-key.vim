@@ -86,9 +86,10 @@ let g:which_key_map['e'] = {
       \ }
 
 let g:which_key_map['f'] = {
-      \ 'name' : '+Format/Fix',
+      \ 'name' : '+Format/Fix/File',
       \ 'f': 'Fix by ale',
       \ 't': 'show one or all warnings',
+      \ 'r': 'Rename current file',
       \ }
 
 

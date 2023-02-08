@@ -611,6 +611,20 @@ inoremap <M-{> {<esc>o}<esc>ko
 " Open file in Obsidian vault
 nnoremap <silent> <leader>io :execute "silent !open 'obsidian://open?vault=" . fnamemodify(g:notes_root, ':t') . "&file=index" . expand('%:r') . "'"<cr>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RENAME CURRENT FILE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenameFile()
+  let old_name = expand('%:~')
+  let new_name = input('New file name: ', expand('%:~'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+map <leader>fr :call RenameFile()<cr>
+
 " if !exists("g:plugs") || !has_key(g:plugs, 'vim-rsi')
 "   inoremap        <C-A> <Home>
 "   inoremap   <C-X><C-A> <C-A>
