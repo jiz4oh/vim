@@ -135,6 +135,7 @@ endif
 " ============================================================================
 if has('timers') && (has('nvim-0.2.0') || exists('*job_start') && exists('*ch_close_in'))
   Plug 'dense-analysis/ale'
+  Plug 'jiz4oh/ale-autocorrect.vim'
 endif
 
 let g:enable_lsp = get(g:, 'enable_lsp', 0)

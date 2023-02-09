@@ -11,7 +11,7 @@ let g:ale_linters = {
       \}
 
 let g:ale_fixers = {
-      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \   '*': ['remove_trailing_lines', 'trim_whitespace', 'autocorrect'],
       \   'json': ['fixjson', 'jq', 'remove_trailing_lines', 'trim_whitespace'],
       \   'python': ['black', 'isort', 'remove_trailing_lines', 'trim_whitespace'],
       \   'sh': ['shfmt', ],
@@ -70,13 +70,13 @@ augroup ale_vim
       \ let b:ale_linters = {'yaml': ['actionlint']}
 
   autocmd FileType ruby if filereadable(expand(".rubocop.yml")) |
-        \   let b:ale_linters = { 'ruby': ['rubocop'] } |
-        \   let b:ale_fixers = { 'ruby': ['rubocop'] } |
+        \   let b:ale_linters = { 'ruby': ['rubocop', 'autocorrect'] } |
+        \   let b:ale_fixers = { 'ruby': ['rubocop', 'autocorrect'] } |
         \ elseif executable('standardrb') |
-        \   let b:ale_linters = { 'ruby': ['standardrb'] } |
-        \   let b:ale_fixers = { 'ruby': ['standardrb'] } |
+        \   let b:ale_linters = { 'ruby': ['standardrb', 'autocorrect'] } |
+        \   let b:ale_fixers = { 'ruby': ['standardrb', 'autocorrect'] } |
         \ else |
-        \   let b:ale_linters = { 'ruby': ['rubocop'] } |
-        \   let b:ale_fixers = { 'ruby': ['rubocop'] } |
+        \   let b:ale_linters = { 'ruby': ['rubocop', 'autocorrect'] } |
+        \   let b:ale_fixers = { 'ruby': ['rubocop', 'autocorrect'] } |
         \ endif
 augroup END
