@@ -4,7 +4,7 @@ function s:quit()
   if tabpagenr('$') > 1 && (tabpagewinnr(tabpagenr(), '$') == 1)
     UndoableTabclose
   else
-    quit
+    confirm quit
   endif
 endfunction
 
