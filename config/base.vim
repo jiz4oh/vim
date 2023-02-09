@@ -559,14 +559,19 @@ nnoremap dg# g*``dgN
 " remove highlight
 nnoremap <silent><leader>/ :nohls<CR>
 
+function! ChangeCWDTo(dir) abort
+  if exists(':tcd')
+    execute 'tcd ' . expand(a:dir)
+    echo 'cwd: ' . getcwd()
+  else
+    execute 'cd ' . expand(a:dir)
+    echo 'cwd: ' . getcwd()
+  end
+endfunction
+
 " change cwd
-if exists(':tcd')
-  noremap <silent>       <leader>cd. :tcd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
-  noremap <expr><silent> <leader>cdp ':tcd ' . personal#project#find_home() . "<CR>:echo 'cwd: ' . getcwd()<CR>"
-else
-  noremap <silent>       <leader>cd. :cd %:p:h<CR>:echo 'cwd: ' . getcwd()<CR>
-  noremap <expr><silent> <leader>cdp ':cd ' . personal#project#find_home() . "<CR>:echo 'cwd: ' . getcwd()<CR>"
-end
+noremap <silent> <leader>cd. :call ChangeCWDTo('%:p:h')<cr>
+noremap <silent> <leader>cdp :call ChangeCWDTo(personal#project#find_home())<cr>
 
 function! QFOpen()
   if exists(':Copen')

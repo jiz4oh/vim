@@ -148,7 +148,7 @@ function! fzf#customized#projects(query, fullscreen) abort
   let container = {}
   function! container.func() closure
     let g:fzf_action = {
-      \ 'enter':  {dir -> fzf#customized#grep(fnamemodify(dir[0], ':p'), a:query, a:fullscreen) },
+      \ 'enter':  {dir -> ChangeCWDTo(dir[0])},
       \ 'ctrl-t': 'NERDTree ',
       \ 'ctrl-x': 'NERDTree ',
       \ 'ctrl-v': 'NERDTree '

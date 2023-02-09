@@ -1,6 +1,12 @@
 let $FZF_DEFAULT_OPTS="--reverse"
 let g:fzf_preview_window = ['down:60%', 'ctrl-/']
 
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit'
+  \}
+
 " jump to existed window if possible
 let g:fzf_buffers_jump = 1
 let g:fzf_history_dir = '~/.local/share/fzf-history'

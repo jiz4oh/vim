@@ -6,19 +6,13 @@ function! FzfGrepMap(lhs, cmd)
   execute "vnoremap <silent> " . a:lhs . " :<C-u>execute ':" . a:cmd . " '.personal#functions#selected()<CR>"
 endfunction
 
-let g:fzf_default_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
 command! -nargs=? -bang Compilers call fzf#customized#compilers()
 command! -nargs=? -bang Projects  call fzf#customized#projects(<q-args>, <bang>0)
 command! -nargs=? -bang Path      call fzf#customized#path(<q-args>, <bang>0)
 command! -nargs=? -bang Sessions  call fzf#customized#sessions(<bang>0)
 
 command! -nargs=? -bang RG        call fzf#customized#rg(<q-args>, <bang>0)
-command! -nargs=? -bang Pg        call fzf#customized#grep(personal#project#find_home(), <q-args>, <bang>0)
-command! -nargs=? -bang Wg        call fzf#customized#grep(getcwd(), <q-args>, <bang>0)
+command! -nargs=? -bang Pg        call fzf#customized#grep(getcwd(), <q-args>, <bang>0)
 command! -nargs=? -bang GitGrep   call fzf#customized#grep(personal#git#Repo(), <q-args>, <bang>0)
 command! -nargs=? -bang GGrep     call fzf#customized#grep(personal#git#Repo(), <q-args>, <bang>0)
 command! -nargs=* -bang Tags      call fzf#vim#tags(expand('<cword>') . ' ', fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0], "placeholder": "--tag {2}:{-1}:{3..}", 'options': '--exact --select-1 --exit-0 +i'}), <bang>0)
