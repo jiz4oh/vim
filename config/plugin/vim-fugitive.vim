@@ -14,9 +14,15 @@ augroup fugitive_vim
   autocmd FileType fugitive call s:fugitive_init()
 augroup END
 
+if exists('*setbufline')
+  let s:git_cmd = ':Git!'
+else
+  let s:git_cmd = ':Git'
+end
+
 function! s:fugitive_init() abort
-  let b:start    = ':Git push'
-  nnoremap <buffer>'<space> :Git push<space>
+  let b:start    = s:git_cmd . ' push'
+  execute "nnoremap <buffer> '<space> " . s:git_cmd . ' push<space>'
   " branch track
   nnoremap <buffer><silent> cbt :execute ':Git branch --set-upstream-to=origin/' . FugitiveHead()<cr>
   " merge force
