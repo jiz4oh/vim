@@ -3,23 +3,7 @@ if get(s:, 'loaded', 0) != 0
 endif
 let s:loaded = 1
 
-"make vim respond to alt key
-"https://github.com/fgheng/vime/blob/master/plugin/alt.vim
-let s:alt_compatible_programs = ['iTerm.app']
-
 if has('nvim')
-  finish
-endif
-
-if index(s:alt_compatible_programs, $TERM_PROGRAM) >= 0
-  finish
-endif
-
-if has("gui_running")
-  if has("gui_macvim")
-    set macmeta
-  end
-
   finish
 endif
 
@@ -31,7 +15,14 @@ function! Terminal_MetaMode()
     set ttimeoutlen=85
   endif
   function! s:meta_code(key)
-    exec "set <M-".a:key.">=\e".a:key
+    if has("gui_running") && has("gui_macvim")
+      set macmeta
+    elseif index(get(g:, "alt_compatible_programs", []), $TERM_PROGRAM) < 0
+      exec "set <M-".a:key.">=\e".a:key
+    endif
+
+    " terminal map for vim
+    exec "tnoremap <m-". a:key."> <Esc>".a:key
   endfunc
   for i in range(10)
     call s:meta_code(nr2char(char2nr('0') + i))

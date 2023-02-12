@@ -36,3 +36,4 @@ let g:enable_markdown_preview = g:is_win || g:is_darwin || g:has_linux_desktop
 let g:enable_autocomplete     = g:is_win || g:is_darwin || g:has_linux_desktop
 let g:enable_lsp              = g:is_win || g:is_darwin || g:has_linux_desktop
 
+let g:alt_compatible_programs = ['iTerm.app']
