@@ -620,7 +620,7 @@ inoremap <M-{> {<esc>o}<esc>ko
 nnoremap <silent> <leader>io :execute "silent !open 'obsidian://open?vault=" . fnamemodify(g:notes_root, ':t') . "&file=index" . expand('%:r') . "'"<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RENAME CURRENT FILE
+" RENAME CURRENT FILE {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! RenameFile()
   let old_name = expand('%:~')
@@ -632,6 +632,14 @@ function! RenameFile()
   endif
 endfunction
 map <leader>fr :call RenameFile()<cr>
+"}}}
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" REMOVE DUPLICATE LINES  {{{
+" https://vim.fandom.com/wiki/Uniq_-_Removing_duplicate_lines
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+command! Uniq g/^\(.*\)\n\1$/d
+"}}}
 
 " if !exists("g:plugs") || !has_key(g:plugs, 'vim-rsi')
 "   inoremap        <C-A> <Home>
