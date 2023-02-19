@@ -3,10 +3,7 @@ if get(g:, 'vimrc_loaded', 0) != 0
 endif
 let g:vimrc_loaded = 1
 
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-exec 'set runtimepath+='.s:home
-let &packpath = &runtimepath
 
 exec 'source ' . s:home . '/config.vim'
 
@@ -49,6 +46,12 @@ augroup PlugLazyLoad
     endfor
   endif
 augroup END
+
+exec 'set runtimepath^='.s:home
+" remove ~/.vim/after in the end
+exec 'set runtimepath='.join(split(&runtimepath, ',')[0:-2], ',')
+exec 'set runtimepath+='.s:home .'/after,~/.vim/after'
+let &packpath = &runtimepath
 
 if filereadable($HOME . '/.vimrc.local')
   exec 'source' $HOME . '/.vimrc.local'
