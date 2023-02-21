@@ -47,9 +47,10 @@ augroup PlugLazyLoad
   endif
 augroup END
 
-exec 'set runtimepath^='.s:home
-" remove ~/.vim/after in the end
-exec 'set runtimepath='.join(split(&runtimepath, ',')[0:-2], ',')
+let s:user_home = expand("~/.vim")
+" remove ~/.vim and ~/.vim/after
+let &runtimepath = join(filter(split(&runtimepath, ','), 'v:val !~ "^' . s:user_home .'$\\|^' . s:user_home . '/after$"'), ',')
+exec 'set runtimepath^=~/.vim,'.s:home
 exec 'set runtimepath+='.s:home .'/after,~/.vim/after'
 let &packpath = &runtimepath
 
