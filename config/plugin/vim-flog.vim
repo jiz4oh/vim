@@ -9,4 +9,6 @@ augroup END
 
 function! s:init() abort
   nnoremap <silent> <buffer> o :vertical Flogsplitcommit<cr>
+  nnoremap <silent> <buffer> cr1 :execute flog#Format('Floggit revert -m 1 %h')<cr>
+  nnoremap <silent> <buffer> cr2 :execute flog#Format('Floggit revert -m 2 %h')<cr>
 endfunction
