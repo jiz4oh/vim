@@ -10,4 +10,5 @@ CompilerSet errorformat=
       \%*[\ ]at\ %f:%l:%c,
       \%-G%.%#
 
+CompilerSet makeprg=hexo
 let current_compiler = "hexo"

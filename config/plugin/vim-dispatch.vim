@@ -34,5 +34,4 @@ if !exists('g:dispatch_compilers')
 endif
 
 let g:dispatch_compilers = {
-      \ 'hexo': 'hexo'
       \}

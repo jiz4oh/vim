@@ -5,7 +5,40 @@ let g:projectionist_heuristics = {
       \ },
       \ ".hg/|.svn/|.bzr/|Makefile": {
       \ },
+      \ "package-lock.json": {
+      \   "*": {
+      \      "make": "npm",
+      \   },
+      \   "yarn.lock": {
+      \      "make": "yarn",
+      \   },
+      \ },
+      \ "yarn.lock": {
+      \   "*": {
+      \      "make": "yarn",
+      \   },
+      \   "package-lock.json": {
+      \      "make": "npm",
+      \   },
+      \ },
       \ "package.json": {
+      \   "*": {
+      \      "console": "node"
+      \   },
+      \   "package.json": {
+      \      "type": "lib",
+      \      "alternate": ["yarn.lock", "package-lock.json"]
+      \   },
+      \   "package-lock.json": {
+      \      "dispatch": "npm install",
+      \      "alternate": "package.json",
+      \      "start": "npm run start",
+      \   },
+      \   "yarn.lock": {
+      \      "dispatch": "yarn install",
+      \      "alternate": "package.json",
+      \      "start": "yarn run start",
+      \   },
       \ },
       \ "Gemfile|Rakefile|*.gemspec": {
       \ }}
