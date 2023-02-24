@@ -55,4 +55,12 @@ function! LoadSessionFromFzf(name) abort
   execute 'SLoad ' . a:name
 endfunction
 
+function! GetSessions() abort
+  if !isdirectory(g:session_dir)
+    call mkdir(fnamemodify(g:session_dir, ':p'), 'p')
+  endif
+
+  return filter(systemlist('ls ' . g:session_dir), 'v:val != "__LAST__"')
+endfunction
+
 nnoremap <silent> <leader><tab> :SClose<cr>

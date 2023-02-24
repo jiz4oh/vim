@@ -67,11 +67,12 @@ else
 endif
 
 function! fzf#customized#sessions(fullscreen) abort
-  if !isdirectory(g:session_dir)
-    call mkdir(fnamemodify(g:session_dir, ':p'), 'p')
+  if !exists('*GetSessions')
+    echo 'GetSessions is not defined'
+    return
   endif
 
-  let l:paths = systemlist('ls ' . g:session_dir)
+  let l:paths = GetSessions()
 
   try
     let action = get(g:, 'fzf_action')
