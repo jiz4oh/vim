@@ -27,6 +27,7 @@ function! HasInstall(plugName) abort
 endfunction
 
 call SourceConfig('base')
+execute 'source ' . s:home . '/autoload/plug.vim'
 call SourceConfig('plugin')
 
 augroup PlugLazyLoad
