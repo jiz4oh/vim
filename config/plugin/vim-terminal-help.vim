@@ -3,6 +3,7 @@ if exists('g:project_markers')
 end
 
 let g:terminal_pos = 'botright'
+let g:terminal_height = 20
 let g:terminal_cwd = 2
 let g:terminal_default_mapping = 0
 
