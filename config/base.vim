@@ -139,6 +139,7 @@ endif
 
 set tags+=gems.tags             " add gems.tags to files searched for tags.
 
+set complete+=k
 if executable('ctags')
   set complete-=i                 " don't scan included files. The .tags file is more performant.
 endif

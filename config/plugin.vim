@@ -169,6 +169,8 @@ if g:enable_autocomplete
     Plug 'Shougo/neco-vim'
     Plug 'neoclide/coc-neco'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  else
+    Plug 'skywind3000/vim-auto-popmenu'
   endif
   
   " if has('nvim')
