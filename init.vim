@@ -30,6 +30,23 @@ call SourceConfig('base')
 execute 'source ' . s:home . '/autoload/plug.vim'
 call SourceConfig('plugin')
 
+" https://github.com/neovide/neovide/discussions/1220
+if exists('g:neovide')
+  let g:neovide_input_use_logo=v:true
+  " copy
+  vnoremap <D-c> "+y
+
+  " paste
+  nnoremap <D-v> "+p
+  inoremap <D-v> <Esc>"+pa
+  cnoremap <D-v> <c-r>+
+  tnoremap <D-v> <C-\><C-n>"+pi<right>
+
+  " undo
+  nnoremap <D-z> u
+  inoremap <D-z> <Esc>ua
+endif
+
 augroup PlugLazyLoad
   autocmd!
 

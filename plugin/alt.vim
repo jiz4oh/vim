@@ -3,6 +3,7 @@ if get(s:, 'loaded', 0) != 0
 endif
 let s:loaded = 1
 
+let g:neovide_input_macos_alt_is_meta = v:true
 if has('nvim')
   finish
 endif
