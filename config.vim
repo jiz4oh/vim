@@ -1,5 +1,5 @@
 let g:is_darwin         = has('mac')
-let g:is_mac_gui        = has('mac') && has('gui_running')
+let g:is_mac_gui        = has('mac') && (has('gui_running') || exists('g:neovide'))
 let g:is_win            = has('win32') || has('win64')
 " https://unix.stackexchange.com/a/78220
 let g:has_linux_desktop = !empty($XDG_CURRENT_DESKTOP)

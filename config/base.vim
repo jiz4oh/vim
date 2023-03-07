@@ -228,7 +228,7 @@ set background=dark
 " https://github.com/sainnhe/gruvbox-material/issues/5#issuecomment-729586348
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
-if has("gui_running")
+if has("gui_running") || has("nvim")
   if has("gui_gtk2")
     set guifont=Luxi\ Mono\ 12
   elseif has("x11")
