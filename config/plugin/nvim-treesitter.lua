@@ -21,6 +21,7 @@ require'nvim-treesitter.configs'.setup {
   indent = {
     enable = true
   },
+  -- hightlight caused bug with rails.vim that gf is not working as expected
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
