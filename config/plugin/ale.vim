@@ -37,10 +37,10 @@ let g:ale_echo_msg_error_str             = 'E'
 let g:ale_echo_msg_format                = '[%severity%] [%linter%] %s'
 
 let g:ale_virtualtext_cursor             = 1
-let g:ale_virtualtext_prefix             = ' ◉  '
+let g:ale_virtualtext_prefix             = '  ◉ '
 
-highlight! link ALEVirtualTextError ALEErrorSign
-highlight! link ALEVirtualTextWarning ALEWarningSign
+highlight! link ALEVirtualTextError Comment
+highlight! link ALEVirtualTextWarning Comment
 
 nmap ]a <Plug>(ale_next_wrap)
 nmap [a <Plug>(ale_previous_wrap)
