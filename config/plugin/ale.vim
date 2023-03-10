@@ -13,12 +13,17 @@ let g:ale_linters = {
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace', 'autocorrect'],
       \   'json': ['fixjson', 'jq', 'remove_trailing_lines', 'trim_whitespace'],
+      \   'javascript': ['prettier-eslint', 'remove_trailing_lines', 'trim_whitespace', 'autocorrect'],
+      \   'html': ['prettier-eslint'],
+      \   'css': ['prettier-eslint'],
       \   'python': ['black', 'isort', 'remove_trailing_lines', 'trim_whitespace'],
       \   'sh': ['shfmt', ],
       \   'md': ['prettier', ],
       \   'go': ['gofmt', ],
       \   'eruby': ['erblint', 'remove_trailing_lines', 'trim_whitespace']
       \}
+
+let g:ale_use_global_executables = 1
 
 let g:ale_dockerfile_hadolint_use_docker = 'yes'
 let g:ale_ruby_rubocop_auto_correct_all  = 1
@@ -65,7 +70,4 @@ augroup vimrc
   if has('nvim')
     autocmd VimEnter * lua vim.diagnostic.disable()
   endif
-
-  autocmd BufRead,BufNewFile */.github/*/*.y{,a}ml
-      \ let b:ale_linters = {'yaml': ['actionlint']}
 augroup END

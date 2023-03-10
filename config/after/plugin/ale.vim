@@ -25,4 +25,10 @@ augroup vimrc
         \   let b:ale_linters = s:extend_linters({ 'ruby': ['rubocop'] }) |
         \   let b:ale_fixers = s:extend_fixers({ 'ruby': ['rubocop'] }) |
         \ endif
+
+  autocmd BufRead,BufNewFile */.github/*/*.y{,a}ml
+      \ let b:ale_linters = {'yaml': ['actionlint']}
+
+  autocmd BufRead,BufNewFile *.html.erb
+      \ let b:ale_fixers = ['erblint', 'prettier-eslint']
 augroup END
