@@ -13,6 +13,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace', 'autocorrect'],
       \   'json': ['fixjson', 'jq', 'remove_trailing_lines', 'trim_whitespace'],
+      \   'yaml': ['prettier'],
       \   'javascript': ['prettier-eslint', 'remove_trailing_lines', 'trim_whitespace', 'autocorrect'],
       \   'html': ['prettier-eslint'],
       \   'css': ['stylelint'],
