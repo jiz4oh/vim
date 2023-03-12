@@ -6,6 +6,7 @@ let g:ale_linters = {
       \   'scala': [],
       \   'clojure': [],
       \   'python': ['flake8', 'pylint',],
+      \   'ruby': ['ruby', 'rubocop', 'solargraph'],
       \   'vim': ['vint',],
       \   'go': ['gofmt',]
       \}
@@ -20,6 +21,7 @@ let g:ale_fixers = {
       \   'scss': ['stylelint'],
       \   'sass': ['stylelint'],
       \   'python': ['black', 'isort', 'remove_trailing_lines', 'trim_whitespace'],
+      \   'ruby': ['rubocop'],
       \   'sh': ['shfmt', ],
       \   'md': ['prettier', ],
       \   'go': ['gofmt', ],
@@ -29,7 +31,6 @@ let g:ale_fixers = {
 let g:ale_use_global_executables = 1
 
 let g:ale_dockerfile_hadolint_use_docker = 'yes'
-let g:ale_ruby_rubocop_auto_correct_all  = 1
 
 let g:ale_lint_on_text_changed           = 'always'
 let g:ale_lint_delay                     = 750

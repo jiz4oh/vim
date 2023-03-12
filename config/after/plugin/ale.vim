@@ -15,17 +15,6 @@ function! s:extend_fixers(map)
 endfunction
 
 augroup vimrc
-  autocmd FileType ruby if filereadable(expand(personal#project#find_home() . "/.rubocop.yml")) |
-        \   let b:ale_linters = s:extend_linters({ 'ruby': ['rubocop'] }) |
-        \   let b:ale_fixers = s:extend_fixers({ 'ruby': ['rubocop'] }) |
-        \ elseif executable('standardrb') |
-        \   let b:ale_linters = s:extend_linters({ 'ruby': ['standardrb'] }) |
-        \   let b:ale_fixers = s:extend_fixers({ 'ruby': ['standardrb'] }) |
-        \ else |
-        \   let b:ale_linters = s:extend_linters({ 'ruby': ['rubocop'] }) |
-        \   let b:ale_fixers = s:extend_fixers({ 'ruby': ['rubocop'] }) |
-        \ endif
-
   autocmd BufRead,BufNewFile */.github/*/*.y{,a}ml
       \ let b:ale_linters = {'yaml': ['actionlint']}
 
