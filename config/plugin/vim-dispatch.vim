@@ -2,7 +2,6 @@ augroup vim-dispatch-autocmd
   autocmd!
   
   autocmd BufNewFile,BufRead Dockerfile* let b:dispatch = 'docker build %:p:h -t %:p:h:t:gs/.*/\L&/:S'
-  autocmd FileType vim let b:start = 'vim -E' | let b:dispatch = ':source %:p'
   autocmd FileType mysql,sql let b:start = ':DB'
   autocmd BufReadPost *
       \ if getline(1) =~# '^#!' |

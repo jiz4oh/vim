@@ -217,6 +217,8 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 " ============================================================================
 " Utils {{{
 " ============================================================================
+Plug 'tpope/vim-scriptease'
+Plug 'tpope/vim-eunuch'
 Plug 'jiz4oh/vim-terminal-help'
 Plug 'tweekmonster/helpful.vim'
 Plug 'mhinz/vim-hugefile'
