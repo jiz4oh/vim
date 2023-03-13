@@ -13,8 +13,8 @@ let g:ale_linters = {
 
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace', 'autocorrect'],
-      \   'json': ['fixjson', 'jq', 'remove_trailing_lines', 'trim_whitespace'],
-      \   'yaml': ['prettier'],
+      \   'json': ['fixjson', 'jq', 'autocorrect', 'remove_trailing_lines', 'trim_whitespace'],
+      \   'yaml': ['prettier', 'autocorrect'],
       \   'javascript': ['prettier-eslint', 'remove_trailing_lines', 'trim_whitespace', 'autocorrect'],
       \   'html': ['prettier-eslint'],
       \   'css': ['stylelint'],
@@ -23,7 +23,7 @@ let g:ale_fixers = {
       \   'python': ['black', 'isort', 'remove_trailing_lines', 'trim_whitespace'],
       \   'ruby': ['rubocop'],
       \   'sh': ['shfmt', ],
-      \   'md': ['prettier', ],
+      \   'md': ['prettier', 'autocorrect'],
       \   'go': ['gofmt', ],
       \   'eruby': ['erblint', 'remove_trailing_lines', 'trim_whitespace']
       \}
