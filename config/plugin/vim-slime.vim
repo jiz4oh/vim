@@ -18,3 +18,15 @@ nmap <silent> gzz <Plug>SlimeLineSend
 function! g:_EscapeText_ruby(text)
   return ["(\n", a:text, ")\n"]
 endfunction
+
+if g:slime_target ==# 'vimterminal'
+  function! g:SlimeOverrideSend(config, text)
+    let bufnr = str2nr(get(a:config,'bufnr',''))
+    if len(term_getstatus(bufnr))==0
+      echoerr 'Invalid terminal. Use :SlimeConfig to select a terminal'
+      return
+    endif
+
+    call term_sendkeys(bufnr,a:text)
+  endfunction
+endif
