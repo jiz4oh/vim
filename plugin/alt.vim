@@ -23,7 +23,11 @@ function! Terminal_MetaMode()
     endif
 
     " terminal map for vim
-    exec "tnoremap <m-". a:key."> <Esc>".a:key
+
+    let lhs = '<m-'. a:key .'>'
+    if empty(maparg(lhs, 't'))
+      exec 'tnoremap '.lhs.' <Esc>'.a:key
+    endif
   endfunc
   for i in range(10)
     call s:meta_code(nr2char(char2nr('0') + i))
