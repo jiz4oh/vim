@@ -207,6 +207,9 @@ let g:rails_gem_projections = {
 autocmd FileType ruby
       \ if !empty(rails#app())|call <SID>setup_zepl()|endif
 
+autocmd FileType ruby
+      \ if exists('b:rails_root') && filereadable(expand(b:rails_root.'/.rubocop.yml'))|let b:ale_ruby_rubocop_executable = 'bundle'|endif
+
 " autocmd User Rails call <SID>setup_rails()
 
 " function! s:setup_rails() abort
