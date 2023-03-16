@@ -1,4 +1,4 @@
-nmap     <leader>y  <Plug>OSCYank
-nmap     <leader>yy <Plug>OSCYank_
-nmap     <leader>Y  <Plug>OSCYank$
-vnoremap <leader>y  :OSCYank<CR>
+nmap <leader>y  <Plug>OSCYankOperator
+nmap <leader>yy <Plug>OSCYankOperator_
+nmap <leader>Y  <Plug>OSCYankOperator$
+vmap <leader>y  <Plug>OSCYankVisual
