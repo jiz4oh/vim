@@ -27,7 +27,7 @@ let g:startify_bookmarks = [
 
 function! MRUCwd() abort
   if exists('*MruGetFiles')
-    let files = MruGetFiles(personal#project#find_home())[0: g:startify_files_number - 1]
+    let files = MruGetFiles()[0: g:startify_files_number - 1]
     return map(files, { _, val -> {
           \ 'line': fnamemodify(val, ':~:.'),
           \ 'path': val
