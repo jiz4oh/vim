@@ -60,7 +60,14 @@ function! GetSessions() abort
     call mkdir(fnamemodify(g:session_dir, ':p'), 'p')
   endif
 
-  return filter(systemlist('ls ' . g:session_dir), 'v:val != "__LAST__"')
+  return filter(systemlist('ls ' . g:session_dir), 'v:val !=? "__LAST__"')
 endfunction
 
-nnoremap <silent> <leader><tab> :SClose<cr>
+function! SaveSession() abort
+  if empty(v:this_session)
+    SSave! default
+  end
+  SClose
+endfunction
+
+nnoremap <silent> <leader><tab> :call SaveSession()<cr>
