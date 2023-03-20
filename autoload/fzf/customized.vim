@@ -5,7 +5,11 @@ if !executable('rg')
       let @/ = a:query
     endif
     let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
-    let l:grep_cmd = 'git grep --color=always --line-number ' . l:query . ' -- ' . a:dir
+    if !empty(FugitiveGitDir())
+      let l:grep_cmd = 'git grep --color=always --line-number ' . l:query . ' -- ' . a:dir
+    else
+      let l:grep_cmd = 'find ' . a:dir . ' -type f -iname *' . l:query . '*'
+    endif
 
     call fzf#vim#grep(l:grep_cmd, 0, fzf#vim#with_preview({'dir': a:dir, 'options': ['--prompt', personal#functions#shortpath(a:dir) . ' ', '--delimiter', ':', '--nth', '3..']}), a:fullscreen)
   endfunction
