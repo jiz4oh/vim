@@ -203,7 +203,7 @@ if g:enable_autocomplete
   " endif
 endif
 
-Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'eruby', 'xml'] }
+Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
