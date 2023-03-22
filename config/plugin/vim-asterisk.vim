@@ -1,4 +1,4 @@
-" let g:asterisk#keeppos = 1
+let g:asterisk#keeppos = 1
 
 map *  <Plug>(asterisk-z*)
 map #  <Plug>(asterisk-z#)
