@@ -325,6 +325,11 @@ set showtabline=2
 augroup vimrc
   autocmd!
 
+  " Make nvim terminal more like vim terminal, 
+  " so we can startinsert automatically in terminal buffer
+  if has('nvim')
+    autocmd BufWinEnter,WinEnter term://* startinsert
+  endif
   " Make directory automatically.
   function! s:mkdir_as_necessary(dir, force) abort
     if &l:buftype ==# '' && !isdirectory(a:dir) &&
