@@ -2,7 +2,7 @@ function! s:gem_content_search(gem, query, fullscreen) abort
   " let l:gemdir = substitute(system("bundle show " . a:gem), '\n\+$', '', '')
   let l:gemdir = bundler#project().paths()[a:gem]
   if exists('*FzfWithWildignore')
-    let l:grep_cmd = FzfWithWildignore(shellescape(a:query))
+    let l:grep_cmd = FzfWithWildignore(fzf#shellescape(a:query))
   else
     let l:grep_cmd = 'find '. l:gemdir . ''
   endif
@@ -28,7 +28,7 @@ function! s:gem_search(query, fullscreen) abort
     return
   endif
   " call fzf#vim#grep("bundle list | sed '1d;$d' | cut -d ' ' -f 4", 0, {'sink': {gem -> s:gem_content_search(gem, a:query, a:fullscreen)}}, a:fullscreen)
-  " let l:gems = "echo " . shellescape(join(keys(bundler#project().paths()), ' ')) . "|awk '{for(i=1;i<=NF;++i) print $i}'"
+  " let l:gems = "echo " . fzf#shellescape(join(keys(bundler#project().paths()), ' ')) . "|awk '{for(i=1;i<=NF;++i) print $i}'"
   " call fzf#vim#grep(l:gems, 0, {'sink': {gem -> s:gem_content_search(gem, a:query, a:fullscreen)}}, a:fullscreen)
   let l:gems = keys(bundler#project().paths())
 
@@ -70,7 +70,7 @@ function! s:gems_search(query, fullscreen) abort
   let l:gem_paths = values(bundler#project().paths())
 
   if exists('*FzfWithWildignore')
-    let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
+    let l:query = empty(a:query) ? fzf#shellescape('') : '-w ' . fzf#shellescape(a:query)
     let l:grep_cmd = FzfWithWildignore(l:query . ' ' . join(l:gem_paths, ' '))
   else
     let l:grep_cmd = 'find '. join(l:gem_paths, ' ') . ' -type f'

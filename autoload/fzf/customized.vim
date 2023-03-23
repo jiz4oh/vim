@@ -5,7 +5,7 @@ if !executable('rg')
       let @/ = a:query
     endif
     if !empty(FugitiveGitDir())
-      let l:query = shellescape(a:query)
+      let l:query = fzf#shellescape(a:query)
       let l:grep_cmd = 'git grep --color=always --line-number ' . l:query . ' -- ' . a:dir
 
       call fzf#vim#grep(l:grep_cmd, 0, fzf#vim#with_preview({'dir': a:dir, 'options': ['--prompt', personal#functions#shortpath(a:dir) . ' ', '--delimiter', ':', '--nth', '3..']}), a:fullscreen)
@@ -38,7 +38,7 @@ else
             \]}
 
     if exists('*FzfWithWildignore')
-      let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
+      let l:query = empty(a:query) ? fzf#shellescape('') : '-w ' . fzf#shellescape(a:query)
       let l:grep_cmd = FzfWithWildignore(l:query)
 
       call add(l:spec['options'], '--nth')
@@ -59,7 +59,7 @@ else
     if !empty(a:query)
       let @/ = a:query
     endif
-    let l:grep_cmd = FzfWithWildignore(shellescape(a:query))
+    let l:grep_cmd = FzfWithWildignore(fzf#shellescape(a:query))
     let l:reload_command = FzfWithWildignore('{q}')
     let l:spec = {
           \'options': [
@@ -112,7 +112,7 @@ function! s:search_paths(query, fullscreen) abort
   let l:paths = substitute(&path, ',', ' ', 'g')
 
   if exists('*FzfWithWildignore')
-    let l:query = empty(a:query) ? shellescape('') : '-w ' . shellescape(a:query)
+    let l:query = empty(a:query) ? fzf#shellescape('') : '-w ' . fzf#shellescape(a:query)
     let l:grep_cmd = FzfWithWildignore(l:query . ' ' . l:paths)
   else
     let l:grep_cmd = 'find '. l:paths . ' -type f'
