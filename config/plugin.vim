@@ -243,6 +243,7 @@ Plug 'junegunn/vader.vim'
 " Butil-in Enhance {{{
 " ============================================================================
 " Plug 'andymass/vim-matchup'
+Plug 'ypcrts/securemodelines'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-utils/vim-man'
 Plug 'inkarkat/vim-ReplaceWithRegister'
