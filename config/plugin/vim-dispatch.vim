@@ -23,11 +23,13 @@ augroup vim-dispatch-autocmd
         \ endif
 augroup END
 
-xnoremap `!     :Dispatch!
-xnoremap `<CR>  :Dispatch<cr>
-xnoremap m<CR>  :Make<cr>
-xnoremap g'!    :Spawn!
-xnoremap g'<CR> :Spawn<cr>
+xnoremap `!                :Dispatch!
+xnoremap `<CR>             :Dispatch<cr>
+xnoremap m<CR>             :Make<cr>
+xnoremap g'!               :Spawn!
+xnoremap g'<CR>            :Spawn<cr>
+nnoremap <leader>t'<space> :tab Start<space>
+nnoremap <leader>t'<CR>    :tab Start<cr>
 
 if !exists('g:dispatch_compilers')
   let g:dispatch_compilers = {}

@@ -158,6 +158,9 @@ let g:which_key_map['w'] = {
 let g:which_key_map['t'] = {
       \ 'name' : '+Tab',
       \ 'n' : ['tabnew', 'New Tab'],
+      \ '''' : {
+      \   'name' : '+Start',
+      \   }
       \ }
 
 let g:which_key_map_visual = {}
