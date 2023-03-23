@@ -64,7 +64,7 @@ function! GetSessions() abort
 endfunction
 
 function! SaveSession() abort
-  if empty(v:this_session)
+  if empty(v:this_session) && index(['startify'], &filetype) < 0
     SSave! default
   end
   SClose
