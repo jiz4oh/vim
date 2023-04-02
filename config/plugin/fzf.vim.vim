@@ -45,7 +45,7 @@ if executable('rg')
   endfunction
 
   inoremap <expr> <c-x><c-f> fzf#vim#complete#path($FZF_DEFAULT_COMMAND)
-  inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
+  inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap('lines',{
   \ 'prefix': '^.*$',
   \ 'source': 'rg -n ^ --color always',
   \ 'options': '--ansi --delimiter : --nth 3..',

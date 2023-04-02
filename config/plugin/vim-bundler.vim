@@ -50,7 +50,7 @@ function! s:gem_search(query, fullscreen) abort
       call add(l:spec['options'], a:query)
     endif
 
-    call fzf#run(fzf#wrap(l:spec, a:fullscreen))
+    call fzf#run(fzf#wrap('gems', l:spec, a:fullscreen))
   finally
     if exists('action') && type(action) != type(0)
       let g:fzf_action = action

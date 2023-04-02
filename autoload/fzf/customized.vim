@@ -93,7 +93,7 @@ function! fzf#customized#sessions(fullscreen) abort
                   \'source': l:paths,
                   \}
 
-    call fzf#run(fzf#wrap(l:spec, a:fullscreen))
+    call fzf#run(fzf#wrap('sessions', l:spec, a:fullscreen))
   finally
     if exists('action') && type(action) != type(0)
       let g:fzf_action = action
@@ -176,7 +176,7 @@ function! fzf#customized#projects(query, fullscreen) abort
       call add(l:spec['options'], a:query)
     endif
 
-    call fzf#run(fzf#wrap(l:spec, a:fullscreen))
+    call fzf#run(fzf#wrap('projects', l:spec, a:fullscreen))
   endfunction
 
   call fzf#helper#reserve_action(container.func)()
@@ -213,7 +213,7 @@ function! fzf#customized#path(query, fullscreen) abort
       call add(l:spec['options'], a:query)
     endif
 
-    call fzf#run(fzf#wrap(l:spec, a:fullscreen))
+    call fzf#run(fzf#wrap('paths', l:spec, a:fullscreen))
   endfunction
 
   call fzf#helper#reserve_action(container.func)()
