@@ -25,24 +25,14 @@ let g:startify_bookmarks = [
             \ $MYVIMRC,
             \ ]
 
-function! MRUCwd() abort
-  if exists('*MruGetFiles')
-    let files = MruGetFiles()[0: g:startify_files_number - 1]
-    return map(files, { _, val -> {
-          \ 'line': fnamemodify(val, ':~:.'),
-          \ 'path': val
-          \}})
-  endif
-endfunction
-
 " returns all modified files of the current git repo
 " `2>/dev/null` makes the command fail quietly, so that when we are not
 " in a git repo, the list will be empty
 let g:startify_lists = [
-        \ { 'type': function('MRUCwd'),                'header': ['   MRU']                     },
-        \ { 'type': 'sessions',                        'header': ['   Sessions']                },
-        \ { 'type': 'bookmarks',                       'header': ['   Bookmarks']               },
-        \ { 'type': 'commands',                        'header': ['   Commands']                },
+        \ { 'type': function('MRUCwd', [g:startify_files_number]),     'header': ['   MRU']                     },
+        \ { 'type': 'sessions',                                        'header': ['   Sessions']                },
+        \ { 'type': 'bookmarks',                                       'header': ['   Bookmarks']               },
+        \ { 'type': 'commands',                                        'header': ['   Commands']                },
         \ ]
 
 let g:startify_commands = [
