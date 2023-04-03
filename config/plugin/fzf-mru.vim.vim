@@ -1,6 +1,6 @@
 let g:fzf_mru_no_sort = 1
 
-command! -bang -nargs=? FZFMru call fzf_mru#actions#mru(<q-args>, fzf#vim#with_preview())
+command! -bang -nargs=? FZFMru call fzf_mru#actions#mru(<q-args>, fzf#vim#with_preview({'options': '--prompt "MRU>"'}))
 
 nnoremap <leader>sf :FZFMru<cr>
 
