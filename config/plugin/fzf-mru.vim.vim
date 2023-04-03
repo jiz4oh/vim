@@ -11,6 +11,8 @@ else
   " ignore session
   let g:fzf_mru_exclude .= '\|Session.vim\|^'. resolve(expand(g:session_dir)) . '/.*'
   let g:fzf_mru_exclude .= '\|.git/.*MSG'
+  let g:fzf_mru_exclude .= '\|/private/var/*'
+  let g:fzf_mru_exclude .= '\|/var/*'
 endif
 
 function! MRUCwd(...) abort
