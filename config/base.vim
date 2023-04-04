@@ -329,6 +329,14 @@ set showtabline=2
 augroup vimrc
   autocmd!
 
+  " Keep a list of the most recent two tabs.
+  let g:tablist = [1, 1]
+  autocmd TabLeave * let g:tablist[0] = g:tablist[1] | let g:tablist[1] = tabpagenr()
+  " When a tab is closed, return to the most recent tab.
+  " The way vim updates tabs, in reality, this means we must return
+  " to the second most recent tab.
+  autocmd TabClosed * exe "normal " . g:tablist[0] . "gt"
+
   " Make nvim terminal more like vim terminal, 
   " so we can startinsert automatically in terminal buffer
   if has('nvim')
