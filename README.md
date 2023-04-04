@@ -10,21 +10,21 @@ YouCompleteMe 这种非常难以安装的插件。
 <!-- TOC GFM -->
 
 * [依赖与安装](#依赖与安装)
-  - [服务器版](#服务器版)
-  - [IDE 版](#ide-版)
-    + [依赖](#依赖)
+    - [服务器版](#服务器版)
+    - [IDE 版](#ide-版)
+        + [依赖](#依赖)
 * [功能:](#功能)
-  - [服务器版](#服务器版-1)
-  - [IDE 版](#ide-版-1)
-    + [搜索](#搜索)
-    + [跳转](#跳转)
-    + [文件浏览器](#文件浏览器)
-    + [项目结构](#项目结构)
-    + [补全](#补全)
-    + [rails](#rails)
-    + [美化](#美化)
-    + [文档](#文档)
-    + [其他](#其他)
+    - [服务器版](#服务器版-1)
+    - [IDE 版](#ide-版-1)
+        + [搜索](#搜索)
+        + [跳转](#跳转)
+        + [文件浏览器](#文件浏览器)
+        + [项目结构](#项目结构)
+        + [补全](#补全)
+        + [rails](#rails)
+        + [美化](#美化)
+        + [文档](#文档)
+        + [其他](#其他)
 * [Inspire](#inspire)
 
 <!-- /TOC -->
@@ -38,8 +38,9 @@ YouCompleteMe 这种非常难以安装的插件。
 
 ```console
 git clone https://github.com/jiz4oh/vim.git vim
-touch ~/.vimrc && ln -sf $PWD/vim/init.vim ~/.vimrc
-mkdir -p ~/.config/nvim && ln -sf $PWD/vim/init.vim ~/.config/nvim
+cd vim
+touch ~/.vimrc && ln -sf $PWD/init.vim ~/.vimrc
+mkdir -p ~/.config/nvim && ln -sf $PWD/init.vim ~/.config/nvim
 vim +PlugInstall
 ```
 
