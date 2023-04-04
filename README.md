@@ -38,10 +38,7 @@ YouCompleteMe 这种非常难以安装的插件。
 
 ```console
 git clone https://github.com/jiz4oh/vim.git vim
-cd vim
-touch ~/.vimrc && ln -sf $PWD/init.vim ~/.vimrc
-mkdir -p ~/.config/nvim && ln -sf $PWD/init.vim ~/.config/nvim
-vim +PlugInstall
+./vim/install
 ```
 
 #### 依赖

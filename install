@@ -1,0 +1,13 @@
+#!/bin/sh
+
+BASE=$(dirname "$0")
+touch ~/.vimrc && ln -sf $BASE/init.vim ~/.vimrc
+mkdir -p ~/.config/nvim && ln -sf $BASE/init.vim ~/.config/nvim
+if type vim &>/dev/null;then
+  vim +PlugInstall +qall
+fi
+
+if type nvim &>/dev/null;then
+  nvim --headless +PlugInstall +qall
+fi
+
