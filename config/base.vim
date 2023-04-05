@@ -32,6 +32,10 @@ set splitbelow                  " split a window one the below
 set splitright                  " vsplit a window on the right
 set exrc
 
+set spell
+set spelllang=en_us,cjk
+set spellsuggest=best,9
+
 set history=2000                " how many lines of history VIM has to remember
 
 if has('vim_starting') && exists('+undofile')
