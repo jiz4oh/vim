@@ -5,7 +5,7 @@ let g:ale_linters = {
       \   'java': [],
       \   'scala': [],
       \   'clojure': [],
-      \   'python': ['flake8', 'pylint',],
+      \   'python': ['flake8', 'pylint'],
       \   'ruby': ['ruby', 'rubocop', 'solargraph'],
       \   'vim': ['vint',],
       \   'go': ['gofmt',]

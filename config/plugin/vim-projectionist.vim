@@ -41,7 +41,17 @@ let g:projectionist_heuristics = {
       \   },
       \ },
       \ "Gemfile|Rakefile|*.gemspec": {
-      \ }}
+      \ },
+      \ 'requirements.txt|requirements.in': {
+      \   '*.py': {
+      \      'make': 'python',
+      \   },
+      \   'requirements.txt': {
+      \      'make': 'pip',
+      \      'dispatch': 'pip install -r %',
+      \   },
+      \ }
+      \}
 
 let g:projects = []
 

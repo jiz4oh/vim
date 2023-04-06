@@ -9,6 +9,14 @@ augroup vim-dispatch-autocmd
       \       matchstr(getline(1), '#!\%(/usr/bin/env \+\)\=\zs.*') . ' %:p:S' |
       \   let b:start = '-wait=always ' . b:dispatch |
       \ endif
+  autocmd FileType python let b:dispatch = 'python -m py_compile %:p:S'
+
+  if executable('ipython')
+    autocmd FileType python let b:start = 'ipython'
+  else
+    autocmd FileType python let b:start = 'python'
+  endif
+
   autocmd FileType ruby
         \ if !exists('b:rails_root') && !exists('b:start') |
         \   let b:start = 'irb -r %:p:S' |

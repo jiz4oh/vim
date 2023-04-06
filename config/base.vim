@@ -414,7 +414,8 @@ augroup vimrc
   autocmd BufReadPost,BufNewFile *.{html,svg,xml,css,scss,less,stylus,js,coffee,erb,jade,blade} setlocal iskeyword+=-
   autocmd BufReadPost,BufNewFile *.json setlocal iskeyword+=-
 
-  autocmd FileType python setlocal tabstop=4 shiftwidth=4 expandtab ai
+  autocmd FileType python setlocal tabstop=4 shiftwidth=4 expandtab ai |
+        \compiler python
   autocmd Filetype gitcommit setlocal spell textwidth=72 colorcolumn=72
 
   autocmd BufRead,BufNewFile
