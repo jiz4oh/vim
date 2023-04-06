@@ -5,9 +5,9 @@ augroup vim-dispatch-autocmd
   autocmd FileType mysql,sql let b:start = ':DB'
   autocmd BufReadPost *
       \ if getline(1) =~# '^#!' |
-      \   let b:dispatch =
-      \       matchstr(getline(1), '#!\%(/usr/bin/env \+\)\=\zs.*') . ' %:p:S' |
-      \   let b:start = '-wait=always ' . b:dispatch |
+      \   let b:dispatch = get(b:, 'dispatch',
+      \       matchstr(getline(1), '#!\%(/usr/bin/env \+\)\=\zs.*') . ' %:p:S' ) |
+      \   let b:start = get(b:, 'start', '-wait=always ' . b:dispatch) |
       \ endif
   autocmd FileType python let b:dispatch = 'python -m py_compile %:p:S'
 
