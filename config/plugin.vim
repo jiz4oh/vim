@@ -266,6 +266,7 @@ endif
 if has('nvim') || has('gui_running')
   " Plug 'vim-airline/vim-airline'
 endif
+Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'sainnhe/gruvbox-material'
 Plug 'sainnhe/everforest'
 Plug 'sainnhe/edge'
