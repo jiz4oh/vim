@@ -5,7 +5,7 @@ let g:ale_linters = {
       \   'java': [],
       \   'scala': [],
       \   'clojure': [],
-      \   'python': ['flake8', 'pylint'],
+      \   'python': ['flake8', 'pylint', 'ruff'],
       \   'ruby': ['ruby', 'rubocop', 'solargraph'],
       \   'vim': ['vint',],
       \   'go': ['gofmt',]
@@ -20,7 +20,7 @@ let g:ale_fixers = {
       \   'css': ['stylelint'],
       \   'scss': ['stylelint'],
       \   'sass': ['stylelint'],
-      \   'python': ['black', 'isort', 'remove_trailing_lines', 'trim_whitespace'],
+      \   'python': ['ruff', 'black', 'isort', 'remove_trailing_lines', 'trim_whitespace'],
       \   'ruby': ['rubocop'],
       \   'sh': ['shfmt', ],
       \   'md': ['prettier', 'autocorrect'],
