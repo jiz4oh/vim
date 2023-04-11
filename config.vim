@@ -10,7 +10,7 @@ let g:config_dir = resolve(expand('<sfile>:p:h'))
 let g:notes_root              = $HOME . '/Notes'
 
 " needs to be defined before vim-polyglot is loaded
-let g:polyglot_disabled = ['sensible', 'autoindent']
+let g:polyglot_disabled = ['sensible', 'autoindent', 'mermaid']
 
 if has('nvim')
   let session_dir = has('nvim-0.3.1')
