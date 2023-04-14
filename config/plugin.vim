@@ -237,6 +237,9 @@ Plug 'tpope/vim-apathy'
 Plug 'AndrewRadev/undoquit.vim'
 Plug 'kristijanhusak/vim-carbon-now-sh'
 Plug 'junegunn/vader.vim'
+if !has('nvim')
+  Plug 'rhysd/vim-healthcheck'
+endif
 " Plug 'romainl/vim-qf'
 " }}}
 
