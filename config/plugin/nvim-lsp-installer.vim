@@ -1,3 +1,4 @@
+lua<<EOF
 local lsp_installer = require("nvim-lsp-installer")
 
 lsp_installer.settings({
@@ -66,3 +67,4 @@ lsp_installer.on_server_ready(function(server)
     -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
     server:setup(opts)
 end)
+EOF

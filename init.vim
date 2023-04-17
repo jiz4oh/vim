@@ -8,12 +8,9 @@ let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 exec 'source ' . s:home . '/config.vim'
 
 function SourceConfig(configName) abort
-    let l:vim_path = s:home . '/config/' . a:configName . ".vim"
-    let l:lua_path = s:home . '/config/' . a:configName . ".lua"
+    let l:vim_path = s:home . '/config/' . a:configName . '.vim'
     if filereadable(l:vim_path)
       exec 'source ' . l:vim_path
-    elseif has('nvim') && filereadable(l:lua_path)
-      exec 'luafile' . l:lua_path
     endif
 endfunction
 

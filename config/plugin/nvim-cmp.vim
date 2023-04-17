@@ -1,3 +1,4 @@
+lua<<EOF
 local cmp = require('cmp')
 
 -- default config
@@ -89,3 +90,4 @@ for _, file_type in ipairs({ 'sql', 'mysql', 'plsql'}) do
     })
   })
 end
+EOF
