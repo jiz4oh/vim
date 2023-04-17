@@ -46,7 +46,12 @@ nnoremap <silent> <leader>ls :call CocActionAsync('documentSymbols')<cr>
 nnoremap <silent> <leader>lS :call CocActionAsync('getWorkspaceSymbols', '')<cr>
 nnoremap <silent> <leader>lK :call CocActionAsync('doHover')<cr>
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-autocmd User CocStatusChange redrawstatus
+augroup coc_augoup
+  autocmd!
+
+  " Highlight the symbol and its references when holding the cursor.
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  autocmd User CocStatusChange redrawstatus
+  autocmd User CocNvimInit ++once autocmd BufReadPost * if CocHasProvider('definition') | nmap <silent> <buffer> <leader>et :call CocAction('showOutline')<CR> | endif
+augroup END
 
