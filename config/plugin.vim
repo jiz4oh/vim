@@ -154,8 +154,7 @@ if g:enable_lsp
     "https://github.com/ojroques/nvim-lspfuzzy
     Plug 'ojroques/nvim-lspfuzzy'
   else
-    " deprcated lsp due to too slow with large text
-    " " lsp
+    " lsp
     " Plug 'prabirshrestha/vim-lsp'
     " Plug 'rhysd/vim-lsp-ale'
     " Plug 'mattn/vim-lsp-settings'
