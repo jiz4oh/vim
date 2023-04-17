@@ -14,7 +14,7 @@ function! s:extend_fixers(map)
   return a:map
 endfunction
 
-augroup vimrc
+augroup ale_augroup
   autocmd BufRead,BufNewFile */.github/*/*.y{,a}ml
       \ let b:ale_linters = {'yaml': ['actionlint']}
 

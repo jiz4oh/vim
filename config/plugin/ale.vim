@@ -51,11 +51,6 @@ let g:ale_virtualtext_prefix             = '  ◉ '
 highlight! link ALEVirtualTextError Comment
 highlight! link ALEVirtualTextWarning Comment
 
-nmap ]a <Plug>(ale_next_wrap)
-nmap [a <Plug>(ale_previous_wrap)
-
-nmap <leader>ff <Plug>(ale_fix)
-
 function! s:toggle_virtualtext_cursor() abort
   if g:ale_virtualtext_cursor == 1
     let g:ale_virtualtext_cursor = 2
@@ -68,10 +63,29 @@ function! s:toggle_virtualtext_cursor() abort
   endif
 endfunction
 
+function! s:activate_ale_by_projectionist() abort
+  for [_root, options] in projectionist#query('ale')
+    if type(options) == type({})
+      for [name, value] in items(options)
+        call setbufvar(bufnr(), 'ale_' . name, value)
+      endfor
+    endif
+  endfor
+endfunction
+
+nmap ]a <Plug>(ale_next_wrap)
+nmap [a <Plug>(ale_previous_wrap)
+
+nmap <leader>ff <Plug>(ale_fix)
+
 nmap <silent> <leader>ft :call <SID>toggle_virtualtext_cursor()<cr>
 
-augroup vimrc
+augroup ale_augroup
+  autocmd!
+
   if has('nvim')
     autocmd VimEnter * lua vim.diagnostic.disable()
   endif
+
+  autocmd User ProjectionistActivate call s:activate_ale_by_projectionist()
 augroup END
